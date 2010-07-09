@@ -1,0 +1,252 @@
+= UC Berkeley, School of Public Health, California Childhood Leukemia Study
+
+
+
+
+== Requirements
+
+* ruby >= 1.8.7 - primarily due to the liberal use of #inject
+* rubygems
+* ImageMagick (which may require {MacPorts}[http://www.macports.org/])
+  * ImageMagick is used to image manipulation
+* curl - for the installation of rvm
+
+== Required Gems
+
+* {RedCloth}[http://redcloth.org] - textile parser.
+* {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
+* {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
+* {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
+* {rcov}[http://github.com/relevance/rcov] - testing
+* {mocha}[http://github.com/floehopper/mocha] - testing
+* {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
+* {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
+* {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
+* {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
+* {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
+* {rubycas-client}[http://code.google.com/p/rubycas-client/] - user authentication
+* {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
+
+
+== Required and included plugins
+
+* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
+* {html_test}[http://github.com/peter/html_test] - html testing and validation
+* {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
+* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
+* {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
+* {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
+* {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
+* {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
+
+
+== Installation 
+
+ #	Copy session file.
+ cp config/initializers/session_store.rb.example config/initializers/session_store.rb
+
+ #	Copy and setup database file.
+ cp config/database.yml.example config/database.yml
+
+ #	Copy and add your own gmail credentials.
+ cp config/initializers/mail.rb.example config/initializers/mail.rb
+
+
+
+
+rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/install/] ) ...
+
+ curl http://rvm.beginrescueend.com/releases/rvm-install-head | bash
+ #	or
+ sudo gem install rvm
+ /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.27/bin/rvm-install
+
+ # add ... 
+ #	if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+ # to your .bashrc
+ vi .bashrc
+ bash
+ rvm install jruby
+ rvm use jruby-1.4.0
+
+
+
+
+
+
+For standard ruby users, install mysql gem ...
+
+ #	If using mysql ...
+ # On Mac OS X:
+ #   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
+ # On Mac OS X Leopard:
+ #   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+ # ... I had to install the mysql gem like so ...
+
+ sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+
+
+
+Everybody join hands together now to install some gems ...
+
+ #
+ # Some gems require manual installation for one reason or another.
+ #
+ # (sudo may or may not be required or desired.
+ #  Usage of sudo will/may cause gem installation in /usr/lib
+ #  which may then require using sudo when running rake tasks
+ #  or other things.  `gem list` and `sudo gem list` will differ.
+ #  I recommend avoiding using sudo with rvm, but its your
+ #  kitchen.)
+ #
+ gem source -a http://gemcutter.org
+ gem source -a http://gems.github.com
+ sudo gem install rake rdoc packet haml
+ sudo gem install rails -v 2.3.4
+ #
+ # The rest should actually install with ...
+ #
+ sudo rake gems:install
+ #
+ # This eventually crashed with ...
+ #
+ #	Error: Your application used more memory than the safety cap of 500m.
+ #	Specify -J-Xmx####m to increase it (#### = cap size in MB).
+ #	Specify -w for full OutOfMemoryError stack trace
+ #
+ # ... but a rerun continued and completed.
+ #
+ sudo rake gems:install
+ #
+ # Some gems are defined in the environments/test.rb file
+ #
+ sudo rake gems:install RAILS_ENV=test
+
+
+
+ 
+then we continue ...
+
+ #	Add your own session secret to config/initializers/session_store.rb
+ #	generate a 128 character hex string perfect for using as your secret.
+ rake secret
+
+ rake db:migrate
+
+ #	add some expected items (loads fixtures OVERWRITING some db data)
+ rake app:setup
+
+ script/server
+ script/backgroundrb start
+
+ #	login to your app
+ #	The first administrator/deputy must be created via the command line.
+ #	Others can be created via the command line or web app.
+ #
+ rake app:deputize uid=<Your CalNet UID>
+
+
+
+== Production Installation
+
+As this app is being installed on a VM Java jruby tomcat thing, we need special instructions.  Apparently, for Tomcat 5, we need to use jruby-rack-0.9.6.jar, which is included in lib/.
+
+Tomcat will unarchive the war file and DESTROY the existing unarchived version!  Any file uploads will need to be kept elsewhere.
+
+ ( warble from a jruby environment to get the jruby specific gems )
+
+ [jakewendt@dev : ucb_sph_ccls_buffler ]>
+ bash
+ rvm use jruby
+ warble
+ scp buffler.war ccls.berkeley.edu:
+
+ [jakewendt@ccls-01]>
+ sudo /sbin/service tomcat5 stop
+ sudo su -l tomcat
+ /bin/rm -rf /var/lib/tomcat5/webapps/buffler
+ cp ~jakewendt/buffler.war /var/lib/tomcat5/webapps/
+ exit
+
+ sudo /sbin/service tomcat5 start
+ tail -f /var/log/tomcat5/catalina.out
+
+{Kenai}[http://kenai.com/projects/warbler/pages/Home]
+
+{Berkeley Wiki}[https://wikihub.berkeley.edu/display/istas/Getting+Started+with+JRuby]
+
+
+== Documentation
+
+Inline documentation is sparse and incomplete, but I'm working on it.
+
+ sudo gem install rdoc --source http://gemcutter.org
+ rake doc:plugins
+ rake doc:app
+ open doc/app/README_rdoc.html
+
+== Testing
+
+An HTML validator like {Validator S.A.C.}[http://habilis.net/validator-sac/] should be installed locally for local HTML page validations.  This can be done over the internet, but can be slow and sometimes timeout.  The <tt>test/test_helper.rb</tt> file can be modified to accomodate this simpley by commenting out the <tt>Html::Test::Validator.w3c_url</tt> line.  See the {html_test documentation}[http://github.com/peter/html_test] for further guidance on this.  
+
+If Validator is not installed or Web Sharing is not enabled, testing will produce many ...
+
+ Errno::ECONNREFUSED: Connection refused - connect(2)
+
+I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_test_extension] to check if a local version is running so this should never happen.
+
+ sudo rake RAILS_ENV=test gems:install
+ rake test
+	and/or
+ autotest		#	does not work in jruby
+
+ # testing fails in rvm/jruby with ...
+ #
+ #	/Users/jakewendt/.rvm/gems/jruby-1.4.0/gems/ZenTest-4.3.1/lib/zentest.rb
+ #	:3:in `each_object': ObjectSpace is disabled; each_object will only work 
+ #	with Class, pass -X+O to enable (RuntimeError)
+ #
+ # ... if ZenTest is included (so autotest won't work either)
+
+== Further Info
+
+{Ruby Best Practices}[http://github.com/sandal/rbp-book/tree/gh-pages/pdfs/]
+
+{RVM on GitHub}[http://github.com/wayneeseguin/rvm]
+
+
+== To Do
+
+* Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt> (not necessary)
+* Add to <tt>doc/README_FOR_APP</tt>
+* one of the images in rdoc isn't always the correct directory depth and will create a flash error showing this
+
+=== Vaguely related to dos
+
+* Make RDoc auto recognize the following rails commands and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)
+  * named_scope
+  * validate_*
+  * before_*
+  * after_*
+  * attr_protected
+  * attr_accessible
+* Make RDoc auto recognize these specific commands and group them together under user definable separate headings (like Public Instance Methods, Private Instance Methods, etc.)
+*	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
+* rdoc the rake tasks??
+* thickbox-compressed.js has relative location for image which isn't always correct.
+
+
+
+== Credit / Special Thanks
+
+Gradient images made with {Gradient Image Maker}[http://tools.dynamicdrive.com/gradient/]
+
+User icons from {Gravatar}[http://gravatar.com]
+
+{Demo on css rounded corners}[http://css-radius.heroku.com]
+
+{Background image gradients}[http://gradients.glrzad.com/]
+
+{Equal column height example}[http://www.positioniseverything.net/articles/onetruelayout/equalheight]
+

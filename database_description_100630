@@ -1,0 +1,1117 @@
+
+Table: address_types
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: addresses
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id                  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position            | int(11)      | YES  |     | NULL    |                |
+| subject_id          | int(11)      | YES  | MUL | NULL    |                |
+| address_type_id     | int(11)      | YES  |     | NULL    |                |
+| data_source_id      | int(11)      | YES  |     | NULL    |                |
+| line_1              | varchar(255) | YES  |     | NULL    |                |
+| line_2              | varchar(255) | YES  |     | NULL    |                |
+| city                | varchar(255) | YES  |     | NULL    |                |
+| state               | varchar(255) | YES  |     | NULL    |                |
+| zip                 | varchar(255) | YES  |     | NULL    |                |
+| external_address_id | int(11)      | YES  |     | NULL    |                |
+| created_at          | datetime     | YES  |     | NULL    |                |
+| updated_at          | datetime     | YES  |     | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+
+Table: aliquot_sample_formats
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  | UNI | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: aliquots
++----------------------------+--------------+------+-----+---------+----------------+
+| Field                      | Type         | Null | Key | Default | Extra          |
++----------------------------+--------------+------+-----+---------+----------------+
+| id                         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position                   | int(11)      | YES  |     | NULL    |                |
+| owner_id                   | int(11)      | YES  | MUL | NULL    |                |
+| sample_id                  | int(11)      | YES  | MUL | NULL    |                |
+| unit_id                    | int(11)      | YES  | MUL | NULL    |                |
+| aliquot_sample_format_id   | int(11)      | YES  | MUL | NULL    |                |
+| location                   | varchar(255) | YES  |     | NULL    |                |
+| mass                       | varchar(255) | YES  |     | NULL    |                |
+| external_aliquot_id        | varchar(255) | YES  |     | NULL    |                |
+| external_aliquot_id_source | varchar(255) | YES  |     | NULL    |                |
+| created_at                 | datetime     | YES  |     | NULL    |                |
+| updated_at                 | datetime     | YES  |     | NULL    |                |
++----------------------------+--------------+------+-----+---------+----------------+
+
+Table: analyses
++--------------------------------+--------------+------+-----+---------+----------------+
+| Field                          | Type         | Null | Key | Default | Extra          |
++--------------------------------+--------------+------+-----+---------+----------------+
+| id                             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| analyst_id                     | int(11)      | YES  |     | NULL    |                |
+| project_id                     | int(11)      | YES  |     | NULL    |                |
+| code                           | varchar(255) | NO   | UNI | NULL    |                |
+| description                    | varchar(255) | YES  |     | NULL    |                |
+| analytic_file_creator_id       | int(11)      | YES  |     | NULL    |                |
+| analytic_file_created_date     | date         | YES  |     | NULL    |                |
+| analytic_file_last_pulled_date | date         | YES  |     | NULL    |                |
+| analytic_file_location         | varchar(255) | YES  |     | NULL    |                |
+| analytic_file_filename         | varchar(255) | YES  |     | NULL    |                |
+| created_at                     | datetime     | YES  |     | NULL    |                |
+| updated_at                     | datetime     | YES  |     | NULL    |                |
++--------------------------------+--------------+------+-----+---------+----------------+
+
+Table: analyses_subjects
++-------------+---------+------+-----+---------+-------+
+| Field       | Type    | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| analysis_id | int(11) | YES  | MUL | NULL    |       |
+| subject_id  | int(11) | YES  | MUL | NULL    |       |
++-------------+---------+------+-----+---------+-------+
+
+Table: answers
++------------------------+--------------+------+-----+---------+----------------+
+| Field                  | Type         | Null | Key | Default | Extra          |
++------------------------+--------------+------+-----+---------+----------------+
+| id                     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| question_id            | int(11)      | YES  | MUL | NULL    |                |
+| text                   | text         | YES  |     | NULL    |                |
+| short_text             | text         | YES  |     | NULL    |                |
+| help_text              | text         | YES  |     | NULL    |                |
+| weight                 | int(11)      | YES  |     | NULL    |                |
+| response_class         | varchar(255) | YES  |     | NULL    |                |
+| reference_identifier   | varchar(255) | YES  |     | NULL    |                |
+| data_export_identifier | varchar(255) | YES  | MUL | NULL    |                |
+| common_namespace       | varchar(255) | YES  |     | NULL    |                |
+| common_identifier      | varchar(255) | YES  |     | NULL    |                |
+| display_order          | int(11)      | YES  |     | NULL    |                |
+| is_exclusive           | tinyint(1)   | YES  |     | NULL    |                |
+| hide_label             | tinyint(1)   | YES  |     | NULL    |                |
+| display_length         | int(11)      | YES  |     | NULL    |                |
+| custom_class           | varchar(255) | YES  |     | NULL    |                |
+| custom_renderer        | varchar(255) | YES  |     | NULL    |                |
+| created_at             | datetime     | YES  |     | NULL    |                |
+| updated_at             | datetime     | YES  |     | NULL    |                |
++------------------------+--------------+------+-----+---------+----------------+
+
+Table: bdrb_job_queues
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| args           | text         | YES  |     | NULL    |                |
+| worker_name    | varchar(255) | YES  |     | NULL    |                |
+| worker_method  | varchar(255) | YES  |     | NULL    |                |
+| job_key        | varchar(255) | YES  |     | NULL    |                |
+| taken          | int(11)      | YES  |     | NULL    |                |
+| finished       | int(11)      | YES  |     | NULL    |                |
+| timeout        | int(11)      | YES  |     | NULL    |                |
+| priority       | int(11)      | YES  |     | NULL    |                |
+| submitted_at   | datetime     | YES  |     | NULL    |                |
+| started_at     | datetime     | YES  |     | NULL    |                |
+| finished_at    | datetime     | YES  |     | NULL    |                |
+| archived_at    | datetime     | YES  |     | NULL    |                |
+| tag            | varchar(255) | YES  |     | NULL    |                |
+| submitter_info | varchar(255) | YES  |     | NULL    |                |
+| runner_info    | varchar(255) | YES  |     | NULL    |                |
+| worker_key     | varchar(255) | YES  |     | NULL    |                |
+| scheduled_at   | datetime     | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Table: contexts
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  | UNI | NULL    |                |
+| notes       | text         | YES  |     | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: data_sources
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position        | int(11)      | YES  |     | NULL    |                |
+| research_origin | varchar(255) | YES  |     | NULL    |                |
+| data_origin     | varchar(255) | YES  |     | NULL    |                |
+| created_at      | datetime     | YES  |     | NULL    |                |
+| updated_at      | datetime     | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+
+Table: dependencies
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| id                | int(11)      | NO   | PRI | NULL    | auto_increment |
+| question_id       | int(11)      | YES  | MUL | NULL    |                |
+| question_group_id | int(11)      | YES  |     | NULL    |                |
+| rule              | varchar(255) | YES  |     | NULL    |                |
+| created_at        | datetime     | YES  |     | NULL    |                |
+| updated_at        | datetime     | YES  |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+
+Table: dependency_conditions
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| dependency_id  | int(11)      | YES  | MUL | NULL    |                |
+| rule_key       | varchar(255) | YES  |     | NULL    |                |
+| question_id    | int(11)      | YES  | MUL | NULL    |                |
+| operator       | varchar(255) | YES  |     | NULL    |                |
+| answer_id      | int(11)      | YES  |     | NULL    |                |
+| datetime_value | datetime     | YES  |     | NULL    |                |
+| integer_value  | int(11)      | YES  |     | NULL    |                |
+| float_value    | float        | YES  |     | NULL    |                |
+| unit           | varchar(255) | YES  |     | NULL    |                |
+| text_value     | text         | YES  |     | NULL    |                |
+| string_value   | varchar(255) | YES  |     | NULL    |                |
+| response_other | varchar(255) | YES  |     | NULL    |                |
+| created_at     | datetime     | YES  |     | NULL    |                |
+| updated_at     | datetime     | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Table: dust_kits
++-----------------+----------+------+-----+---------+----------------+
+| Field           | Type     | Null | Key | Default | Extra          |
++-----------------+----------+------+-----+---------+----------------+
+| id              | int(11)  | NO   | PRI | NULL    | auto_increment |
+| subject_id      | int(11)  | YES  |     | NULL    |                |
+| kit_package_id  | int(11)  | YES  |     | NULL    |                |
+| dust_package_id | int(11)  | YES  |     | NULL    |                |
+| created_at      | datetime | YES  |     | NULL    |                |
+| updated_at      | datetime | YES  |     | NULL    |                |
++-----------------+----------+------+-----+---------+----------------+
+
+Table: exports
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| id                 | int(11)      | NO   | PRI | NULL    | auto_increment |
+| childid            | int(11)      | YES  | UNI | NULL    |                |
+| first_name         | varchar(255) | YES  |     | NULL    |                |
+| middle_name        | varchar(255) | YES  |     | NULL    |                |
+| last_name          | varchar(255) | YES  |     | NULL    |                |
+| diagnosis_date     | date         | YES  |     | NULL    |                |
+| patid              | int(11)      | YES  | UNI | NULL    |                |
+| type               | varchar(255) | YES  |     | NULL    |                |
+| orderno            | varchar(255) | YES  |     | NULL    |                |
+| mother_first_name  | varchar(255) | YES  |     | NULL    |                |
+| mother_middle_name | varchar(255) | YES  |     | NULL    |                |
+| mother_last_name   | varchar(255) | YES  |     | NULL    |                |
+| father_first_name  | varchar(255) | YES  |     | NULL    |                |
+| father_middle_name | varchar(255) | YES  |     | NULL    |                |
+| father_last_name   | varchar(255) | YES  |     | NULL    |                |
+| hospital_code      | varchar(255) | YES  |     | NULL    |                |
+| comments           | text         | YES  |     | NULL    |                |
+| is_eligible        | tinyint(1)   | YES  |     | NULL    |                |
+| is_chosen          | tinyint(1)   | YES  |     | NULL    |                |
+| reference_date     | date         | YES  |     | NULL    |                |
+| created_at         | datetime     | YES  |     | NULL    |                |
+| updated_at         | datetime     | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+
+Table: home_exposure_events
++----------------------------+----------+------+-----+---------+----------------+
+| Field                      | Type     | Null | Key | Default | Extra          |
++----------------------------+----------+------+-----+---------+----------------+
+| id                         | int(11)  | NO   | PRI | NULL    | auto_increment |
+| subject_id                 | int(11)  | YES  |     | NULL    |                |
+| initial_letter_sent_on     | date     | YES  |     | NULL    |                |
+| interview_outcome_id       | int(11)  | YES  |     | NULL    |                |
+| interview_outcome_date     | date     | YES  |     | NULL    |                |
+| dust_sample_outcome_id     | int(11)  | YES  |     | NULL    |                |
+| dust_sample_outcome_date   | date     | YES  |     | NULL    |                |
+| home_exposure_outcome_id   | int(11)  | YES  |     | NULL    |                |
+| home_exposure_outcome_date | date     | YES  |     | NULL    |                |
+| created_at                 | datetime | YES  |     | NULL    |                |
+| updated_at                 | datetime | YES  |     | NULL    |                |
++----------------------------+----------+------+-----+---------+----------------+
+
+Table: home_exposure_responses
++------------------------------------+--------------+------+-----+---------+----------------+
+| Field                              | Type         | Null | Key | Default | Extra          |
++------------------------------------+--------------+------+-----+---------+----------------+
+| id                                 | int(11)      | NO   | PRI | NULL    | auto_increment |
+| subject_id                         | int(11)      | YES  | UNI | NULL    |                |
+| vacuum_has_disposable_bag          | int(11)      | YES  |     | NULL    |                |
+| how_often_vacuumed_12mos           | int(11)      | YES  |     | NULL    |                |
+| shoes_usually_off_inside_12mos     | int(11)      | YES  |     | NULL    |                |
+| someone_ate_meat_12mos             | int(11)      | YES  |     | NULL    |                |
+| freq_pan_fried_meat_12mos          | int(11)      | YES  |     | NULL    |                |
+| freq_deep_fried_meat_12mos         | int(11)      | YES  |     | NULL    |                |
+| freq_oven_fried_meat_12mos         | int(11)      | YES  |     | NULL    |                |
+| freq_grilled_meat_outside_12mos    | int(11)      | YES  |     | NULL    |                |
+| freq_other_high_temp_cooking_12mos | int(11)      | YES  |     | NULL    |                |
+| other_type_high_temp_cooking       | varchar(255) | YES  |     | NULL    |                |
+| doneness_of_meat_exterior_12mos    | int(11)      | YES  |     | NULL    |                |
+| job_is_plane_mechanic_12mos        | int(11)      | YES  |     | NULL    |                |
+| job_is_artist_12mos                | int(11)      | YES  |     | NULL    |                |
+| job_is_janitor_12mos               | int(11)      | YES  |     | NULL    |                |
+| job_is_construction_12mos          | int(11)      | YES  |     | NULL    |                |
+| job_is_dentist_12mos               | int(11)      | YES  |     | NULL    |                |
+| job_is_electrician_12mos           | int(11)      | YES  |     | NULL    |                |
+| job_is_engineer_12mos              | int(11)      | YES  |     | NULL    |                |
+| job_is_farmer_12mos                | int(11)      | YES  |     | NULL    |                |
+| job_is_gardener_12mos              | int(11)      | YES  |     | NULL    |                |
+| job_is_lab_worker_12mos            | int(11)      | YES  |     | NULL    |                |
+| job_is_manufacturer_12mos          | int(11)      | YES  |     | NULL    |                |
+| job_auto_mechanic_12mos            | int(11)      | YES  |     | NULL    |                |
+| job_is_patient_care_12mos          | int(11)      | YES  |     | NULL    |                |
+| job_is_agr_packer_12mos            | int(11)      | YES  |     | NULL    |                |
+| job_is_painter_12mos               | int(11)      | YES  |     | NULL    |                |
+| job_is_pesticides_12mos            | int(11)      | YES  |     | NULL    |                |
+| job_is_photographer_12mos          | int(11)      | YES  |     | NULL    |                |
+| job_is_teacher_12mos               | int(11)      | YES  |     | NULL    |                |
+| job_is_welder_12mos                | int(11)      | YES  |     | NULL    |                |
+| used_flea_control_12mos            | int(11)      | YES  |     | NULL    |                |
+| freq_used_flea_control_12mos       | int(11)      | YES  |     | NULL    |                |
+| used_ant_control_12mos             | int(11)      | YES  |     | NULL    |                |
+| freq_ant_control_12mos             | int(11)      | YES  |     | NULL    |                |
+| used_bee_control_12mos             | int(11)      | YES  |     | NULL    |                |
+| freq_bee_control_12mos             | int(11)      | YES  |     | NULL    |                |
+| used_indoor_plant_prod_12mos       | int(11)      | YES  |     | NULL    |                |
+| freq_indoor_plant_product_12mos    | int(11)      | YES  |     | NULL    |                |
+| used_other_indoor_product_12mos    | int(11)      | YES  |     | NULL    |                |
+| freq_other_indoor_product_12mos    | int(11)      | YES  |     | NULL    |                |
+| used_indoor_foggers                | int(11)      | YES  |     | NULL    |                |
+| freq_indoor_foggers_12mos          | int(11)      | YES  |     | NULL    |                |
+| used_pro_pest_inside_12mos         | int(11)      | YES  |     | NULL    |                |
+| freq_pro_pest_inside_12mos         | int(11)      | YES  |     | NULL    |                |
+| used_pro_pest_outside_12mos        | int(11)      | YES  |     | NULL    |                |
+| freq_used_pro_pest_outside_12mos   | int(11)      | YES  |     | NULL    |                |
+| used_pro_lawn_service_12mos        | int(11)      | YES  |     | NULL    |                |
+| freq_pro_lawn_service_12mos        | int(11)      | YES  |     | NULL    |                |
+| used_lawn_products_12mos           | int(11)      | YES  |     | NULL    |                |
+| freq_lawn_products_12mos           | int(11)      | YES  |     | NULL    |                |
+| used_slug_control_12mos            | int(11)      | YES  |     | NULL    |                |
+| freq_slug_control_12mos            | int(11)      | YES  |     | NULL    |                |
+| used_rat_control_12mos             | int(11)      | YES  |     | NULL    |                |
+| freq_rat_control_12mos             | int(11)      | YES  |     | NULL    |                |
+| used_mothballs_12mos               | int(11)      | YES  |     | NULL    |                |
+| cmty_sprayed_gypsy_moths_12mos     | int(11)      | YES  |     | NULL    |                |
+| cmty_sprayed_medflies_12mos        | int(11)      | YES  |     | NULL    |                |
+| cmty_sprayed_mosquitoes_12mos      | int(11)      | YES  |     | NULL    |                |
+| cmty_sprayed_sharpshooters_12mos   | int(11)      | YES  |     | NULL    |                |
+| cmty_sprayed_apple_moths_12mos     | int(11)      | YES  |     | NULL    |                |
+| cmty_sprayed_other_pest_12mos      | int(11)      | YES  |     | NULL    |                |
+| other_pest_community_sprayed       | varchar(255) | YES  |     | NULL    |                |
+| type_of_residence                  | int(11)      | YES  |     | NULL    |                |
+| other_type_of_residence            | varchar(255) | YES  |     | NULL    |                |
+| number_of_floors_in_residence      | int(11)      | YES  |     | NULL    |                |
+| number_of_stories_in_building      | int(11)      | YES  |     | NULL    |                |
+| year_home_built                    | int(11)      | YES  |     | NULL    |                |
+| home_square_footage                | int(11)      | YES  |     | NULL    |                |
+| number_of_rooms_in_home            | int(11)      | YES  |     | NULL    |                |
+| home_constructed_of                | int(11)      | YES  |     | NULL    |                |
+| other_home_material                | varchar(255) | YES  |     | NULL    |                |
+| home_has_attached_garage           | int(11)      | YES  |     | NULL    |                |
+| vehicle_in_garage_1mo              | int(11)      | YES  |     | NULL    |                |
+| freq_in_out_garage_1mo             | int(11)      | YES  |     | NULL    |                |
+| home_has_electric_cooling          | int(11)      | YES  |     | NULL    |                |
+| freq_windows_open_cold_mos_12mos   | int(11)      | YES  |     | NULL    |                |
+| freq_windows_open_warm_mos_12mos   | int(11)      | YES  |     | NULL    |                |
+| used_electric_heat_12mos           | int(11)      | YES  |     | NULL    |                |
+| used_kerosene_heat_12mos           | int(11)      | YES  |     | NULL    |                |
+| used_radiator_12mos                | int(11)      | YES  |     | NULL    |                |
+| used_gas_heat_12mos                | int(11)      | YES  |     | NULL    |                |
+| used_wood_burning_stove_12mos      | int(11)      | YES  |     | NULL    |                |
+| freq_used_wood_stove_12mos         | int(11)      | YES  |     | NULL    |                |
+| used_wood_fireplace_12mos          | int(11)      | YES  |     | NULL    |                |
+| freq_used_wood_fireplace_12mos     | int(11)      | YES  |     | NULL    |                |
+| used_fireplace_insert_12mos        | int(11)      | YES  |     | NULL    |                |
+| used_gas_stove_12mos               | int(11)      | YES  |     | NULL    |                |
+| used_gas_dryer_12mos               | int(11)      | YES  |     | NULL    |                |
+| used_gas_water_heater_12mos        | int(11)      | YES  |     | NULL    |                |
+| used_other_gas_appliance_12mos     | int(11)      | YES  |     | NULL    |                |
+| type_of_other_gas_appliance        | varchar(255) | YES  |     | NULL    |                |
+| painted_inside_home                | int(11)      | YES  |     | NULL    |                |
+| carpeted_in_home                   | int(11)      | YES  |     | NULL    |                |
+| refloored_in_home                  | int(11)      | YES  |     | NULL    |                |
+| weather_proofed_home               | int(11)      | YES  |     | NULL    |                |
+| replaced_home_windows              | int(11)      | YES  |     | NULL    |                |
+| roof_work_on_home                  | int(11)      | YES  |     | NULL    |                |
+| construction_in_home               | int(11)      | YES  |     | NULL    |                |
+| other_home_remodelling             | int(11)      | YES  |     | NULL    |                |
+| type_other_home_remodelling        | varchar(255) | YES  |     | NULL    |                |
+| regularly_smoked_indoors           | int(11)      | YES  |     | NULL    |                |
+| regularly_smoked_indoors_12mos     | int(11)      | YES  |     | NULL    |                |
+| regularly_smoked_outdoors          | int(11)      | YES  |     | NULL    |                |
+| regularly_smoked_outdoors_12mos    | int(11)      | YES  |     | NULL    |                |
+| used_smokeless_tobacco_12mos       | int(11)      | YES  |     | NULL    |                |
+| qty_of_upholstered_furniture       | int(11)      | YES  |     | NULL    |                |
+| qty_bought_after_2006              | int(11)      | YES  |     | NULL    |                |
+| furniture_has_exposed_foam         | int(11)      | YES  |     | NULL    |                |
+| home_has_carpets                   | int(11)      | YES  |     | NULL    |                |
+| percent_home_with_carpet           | int(11)      | YES  |     | NULL    |                |
+| home_has_televisions               | int(11)      | YES  |     | NULL    |                |
+| number_of_televisions_in_home      | int(11)      | YES  |     | NULL    |                |
+| avg_number_hours_tvs_used          | int(11)      | YES  |     | NULL    |                |
+| home_has_computers                 | int(11)      | YES  |     | NULL    |                |
+| number_of_computers_in_home        | int(11)      | YES  |     | NULL    |                |
+| avg_number_hours_computers_used    | int(11)      | YES  |     | NULL    |                |
+| additional_comments                | text         | YES  |     | NULL    |                |
+| vacuum_bag_last_changed            | int(11)      | YES  |     | NULL    |                |
+| vacuum_used_outside_home           | int(11)      | YES  |     | NULL    |                |
+| created_at                         | datetime     | YES  |     | NULL    |                |
+| updated_at                         | datetime     | YES  |     | NULL    |                |
++------------------------------------+--------------+------+-----+---------+----------------+
+
+Table: home_page_pics
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| id                 | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title              | varchar(255) | YES  |     | NULL    |                |
+| caption            | text         | YES  |     | NULL    |                |
+| active             | tinyint(1)   | YES  | MUL | 1       |                |
+| created_at         | datetime     | YES  |     | NULL    |                |
+| updated_at         | datetime     | YES  |     | NULL    |                |
+| image_file_name    | varchar(255) | YES  |     | NULL    |                |
+| image_content_type | varchar(255) | YES  |     | NULL    |                |
+| image_file_size    | int(11)      | YES  |     | NULL    |                |
+| image_updated_at   | datetime     | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+
+Table: identifiers
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| id                   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| subject_id           | int(11)      | YES  | UNI | NULL    |                |
+| childid              | int(11)      | YES  |     | NULL    |                |
+| patid                | int(11)      | YES  | MUL | NULL    |                |
+| case_control_type    | varchar(1)   | YES  |     | NULL    |                |
+| orderno              | int(11)      | YES  |     | NULL    |                |
+| lab_no               | varchar(255) | YES  |     | NULL    |                |
+| related_childid      | varchar(255) | YES  |     | NULL    |                |
+| related_case_childid | varchar(255) | YES  |     | NULL    |                |
+| ssn                  | varchar(255) | YES  | UNI | NULL    |                |
+| created_at           | datetime     | YES  |     | NULL    |                |
+| updated_at           | datetime     | YES  |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+
+Table: imports
++---------------------------+--------------+------+-----+---------+----------------+
+| Field                     | Type         | Null | Key | Default | Extra          |
++---------------------------+--------------+------+-----+---------+----------------+
+| id                        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| dob                       | date         | YES  |     | NULL    |                |
+| diagnosis_date            | date         | YES  |     | NULL    |                |
+| first_name                | varchar(255) | YES  |     | NULL    |                |
+| middle_name               | varchar(255) | YES  |     | NULL    |                |
+| last_name                 | varchar(255) | YES  |     | NULL    |                |
+| sex                       | varchar(255) | YES  |     | NULL    |                |
+| language_code             | varchar(255) | YES  |     | NULL    |                |
+| is_hispanic               | tinyint(1)   | YES  |     | NULL    |                |
+| race                      | varchar(255) | YES  |     | NULL    |                |
+| primary_phone_number      | varchar(255) | YES  |     | NULL    |                |
+| alternate_phone_number    | varchar(255) | YES  |     | NULL    |                |
+| dust_kit_sent_on          | date         | YES  |     | NULL    |                |
+| completed_interview_on    | date         | YES  |     | NULL    |                |
+| case_assigned_on          | date         | YES  |     | NULL    |                |
+| respondent_type           | varchar(255) | YES  |     | NULL    |                |
+| respondent_first_name     | varchar(255) | YES  |     | NULL    |                |
+| respondent_middle_name    | varchar(255) | YES  |     | NULL    |                |
+| respondent_last_name      | varchar(255) | YES  |     | NULL    |                |
+| last_action_on            | date         | YES  |     | NULL    |                |
+| respondent_address_line_1 | varchar(255) | YES  |     | NULL    |                |
+| respondent_address_line_2 | varchar(255) | YES  |     | NULL    |                |
+| respondent_city           | varchar(255) | YES  |     | NULL    |                |
+| respondent_state          | varchar(255) | YES  |     | NULL    |                |
+| respondent_zip            | varchar(255) | YES  |     | NULL    |                |
+| created_at                | datetime     | YES  |     | NULL    |                |
+| updated_at                | datetime     | YES  |     | NULL    |                |
++---------------------------+--------------+------+-----+---------+----------------+
+
+Table: ineligible_reasons
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| id                 | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position           | int(11)      | YES  |     | NULL    |                |
+| code               | varchar(255) | NO   | UNI | NULL    |                |
+| description        | varchar(255) | YES  | UNI | NULL    |                |
+| ineligible_context | varchar(255) | YES  |     | NULL    |                |
+| created_at         | datetime     | YES  |     | NULL    |                |
+| updated_at         | datetime     | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+
+Table: interview_methods
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: interview_types
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| project_id  | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  | UNI | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: interview_versions
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| id                | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position          | int(11)      | YES  |     | NULL    |                |
+| interview_type_id | int(11)      | YES  |     | NULL    |                |
+| language_id       | int(11)      | YES  |     | NULL    |                |
+| began_use_on      | date         | YES  |     | NULL    |                |
+| ended_use_on      | date         | YES  |     | NULL    |                |
+| code              | varchar(255) | NO   | UNI | NULL    |                |
+| description       | varchar(255) | YES  | UNI | NULL    |                |
+| created_at        | datetime     | YES  |     | NULL    |                |
+| updated_at        | datetime     | YES  |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+
+Table: interviews
++-------------------------------+--------------+------+-----+---------+----------------+
+| Field                         | Type         | Null | Key | Default | Extra          |
++-------------------------------+--------------+------+-----+---------+----------------+
+| id                            | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position                      | int(11)      | YES  |     | NULL    |                |
+| identifier_id                 | int(11)      | YES  |     | NULL    |                |
+| address_id                    | int(11)      | YES  |     | NULL    |                |
+| interviewer_id                | int(11)      | YES  |     | NULL    |                |
+| interview_version_id          | int(11)      | YES  |     | NULL    |                |
+| interview_method_id           | int(11)      | YES  |     | NULL    |                |
+| language_id                   | int(11)      | YES  |     | NULL    |                |
+| began_on                      | date         | YES  |     | NULL    |                |
+| ended_on                      | date         | YES  |     | NULL    |                |
+| respondent_first_name         | varchar(255) | YES  |     | NULL    |                |
+| respondent_last_name          | varchar(255) | YES  |     | NULL    |                |
+| respondent_relationship_id    | int(11)      | YES  |     | NULL    |                |
+| respondent_relationship_other | varchar(255) | YES  |     | NULL    |                |
+| created_at                    | datetime     | YES  |     | NULL    |                |
+| updated_at                    | datetime     | YES  |     | NULL    |                |
++-------------------------------+--------------+------+-----+---------+----------------+
+
+Table: languages
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: operational_event_types
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position     | int(11)      | YES  |     | NULL    |                |
+| project_id   | int(11)      | YES  |     | NULL    |                |
+| interview_id | int(11)      | YES  |     | NULL    |                |
+| code         | varchar(255) | NO   | UNI | NULL    |                |
+| description  | varchar(255) | YES  | UNI | NULL    |                |
+| created_at   | datetime     | YES  |     | NULL    |                |
+| updated_at   | datetime     | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+
+Table: operational_events
++---------------------------+----------+------+-----+---------+----------------+
+| Field                     | Type     | Null | Key | Default | Extra          |
++---------------------------+----------+------+-----+---------+----------------+
+| id                        | int(11)  | NO   | PRI | NULL    | auto_increment |
+| position                  | int(11)  | YES  |     | NULL    |                |
+| subject_id                | int(11)  | YES  |     | NULL    |                |
+| operational_event_type_id | int(11)  | YES  |     | NULL    |                |
+| began_on                  | date     | YES  |     | NULL    |                |
+| completed_on              | date     | YES  |     | NULL    |                |
+| sent_on                   | date     | YES  |     | NULL    |                |
+| received_on               | date     | YES  |     | NULL    |                |
+| created_at                | datetime | YES  |     | NULL    |                |
+| updated_at                | datetime | YES  |     | NULL    |                |
++---------------------------+----------+------+-----+---------+----------------+
+
+Table: organizations
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position       | int(11)      | YES  |     | NULL    |                |
+| aliquots_count | int(11)      | YES  |     | 0       |                |
+| code           | varchar(255) | YES  | UNI | NULL    |                |
+| name           | varchar(255) | YES  | UNI | NULL    |                |
+| created_at     | datetime     | YES  |     | NULL    |                |
+| updated_at     | datetime     | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Table: packages
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position        | int(11)      | YES  |     | NULL    |                |
+| status          | varchar(255) | YES  |     | NULL    |                |
+| created_at      | datetime     | YES  |     | NULL    |                |
+| updated_at      | datetime     | YES  |     | NULL    |                |
+| tracks_count    | int(11)      | YES  |     | 0       |                |
+| tracking_number | varchar(255) | YES  | UNI | NULL    |                |
+| latest_event    | varchar(255) | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+
+Table: pages
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position   | int(11)      | YES  |     | NULL    |                |
+| parent_id  | int(11)      | YES  | MUL | NULL    |                |
+| hide_menu  | tinyint(1)   | YES  |     | 0       |                |
+| path       | varchar(255) | YES  | UNI | NULL    |                |
+| title_en   | varchar(255) | YES  |     | NULL    |                |
+| title_es   | varchar(255) | YES  |     | NULL    |                |
+| menu_en    | varchar(255) | YES  |     | NULL    |                |
+| menu_es    | varchar(255) | YES  |     | NULL    |                |
+| body_en    | text         | YES  |     | NULL    |                |
+| body_es    | text         | YES  |     | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+Table: patients
++----------------+----------+------+-----+---------+----------------+
+| Field          | Type     | Null | Key | Default | Extra          |
++----------------+----------+------+-----+---------+----------------+
+| id             | int(11)  | NO   | PRI | NULL    | auto_increment |
+| subject_id     | int(11)  | YES  | UNI | NULL    |                |
+| diagnosis_date | date     | YES  |     | NULL    |                |
+| hospital_no    | int(11)  | YES  |     | NULL    |                |
+| diagnosis_id   | int(11)  | YES  |     | NULL    |                |
+| created_at     | datetime | YES  |     | NULL    |                |
+| updated_at     | datetime | YES  |     | NULL    |                |
++----------------+----------+------+-----+---------+----------------+
+
+Table: people
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position   | int(11)      | YES  |     | NULL    |                |
+| context_id | int(11)      | YES  |     | NULL    |                |
+| first_name | varchar(255) | YES  |     | NULL    |                |
+| last_name  | varchar(255) | YES  |     | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+Table: piis
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| id                 | int(11)      | NO   | PRI | NULL    | auto_increment |
+| subject_id         | int(11)      | YES  | UNI | NULL    |                |
+| first_name         | varchar(255) | YES  |     | NULL    |                |
+| middle_name        | varchar(255) | YES  |     | NULL    |                |
+| last_name          | varchar(255) | YES  |     | NULL    |                |
+| dob                | date         | YES  |     | NULL    |                |
+| died_on            | date         | YES  |     | NULL    |                |
+| state_id_no        | varchar(255) | YES  | UNI | NULL    |                |
+| phone_primary      | varchar(255) | YES  |     | NULL    |                |
+| phone_alternate    | varchar(255) | YES  |     | NULL    |                |
+| phone_alternate_2  | varchar(255) | YES  |     | NULL    |                |
+| phone_alternate_3  | varchar(255) | YES  |     | NULL    |                |
+| mother_first_name  | varchar(255) | YES  |     | NULL    |                |
+| mother_middle_name | varchar(255) | YES  |     | NULL    |                |
+| mother_maiden_name | varchar(255) | YES  |     | NULL    |                |
+| mother_last_name   | varchar(255) | YES  |     | NULL    |                |
+| father_first_name  | varchar(255) | YES  |     | NULL    |                |
+| father_middle_name | varchar(255) | YES  |     | NULL    |                |
+| father_last_name   | varchar(255) | YES  |     | NULL    |                |
+| email              | varchar(255) | YES  | UNI | NULL    |                |
+| created_at         | datetime     | YES  |     | NULL    |                |
+| updated_at         | datetime     | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+
+Table: project_subjects
++----------------------------------+--------------+------+-----+---------+----------------+
+| Field                            | Type         | Null | Key | Default | Extra          |
++----------------------------------+--------------+------+-----+---------+----------------+
+| id                               | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position                         | int(11)      | YES  |     | NULL    |                |
+| subject_id                       | int(11)      | YES  |     | NULL    |                |
+| project_id                       | int(11)      | YES  |     | NULL    |                |
+| ineligible_reason_id             | int(11)      | YES  |     | NULL    |                |
+| refusal_reason_id                | int(11)      | YES  |     | NULL    |                |
+| is_eligible                      | tinyint(1)   | YES  |     | NULL    |                |
+| is_chosen                        | tinyint(1)   | YES  |     | NULL    |                |
+| is_candidate                     | tinyint(1)   | YES  |     | NULL    |                |
+| reason_not_chosen                | varchar(255) | YES  |     | NULL    |                |
+| recruitment_priority             | varchar(255) | YES  |     | NULL    |                |
+| completed_on                     | date         | YES  |     | NULL    |                |
+| consented                        | tinyint(1)   | YES  |     | NULL    |                |
+| consented_on                     | date         | YES  |     | NULL    |                |
+| other_refusal_reason             | varchar(255) | YES  |     | NULL    |                |
+| subject_terminated_participation | tinyint(1)   | YES  |     | NULL    |                |
+| subject_terminated_reason        | varchar(255) | YES  |     | NULL    |                |
+| is_closed                        | tinyint(1)   | YES  |     | NULL    |                |
+| reason_closed                    | varchar(255) | YES  |     | NULL    |                |
+| enrollment_notes                 | text         | YES  |     | NULL    |                |
+| created_at                       | datetime     | YES  |     | NULL    |                |
+| updated_at                       | datetime     | YES  |     | NULL    |                |
++----------------------------------+--------------+------+-----+---------+----------------+
+
+Table: projects
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| id                   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position             | int(11)      | YES  |     | NULL    |                |
+| began_on             | date         | YES  |     | NULL    |                |
+| ended_on             | date         | YES  |     | NULL    |                |
+| code                 | varchar(255) | YES  | UNI | NULL    |                |
+| description          | varchar(255) | YES  | UNI | NULL    |                |
+| eligibility_criteria | text         | YES  |     | NULL    |                |
+| created_at           | datetime     | YES  |     | NULL    |                |
+| updated_at           | datetime     | YES  |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+
+Table: projects_samples
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| project_id | int(11) | YES  | MUL | NULL    |       |
+| sample_id  | int(11) | YES  | MUL | NULL    |       |
++------------+---------+------+-----+---------+-------+
+
+Table: question_groups
++------------------------+--------------+------+-----+---------+----------------+
+| Field                  | Type         | Null | Key | Default | Extra          |
++------------------------+--------------+------+-----+---------+----------------+
+| id                     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| text                   | text         | YES  |     | NULL    |                |
+| help_text              | text         | YES  |     | NULL    |                |
+| reference_identifier   | varchar(255) | YES  |     | NULL    |                |
+| data_export_identifier | varchar(255) | YES  |     | NULL    |                |
+| common_namespace       | varchar(255) | YES  |     | NULL    |                |
+| common_identifier      | varchar(255) | YES  |     | NULL    |                |
+| display_type           | varchar(255) | YES  |     | NULL    |                |
+| custom_class           | varchar(255) | YES  |     | NULL    |                |
+| custom_renderer        | varchar(255) | YES  |     | NULL    |                |
+| created_at             | datetime     | YES  |     | NULL    |                |
+| updated_at             | datetime     | YES  |     | NULL    |                |
++------------------------+--------------+------+-----+---------+----------------+
+
+Table: questions
++------------------------+--------------+------+-----+---------+----------------+
+| Field                  | Type         | Null | Key | Default | Extra          |
++------------------------+--------------+------+-----+---------+----------------+
+| id                     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| survey_section_id      | int(11)      | YES  | MUL | NULL    |                |
+| question_group_id      | int(11)      | YES  |     | NULL    |                |
+| text                   | text         | YES  |     | NULL    |                |
+| short_text             | text         | YES  |     | NULL    |                |
+| help_text              | text         | YES  |     | NULL    |                |
+| pick                   | varchar(255) | YES  |     | NULL    |                |
+| reference_identifier   | varchar(255) | YES  |     | NULL    |                |
+| data_export_identifier | varchar(255) | YES  | MUL | NULL    |                |
+| common_namespace       | varchar(255) | YES  |     | NULL    |                |
+| common_identifier      | varchar(255) | YES  |     | NULL    |                |
+| display_order          | int(11)      | YES  |     | NULL    |                |
+| display_type           | varchar(255) | YES  |     | NULL    |                |
+| is_mandatory           | tinyint(1)   | YES  |     | NULL    |                |
+| display_width          | int(11)      | YES  |     | NULL    |                |
+| custom_class           | varchar(255) | YES  |     | NULL    |                |
+| custom_renderer        | varchar(255) | YES  |     | NULL    |                |
+| created_at             | datetime     | YES  |     | NULL    |                |
+| updated_at             | datetime     | YES  |     | NULL    |                |
+| correct_answer_id      | int(11)      | YES  |     | NULL    |                |
+| number                 | varchar(255) | YES  |     | NULL    |                |
++------------------------+--------------+------+-----+---------+----------------+
+
+Table: races
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position   | int(11)      | YES  |     | NULL    |                |
+| name       | varchar(255) | YES  | UNI | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+Table: refusal_reasons
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  | UNI | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: residences
++------------------------+------------+------+-----+---------+----------------+
+| Field                  | Type       | Null | Key | Default | Extra          |
++------------------------+------------+------+-----+---------+----------------+
+| id                     | int(11)    | NO   | PRI | NULL    | auto_increment |
+| position               | int(11)    | YES  |     | NULL    |                |
+| address_id             | int(11)    | YES  | UNI | NULL    |                |
+| moved_in_on            | date       | YES  |     | NULL    |                |
+| moved_out_on           | date       | YES  |     | NULL    |                |
+| current_residence      | tinyint(1) | YES  |     | NULL    |                |
+| residence_at_diagnosis | tinyint(1) | YES  |     | NULL    |                |
+| created_at             | datetime   | YES  |     | NULL    |                |
+| updated_at             | datetime   | YES  |     | NULL    |                |
++------------------------+------------+------+-----+---------+----------------+
+
+Table: response_sets
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| user_id      | int(11)      | YES  |     | NULL    |                |
+| survey_id    | int(11)      | YES  |     | NULL    |                |
+| subject_id   | int(11)      | YES  | MUL | NULL    |                |
+| access_code  | varchar(255) | YES  | UNI | NULL    |                |
+| started_at   | datetime     | YES  |     | NULL    |                |
+| completed_at | datetime     | YES  |     | NULL    |                |
+| created_at   | datetime     | YES  |     | NULL    |                |
+| updated_at   | datetime     | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+
+Table: responses
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int(11)      | NO   | PRI | NULL    | auto_increment |
+| response_set_id | int(11)      | YES  | MUL | NULL    |                |
+| question_id     | int(11)      | YES  |     | NULL    |                |
+| answer_id       | int(11)      | YES  |     | NULL    |                |
+| datetime_value  | datetime     | YES  |     | NULL    |                |
+| integer_value   | int(11)      | YES  |     | NULL    |                |
+| float_value     | float        | YES  |     | NULL    |                |
+| unit            | varchar(255) | YES  |     | NULL    |                |
+| text_value      | text         | YES  |     | NULL    |                |
+| string_value    | varchar(255) | YES  |     | NULL    |                |
+| response_other  | varchar(255) | YES  |     | NULL    |                |
+| response_group  | varchar(255) | YES  |     | NULL    |                |
+| created_at      | datetime     | YES  |     | NULL    |                |
+| updated_at      | datetime     | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+
+Table: roles
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position   | int(11)      | YES  |     | NULL    |                |
+| name       | varchar(255) | YES  | UNI | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+Table: roles_users
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| role_id | int(11) | YES  | MUL | NULL    |       |
+| user_id | int(11) | YES  | MUL | NULL    |       |
++---------+---------+------+-----+---------+-------+
+
+Table: sample_subtypes
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position       | int(11)      | YES  |     | NULL    |                |
+| sample_type_id | int(11)      | YES  |     | NULL    |                |
+| code           | varchar(255) | NO   | UNI | NULL    |                |
+| description    | varchar(255) | YES  | UNI | NULL    |                |
+| created_at     | datetime     | YES  |     | NULL    |                |
+| updated_at     | datetime     | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Table: sample_types
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  | UNI | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: samples
++------------------------------+---------------+------+-----+---------+----------------+
+| Field                        | Type          | Null | Key | Default | Extra          |
++------------------------------+---------------+------+-----+---------+----------------+
+| id                           | int(11)       | NO   | PRI | NULL    | auto_increment |
+| position                     | int(11)       | YES  |     | NULL    |                |
+| aliquot_sample_format_id     | int(11)       | YES  |     | NULL    |                |
+| sample_subtype_id            | int(11)       | YES  |     | NULL    |                |
+| subject_id                   | int(11)       | YES  |     | NULL    |                |
+| unit_id                      | int(11)       | YES  |     | NULL    |                |
+| order_no                     | int(11)       | YES  |     | 1       |                |
+| quantity_in_sample           | decimal(10,0) | YES  |     | NULL    |                |
+| aliquot_or_sample_on_receipt | varchar(255)  | YES  |     | Sample  |                |
+| sent_to_subject_on           | date          | YES  |     | NULL    |                |
+| received_by_ccls_on          | date          | YES  |     | NULL    |                |
+| sent_to_lab_on               | date          | YES  |     | NULL    |                |
+| received_by_lab_on           | date          | YES  |     | NULL    |                |
+| aliquotted_on                | date          | YES  |     | NULL    |                |
+| external_id                  | varchar(255)  | YES  |     | NULL    |                |
+| external_id_source           | varchar(255)  | YES  |     | NULL    |                |
+| receipt_confirmed_on         | date          | YES  |     | NULL    |                |
+| receipt_confirmed_by         | varchar(255)  | YES  |     | NULL    |                |
+| created_at                   | datetime      | YES  |     | NULL    |                |
+| updated_at                   | datetime      | YES  |     | NULL    |                |
++------------------------------+---------------+------+-----+---------+----------------+
+
+Table: schema_migrations
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| version | varchar(255) | NO   | PRI | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+
+Table: subject_types
++---------------------------+--------------+------+-----+---------+----------------+
+| Field                     | Type         | Null | Key | Default | Extra          |
++---------------------------+--------------+------+-----+---------+----------------+
+| id                        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position                  | int(11)      | YES  |     | NULL    |                |
+| code                      | varchar(255) | NO   | UNI | NULL    |                |
+| description               | varchar(255) | YES  | UNI | NULL    |                |
+| related_case_control_type | varchar(255) | YES  |     | NULL    |                |
+| created_at                | datetime     | YES  |     | NULL    |                |
+| updated_at                | datetime     | YES  |     | NULL    |                |
++---------------------------+--------------+------+-----+---------+----------------+
+
+Table: subjects
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id                  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| subject_type_id     | int(11)      | YES  |     | NULL    |                |
+| race_id             | int(11)      | YES  |     | NULL    |                |
+| vital_status_id     | int(11)      | YES  |     | NULL    |                |
+| hispanicity_id      | int(11)      | YES  |     | NULL    |                |
+| reference_date      | date         | YES  |     | NULL    |                |
+| response_sets_count | int(11)      | YES  |     | 0       |                |
+| sex                 | varchar(255) | YES  |     | NULL    |                |
+| subjectid           | varchar(6)   | YES  | UNI | NULL    |                |
+| created_at          | datetime     | YES  |     | NULL    |                |
+| updated_at          | datetime     | YES  |     | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+
+Table: survey_invitations
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int(11)      | NO   | PRI | NULL    | auto_increment |
+| subject_id      | int(11)      | NO   |     | NULL    |                |
+| response_set_id | int(11)      | YES  |     | NULL    |                |
+| survey_id       | int(11)      | YES  | MUL | NULL    |                |
+| token           | varchar(255) | NO   | UNI | NULL    |                |
+| sent_at         | datetime     | YES  |     | NULL    |                |
+| created_at      | datetime     | YES  |     | NULL    |                |
+| updated_at      | datetime     | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+
+Table: survey_sections
++------------------------+--------------+------+-----+---------+----------------+
+| Field                  | Type         | Null | Key | Default | Extra          |
++------------------------+--------------+------+-----+---------+----------------+
+| id                     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| survey_id              | int(11)      | YES  | MUL | NULL    |                |
+| title                  | varchar(255) | YES  |     | NULL    |                |
+| description            | text         | YES  |     | NULL    |                |
+| reference_identifier   | varchar(255) | YES  |     | NULL    |                |
+| data_export_identifier | varchar(255) | YES  |     | NULL    |                |
+| common_namespace       | varchar(255) | YES  |     | NULL    |                |
+| common_identifier      | varchar(255) | YES  |     | NULL    |                |
+| display_order          | int(11)      | YES  |     | NULL    |                |
+| custom_class           | varchar(255) | YES  |     | NULL    |                |
+| created_at             | datetime     | YES  |     | NULL    |                |
+| updated_at             | datetime     | YES  |     | NULL    |                |
++------------------------+--------------+------+-----+---------+----------------+
+
+Table: surveys
++------------------------+--------------+------+-----+---------+----------------+
+| Field                  | Type         | Null | Key | Default | Extra          |
++------------------------+--------------+------+-----+---------+----------------+
+| id                     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title                  | varchar(255) | YES  |     | NULL    |                |
+| description            | text         | YES  |     | NULL    |                |
+| access_code            | varchar(255) | YES  | UNI | NULL    |                |
+| reference_identifier   | varchar(255) | YES  |     | NULL    |                |
+| data_export_identifier | varchar(255) | YES  |     | NULL    |                |
+| common_namespace       | varchar(255) | YES  |     | NULL    |                |
+| common_identifier      | varchar(255) | YES  |     | NULL    |                |
+| active_at              | datetime     | YES  |     | NULL    |                |
+| inactive_at            | datetime     | YES  |     | NULL    |                |
+| css_url                | varchar(255) | YES  |     | NULL    |                |
+| custom_class           | varchar(255) | YES  |     | NULL    |                |
+| created_at             | datetime     | YES  |     | NULL    |                |
+| updated_at             | datetime     | YES  |     | NULL    |                |
+| display_order          | int(11)      | YES  |     | NULL    |                |
+| manual_numbering       | tinyint(1)   | YES  |     | NULL    |                |
++------------------------+--------------+------+-----+---------+----------------+
+
+Table: tracks
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| trackable_id   | int(11)      | YES  | MUL | NULL    |                |
+| trackable_type | varchar(255) | YES  |     | NULL    |                |
+| name           | varchar(255) | YES  |     | NULL    |                |
+| location       | varchar(255) | YES  |     | NULL    |                |
+| city           | varchar(255) | YES  |     | NULL    |                |
+| state          | varchar(255) | YES  |     | NULL    |                |
+| zip            | varchar(255) | YES  |     | NULL    |                |
+| time           | datetime     | YES  |     | NULL    |                |
+| created_at     | datetime     | YES  |     | NULL    |                |
+| updated_at     | datetime     | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Table: transfers
++----------------------+---------------+------+-----+---------+----------------+
+| Field                | Type          | Null | Key | Default | Extra          |
++----------------------+---------------+------+-----+---------+----------------+
+| id                   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| position             | int(11)       | YES  |     | NULL    |                |
+| aliquot_id           | int(11)       | YES  | MUL | NULL    |                |
+| from_organization_id | int(11)       | NO   | MUL | NULL    |                |
+| to_organization_id   | int(11)       | NO   | MUL | NULL    |                |
+| amount               | decimal(10,0) | YES  |     | NULL    |                |
+| reason               | varchar(255)  | YES  |     | NULL    |                |
+| is_permanent         | tinyint(1)    | YES  |     | NULL    |                |
+| created_at           | datetime      | YES  |     | NULL    |                |
+| updated_at           | datetime      | YES  |     | NULL    |                |
++----------------------+---------------+------+-----+---------+----------------+
+
+Table: units
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| context_id  | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  | UNI | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Table: user_invitations
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| sender_id    | int(11)      | YES  |     | NULL    |                |
+| email        | varchar(255) | YES  |     | NULL    |                |
+| token        | varchar(255) | YES  |     | NULL    |                |
+| accepted_at  | datetime     | YES  |     | NULL    |                |
+| recipient_id | int(11)      | YES  |     | NULL    |                |
+| message      | text         | YES  |     | NULL    |                |
+| sent_at      | datetime     | YES  |     | NULL    |                |
+| created_at   | datetime     | YES  |     | NULL    |                |
+| updated_at   | datetime     | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+
+Table: users
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int(11)      | NO   | PRI | NULL    | auto_increment |
+| uid             | varchar(255) | YES  | UNI | NULL    |                |
+| sn              | varchar(255) | YES  | MUL | NULL    |                |
+| displayname     | varchar(255) | YES  |     | NULL    |                |
+| mail            | varchar(255) | NO   |     |         |                |
+| telephonenumber | varchar(255) | YES  |     | NULL    |                |
+| created_at      | datetime     | YES  |     | NULL    |                |
+| updated_at      | datetime     | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+
+Table: validation_conditions
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| validation_id  | int(11)      | YES  | MUL | NULL    |                |
+| rule_key       | varchar(255) | YES  |     | NULL    |                |
+| operator       | varchar(255) | YES  |     | NULL    |                |
+| question_id    | int(11)      | YES  |     | NULL    |                |
+| answer_id      | int(11)      | YES  |     | NULL    |                |
+| datetime_value | datetime     | YES  |     | NULL    |                |
+| integer_value  | int(11)      | YES  |     | NULL    |                |
+| float_value    | float        | YES  |     | NULL    |                |
+| unit           | varchar(255) | YES  |     | NULL    |                |
+| text_value     | text         | YES  |     | NULL    |                |
+| string_value   | varchar(255) | YES  |     | NULL    |                |
+| response_other | varchar(255) | YES  |     | NULL    |                |
+| regexp         | varchar(255) | YES  |     | NULL    |                |
+| created_at     | datetime     | YES  |     | NULL    |                |
+| updated_at     | datetime     | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Table: validations
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| answer_id  | int(11)      | YES  | MUL | NULL    |                |
+| rule       | varchar(255) | YES  |     | NULL    |                |
+| message    | varchar(255) | YES  |     | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+Table: vital_statuses
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| position    | int(11)      | YES  |     | NULL    |                |
+| code        | varchar(255) | NO   | UNI | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| created_at  | datetime     | YES  |     | NULL    |                |
+| updated_at  | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
