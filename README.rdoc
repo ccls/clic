@@ -156,17 +156,17 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
 
  ( warble from a jruby environment to get the jruby specific gems )
 
- [jakewendt@dev : ucb_sph_ccls_buffler ]>
+ [jakewendt@dev : ucb_sph_ccls_clic ]>
  bash
  rvm use jruby
  warble
- scp buffler.war ccls.berkeley.edu:
+ scp clic.war ccls.berkeley.edu:
 
  [jakewendt@ccls-01]>
  sudo /sbin/service tomcat5 stop
  sudo su -l tomcat
- /bin/rm -rf /var/lib/tomcat5/webapps/buffler
- cp ~jakewendt/buffler.war /var/lib/tomcat5/webapps/
+ /bin/rm -rf /var/lib/tomcat5/webapps/clic
+ cp ~jakewendt/clic.war /var/lib/tomcat5/webapps/
  exit
 
  sudo /sbin/service tomcat5 start
