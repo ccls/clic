@@ -22,7 +22,8 @@ Rails::Initializer.run do |config|
 	# config.gem "aws-s3", :lib => "aws/s3"
 
 
-
+	#	This is set to /clic in environments/production.rb
+	config.action_controller.relative_url_root = ''
 	
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
