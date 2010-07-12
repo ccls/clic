@@ -1,7 +1,3 @@
-#pages {
-}
-.page{
-}
 img.handle {
 	padding: 6px 0;
 }
@@ -12,32 +8,15 @@ img.handle {
 	text-align:center;
 }
 .path {
-	margin-left:13px;
-	width: 130px;
-/*
-	clear:left;
-*/
+	width: 150px;
 }
 .menu {
 	width: 150px;
 }
 .title {
-	width: 220px;
-}
-.controller {
-	width: 100px;
-}
-.manage {
+	width: 150px;
 }
 
 .page.row.ui-sortable-helper {
 	border: 1px dashed #E7C254;
-}
-
-.children {
-	margin-left:59px;
-	clear:left;
-}
-.children .children{
-	margin-left: 10px;
 }
