@@ -38,11 +38,9 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-	map.root :controller => "pages", :action => "show", :path => [""]
 
 	map.resource  :calendar,   :only => [ :show ]
 
-	map.resources :pages, :collection => { :order => :post }
 	map.resources :home_page_pics, :collection => { :activate => :post }
 
 	map.connect 'stylesheets/:action.:format', :controller => 'stylesheets'
