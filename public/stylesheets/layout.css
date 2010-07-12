@@ -1,0 +1,140 @@
+/* CSS layout for clic, Buffler Center website */
+
+body {
+	background: url(../images/backgroundBG.gif)
+}
+
+#container {
+	width: 800px;
+	margin: 0px auto;
+	padding: 15px;
+	background: #fff;
+}
+
+#logo {
+	float: left;
+	width: 130px;
+	margin-bottom: 15px;
+}
+
+#cse-search-box {
+	float: right;
+}
+
+#cse-search-box label {
+	display: none;
+}
+
+#cse-search-box input[type="text"] {
+	border: 1px solid #666;
+	width: 12em;
+	margin-right: 5px;
+	height: 1.2em;
+}
+
+#contact {
+	clear: left;
+	text-align: right;
+	padding: 3px;
+	background: #99CCFF;
+	font: italic 0.7em Arial, Helvetica, sans-serif;
+}
+
+#header1 {
+	height: 120px;
+	padding-top: 10px;
+	background: #99CCFF;
+}
+
+#header1 img {
+	border-right: 1px solid #fff;
+	float: left;
+}
+
+#header2 {
+	padding-bottom: 20px;
+	background: #99CCFF;
+}
+
+#GlobalNav {
+	float: left;
+	width: 145px;
+	clear: left;
+}
+
+#GlobalNav li {
+	padding: 5px;
+	background: #6699CC;
+	border-bottom: 1px solid #99CCFF;
+	font: 0.8em Arial, Helvetica, sans-serif;
+}
+
+#GlobalNav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#GlobalNav a:hover {
+	text-decoration: underline;
+}
+
+#content {
+	border-left: 145px solid #99CCFF;
+	padding-left: 15px;
+	padding-bottom: 30px; /* makes room for shifted footer */
+	margin-bottom: -30px;
+	min-height: 300px;
+	font: 0.8em Arial, Helvetica, sans-serif;
+	color: #000;
+	width: 640px;
+}
+
+#footer {
+	margin-left: 160px;
+	border-top: 1px solid #999;
+	padding-top: 15px;
+	padding-top: 15px;
+	font: 0.7em Arial, Helvetica, sans-serif;
+	color: #666;
+}
+
+#footer a {
+	color: #666;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	color: #666;
+	text-decoration: underline;
+}
+
+h1 {
+	font: bold 1.1em Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	padding: 3px 0px 2px 5px;
+	color: #fff;
+	/* border-left: 2px solid #6699CC; */
+	background: #6699CC;
+}
+
+h2 {
+	font: bold 1.4em Arial, Helvetica, sans-serif;
+	color: #6699CC;
+}
+
+h3 {
+	font: bold 1.2em Arial, Helvetica, sans-serif;
+	color: #000;
+}
+
+h4 {
+	font-weight: bold;
+	font-style: italic;
+	color: #000;
+}
+
+h1, h2, h3, h4, p {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+

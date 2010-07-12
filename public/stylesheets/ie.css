@@ -1,0 +1,12 @@
+/* CSS IE compliance styles for clic, Buffler Center website */
+
+#GlobalNav {
+	position: relative;
+	z-index: 2;
+}
+
+#content {
+	position: relative;
+	margin-top: -18.5em;
+	z-index: 1;
+}

@@ -1,228 +1,151 @@
 --- 
-pages_15: 
-  position: 1
-  menu_en: Findings
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 15
-  path: /findings
-  parent_id: 14
-  hide_menu: false
-  body_en: Findings Page Body
-  title_en: Findings
 pages_1: 
   position: 1
-  menu_en: CCLS
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 1
+  menu_en: Home
+  body_es: ""
+  title_es: ""
+  menu_es: ""
   path: /
   parent_id: 
   hide_menu: false
   body_en: |
-    <div class='equal_height_column_wrapper'>
-    <div style='width:33%;float:left;text-align:center;'>
-    Column 1
-    </div>
-    <div style='width:33%;float:left;text-align:center;'>
-    Column 2
-    </div>
-    <div style='width:33%;float:left;text-align:center;'>
-    Column 3
-    </div>
-    </div>
-  title_en: CCLS
+    The Childhood Leukemia International Consortium (CLIC) is an international group of researchers established in 2006 in collaboration with the University of California at Berkeley and the International Agency for Research on Cancer, with the aim of sharing comparable data from case-control and family-based trio studies on childhood leukemia. Through this joint research, we will coordinate scientific efforts and achieve greater power to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes.
+
+    ---
+
+    h2. Childhood Leukemia International Consortium News
+
+    h3. CLIC 2010 Meeting
+
+    Fourth Annual Meeting in 2010 will be held in Boston, Massachusetts (USA) on October 18-19, 2010, two days prior to the SIOP Conference. More information about the meeting will be posted shortly.
+
+    Please send all inquiries of the meeting to clic_centraloffice@berkeley.edu.
+
+    ---
+
+    h2. Call for Expressions of Interest for Data Pooling
+
+    The CLIC Data Pooling guidelines, forms, and timelines have been finalized and posted at http://clic.berkeley.edu/ResearchProjects/ to begin requests for pooled analysis within our consortium.
+
+    The first call for Expressions of Interest (EOI) was on March 31, 2009, and interested researchers will need to submit their EOI forms to the newly established, all purpose email at CLIC_centraloffice@berkeley.edu by April 27, 2009 to then be distributed to the CLIC Coordination Group for review and evaluation.
+
+    Calls for Expressions of Interest for Pooled Analysis will be in mid-March and mid-September.
+
+    ---
+
+    h5. Past Events
+
+    p(style1). CLIC 2009 Meeting
+
+    Friday, June 26, 2010 | 8:00 AM to 5:30 PM
+
+    St. Albans Centre, London, UK
+
+    p(style1). CLIC 2008 Meeting
+
+    Saturday, April 12, 2008 | 8:00 AM to 5:30 PM
+
+    Santa Rosa Room, San Diego Marriott Hotel and Marina, San Diego, California, USA
+
+    p(style1). CLIC 2007 Meeting
+
+    Wednesday, November 13, 2007 | 12:30 PM to 6:30 PM
+
+    Solone Grande Room, Casa Madrona Hotel and Spa, Sausalito, California, USA
+
+    p(style1). CLIC 2006 Meeting
+
+    Monday, April 3, 2006 | 1:00 PM to 4:00 PM
+
+    Cosmos Club, Washington, D.C., USA
+
+    Please contact "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu for all questions.
+  title_en: Home
 pages_2: 
   position: 2
   menu_en: About
   body_es: 
   title_es: 
   menu_es: 
-  id: 2
   path: /about
   parent_id: 
   hide_menu: false
   body_en: About Page Body
   title_en: About
-pages_16: 
-  position: 2
-  menu_en: Awards
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 16
-  path: /awards
-  parent_id: 14
-  hide_menu: false
-  body_en: Awards Page Body
-  title_en: Awards
-pages_3: 
-  position: 1
-  menu_en: Goals
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 3
-  path: /goals
-  parent_id: 2
-  hide_menu: false
-  body_en: Goals Page Body
-  title_en: Goals
-pages_17: 
+pages_20: 
   position: 6
-  menu_en: Privacy
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 17
-  path: /privacy
+  menu_en: Working Groups
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  path: /workinggroups
   parent_id: 
-  hide_menu: true
-  body_en: Privacy Page Body
-  title_en: Privacy
-pages_4: 
-  position: 2
-  menu_en: Staff Bios
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 4
-  path: /staffbios
-  parent_id: 2
   hide_menu: false
-  body_en: Staff Bios Page Body
-  title_en: Staff Bios
-pages_18: 
-  position: 7
-  menu_en: Terms
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 18
-  path: /terms
-  parent_id: 
-  hide_menu: true
-  body_en: Terms Page Body
-  title_en: Terms
-pages_5: 
-  position: 3
-  menu_en: Partners
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 5
-  path: /partners
-  parent_id: 2
-  hide_menu: false
-  body_en: Partners Page Body
-  title_en: Partners
-pages_6: 
-  position: 4
-  menu_en: Funding
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 6
-  path: /funding
-  parent_id: 2
-  hide_menu: false
-  body_en: Funding Page Body
-  title_en: Funding
-pages_7: 
+  body_en: Working Groups
+  title_en: Working Groups
+pages_19: 
   position: 5
-  menu_en: Contact
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 7
-  path: /contactus
-  parent_id: 2
+  menu_en: Research Projects
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  path: /researchprojects
+  parent_id: 
   hide_menu: false
-  body_en: Contact Page Body
-  title_en: Contact
-pages_10: 
-  position: 2
+  body_en: Research Projects
+  title_en: Research Projects
+pages_21: 
+  position: 7
+  menu_en: Publications
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  path: /publications
+  parent_id: 
+  hide_menu: false
+  body_en: Publications
+  title_en: Publications
+pages_22: 
+  position: 8
   menu_en: Links
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 10
+  body_es: ""
+  title_es: ""
+  menu_es: ""
   path: /links
-  parent_id: 8
+  parent_id: 
   hide_menu: false
-  body_en: Links Page Body
+  body_en: Links
   title_en: Links
 pages_11: 
   position: 4
-  menu_en: Research
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 11
-  path: /research
+  menu_en: CLIC Studies
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  path: /casestudies
   parent_id: 
   hide_menu: false
   body_en: Research Page Body
-  title_en: Research
+  title_en: CLIC Studies
 pages_8: 
   position: 3
-  menu_en: Families
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 8
-  path: /families
+  menu_en: Members
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  path: /members
   parent_id: 
   hide_menu: false
   body_en: Families Page Body
-  title_en: Families
-pages_12: 
-  position: 1
-  menu_en: Projects
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 12
-  path: /cclsprojects
-  parent_id: 11
-  hide_menu: false
-  body_en: Projects Page Body
-  title_en: Projects
-pages_9: 
-  position: 1
-  menu_en: Factsheet
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 9
-  path: /factsheet
-  parent_id: 8
-  hide_menu: false
-  body_en: Factsheet Page Body
-  title_en: Factsheet
-pages_13: 
-  position: 2
-  menu_en: Publications
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 13
-  path: /publications
-  parent_id: 11
-  hide_menu: false
-  body_en: Publications Page Body
-  title_en: Publications
-pages_14: 
-  position: 5
-  menu_en: News
-  body_es: 
-  title_es: 
-  menu_es: 
-  id: 14
-  path: /news
+  title_en: Members
+pages_23: 
+  position: 9
+  menu_en: Contact Us
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  path: /contact
   parent_id: 
   hide_menu: false
-  body_en: News Page Body
-  title_en: News
+  body_en: Contact Us
+  title_en: Contact Us
