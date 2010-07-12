@@ -1,3 +1,4 @@
+--- 
 pages_1: 
   position: 1
   menu_en: Home
@@ -56,7 +57,6 @@ pages_1:
     Cosmos Club, Washington, D.C., USA
     
     Please contact "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu for all questions.
-
   title_en: Home
 pages_2: 
   position: 2
@@ -70,31 +70,32 @@ pages_2:
   hide_menu: false
   body_en: |-
     h1. About Us
-
+    
     h2. Introduction
-
+    
     The Childhood Leukemia International Consortium (CLIC) is an international group of researchers established in 2006 in collaboration with the University of California at Berkeley and the International Agency for Research on Cancer, with the aim of sharing comparable data from case-control and family-based trio studies on childhood leukemia. The objectives of CLIC are two-fold: (1) to combine existing questionnaire and genotyping data from several case-control studies conducted in Europe, Northern and Southern America, and Asia leading to expected numbers of approximately 8,000 childhood leukemia cases and 14,000 controls; and (2) to foster collaboration with other research teams that are in the planning phase for future studies childhood leukemia.  Through this joint research, we will coordinate scientific efforts and achieve greater power to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes.
-
+    
     h2. About CLIC
-
+    
     Childhood Leukemia is the leading cancer in children worldwide, yet it is a rare disease compared to adult cancers. The most frequent histological subtype is acute lymphoid leukemia (75%) followed by acute myeloid leukemia (19%).  Its etiology remains largely unknown, mainly due to its biological diversity and the multifactorial etiology involving interactions between genetic and environmental factors. This problem is further compounded when considering leukemia subtypes and specific cytogenetic groups characterized by chromosome changes (i.e., translocation, deletion, hyperdiploidy).
-
+    
     In the short term, the CLIC will pursue pooled analysis of currently available data across the studies. Future directions will include efforts to replicate novel findings, implement coordinated genotyping (this is not limited to genetic susceptibility studies, but should also include tumor genetic and epigenetic analyses), review and establish a standardized pathologic process worldwide, and design new studies in the context of the consortium to test novel hypothesis.  
-
+    
     h4. Mission
-
+    
     The Childhood Leukemia International Consortium (CLIC) is a consortium of scientists involved in childhood leukemia research. CLIC\xE2\x80\x99s Mission is to develop and support collaborations between member groups to identify factors that influence the risk of childhood leukemia through epidemiological studies and related research. CLIC encourages free exchange of results (published or unpublished) and ideas in a collegial environment without fear of competition.
-
+    
     h4. Objectives
-
+    
     Within the scope defined by its Mission, the objectives of CLIC are to expand knowledge of the etiology of childhood leukemia through:
 
-   # Fostering collaborations between researchers in different countries;
-   # Fostering sharing of comparable data from existing/ongoing case-control and family-based trio studies;
-   # Fostering collaboration with researchers that are in the planning phase for future studies;
-   # Providing a framework for the efficient conduct and publication of pooled and/or replication studies;
-   # Providing a forum and framework for discussion, development and pursuit of new research directions; and
-   # Supporting the development of early career researchers.
+    # Fostering collaborations between researchers in different countries;
+    # Fostering sharing of comparable data from existing/ongoing case-control and family-based trio studies;
+    # Fostering collaboration with researchers that are in the planning phase for future studies;
+    # Providing a framework for the efficient conduct and publication of pooled and/or replication studies;
+    # Providing a forum and framework for discussion, development and pursuit of new research directions; and
+    # Supporting the development of early career researchers.
+
   title_en: About
 pages_3: 
   position: 3
@@ -108,11 +109,11 @@ pages_3:
   hide_menu: false
   body_en: |-
     h1. Members
-
+    
     h4. The Childhood Leukemia International Consortium (CLIC) consists of the Coordination Group, Management Group, Core Logistics Groups, Interest Groups, and Working Groups (see organization chart below).
-
+    
     CLIC members are epidemiologists involved in childhood leukemia studies and scientists with expertise in domains relevant to childhood leukemia. Members are expected to bring to the consortium their expertise, ideas and resources, including results, raw data and biological samples. Membership is effective upon notification to and confirmation of acceptance by the Coordination Group.
-
+    
     More information about membership (i.e. criteria, structure) can be found in the Membership Guidelines.
   title_en: Members
 pages_4: 
@@ -127,15 +128,15 @@ pages_4:
   hide_menu: false
   body_en: |-
     h1. CLIC Studies
-
+    
     h2. Study Description
-
+    
     The time periods of recruitment vary between individual studies with commencement year ranging from 1989 to 2003.  About half of the studies are still ongoing.  Tthe majority of the studies are population-based. Most studies have an age criterion of 0 to 14 years, with the exception of the Brazilian study (0-2 yrs), Italian study (<11 years), and the St. Justine and Seoul studies (0-18 yrs).  Most studies have matched on age and sex with some studies also matching on race/ethnicity.  The total estimated target sample size for all studies combined is approximately 8,000 cases and 14,000 controls. A breakdown of the sample size by major leukemia subtypes shows that there are approximately 6,700 B- and T-cell acute lymphoid leukemia and 970 acute myeloid leukemia.
-
+    
     h3. Questionnaire data and DNA sample collection
-
+    
     Regarding data collected through questionnaires, all studies obtain information on parental occupation, smoking, and alcohol consumption.  Most studies obtain information on pesticide use, family history, medical history, and daycare attendance.  Only a few studies obtain information on dietary factors.  DNA samples are available for the child, mother, or father from all studies except those from Germany and Italy.  Across the studies, child DNA is currently available for approximately 4,800 cases and 5,000 controls, and 2,100 case trios (child/mother/father). 
-
+    
     h3. Map of Distribution of the Research Groups and Study Areas in the World
   title_en: CLIC Studies
 pages_5: 
@@ -150,31 +151,31 @@ pages_5:
   hide_menu: false
   body_en: |-
     h1. Research Projects
-
+    
     Forms to initiate a pooled analysis proposal
-
+    
     One of the main objectives of the Childhood Leukemia International Consortium is to foster collaborations amongst researchers through pooled analyses to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes. To facilitate this process, the Data Sharing and Pooled Analyses Core Logistics Group (Lead: Elizabeth Milne) created guidelines and forms for researchers to submit interest and proposals for pooled analyses. These forms were approved by the CLIC Coordination Group (CG) and call for Expressions of Interest for pooled analyses will be announced twice each year in Mid-March and Mid-September.
-
+    
     In 2009, the CLIC CG will call for Expressions of Interest for pooled analysis on March 13, 2009 (the form is due March 30) and on August 3, 2009 (the form is due August 31).
-
+    
     Please carefully review the guidelines, 2009 timeline, and forms below and submit all forms to the CLIC Central Office at CLIC_centraloffice@berkeley.edu by the appropriate deadlines.
-
+    
     CLIC Guideline, 2009 Timeline, and Full Proposal Outline
-
+    
     Expression of Interest Form
-
+    
     Agreement for Pooled Analysis Form
-
+    
     Should you have any questions/concerns, please direct them to the CLIC Central Office at CLIC_centraloffice@berkeley.edu.
-
+    
     h2. Pooled analysis on MTHFR gene and maternal folate.
-
+    
     As the first proof of principle for this consortium, a grant proposal was submitted to the National Cancer Institute and successfully funded in October 2007 (grant No. 1R03CA132172-01).  This project proposes to conduct pooled analyses to evaluate the role of the use of folate supplements during pregnancy, maternal alcohol consumption (known to reduce folate bioavailability), and methylenetetrahydrofolate reductase (MTHFR) genetic variants in the development of childhood leukemia by histological and cytogenetic subtype, and to assess the interactions between these factors. To achieve these aims, the CLIC will combine data from six studies in Northern California, Canada, the United Kingdom, France, and Australia, resulting in over 3,300 cases and 4,400 controls. Data will be pooled centrally at the University of California, Berkeley.
-
+    
     For a table of participating studies in the grant proposal, please click here.
-
+    
     h2. Other Projects with Top Priorities
-
+    
     h4. Forthcoming
   title_en: Research Projects
 pages_6: 
@@ -189,7 +190,7 @@ pages_6:
   hide_menu: false
   body_en: |-
     h1. Working Groups
-
+    
     Working groups will be established to pursue research proposed by the Interest Groups. There is already one Working Group that received funding from the US National Cancer Institute to examine the role of folate and MTHFR genes.
   title_en: Working Groups
 pages_7: 
@@ -204,13 +205,25 @@ pages_7:
   hide_menu: false
   body_en: |-
     h1. Publications
-
+    
     h4. The Childhood Leukemia International Consortium adheres to the Authorship Guidelines approved by the Coordination Group in February 2009.
-
+    
     h5. Childhood Leukemia International Consortium
-
+    
     h4. Forthcoming
   title_en: Publications
+pages_10: 
+  position: 10
+  menu_en: Search Results
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 10
+  path: /searchresults
+  parent_id: 
+  hide_menu: true
+  body_en: Search Results
+  title_en: Search Results
 pages_8: 
   position: 8
   menu_en: Links
@@ -223,42 +236,42 @@ pages_8:
   hide_menu: false
   body_en: |-
     h1. Links
-
+    
     h2. Individiual Studies
-
+    
     "http://nccls.berkeley.edu":http://nccls.berkeley.edu
     The Northern California Childhood Leukemia Study
-
+    
     "http://www.ukccs.org/":http://www.ukccs.org/
     United Kingdom Childhood Cancer Study
-
-
+    
+    
     h2. Funding Agencies
-
+    
     "http://www.nih.gov/":http://www.nih.gov/
     National Institutes of Health, USA
-
+    
     "http://www.cancer.gov/":http://www.cancer.gov/
     National Cancer Institute, USA
-
+    
     "http://www.niehs.nih.gov/":http://www.niehs.nih.gov/
     National Institute of Environmental Health Sciences
-
+    
     "http://www.leukaemia.org/":http://www.leukaemia.org/
     Children with Leukaemia
-
+    
     "http://www.lls.org/":http://www.lls.org/
     Leukemia and Lymphoma Society
-
-
+    
+    
     h2. Other Consortia
-
+    
     "http://ilcco.iarc.fr/":http://ilcco.iarc.fr/
     International Lung Consortium
-
+    
     "http://inhance.iarc.fr/":http://inhance.iarc.fr/
     International Head and Neck Cancer Epidemiology
-
+    
     "http://epi.grants.cancer.gov/InterLymph/":http://epi.grants.cancer.gov/InterLymph/
     International Lymphoma Epidemiology Consortium
   title_en: Links
@@ -274,11 +287,11 @@ pages_9:
   hide_menu: false
   body_en: |-
     h1. Contact Us
-
+    
     h4. For all CLIC inquiries, please contact the CLIC Central Office at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu.
-
+    
     Mailing Address:
-
+    
     University of California, Berkeley
     School of Public Health
     (Attn: Alice Kang)
