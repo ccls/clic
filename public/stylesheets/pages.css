@@ -1,52 +1,43 @@
-div#pages {
-/*
-	padding-top:20px;
-*/
+#pages {
 }
-div.page{
+.page{
 }
 img.handle {
 	padding: 6px 0;
-	float:left;
 }
-div.position {
-	float:left;
+.position {
 	font-weight:bold;
 	border: 1px solid black;
-	margin-left: 10px;
-	padding: 0 5px;
+	padding: 3px;
+	text-align:center;
 }
-div.path {
+.path {
 	margin-left:13px;
-	float:left;
 	width: 130px;
 /*
 	clear:left;
 */
 }
-div.menu {
-	float:left;
+.menu {
 	width: 150px;
 }
-div.title {
-	float:left;
+.title {
 	width: 220px;
 }
-div.controller {
-	float:left;
+.controller {
 	width: 100px;
 }
-div.manage {
+.manage {
 }
 
-div.page.row.ui-sortable-helper {
+.page.row.ui-sortable-helper {
 	border: 1px dashed #E7C254;
 }
 
-div.children {
+.children {
 	margin-left:59px;
 	clear:left;
 }
-div.children .children{
+.children .children{
 	margin-left: 10px;
 }
