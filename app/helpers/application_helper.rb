@@ -39,14 +39,6 @@ module ApplicationHelper
 		end
 	end
 
-	def application_home_page_pic
-		if @page && @page.is_home? && !@hpp.nil?
-			s = "<div id='home_page_pic' class='main_width'>\n"
-			s << image_tag( @hpp.image.url(:full) )
-			s << "\n</div><!-- id='home_page_pic'  -->\n"
-		end
-	end
-
 	#	This creates a button that looks like a submit button
 	#	but is just a javascript controlled link.
 	#	I don't like it.
@@ -99,7 +91,6 @@ module ApplicationHelper
 		l.push(link_to( 'Pages', pages_path ))
 		l.push(link_to( 'Calendar', calendar_path ))
 		l.push(link_to( 'Users', users_path ))
-		l.push(link_to( 'HomePagePics', home_page_pics_path ))
 		if logged_in? 
 			l.push(link_to( "My Account", user_path(current_user) ))
 			l.push(link_to( "Logout", logout_path ))

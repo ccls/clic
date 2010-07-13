@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
 		(self.role_names & ['administrator','editor']).length > 0
 	end
 	alias_method :may_maintain_pages?,      :editor?
-	alias_method :may_view_home_page_pics?, :editor?
 
 	def may_view_calendar?(*args)
 		(self.role_names & ['administrator','editor','employee']).length > 0

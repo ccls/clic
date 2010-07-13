@@ -41,8 +41,6 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resource  :calendar,   :only => [ :show ]
 
-	map.resources :home_page_pics, :collection => { :activate => :post }
-
 	map.connect 'stylesheets/:action.:format', :controller => 'stylesheets'
 	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
 
