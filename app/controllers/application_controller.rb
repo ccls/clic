@@ -1,8 +1,5 @@
-#require 'auth_by_authlogic'
-require 'auth_by_ucb_cas'
 require 'authorization'
 class ApplicationController < ActionController::Base
-	before_filter :login_required
 
 	include SslRequirement
 
@@ -10,11 +7,6 @@ class ApplicationController < ActionController::Base
 
 	# See ActionController::RequestForgeryProtection for details
 	protect_from_forgery 
-
-	# Scrub sensitive parameters from your log
-	filter_parameter_logging :password
-
-	helper_method :current_user, :logged_in?
 
 protected	#	private #	(does it matter which or if neither?)
 
@@ -28,10 +20,6 @@ protected	#	private #	(does it matter which or if neither?)
 	def ssl_required?
 		#	Force https everywhere (that doesn't have ssl_allowed set)
 		true
-	end
-
-	def logged_in?
-		!current_user.nil?
 	end
 
 	def redirect_to_referer_or_default(default)

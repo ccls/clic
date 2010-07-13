@@ -1,20 +1,23 @@
-img.handle {
-	padding: 6px 0;
+table#pages {
+	width: 100%;
 }
-.position {
+.page img.handle {
+}
+.page .position {
 	font-weight:bold;
-	border: 1px solid black;
-	padding: 3px;
 	text-align:center;
 }
-.path {
+.page .path {
 	width: 150px;
 }
-.menu {
+.page .menu {
 	width: 150px;
 }
-.title {
+.page .title {
 	width: 150px;
+}
+.page .manage {
+	text-align:right;
 }
 
 .page.row.ui-sortable-helper {
