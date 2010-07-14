@@ -1,7 +1,7 @@
 require 'authorization'
 class ApplicationController < ActionController::Base
 
-	include SslRequirement
+#	include SslRequirement
 
 	helper :all # include all helpers, all the time
 
@@ -15,12 +15,12 @@ protected	#	private #	(does it matter which or if neither?)
 #			access_denied("You must be logged out to do that",root_path)
 #	end
 
-	#	Does nothing in testing as https just causes errors.
-	#	Gotta figure this thing out.
-	def ssl_required?
-		#	Force https everywhere (that doesn't have ssl_allowed set)
-		true
-	end
+#	#	Does nothing in testing as https just causes errors.
+#	#	Gotta figure this thing out.
+#	def ssl_required?
+#		#	Force https everywhere (that doesn't have ssl_allowed set)
+#		true
+#	end
 
 	def redirect_to_referer_or_default(default)
 		redirect_to( session[:refer_to] || 
