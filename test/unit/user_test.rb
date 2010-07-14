@@ -4,6 +4,8 @@ class UserTest < ActiveSupport::TestCase
 
 	assert_should_require(:uid)
 	assert_should_require_unique(:uid)
+#	assert_should_habtm(:roles)
+#	assert_should_habtm(:groups)
 
 	test "should create user" do
 		assert_difference 'User.count' do

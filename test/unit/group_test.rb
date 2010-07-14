@@ -1,18 +1,18 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RoleTest < ActiveSupport::TestCase
+class GroupTest < ActiveSupport::TestCase
 
-	assert_should_act_as_list
 	assert_should_require(:name)
 	assert_should_require_unique(:name)
+	assert_should_have_many(:forums)
 #	assert_should_habtm(:users)
 
-	test "should create role" do
-		assert_difference('Role.count',1) do
+	test "should create group" do
+		assert_difference('Group.count') do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
-		end 
+		end
 	end
 
 	test "should respond to users" do
@@ -23,7 +23,7 @@ class RoleTest < ActiveSupport::TestCase
 protected
 
 	def create_object(options = {})
-		record = Factory.build(:role,options)
+		record = Factory.build(:group,options)
 		record.save
 		record
 	end

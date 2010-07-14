@@ -8,6 +8,11 @@
 #	*	telephonenumber
 class User < ActiveRecord::Base
 
+
+	has_and_belongs_to_many :groups
+
+
+
 	ucb_authenticated
 
 	def may_administrate?(*args)
