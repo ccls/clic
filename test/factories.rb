@@ -1,3 +1,9 @@
+Factory.define :document do |f|
+end
+
+Factory.define :image do |f|
+end
+
 Factory.define :home_page_pic do |f|
 	f.sequence(:title){ |n| "Title #{n}" }
 end
