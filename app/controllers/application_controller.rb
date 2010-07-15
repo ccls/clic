@@ -1,7 +1,4 @@
-require 'authorization'
 class ApplicationController < ActionController::Base
-
-#	include SslRequirement
 
 	helper :all # include all helpers, all the time
 
@@ -9,33 +6,6 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery 
 
 protected	#	private #	(does it matter which or if neither?)
-
-#	def no_current_user_required
-#		logged_in? &&
-#			access_denied("You must be logged out to do that",root_path)
-#	end
-
-#	#	Does nothing in testing as https just causes errors.
-#	#	Gotta figure this thing out.
-#	def ssl_required?
-#		#	Force https everywhere (that doesn't have ssl_allowed set)
-#		true
-#	end
-
-	def redirect_to_referer_or_default(default)
-		redirect_to( session[:refer_to] || 
-			request.env["HTTP_REFERER"] || default )
-		session[:refer_to] = nil
-	end
-
-	#	Flash error message and redirect
-	def access_denied( 
-			message="You don't have permission to complete that action.", 
-			default=root_path )
-		session[:return_to] = request.request_uri
-		flash[:error] = message
-		redirect_to default
-	end
 
 	#	This is a method that returns a hash containing
 	#	permissions used in the before_filters as keys
@@ -52,8 +22,8 @@ protected	#	private #	(does it matter which or if neither?)
 		})
 	end
 
-	def block_all_access
-		access_denied("That route is no longer available")
-	end
+#	def block_all_access
+#		access_denied("That route is no longer available")
+#	end
 
 end

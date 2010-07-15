@@ -5,20 +5,6 @@ require 'test_help'
 $LOAD_PATH.unshift File.dirname(__FILE__) # NEEDED for rake test:coverage
 require 'factory_test_helper'
 
-require 'pending'
-require 'declarative'
-require 'no_access_without_login'
-require 'no_access_with_login'
-require 'access_without_login'
-require 'access_with_login'
-require 'access_with_https'
-require 'access_with_http'
-require 'no_access_with_http'
-require 'requires_valid_associations'
-require 'should_act_as_list'
-require 'should_associate'
-require 'should_require'
-
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
 
@@ -27,8 +13,6 @@ class ActiveSupport::TestCase
 	self.use_transactional_fixtures = true
 	self.use_instantiated_fixtures  = false
 	fixtures :all
-
-	include FactoryTestHelper
 
 end
 
@@ -51,9 +35,3 @@ class ActionController::TestCase
 	end
 
 end
-
-#class ActionController::TestRequest
-#	def ssl?
-#		true
-#	end
-#end
