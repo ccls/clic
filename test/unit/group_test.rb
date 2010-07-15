@@ -5,7 +5,7 @@ class GroupTest < ActiveSupport::TestCase
 	assert_should_require(:name)
 	assert_should_require_unique(:name)
 	assert_should_have_many(:forums)
-#	assert_should_habtm(:users)
+	assert_should_habtm(:users)
 
 	test "should create group" do
 		assert_difference('Group.count') do
