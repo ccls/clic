@@ -88,14 +88,13 @@ pages_2:
     h4. Objectives
     
     Within the scope defined by its Mission, the objectives of CLIC are to expand knowledge of the etiology of childhood leukemia through:
-
+    
     # Fostering collaborations between researchers in different countries;
     # Fostering sharing of comparable data from existing/ongoing case-control and family-based trio studies;
     # Fostering collaboration with researchers that are in the planning phase for future studies;
     # Providing a framework for the efficient conduct and publication of pooled and/or replication studies;
     # Providing a forum and framework for discussion, development and pursuit of new research directions; and
     # Supporting the development of early career researchers.
-
   title_en: About
 pages_3: 
   position: 3
@@ -110,7 +109,7 @@ pages_3:
   body_en: |-
     h1. Members
     
-    h4. The Childhood Leukemia International Consortium (CLIC) consists of the Coordination Group, Management Group, Core Logistics Groups, Interest Groups, and Working Groups (see organization chart below).
+    h4. The Childhood Leukemia International Consortium (CLIC) consists of the "Coordination Group":/coordinationgroup, "Management Group":/managementgroup, "Core Logistics Groups":/corelogisticsgroups, "Interest Groups":/interestgroups, and "Working Groups":/workinggroups (see organization chart below).
     
     CLIC members are epidemiologists involved in childhood leukemia studies and scientists with expertise in domains relevant to childhood leukemia. Members are expected to bring to the consortium their expertise, ideas and resources, including results, raw data and biological samples. Membership is effective upon notification to and confirmation of acceptance by the Coordination Group.
     
@@ -193,6 +192,18 @@ pages_6:
     
     Working groups will be established to pursue research proposed by the Interest Groups. There is already one Working Group that received funding from the US National Cancer Institute to examine the role of folate and MTHFR genes.
   title_en: Working Groups
+pages_10: 
+  position: 10
+  menu_en: Search Results
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 10
+  path: /searchresults
+  parent_id: 
+  hide_menu: true
+  body_en: Search Results
+  title_en: Search Results
 pages_7: 
   position: 7
   menu_en: Publications
@@ -212,18 +223,84 @@ pages_7:
     
     h4. Forthcoming
   title_en: Publications
-pages_10: 
-  position: 10
-  menu_en: Search Results
+pages_11: 
+  position: 11
+  menu_en: Coordination Group
   body_es: ""
   title_es: ""
   menu_es: ""
-  id: 10
-  path: /searchresults
+  id: 11
+  path: /coordinationgroup
   parent_id: 
   hide_menu: true
-  body_en: Search Results
-  title_en: Search Results
+  body_en: |-
+    h1. Members
+    
+    h2. Coordination Group
+    
+    The Coordination Group will include the Principal Investigator (PI) of each childhood leukemia study that will contribute data (and possibly additional co-PI(s) for large studies). In the event the PI cannot be in the Coordination Group, s/he will nominate an authorized designate to represent her/his study. The final list of PI, co-PIs, and authorized designate will be established by the Coordination Group. The responsibilities of the Coordination Group are as follows:
+    
+    - Elect the Management Group members
+    - Oversee scientific agenda/priorities
+    - Review and approve new applications of a childhood leukemia study, and grant Active membership to its Principal Investigator upon acceptance of the study
+    - Review and approve proposed CLIC pooled analyses
+    - Develop policies/guidelines related to governance of CLIC (i.e. data pooling, authorship)
+    - Be a point of reference for conflict resolution; and
+    - Attend the annual meeting or send a representative if the principal investigator cannot attend.
+    
+    h5. The Coordination Group members are as follows:
+    
+    h4. Americas
+    
+    Brazil-IAL Study, Brazil
+    PI: Maria Pombo-de-Oliveira; Authorized Delegate: Sergio Koifman
+    
+    Childrens Oncology Group (COG) (CCG E-14, CCG E-15), USA
+    PI: Logan Spector
+    
+    Northern California Childhood Leukemia Study (NCCLS), USA
+    PI: Patricia Buffler; co-PIs: Catherine Metayer, Anand Chokkalingam; Authorized Delegates: Martyn Smith, Joe Wiemels
+    
+    Quebec Study, Canada
+    PI: Claire Infante-Rivard
+    
+    St. Justine Study, Canada
+    PI: Daniel Sinnett
+    
+    
+    h4. Asia
+    
+    Seoul Study, Korea
+    PI: Daehee Kang; Authorized Delegate: Kyoung-mu Lee
+    
+    h4. Europe
+    
+    ADELE, ELECTRE, ESCALE, France
+    PI: Jacqueline Clavel
+    
+    Childhood Cancer Research Group (CCRG), UK
+    PI: Michael Murphy
+    
+    German Childhood Cancer Registry (GCCR) (LSP, NIP, WGP), Germany
+    co- PIs: Peter Kaatsch, Joachim Sch\xC3\xBCz
+    
+    Italy
+    PI: Corrado Magnani
+    
+    Manchester, UK
+    co- PIs: Jillian Birch, Malcolm Taylor
+    
+    United Kingdom Childhood Cancer Study (UKCCS), UK
+    PI: Eve Roman; Authorized Delegate: Jill Simpson
+    
+    h4. Oceania
+    
+    AUS-ALL, Australia
+    co-PIs: Bruce Armstrong, Elizabeth Milne
+    
+    New Zealand Childhood Case Control Study
+    PI: John Dockerty
+  title_en: Coordination Group
 pages_8: 
   position: 8
   menu_en: Links
@@ -275,6 +352,32 @@ pages_8:
     "http://epi.grants.cancer.gov/InterLymph/":http://epi.grants.cancer.gov/InterLymph/
     International Lymphoma Epidemiology Consortium
   title_en: Links
+pages_12: 
+  position: 12
+  menu_en: Management Group
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 12
+  path: /managementgroup
+  parent_id: 
+  hide_menu: true
+  body_en: |-
+    h1. Members
+    
+    h2. Management Group
+    
+    A Management Group (Executive Committee) is elected by the Coordination Group every two years, either during a general meeting of CLIC or by e-mail. The Management Group will select one member to serve as Chair or Convenor. Members of the Management Group serve for a maximum of 4 years (consecutive). The Management Group is responsible for the maintenance of an updated list of members, the overall coordination of the collaboration, the communication amongst Interest Groups and Working Groups, the organization of general meetings and the coordination of grant applications. It also provides assistance to the participants when needed (e.g., by supporting a grant application at the national or international level). It can make management/coordination decisions on matters relating to CLIC when appropriate with or without first consulting with members. All its decisions will be transmitted immediately to the members.
+    
+    h4. Acting Members of the Management Group are as follows:
+    
+    Patricia A. Buffler, University of California, Berkeley, USA (Chair)
+    Jacqueline Clavel, INSERM, France
+    Claire Infante-Rivard, McGill University, Canada
+    Daehee Kang, Seoul National University, South Korea
+    Catherine Metayer, University of California, Berkeley, USA
+    Elizabeth Milne (Bruce Armstrong), University of Western Australia, Australia
+  title_en: Management Group
 pages_9: 
   position: 9
   menu_en: Contact Us
@@ -298,3 +401,66 @@ pages_9:
     2150 Shattuck Avenue, Suite 500
     Berkeley, CA 94720-7380
   title_en: Contact Us
+pages_13: 
+  position: 13
+  menu_en: Core Logistics Groups
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 13
+  path: /corelogisticsgroups
+  parent_id: 
+  hide_menu: true
+  body_en: |-
+    h1. Members
+    
+    h2. Core Logistics Groups
+    
+    Core Logistics Groups will be established and responsible for advising and facilitating cross-cutting issues as below:
+    
+    A. Data Management, Data Dictionary for Core Elements
+    (Lead: Catherine Metayer)
+    
+    B. Biospecimens: Transfer and Biorepository
+    (Lead: Daehee Kang)
+    
+    C. Data Sharing and Pooled Analyses
+    (Lead: Elizabeth Milne, Jacqueline Clavel)
+    
+    D. Disease Classification and Pathology
+    (Lead: Maria Pombo de Oliveira and Joe Wiemels)
+  title_en: Core Logistics Groups
+pages_14: 
+  position: 14
+  menu_en: Interest Groups
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 14
+  path: /interestgroups
+  parent_id: 
+  hide_menu: true
+  body_en: |-
+    h1. Members
+    
+    h2. Interest Groups
+    
+    The Interest Groups will promote collaborative projects in specific areas of childhood leukemia research (e.g., immunity/infection; environmental/occupation exposures; subtypes of childhood leukemia) There are currently eight Interest Groups (by alphabetical order):
+    
+    o AML/APL
+    o Birth Characteristics
+    o Environmental Exposures
+    o Family History
+    o Genetic Studies
+    o Infant Leukemia
+    o Infection and Immunity
+    o Occupational Exposures
+    
+    Research on specific topics will be proposed by the Interest Groups to the Coordination Group by completion of the data pooling forms. If the research proposed is supported by the Coordination Group, a Working Group will be established to pursue the proposed research.
+    
+    It is the responsibility of the Active and Associate CLIC members in the Interest and Core Logistics Groups to name one leader and one co-leader. If deemed necessary, two leaders and two co-leaders may be appointed for additional support. All leadership roles will rotate every year so that everyone who expresses interest in this role can fulfill the position.
+    
+    Leaders must be members of the Coordination Group (Principal Investigators and designates). It is preferred that co-leaders are members of the Coordination Group, but Active CLIC members who are not part of the Coordination Group can be given exceptional ad hoc status of co-leadership if deemed necessary and appropriate by the group (i.e. expertise, availability).
+    
+    Participation in Interest Groups, Working Groups, and Core Logistic Groups is open to all CLIC members. Leaders should inform all CLIC members of the activities of the respective Groups at annual meetings.
+  title_en: Interest Groups
