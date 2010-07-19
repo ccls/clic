@@ -234,11 +234,6 @@ class UserTest < ActiveSupport::TestCase
 		assert_not_nil user.gravatar_url
 	end
 
-	test "should respond to roles" do
-		user = create_user
-		assert user.respond_to?(:roles)
-	end
-
 	test "should have many roles" do
 		u = create_user
 		assert_equal 0, u.roles.length
