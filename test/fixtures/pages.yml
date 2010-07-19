@@ -1,4 +1,52 @@
 --- 
+pages_15: 
+  position: 15
+  menu_en: Past CLIC Meetings
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 15
+  path: /pastclicmeetings
+  parent_id: 
+  hide_menu: true
+  body_en: |-
+    h1. CLIC Annual Meeting Materials
+    
+    h2. Childhood Leukemia International Consortium (CLIC) Annual Meeting
+    
+    h3. CLIC 2009 Meeting
+    
+    h4. Friday, June 26, 2010 | 8:00 AM to 5:30 PM
+    St. Albans Centre, London, UK
+    
+    Meeting Materials
+    
+    !{width:100%}../images/Pat-London00024_000.JPG(Photo of the 2009 CLIC meeting)!
+    
+    h3. CLIC 2008 Meeting
+    
+    h4. Saturday, April 12, 2008 | 8:00 AM to 5:30 PM
+    San Diego, CA, USA, San Diego Marriott Hotel and Marina, Santa Rosa Room
+    
+    Meeting Materials
+    
+    h3. CLIC 2007 Meeting
+    
+    h4. Saturday, April 14, 2007 | 12:00 PM to 5:30 PM
+    Los Angeles, CA, USA, Westin Bonaventure Hotel, Santa Anita Meeting Room
+    
+    h4. Wednesday, November 13, 2007 | 12:30 PM to 6:30 PM
+    Sausalito, California, USA, Casa Madrona Hotel and Spa, Solone Grande Room
+    
+    Meeting Materials
+    
+    h3. CLIC 2006 Meeting
+    
+    h4. Monday, April 3, 2006 | 1:00 PM to 4:00 PM
+    Washington, D.C., USA, Cosmos Club
+    
+    Meeting Materials
+  title_en: Past CLIC Meetings
 pages_1: 
   position: 1
   menu_en: Home
@@ -137,6 +185,8 @@ pages_4:
     Regarding data collected through questionnaires, all studies obtain information on parental occupation, smoking, and alcohol consumption.  Most studies obtain information on pesticide use, family history, medical history, and daycare attendance.  Only a few studies obtain information on dietary factors.  DNA samples are available for the child, mother, or father from all studies except those from Germany and Italy.  Across the studies, child DNA is currently available for approximately 4,800 cases and 5,000 controls, and 2,100 case trios (child/mother/father). 
     
     h3. Map of Distribution of the Research Groups and Study Areas in the World
+    
+    !{width:100%}../images/CLICStudies123009_studiesonlynoPI.jpg(CLIC Studies 2010)!
   title_en: CLIC Studies
 pages_5: 
   position: 5
