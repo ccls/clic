@@ -1,7 +1,8 @@
 class DocumentsController < ApplicationController
 
 	before_filter :may_maintain_pages_required
-	before_filter :id_required, :only => [ :show, :edit, :update, :destroy, :download ]
+	before_filter :id_required, 
+		:only => [ :show, :edit, :update, :destroy, :preview ]
 
 	def show
 		if @document.document.path.blank?
