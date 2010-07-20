@@ -21,7 +21,7 @@ pages_15:
     
     Meeting Materials
     
-    !{width:100%}../images/Pat-London00024_000.JPG(Photo of the 2009 CLIC meeting)!
+    !{width:100%}/images/Pat-London00024_000.JPG(Photo of the 2009 CLIC meeting)!
     
     h3. CLIC 2008 Meeting
     
@@ -82,7 +82,7 @@ pages_1:
     
     ---
     
-    h5. "Past Events":http://clic.berkeley.edu/pastCLICmeetings.htm
+    h5. "Past Events":/pastclicmeetings
     
     p(style1). CLIC 2009 Meeting
     
@@ -162,6 +162,8 @@ pages_3:
     CLIC members are epidemiologists involved in childhood leukemia studies and scientists with expertise in domains relevant to childhood leukemia. Members are expected to bring to the consortium their expertise, ideas and resources, including results, raw data and biological samples. Membership is effective upon notification to and confirmation of acceptance by the Coordination Group.
     
     More information about membership (i.e. criteria, structure) can be found in the Membership Guidelines.
+    
+    !{width:100%}/images/CLICOrgChart_March09_000.jpg(CLIC Organization Chart)!
   title_en: Members
 pages_4: 
   position: 4
@@ -186,7 +188,7 @@ pages_4:
     
     h3. Map of Distribution of the Research Groups and Study Areas in the World
     
-    !{width:100%}../images/CLICStudies123009_studiesonlynoPI.jpg(CLIC Studies 2010)!
+    !{width:100%}/images/CLICStudies123009_studiesonlynoPI.jpg(CLIC Studies 2010)!
   title_en: CLIC Studies
 pages_5: 
   position: 5
