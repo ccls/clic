@@ -33,10 +33,10 @@ namespace :app do
 				:document => File.open(File.join(RAILS_ROOT,'to_upload',document)))
 		end
 
-		%w( CLICOrgChart_March09_000.jpg).each do |photo|
-			Photo.create(:title => photo,
-				:image => File.open(File.join(RAILS_ROOT,'to_upload',photo)))
-		end
+#		%w( CLICOrgChart_March09_000.jpg).each do |photo|
+#			Photo.create(:title => photo,
+#				:image => File.open(File.join(RAILS_ROOT,'to_upload',photo)))
+#		end
 
 	end
 
