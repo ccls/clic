@@ -18,7 +18,7 @@ packages_updated.*
 doc/app/
 doc/guides/
 doc/plugins/
-vendor/plugins/**/rdoc/
+vendor/plugins/*/rdoc/
 DUMMY_ManipulatedData.csv
 HomeExposuresMetadata.csv
 SurveyRelatedMetadata.csv
