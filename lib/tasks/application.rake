@@ -22,12 +22,15 @@ namespace :app do
 		Rake::Task["app:deputize"].invoke
 
 		%w(
-		1CLIC_2009timelinefullproposal_033109.pdf
-		2CLICEOIForm_030109.pdf
-		3CLICAPAForm_030109.pdf
-		CLICAuthorshipPolicy_020810.pdf
-		CLICMembershipGuidelinesFinal_030309.pdf
-		R01CollabTable062807FINAL.pdf 
+			1CLIC_2009timelinefullproposal_033109.pdf
+			2CLICEOIForm_030109.pdf
+			3CLICAPAForm_030109.pdf
+			CLIC2006MeetingMaterials.pdf
+			CLIC2007MeetingMaterials.pdf
+			CLIC2008MeetingMaterials.pdf
+			CLICAuthorshipPolicy_020810.pdf
+			CLICMembershipGuidelinesFinal_030309.pdf
+			R01CollabTable062807FINAL.pdf
 		).each do |document|
 			Document.create(:title => document,
 				:document => File.open(File.join(RAILS_ROOT,'to_upload',document)))
