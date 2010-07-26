@@ -25,4 +25,11 @@ jQuery(function(){
 	var s = document.getElementsByTagName('script')[0]; 
 	s.parentNode.insertBefore(ga, s);
 
+	var ga = document.createElement('script'); 
+	ga.type = 'text/javascript'; 
+	ga.async = true;
+	ga.src = "http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en";
+	var s = document.getElementsByTagName('script')[0]; 
+	s.parentNode.insertBefore(ga, s);
+
 });
