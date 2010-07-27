@@ -6,6 +6,7 @@
 == Requirements
 
 * ruby >= 1.8.7 - primarily due to the liberal use of #inject
+* ruby <= 1.8.7 - primarily due to 1.9.1 differences
 * rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
@@ -158,7 +159,7 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
 
  ( warble from a jruby environment to get the jruby specific gems )
 
- [jakewendt@dev : ucb_sph_ccls_clic ]>
+ [jakewendt@dev : ucb_ccls_clic ]>
  bash
  rvm use jruby
  warble

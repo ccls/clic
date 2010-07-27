@@ -13,7 +13,9 @@ jQuery(function(){
 		location.pathname.replace(new RegExp('^' + root),'') );
 */
 
-
+/*
+http://www.google.com/cse/docs/cref.html
+*/
 	(function(){
 		var ga = document.createElement('script'); 
 		ga.type = 'text/javascript'; 
