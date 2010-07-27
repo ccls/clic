@@ -106,3 +106,9 @@ module RedCloth::Formatters::HTML
 end
 
 
+module Rails
+	class << self
+		attr_accessor :app_name
+	end
+end
+Rails.app_name = 'clic'
