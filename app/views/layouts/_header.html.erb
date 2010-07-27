@@ -7,7 +7,8 @@
 <!-- Google CSE Search Box Begins  
 <form action="/search_results" id="cse-search-box">
 -->
-<% form_tag search_results_path, :id => "cse-search-box" do %>
+<% form_tag search_results_path, :method => :get,
+	:id => "cse-search-box" do %>
   <input type="hidden" name="cx" value="008252227493768693125:bvgypljrydk" />
   <label for="SearchField">Search the Buffler Center website:</label>
   <input type="text" name="q" id="SearchField" />
