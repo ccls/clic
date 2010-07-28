@@ -21,23 +21,23 @@ module ApplicationHelper
 		s << "</ul><!-- id='GlobalNav' -->\n"
 	end
 
-	def application_sub_menu
-		if @page && !@page.root.children.empty?
-			s = "<div id='submenu' class='main_width'>\n"
-			s << "<div id='current_root'>"
-			s << @page.root.menu(session[:locale])
-			s << "</div>\n"
-			s << "<div id='children'>\n"
-			@page.root.children.each do |child|
-				s << "<span class='child#{(@page==child)?" current_child":""}'>"
-				s << link_to( child.menu(session[:locale]), 
-					ActionController::Base.relative_url_root + child.path )
-				s << "</span>\n"
-			end
-			s << "</div><!-- id='children'  -->\n"
-			s << "</div><!-- id='submenu'  -->\n"
-		end
-	end
+#	def application_sub_menu
+#		if @page && !@page.root.children.empty?
+#			s = "<div id='submenu' class='main_width'>\n"
+#			s << "<div id='current_root'>"
+#			s << @page.root.menu(session[:locale])
+#			s << "</div>\n"
+#			s << "<div id='children'>\n"
+#			@page.root.children.each do |child|
+#				s << "<span class='child#{(@page==child)?" current_child":""}'>"
+#				s << link_to( child.menu(session[:locale]), 
+#					ActionController::Base.relative_url_root + child.path )
+#				s << "</span>\n"
+#			end
+#			s << "</div><!-- id='children'  -->\n"
+#			s << "</div><!-- id='submenu'  -->\n"
+#		end
+#	end
 
 #	#	This creates a button that looks like a submit button
 #	#	but is just a javascript controlled link.
@@ -85,34 +85,34 @@ module ApplicationHelper
 #		s << "</li></ul></li>\n"
 #	end
 
-	def footer_menu
-		s = "<div class='main_width'><p>\n"
-		l = []
-		l.push(link_to( 'Pages', pages_path ))
-		l.push(link_to( 'Calendar', calendar_path ))
-		l.push(link_to( 'Users', users_path ))
-		if logged_in? 
-			l.push(link_to( "My Account", user_path(current_user) ))
-			l.push(link_to( "Logout", logout_path ))
-		end
-		s << l.join("&nbsp;|&nbsp;\n")
-		s << "</p></div>\n"
-	end
-
-	def footer_sub_menu
-		s = "<div class='main_width'><p>\n"
-		l = ["<span>Copyright &copy; UC Regents; all rights reserved.</span>"]
-		Page.hidden.each do |page|
-			l.push(link_to( page.menu(session[:locale]), 
-				ActionController::Base.relative_url_root + page.path ))
-		end
-		if session[:locale] && session[:locale] == 'es'
-			l.push(link_to( 'English', locale_path('en') ))
-		else
-			l.push(link_to( 'Espa&ntilde;ol', locale_path('es') ))
-		end
-		s << l.join("&nbsp;|&nbsp;\n")
-		s << "</p></div>\n"
-	end
+#	def footer_menu
+#		s = "<div class='main_width'><p>\n"
+#		l = []
+#		l.push(link_to( 'Pages', pages_path ))
+#		l.push(link_to( 'Calendar', calendar_path ))
+#		l.push(link_to( 'Users', users_path ))
+#		if logged_in? 
+#			l.push(link_to( "My Account", user_path(current_user) ))
+#			l.push(link_to( "Logout", logout_path ))
+#		end
+#		s << l.join("&nbsp;|&nbsp;\n")
+#		s << "</p></div>\n"
+#	end
+#
+#	def footer_sub_menu
+#		s = "<div class='main_width'><p>\n"
+#		l = ["<span>Copyright &copy; UC Regents; all rights reserved.</span>"]
+#		Page.hidden.each do |page|
+#			l.push(link_to( page.menu(session[:locale]), 
+#				ActionController::Base.relative_url_root + page.path ))
+#		end
+#		if session[:locale] && session[:locale] == 'es'
+#			l.push(link_to( 'English', locale_path('en') ))
+#		else
+#			l.push(link_to( 'Espa&ntilde;ol', locale_path('es') ))
+#		end
+#		s << l.join("&nbsp;|&nbsp;\n")
+#		s << "</p></div>\n"
+#	end
 
 end
