@@ -1,7 +1,10 @@
 /* CSS layout for clic, Buffler Center website */
 
 body {
+/*
 	background: url(../images/backgroundBG.gif)
+*/
+	background: url(https://s3.amazonaws.com/clic/images/backgroundBG.gif)
 }
 
 #container {
