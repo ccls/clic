@@ -10,6 +10,7 @@ RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 #	This constant is used in the ucb_ccls_engine#Document
+#	and other places like Amazon buckets
 #	for controlling the path to documents.
 RAILS_APP_NAME = 'clic'
 
@@ -56,32 +57,5 @@ Rails::Initializer.run do |config|
 	# Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
 	# Run "rake -D time" for a list of tasks for finding time zone names.
 	config.time_zone = 'UTC'
-
-end
-
-
-#	Not quite worthy of its own file. (yet)
-#
-# Move me into engine.  And then clean this up a bit.
-module RedCloth::Formatters::HTML
-
-	def link_with_prefix(opts)
-		if opts[:href] =~ /^\//
-			opts[:href] = ActionController::Base.relative_url_root + opts[:href]
-		end
-		link_without_prefix(opts)
-	end
-	alias_method_chain :link, :prefix
-
-	def image_with_prefix(opts)
-		if opts[:href] && opts[:href] =~ /^\//
-			opts[:href] = ActionController::Base.relative_url_root + opts[:href]
-		end
-		if opts[:src] =~ /^\//
-			opts[:src] = ActionController::Base.relative_url_root + opts[:src]
-		end
-		image_without_prefix(opts)
-	end
-	alias_method_chain :image, :prefix
 
 end
