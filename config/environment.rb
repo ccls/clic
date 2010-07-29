@@ -41,7 +41,10 @@ Rails::Initializer.run do |config|
 		#	Additional jruby specific jars required in the war
 		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 		config.gem 'jruby-openssl', :lib => 'openssl'
-		config.gem 'haml'
+#
+#	I don't remember why we use haml?  surveyor?
+#
+#		config.gem 'haml'
 	else
 
 		# If using mysql ...
@@ -58,7 +61,7 @@ Rails::Initializer.run do |config|
 	end
 
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
-	config.gem "packet"    #		http://packet.rubyforge.org/
+#	config.gem "packet"    #		http://packet.rubyforge.org/
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
 
@@ -86,6 +89,8 @@ end
 
 
 #	Not quite worthy of its own file. (yet)
+#
+# Move me into engine.
 module RedCloth::Formatters::HTML
 
 	def link_with_prefix(opts)

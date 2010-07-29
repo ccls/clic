@@ -7,5 +7,5 @@
 #	# Load Haml and Sass
 #	Haml.init_rails(binding)
 #
-#	can't remember why this is here
+#	can't remember why this is here.  I think it is only for Surveyor.
 #
