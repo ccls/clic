@@ -70,6 +70,8 @@ rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/in
  bash
  rvm install jruby
  rvm use jruby
+ # or perhaps
+ rvm jruby --default
 
 
 
