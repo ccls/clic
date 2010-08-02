@@ -99,6 +99,9 @@ body {
 	padding-top: 15px;
 	font: 0.7em Arial, Helvetica, sans-serif;
 	color: #666;
+
+	/* Jake added */
+	text-align: center;
 }
 
 #footer a {
