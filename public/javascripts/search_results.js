@@ -9,6 +9,7 @@ jQuery(function(){
 		ga.type = 'text/javascript'; 
 		ga.async = true;
 		ga.src = "https://www.google.com/afsonline/show_afs_search.js";
+//		ga.src = "show_afs_search.js";
 		var s = document.getElementsByTagName('script')[0]; 
 		s.parentNode.insertBefore(ga, s);
 	})();
