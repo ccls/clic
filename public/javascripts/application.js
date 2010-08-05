@@ -2,11 +2,15 @@ jQuery(function(){
 
 	var root = (location.host == 'ccls.berkeley.edu')?'/clic':''
 	jQuery.getScript(root + 
-		'/javascripts/cache_helper.js?caller=' +
+		'/pages/translate.js?caller=' +
 		location.pathname.replace(new RegExp('^' + root),'') );
+
+	jQuery.getScript(root + '/users/menu.js');
 
 /*
 http://www.google.com/cse/docs/cref.html
+*/
+/*
 */
 	(function(){
 		var ga = document.createElement('script'); 

@@ -1,0 +1,9 @@
+<% if logged_in? and current_user.is_editor? %>
+jQuery(function(){
+	jQuery('div#menu').append('<%= application_user_menu() %>');
+	// application_user_menu returns NO SINGLE QUOTES.
+/*
+		decodeURI(encodeURI(<%#= application_user_menu() %>)))
+*/
+});
+<% end %>
