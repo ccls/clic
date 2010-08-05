@@ -9,14 +9,6 @@
 <!--[if lte IE 7]>
 <%= stylesheet_link_tag 'ie' %>
 <![endif]-->
-<style type="text/css">
-<!--
-.style1 {
-  color: #0099FF;
-  font-weight: bold;
-}
--->
-</style>
 <%= yield :head %>
 <script type="text/javascript">
 	var _gaq = _gaq || [];
@@ -37,12 +29,18 @@
 <body>
 <div id='container'>
 <%= render 'layouts/header' %>
+<div id='columns' class='equal_height_column_wrapper'>
+<div id='menu' class='equal_height_column'>
 <%= render 'layouts/menu' %>
+</div><!-- id='menu' class='equal_height_column' -->
+<div id='content_wrapper' class='equal_height_column'>
 <div id='content'>
 <%= flasher() %>
 <%= yield %>
-</div><!-- content -->
+</div><!-- id='content' -->
 <%= render 'layouts/footer' %>
-</div><!-- container -->
+</div><!-- id='content_wrapper' class='equal_height_column' -->
+</div><!-- id='columns' class='equal_height_column_wrapper' -->
+</div><!-- id='container' -->
 </body>
 </html>
