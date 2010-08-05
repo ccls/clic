@@ -59,27 +59,37 @@ body {
 	background: #99CCFF;
 }
 
-#GlobalNav {
+
+#menu {
 	float: left;
 	width: 145px;
 	clear: left;
 }
 
+#PrivateNav li,
 #GlobalNav li {
 	padding: 5px;
-	background: #6699CC;
 	border-bottom: 1px solid #99CCFF;
 	font: 0.8em Arial, Helvetica, sans-serif;
 }
+#PrivateNav li {
+	background: #CC6699;
+}
+#GlobalNav li {
+	background: #6699CC;
+}
 
+#PrivateNav a,
 #GlobalNav a {
 	color: #fff;
 	text-decoration: none;
 }
 
+#PrivateNav a:hover,
 #GlobalNav a:hover {
 	text-decoration: underline;
 }
+
 
 #content {
 	border-left: 145px solid #99CCFF;
@@ -146,4 +156,11 @@ h1, h2, h3, h4, p {
 
 ol {
 	list-style: decimal inside;
+}
+
+
+
+.style1 {
+	color: #0099FF;
+	font-weight: bold;
 }
