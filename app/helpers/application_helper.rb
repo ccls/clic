@@ -22,6 +22,7 @@ module ApplicationHelper
  			s << "<li>"  << link_to( "Photos", photos_path ) << "</li>"
  			s << "<li>"  << link_to( "Users", users_path ) << "</li>"
  			s << "<li>"  << link_to( "Documents", documents_path ) << "</li>"
+ 			s << "<li>"  << link_to( "Logout", logout_path ) << "</li>"
  			s << "</ul><!-- id=PrivateNav -->"
 		end
 		s
