@@ -16,7 +16,7 @@ module ApplicationHelper
 	#	This output is passed through javascript
 	def application_user_menu
 		s = ''
-		if logged_in? and current_user.is_editor?
+		if logged_in? and current_user.may_edit?
  			s << "<ul id=\"PrivateNav\">"
  			s << "<li>"  << link_to( "Pages", pages_path ) << "</li>"
  			s << "<li>"  << link_to( "Photos", photos_path ) << "</li>"

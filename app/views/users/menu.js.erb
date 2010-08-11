@@ -1,4 +1,4 @@
-<% if logged_in? and current_user.is_editor? %>
+<% if logged_in? and current_user.may_edit? %>
 jQuery(function(){
 	jQuery('div#menu').append('<%= application_user_menu() %>');
 	// application_user_menu returns NO SINGLE QUOTES.

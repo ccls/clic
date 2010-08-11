@@ -136,6 +136,11 @@ module UcbCclsEngine
 			self.role_names.include?('reader')
 		end
 
+		def is_user?(user=nil)
+			!user.nil? && self == user
+		end
+		alias_method :may_be_user?, :is_user?
+
 
 		def may_administrate?(*args)
 			(self.role_names & ['superuser','administrator']).length > 0
@@ -144,26 +149,24 @@ module UcbCclsEngine
 		alias_method :may_create_user_invitations?, :may_administrate?
 		alias_method :may_view_users?,              :may_administrate?
 		alias_method :may_assign_roles?,            :may_administrate?
-		alias_method :administrator?,               :may_administrate?
-		alias_method :is_administrator?,            :may_administrate?
 
 		def may_edit?(*args)
-			(self.role_names & ['superuser','administrator','editor']).length > 0
+			(self.role_names & 
+				['superuser','administrator','editor']
+			).length > 0
 		end
 		alias_method :may_maintain_pages?, :may_edit?
 
 		def may_read?(*args)
-			(self.role_names & ['superuser','administrator','editor','reader']).length > 0
+			(self.role_names & 
+				['superuser','administrator','editor','reader']
+			).length > 0
 		end
+		alias_method :may_view?, :may_read?
 
 		def may_view_user?(user=nil)
-			self.is_user?(user) || self.is_administrator?
+			self.is_user?(user) || self.may_administrate?
 		end
-
-		def is_user?(user=nil)
-			!user.nil? && self == user
-		end
-		alias_method :may_be_user?, :is_user?
 
 
 
