@@ -19,11 +19,11 @@ class Ccls::DocumentsControllerTest < ActionController::TestCase
 
 	assert_access_with_https
 	assert_access_with_login({
-		:logins => [:admin,:editor]})
+		:logins => [:super_user,:admin,:editor]})
 
 	assert_no_access_with_http 
 	assert_no_access_with_login({ 
-		:logins => [:moderator,:employee,:active_user] })
+		:logins => [:reader,:active_user] })
 	assert_no_access_without_login
 
 	assert_no_access_with_login(
@@ -31,14 +31,14 @@ class Ccls::DocumentsControllerTest < ActionController::TestCase
 		:method_for_create => nil,
 		:actions => nil,
 		:suffix => " and invalid id",
-		:login => :admin,
+		:login => :superuser,
 		:redirect => :documents_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
 		:destroy => { :id => 0 }
 	)
 
-%w( admin editor ).each do |cu|
+%w( super_user admin editor ).each do |cu|
 
 
 #	still only privacy filter is based on "may_maintain_pages"
@@ -147,7 +147,7 @@ class Ccls::DocumentsControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator employee active_user ).each do |cu|
+%w( reader active_user ).each do |cu|
 
 	test "should NOT preview document with #{cu} login" do
 		document = Factory(:document)

@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CalendarsControllerTest < ActionController::TestCase
 
 	assert_access_with_login       :show, { 
-		:logins => [:admin,:employee,:editor] }
+		:logins => [:superuser,:admin,:reader,:editor] }
 	assert_no_access_with_login    :show, { 
-		:logins => [:moderator,:active_user] }
+		:logins => [:active_user] }
 	assert_no_access_without_login :show
 
 	assert_access_with_https   :show
