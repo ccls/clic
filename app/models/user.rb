@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
 
 	ucb_authenticated
 
+
+	alias_method :may_view_calendar?, :may_read?
+
+
 #	def may_administrate?(*args)
 #		self.role_names.include?('administrator')
 #	end
