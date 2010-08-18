@@ -32,4 +32,10 @@ config.action_mailer.delivery_method = :smtp
 config.action_mailer.default_url_options = { 
 	:host => "ccls.berkeley.edu" }
 
-config.action_controller.relative_url_root = '/clic'
+#
+#	Although clic is in the same place as Buffler and Homex,
+#	it is only hosted there and proxied through
+#	clic.berkeley.edu now so the relative_url_root
+#	can be left blank (NOT nil however)
+#
+#	config.action_controller.relative_url_root = '/clic'
