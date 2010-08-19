@@ -1,3 +1,30 @@
+
+	#	As this app is in a subdir in production,
+	#	Rails sets the ActionController::Base.relative_url_root
+	#	to its value of "/clic".
+	#	Since we are actually accessing the site via
+	#	a proxy where it is acting like root,
+	#	we need to undo that.
+
+##	Don't think this does anything either.
+#ActionController::Base.relative_url_root = ''
+#class ActionController::Base
+#	def relative_url_root
+#		''
+#	end
+#	#	not sure which of these I need.
+#	#	I can't seem to stop if from being set,
+#	#	but I can stop it from being read!
+#	def self.relative_url_root
+#		''
+#	end
+##	doesn't seem to do as expected
+##	def self.default_url_options(options)
+##		{ :skip_relative_url_root => true }
+##	end
+#end
+
+
 class ApplicationController < ActionController::Base
 
 	helper :all # include all helpers, all the time

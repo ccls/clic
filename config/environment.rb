@@ -59,3 +59,12 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
+
+#	class ActionController::Request
+#	
+#		def request_uri_with_clic_parsing
+#			request_uri_without_clic_parsing.sub(/^\/clic/,'')
+#		end
+#		alias_method_chain :request_uri, :clic_parsing
+#	
+#	end

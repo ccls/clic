@@ -38,4 +38,8 @@ config.action_mailer.default_url_options = {
 #	clic.berkeley.edu now so the relative_url_root
 #	can be left blank (NOT nil however)
 #
+#	Nobody seems to care that I commented this out,
+#	suggesting that the rails app itself or tomcat
+#	is telling it that it is in '/clic'
+#
 #	config.action_controller.relative_url_root = '/clic'
