@@ -1,62 +1,5 @@
 --- 
-pages_15: 
-  position: 15
-  menu_en: Past CLIC Meetings
-  body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 15
-  path: /pastclicmeetings
-  parent_id: 
-  hide_menu: true
-  body_en: |-
-    h1. CLIC Annual Meeting Materials
-    
-    h2. Childhood Leukemia International Consortium (CLIC) Annual Meeting
-    
-    h3. CLIC 2009 Meeting
-    
-    h4. Friday, June 26, 2010 | 8:00 AM to 5:30 PM
-    St. Albans Centre, London, UK
-    
-    Meeting Materials
-    
-    !{width:100%}/images/Pat-London00024_000.JPG(Photo of the 2009 CLIC meeting)!
-    
-    h3. CLIC 2008 Meeting
-    
-    h4. Saturday, April 12, 2008 | 8:00 AM to 5:30 PM
-    San Diego, CA, USA, San Diego Marriott Hotel and Marina, Santa Rosa Room
-    
-    "Meeting Materials":/documents/CLIC2008MeetingMaterials.pdf
-    
-    h3. CLIC 2007 Meeting
-    
-    h4. Saturday, April 14, 2007 | 12:00 PM to 5:30 PM
-    Los Angeles, CA, USA, Westin Bonaventure Hotel, Santa Anita Meeting Room
-    
-    h4. Wednesday, November 13, 2007 | 12:30 PM to 6:30 PM
-    Sausalito, California, USA, Casa Madrona Hotel and Spa, Solone Grande Room
-    
-    "Meeting Materials":/documents/CLIC2007MeetingMaterials.pdf
-    
-    h3. CLIC 2006 Meeting
-    
-    h4. Monday, April 3, 2006 | 1:00 PM to 4:00 PM
-    Washington, D.C., USA, Cosmos Club
-    
-    "Meeting Materials":/documents/CLIC2006MeetingMaterials.pdf
-  title_en: Past CLIC Meetings
 pages_1: 
-  position: 1
-  menu_en: Home
-  body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 1
-  path: /
-  parent_id: 
-  hide_menu: false
   body_en: |-
     The Childhood Leukemia International Consortium (CLIC) is an international group of researchers established in 2006 in collaboration with the University of California at Berkeley and the International Agency for Research on Cancer, with the aim of sharing comparable data from case-control and family-based trio studies on childhood leukemia. Through this joint research, we will coordinate scientific efforts and achieve greater power to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes.
     
@@ -66,9 +9,9 @@ pages_1:
     
     h3. CLIC 2010 Meeting
     
-    Fourth Annual Meeting in 2010 will be held in Boston, Massachusetts (USA) on October 18-19, 2010, two days prior to the SIOP Conference. More information about the meeting will be posted shortly.
+    The Fourth Annual CLIC Meeting in 2010 will be held on October 19-20, 2010, two days prior to the SIOP Conference at the Westin Copley Place in Boston, Massachusetts. There are no meeting registration expenses for this meeting. 
     
-    Please send all inquiries of the meeting to "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
+    Please send all reservations and/or inquiries regarding the meeting to "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
     
     ---
     
@@ -76,9 +19,8 @@ pages_1:
     
     The CLIC Data Pooling guidelines, forms, and timelines have been finalized and posted at "Research Projects":/ResearchProjects to begin requests for pooled analysis within our consortium.
     
-    The first call for Expressions of Interest (EOI) was on March 31, 2009, and interested researchers will need to submit their EOI forms to the newly established, all purpose email at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu by April 27, 2009 to then be distributed to the CLIC Coordination Group for review and evaluation.
+    The next call for Expressions of Interest (EOI) will be announced shortly.  Interested researchers can begin preparing their EOI forms for submission.
     
-    Calls for Expressions of Interest for Pooled Analysis will be in mid-March and mid-September.
     
     ---
     
@@ -105,17 +47,17 @@ pages_1:
     Cosmos Club, Washington, D.C., USA
     
     Please contact "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu for all questions.
-  title_en: Home
-pages_2: 
-  position: 2
-  menu_en: About
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 2
-  path: /about
-  parent_id: 
   hide_menu: false
+  id: 1
+  menu_en: Home
+  menu_es: ""
+  parent_id: 
+  path: /
+  position: 1
+  title_en: Home
+  title_es: ""
+pages_2: 
   body_en: |-
     h1. About Us
     
@@ -131,11 +73,11 @@ pages_2:
     
     h4. Mission
     
-    The Childhood Leukemia International Consortium (CLIC) is a consortium of scientists involved in childhood leukemia research. CLIC\xE2\x80\x99s Mission is to develop and support collaborations between member groups to identify factors that influence the risk of childhood leukemia through epidemiological studies and related research. CLIC encourages free exchange of results (published or unpublished) and ideas in a collegial environment without fear of competition.
+    The Childhood Leukemia International Consortium (CLIC) is a consortium of scientists involved in childhood leukemia research. CLIC's Mission is to develop and support collaborations between member groups to identify factors that influence the risk of childhood leukemia through epidemiological studies and related research. CLIC encourages free exchange of results (published or unpublished) and ideas in a collegial environment without fear of competition.
     
     h4. Objectives
     
-    Within the scope defined by its Mission, the objectives of CLIC are to expand knowledge of the etiology of childhood leukemia through:
+    Within the scope defined by our Mission, the objectives of CLIC are to expand knowledge of the etiology of childhood leukemia through:
     
     # Fostering collaborations between researchers in different countries;
     # Fostering sharing of comparable data from existing/ongoing case-control and family-based trio studies;
@@ -143,17 +85,17 @@ pages_2:
     # Providing a framework for the efficient conduct and publication of pooled and/or replication studies;
     # Providing a forum and framework for discussion, development and pursuit of new research directions; and
     # Supporting the development of early career researchers.
-  title_en: About
-pages_3: 
-  position: 3
-  menu_en: Members
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 3
-  path: /members
-  parent_id: 
   hide_menu: false
+  id: 2
+  menu_en: About
+  menu_es: ""
+  parent_id: 
+  path: /about
+  position: 2
+  title_en: About
+  title_es: ""
+pages_3: 
   body_en: |-
     h1. Members
     
@@ -163,18 +105,18 @@ pages_3:
     
     More information about membership (i.e. criteria, structure) can be found in the "Membership Guidelines":/documents/CLICMembershipGuidelinesFinal_030309.pdf.
     
-    !{width:100%}/images/CLICOrgChart_March09_000.jpg(CLIC Organization Chart)!
-  title_en: Members
-pages_4: 
-  position: 4
-  menu_en: CLIC Studies
+    !{width:100%}https://s3.amazonaws.com/clic/images/CLICOrgChart_March09_000.jpg(CLIC Organization Chart)!
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 4
-  path: /casestudies
-  parent_id: 
   hide_menu: false
+  id: 3
+  menu_en: Members
+  menu_es: ""
+  parent_id: 
+  path: /members
+  position: 3
+  title_en: Members
+  title_es: ""
+pages_4: 
   body_en: |-
     h1. CLIC Studies
     
@@ -188,28 +130,26 @@ pages_4:
     
     h3. Map of Distribution of the Research Groups and Study Areas in the World
     
-    !{width:100%}/images/CLICStudies123009_studiesonlynoPI.jpg(CLIC Studies 2010)!
-  title_en: CLIC Studies
-pages_5: 
-  position: 5
-  menu_en: Research Projects
+    !{width:100%}https://s3.amazonaws.com/clic/images/CLICStudies123009_studiesonlynoPI.jpg(CLIC Studies 2010)!
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 5
-  path: /researchprojects
-  parent_id: 
   hide_menu: false
+  id: 4
+  menu_en: CLIC Studies
+  menu_es: ""
+  parent_id: 
+  path: /casestudies
+  position: 4
+  title_en: CLIC Studies
+  title_es: ""
+pages_5: 
   body_en: |-
     h1. Research Projects
     
     Forms to initiate a pooled analysis proposal
     
-    One of the main objectives of the Childhood Leukemia International Consortium is to foster collaborations amongst researchers through pooled analyses to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes. To facilitate this process, the Data Sharing and Pooled Analyses Core Logistics Group (Lead: Elizabeth Milne) created guidelines and forms for researchers to submit interest and proposals for pooled analyses. These forms were approved by the CLIC Coordination Group (CG) and call for Expressions of Interest for pooled analyses will be announced twice each year in Mid-March and Mid-September.
+    One of the main objectives of the Childhood Leukemia International Consortium is to foster collaborations amongst researchers through pooled analyses to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes. To facilitate this process, the Data Sharing and Pooled Analyses Core Logistics Group (Lead: Elizabeth Milne) created guidelines and forms for researchers to submit interest and proposals for pooled analyses. These forms were approved by the CLIC Coordination Group (CG) and call for Expressions of Interest for pooled analyses will generally be announced twice each year around Mid-March and Mid-September.
     
-    In 2009, the CLIC CG will call for Expressions of Interest for pooled analysis on March 13, 2009 (the form is due March 30) and on August 3, 2009 (the form is due August 31).
-    
-    Please carefully review the guidelines, 2009 timeline, and forms below and submit all forms to the CLIC Central Office at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu by the appropriate deadlines.
+    Please carefully review the guidelines, and forms below and submit all forms, questions and/or concerns to the CLIC Central Office at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu by the appropriate deadlines.
     
     
     "CLIC Guideline, 2009 Timeline, and Full Proposal Outline":/documents/1CLIC_2009timelinefullproposal_033109.pdf
@@ -218,9 +158,6 @@ pages_5:
     
     "Agreement for Pooled Analysis Form":/documents/3CLICAPAForm_030109.pdf
     
-    
-    
-    Should you have any questions/concerns, please direct them to the CLIC Central Office at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
     
     h2. Pooled analysis on MTHFR gene and maternal folate.
     
@@ -231,58 +168,32 @@ pages_5:
     h2. Other Projects with Top Priorities
     
     h4. Forthcoming
-  title_en: Research Projects
-pages_6: 
-  position: 6
-  menu_en: Working Groups
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 6
-  path: /workinggroups
-  parent_id: 
   hide_menu: false
+  id: 5
+  menu_en: Research Projects
+  menu_es: ""
+  parent_id: 
+  path: /researchprojects
+  position: 5
+  title_en: Research Projects
+  title_es: ""
+pages_6: 
   body_en: |-
     h1. Working Groups
     
     Working groups will be established to pursue research proposed by the Interest Groups. There is already one Working Group that received funding from the US National Cancer Institute to examine the role of folate and MTHFR genes.
-  title_en: Working Groups
-pages_10: 
-  position: 10
-  menu_en: Search Results
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 10
-  path: /searchresults
-  parent_id: 
-  hide_menu: true
-  body_en: |-
-    h1. Search Results
-    
-    Search Results page net yet implemented.
-    
-    
-    <div id="cse-search-results"></div>
-    <script type="text/javascript">
-      var googleSearchIframeName = "cse-search-results";
-      var googleSearchFormName = "cse-search-box";
-      var googleSearchFrameWidth = 600;
-      var googleSearchDomain = "www.google.com";
-      var googleSearchPath = "/cse";
-    </script>
-    <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
-  title_en: Search Results
-pages_7: 
-  position: 7
-  menu_en: Publications
-  body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 7
-  path: /publications
-  parent_id: 
   hide_menu: false
+  id: 6
+  menu_en: Working Groups
+  menu_es: ""
+  parent_id: 
+  path: /workinggroups
+  position: 6
+  title_en: Working Groups
+  title_es: ""
+pages_7: 
   body_en: |-
     h1. Publications
     
@@ -291,17 +202,92 @@ pages_7:
     h5. Childhood Leukemia International Consortium
     
     h4. Forthcoming
-  title_en: Publications
-pages_11: 
-  position: 11
-  menu_en: Coordination Group
   body_es: ""
-  title_es: ""
+  hide_menu: false
+  id: 7
+  menu_en: Publications
   menu_es: ""
-  id: 11
-  path: /coordinationgroup
   parent_id: 
-  hide_menu: true
+  path: /publications
+  position: 7
+  title_en: Publications
+  title_es: ""
+pages_8: 
+  body_en: |-
+    h1. Links
+    
+    h2. Individiual Studies
+    
+    "http://nccls.berkeley.edu":http://nccls.berkeley.edu
+    The Northern California Childhood Leukemia Study
+    
+    "http://www.ukccs.org/":http://www.ukccs.org/
+    United Kingdom Childhood Cancer Study
+    
+    
+    h2. Funding Agencies
+    
+    "http://www.nih.gov/":http://www.nih.gov/
+    National Institutes of Health, USA
+    
+    "http://www.cancer.gov/":http://www.cancer.gov/
+    National Cancer Institute, USA
+    
+    "http://www.niehs.nih.gov/":http://www.niehs.nih.gov/
+    National Institute of Environmental Health Sciences
+    
+    "http://www.leukaemia.org/":http://www.leukaemia.org/
+    Children with Leukaemia
+    
+    "http://www.lls.org/":http://www.lls.org/
+    Leukemia and Lymphoma Society
+    
+    
+    h2. Other Consortia
+    
+    "http://ilcco.iarc.fr/":http://ilcco.iarc.fr/
+    International Lung Consortium
+    
+    "http://inhance.iarc.fr/":http://inhance.iarc.fr/
+    International Head and Neck Cancer Epidemiology
+    
+    "http://epi.grants.cancer.gov/InterLymph/":http://epi.grants.cancer.gov/InterLymph/
+    International Lymphoma Epidemiology Consortium
+  body_es: ""
+  hide_menu: false
+  id: 8
+  menu_en: Links
+  menu_es: ""
+  parent_id: 
+  path: /links
+  position: 8
+  title_en: Links
+  title_es: ""
+pages_9: 
+  body_en: |-
+    h1. Contact Us
+    
+    h4. For all CLIC inquiries, please contact the CLIC Central Office at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
+    
+    Mailing Address:
+    
+    University of California, Berkeley
+    School of Public Health
+    (Attn: Alice Kang)
+    1995 University Avenue
+    Suite 460
+    Berkeley, CA 94704-1070
+  body_es: ""
+  hide_menu: false
+  id: 9
+  menu_en: Contact Us
+  menu_es: ""
+  parent_id: 
+  path: /contact
+  position: 9
+  title_en: Contact Us
+  title_es: ""
+pages_11: 
   body_en: |-
     h1. Members
     
@@ -369,68 +355,17 @@ pages_11:
     
     New Zealand Childhood Case Control Study
     PI: John Dockerty
-  title_en: Coordination Group
-pages_8: 
-  position: 8
-  menu_en: Links
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 8
-  path: /links
-  parent_id: 
-  hide_menu: false
-  body_en: |-
-    h1. Links
-    
-    h2. Individiual Studies
-    
-    "http://nccls.berkeley.edu":http://nccls.berkeley.edu
-    The Northern California Childhood Leukemia Study
-    
-    "http://www.ukccs.org/":http://www.ukccs.org/
-    United Kingdom Childhood Cancer Study
-    
-    
-    h2. Funding Agencies
-    
-    "http://www.nih.gov/":http://www.nih.gov/
-    National Institutes of Health, USA
-    
-    "http://www.cancer.gov/":http://www.cancer.gov/
-    National Cancer Institute, USA
-    
-    "http://www.niehs.nih.gov/":http://www.niehs.nih.gov/
-    National Institute of Environmental Health Sciences
-    
-    "http://www.leukaemia.org/":http://www.leukaemia.org/
-    Children with Leukaemia
-    
-    "http://www.lls.org/":http://www.lls.org/
-    Leukemia and Lymphoma Society
-    
-    
-    h2. Other Consortia
-    
-    "http://ilcco.iarc.fr/":http://ilcco.iarc.fr/
-    International Lung Consortium
-    
-    "http://inhance.iarc.fr/":http://inhance.iarc.fr/
-    International Head and Neck Cancer Epidemiology
-    
-    "http://epi.grants.cancer.gov/InterLymph/":http://epi.grants.cancer.gov/InterLymph/
-    International Lymphoma Epidemiology Consortium
-  title_en: Links
-pages_12: 
-  position: 12
-  menu_en: Management Group
-  body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 12
-  path: /managementgroup
-  parent_id: 
   hide_menu: true
+  id: 11
+  menu_en: Coordination Group
+  menu_es: ""
+  parent_id: 
+  path: /coordinationgroup
+  position: 10
+  title_en: Coordination Group
+  title_es: ""
+pages_12: 
   body_en: |-
     h1. Members
     
@@ -446,40 +381,17 @@ pages_12:
     Daehee Kang, Seoul National University, South Korea
     Catherine Metayer, University of California, Berkeley, USA
     Elizabeth Milne (Bruce Armstrong), University of Western Australia, Australia
-  title_en: Management Group
-pages_9: 
-  position: 9
-  menu_en: Contact Us
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 9
-  path: /contact
-  parent_id: 
-  hide_menu: false
-  body_en: |-
-    h1. Contact Us
-    
-    h4. For all CLIC inquiries, please contact the CLIC Central Office at "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
-    
-    Mailing Address:
-    
-    University of California, Berkeley
-    School of Public Health
-    (Attn: Alice Kang)
-    2150 Shattuck Avenue, Suite 500
-    Berkeley, CA 94720-7380
-  title_en: Contact Us
-pages_13: 
-  position: 13
-  menu_en: Core Logistics Groups
-  body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 13
-  path: /corelogisticsgroups
-  parent_id: 
   hide_menu: true
+  id: 12
+  menu_en: Management Group
+  menu_es: ""
+  parent_id: 
+  path: /managementgroup
+  position: 11
+  title_en: Management Group
+  title_es: ""
+pages_13: 
   body_en: |-
     h1. Members
     
@@ -498,17 +410,17 @@ pages_13:
     
     D. Disease Classification and Pathology
     (Lead: Maria Pombo de Oliveira and Joe Wiemels)
-  title_en: Core Logistics Groups
-pages_14: 
-  position: 14
-  menu_en: Interest Groups
   body_es: ""
-  title_es: ""
-  menu_es: ""
-  id: 14
-  path: /interestgroups
-  parent_id: 
   hide_menu: true
+  id: 13
+  menu_en: Core Logistics Groups
+  menu_es: ""
+  parent_id: 
+  path: /corelogisticsgroups
+  position: 12
+  title_en: Core Logistics Groups
+  title_es: ""
+pages_14: 
   body_en: |-
     h1. Members
     
@@ -532,4 +444,76 @@ pages_14:
     Leaders must be members of the Coordination Group (Principal Investigators and designates). It is preferred that co-leaders are members of the Coordination Group, but Active CLIC members who are not part of the Coordination Group can be given exceptional ad hoc status of co-leadership if deemed necessary and appropriate by the group (i.e. expertise, availability).
     
     Participation in Interest Groups, Working Groups, and Core Logistic Groups is open to all CLIC members. Leaders should inform all CLIC members of the activities of the respective Groups at annual meetings.
+  body_es: ""
+  hide_menu: true
+  id: 14
+  menu_en: Interest Groups
+  menu_es: ""
+  parent_id: 
+  path: /interestgroups
+  position: 13
   title_en: Interest Groups
+  title_es: ""
+pages_15: 
+  body_en: |-
+    h1. CLIC Annual Meeting Materials
+    
+    h2. Childhood Leukemia International Consortium (CLIC) Annual Meeting
+    
+    h3. CLIC 2009 Meeting
+    
+    h4. Friday, June 26, 2010 | 8:00 AM to 5:30 PM
+    St. Albans Centre, London, UK
+    
+    
+    Meeting Materials
+    
+    !{width:100%}https://s3.amazonaws.com/clic/images/Pat-London00024_000.JPG(Photo of the 2009 CLIC meeting)!
+    
+    h3. CLIC 2008 Meeting
+    
+    h4. Saturday, April 12, 2008 | 8:00 AM to 5:30 PM
+    San Diego, CA, USA, San Diego Marriott Hotel and Marina, Santa Rosa Room
+    
+    "Meeting Materials":/documents/CLIC2008MeetingMaterials.pdf
+    
+    h3. CLIC 2007 Meeting
+    
+    h4. Saturday, April 14, 2007 | 12:00 PM to 5:30 PM
+    Los Angeles, CA, USA, Westin Bonaventure Hotel, Santa Anita Meeting Room
+    
+    h4. Wednesday, November 13, 2007 | 12:30 PM to 6:30 PM
+    Sausalito, California, USA, Casa Madrona Hotel and Spa, Solone Grande Room
+    
+    "Meeting Materials":/documents/CLIC2007MeetingMaterials.pdf
+    
+    h3. CLIC 2006 Meeting
+    
+    h4. Monday, April 3, 2006 | 1:00 PM to 4:00 PM
+    Washington, D.C., USA, Cosmos Club
+    
+    "Meeting Materials":/documents/CLIC2006MeetingMaterials.pdf
+  body_es: ""
+  hide_menu: true
+  id: 15
+  menu_en: Past CLIC Meetings
+  menu_es: ""
+  parent_id: 
+  path: /pastclicmeetings
+  position: 14
+  title_en: Past CLIC Meetings
+  title_es: ""
+pages_16: 
+  body_en: |
+    CLIC's
+
+  body_es: ""
+  hide_menu: true
+  id: 16
+  menu_en: test
+  menu_es: ""
+  parent_id: 
+  path: /test
+  position: 15
+  title_en: test
+  title_es: ""
