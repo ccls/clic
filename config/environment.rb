@@ -57,6 +57,9 @@ Rails::Initializer.run do |config|
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
 
+	#	This needs to be here and not just in the plugin
+	#	in order to register the :defaults correctly.
+	config.gem 'jrails'
 
 	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
