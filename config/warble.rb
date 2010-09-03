@@ -1,6 +1,61 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
+gem 'activesupport', '=2.3.8'
+require 'active_support'	#	note the name disparity
+#Warbler::War.class_eval do
+module WarblerWar
+
+	def self.included(base)
+		base.class_eval do
+			alias_method_chain :apply, :removal
+		end
+	end
+
+	def apply_with_removal(config,&block)
+		apply_without_removal(config,&block)
+		puts "BEFORE:#{@files.keys.length}"
+#		@files.each_pair {|k,v|
+#puts "K:#{k}"
+#puts "V:#{v}"
+#K:WEB-INF/gems/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
+#V:/Users/jakewendt/.rvm/gems/jruby-1.5.1/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
+#		}
+		@files.delete_if {|k,v|
+			#	MUST REMOVE SPECIFICATION TOO!
+			#	Wasn't removing 3.0 specs and then rails
+			#	complained that rails 2.3.8 wasn't installed??
+			k =~ %r{WEB-INF/gems/[^/]+/(#{config.remove_gem_files.join('|')})}
+		} unless config.remove_gem_files.empty?
+		puts "AFTER:#{@files.keys.length}"
+	end
+
+end
+Warbler::War.send(:include,WarblerWar)
+
+module WarblerConfig
+
+	def self.included(base)
+		base.class_eval do
+			attr_accessor :remove_gem_files
+			alias_method_chain :initialize, :removal
+		end
+	end
+
+	#	ALWAYS RECEIVE AND PASS A BLOCK!
+	def initialize_with_removal(warbler_home = WARBLER_HOME,&block)
+		@remove_gem_files = []
+		initialize_without_removal(warbler_home,&block)
+	end
+
+end
+Warbler::Config.send(:include,WarblerConfig)
+
+#	Always includes the latest version of a gem
+#	despite being told not to.  Bad dog!
+
+
+
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
 	# Features: additional options controlling how the jar is built.
@@ -74,6 +129,37 @@ Warbler::Config.new do |config|
 	# The most recent versions of gems are used.
 	# You can specify versions of gems by using a hash assignment:
 	# config.gems["rails"] = "2.0.2"
+
+
+
+	#	just before creating the war file, files matching
+	#	these will be removed from the list. 
+	#	  WEB-INF/gems/gems/REGEX
+	config.remove_gem_files = %w(
+		activesupport-3
+		activerecord-3
+		activeresource-3
+		actionpack-3
+		actionmailer-3
+		activemodel-3
+		railties-3
+		rails-3
+		rack-1.2.1
+		rack-mount-
+		rack-test-
+		i18n-0.4 
+		abstract-
+		arel-
+		bundler-
+		erubis-
+		mail-
+		polyglot-
+		thor-
+		treetop-
+		tzinfo-
+	)
+
+
 
 	# You can also use regexps or Gem::Dependency objects for flexibility or
 	# fine-grained control.
