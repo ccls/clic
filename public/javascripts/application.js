@@ -1,7 +1,9 @@
 jQuery(function(){
 
 	var root = (location.host == 'ccls.berkeley.edu')?'/clic':''
+/*
 	jQuery.getScript(root + '/pages/translate.js' )
+*/
 /*
 		'/pages/translate.js?caller=' +
 		location.pathname.replace(new RegExp('^' + root),'') );
