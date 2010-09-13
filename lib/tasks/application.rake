@@ -3,7 +3,7 @@ namespace :app do
 	desc "Load some fixtures to database for application"
 	task :setup => :environment do
 		fixtures = []
-		fixtures.push('pages')
+#		fixtures.push('pages')
 		fixtures.push('roles')
 		ENV['FIXTURES'] = fixtures.join(',')
 		puts "Loading fixtures for #{ENV['FIXTURES']}"
