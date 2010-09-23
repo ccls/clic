@@ -11,6 +11,7 @@ versions/
 /coverage.data
 /coverage/
 /db/*.sqlite3
+/db/*.sqlite3-journal
 /db/pages.yml
 /dev_pages.yml
 /log/*

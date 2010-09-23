@@ -4,7 +4,7 @@ module ApplicationHelper
 		s = "<ul id='GlobalNav'>\n"
 		Page.roots.each do |page|
 			s << "<li>" << link_to( page.menu(session[:locale]), 
-				ActionController::Base.relative_url_root + page.path,
+				ActionController::Base.relative_url_root.to_s + page.path,
 				:id => "menu_#{dom_id(page)}",
 				:class => ((page == @page.try(:root))?'current':nil))
 			s << "</li>\n"
