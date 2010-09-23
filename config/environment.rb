@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
 	#	This is set to /clic in environments/production.rb
 	#	As this app may be accessed via clic.berkeley.edu,
 	#	it MAY remain blank in production.
-	config.action_controller.relative_url_root = ''
+#	config.action_controller.relative_url_root = ''
 	
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
