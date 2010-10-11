@@ -52,7 +52,11 @@ config.after_initialize do
 	#/Library/Ruby/Gems/1.8/gems/activerecord-2.3.8/lib/active_record/base.rb:1994:in `method_missing_without_paginate': undefined method `has_attached_file' for #<Class:0x1070676d0> (NoMethodError)
 	#	Why must I do this? Paperclip won't work without it when using a gem.
 	require 'paperclip'
-	ActiveRecord::Base.send(:include, ::Paperclip)
+	if defined? ::Paperclip::Glue
+		ActiveRecord::Base.send(:include, ::Paperclip::Glue)
+	else
+		ActiveRecord::Base.send(:include, ::Paperclip)
+	end
 end
 		
 # http://railscasts.com/episodes/160-authlogic
@@ -92,12 +96,16 @@ if !defined?(RAILS_ENV) || RAILS_ENV == 'test'
 
 end
 
+config.gem 'jakewendt-calnet_authenticated',
+	:lib    => 'calnet_authenticated',
+	:source => 'http://rubygems.org'
+
 config.after_initialize do
 	require 'core_extension'
 
 	require 'ucb_ccls_engine'
-	#require 'auth_by_authlogic'
-	require 'auth_by_ucb_cas'
+#	#require 'auth_by_authlogic'
+#	require 'auth_by_ucb_cas'
 	require 'authorization'
 
 	require 'ucb_ccls_engine_helper'
