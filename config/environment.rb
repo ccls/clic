@@ -58,12 +58,6 @@ Rails::Initializer.run do |config|
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
 
-	#	This needs to be here and not just in the plugin
-	#	in order to register the :defaults correctly.
-	config.gem 'jrails'
-
-	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-
 	config.frameworks -= [ :active_resource ]
 
 	# Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -71,12 +65,3 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
-
-#	class ActionController::Request
-#	
-#		def request_uri_with_clic_parsing
-#			request_uri_without_clic_parsing.sub(/^\/clic/,'')
-#		end
-#		alias_method_chain :request_uri, :clic_parsing
-#	
-#	end
