@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../../test_helper'
 
 class Ccls::RedClothExtensionTest < ActiveSupport::TestCase
 
@@ -58,7 +58,7 @@ class Ccls::RedClothExtensionTest < ActiveSupport::TestCase
 protected
 
 	def destroy_relative_url_root
-		ActionController::Base.relative_url_root = ''
+		ActionController::Base.relative_url_root = nil	#''
 	end
 
 end
