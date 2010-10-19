@@ -12,6 +12,12 @@
   * ImageMagick is used to image manipulation
 * curl - for the installation of rvm
 
+
+== Required Gem Sources
+
+ gem sources -a http://rubygems.org
+ gem sources -a http://gems.github.com
+
 == Required Gems
 
 * {RedCloth}[http://redcloth.org] - textile parser.
