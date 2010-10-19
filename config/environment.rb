@@ -17,22 +17,8 @@ RAILS_APP_NAME = 'clic'
 Rails::Initializer.run do |config|
 
 	config.gem 'jakewendt-ccls_engine',
-		:lib    => 'ccls_engine',
-		:source => 'http://rubygems.org'
+		:lib    => 'ccls_engine'
 
-	#	rails 3 requires i18n gem which will load
-	#	a version incompatible with 2.3.8.
-	#	It will generate several of ...
-	#	The {{key}} interpolation syntax in I18n 
-	#	messages is deprecated. Please use %{key} instead.
-	#	This must be called early, or someone else will load a newer version.
-	config.gem "i18n", :version => '=0.3.7'
-
-	#	This is set to /clic in environments/production.rb
-	#	As this app may be accessed via clic.berkeley.edu,
-	#	it MAY remain blank in production.
-#	config.action_controller.relative_url_root = ''
-	
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't
@@ -82,7 +68,7 @@ end
 #	a User is yet, which causes lots of ...
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
-require 'user'
+require 'user' unless defined?(User)
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't
 #	work right, even in an after_initialize.
