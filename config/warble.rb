@@ -1,9 +1,9 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
-gem 'activesupport', '=2.3.8'
+gem 'activesupport', '=2.3.10'
 require 'active_support'	#	note the name disparity
-#Warbler::War.class_eval do
+
 module WarblerWar
 
 	def self.included(base)
@@ -15,12 +15,6 @@ module WarblerWar
 	def apply_with_removal(config,&block)
 		apply_without_removal(config,&block)
 		puts "BEFORE:#{@files.keys.length}"
-#		@files.each_pair {|k,v|
-#puts "K:#{k}"
-#puts "V:#{v}"
-#K:WEB-INF/gems/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
-#V:/Users/jakewendt/.rvm/gems/jruby-1.5.1/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
-#		}
 		@files.delete_if {|k,v|
 			#	MUST REMOVE SPECIFICATION TOO!
 			#	Wasn't removing 3.0 specs and then rails
