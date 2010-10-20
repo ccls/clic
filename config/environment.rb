@@ -19,6 +19,9 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
+	config.gem 'jakewendt-photos',
+		:lib    => 'photos'
+
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't
