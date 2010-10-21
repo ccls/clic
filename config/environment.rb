@@ -50,6 +50,7 @@ Rails::Initializer.run do |config|
 		#			-- --with-mysql-config=/usr/local/mysql/bin/mysql_config
 
 		config.gem 'mysql'
+		config.gem "sqlite3-ruby", :lib => "sqlite3"
 	end
 
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
