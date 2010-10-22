@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
-class Ccls::DocumentTest < ActiveSupport::TestCase
+class Documents::DocumentTest < ActiveSupport::TestCase
 
 	assert_should_require(:title,
 		:model => 'Document')

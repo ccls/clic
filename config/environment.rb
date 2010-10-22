@@ -22,6 +22,9 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-photos',
 		:lib    => 'photos'
 
+	config.gem 'jakewendt-documents',
+		:lib    => 'documents'
+
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't
