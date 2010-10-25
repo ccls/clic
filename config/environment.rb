@@ -75,7 +75,16 @@ end
 #	a User is yet, which causes lots of ...
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
+#require 'user' unless defined?(User)
+
+if Gem.searcher.find('ccls_engine')
+require 'ccls_engine' # without this, rake has problems ...
+#undefined local variable or method `ucb_authenticated' for #<Class:0x1059408    d0>
 require 'user' unless defined?(User)
+#require 'role' unless defined?(Role)
+end
+
+
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't
 #	work right, even in an after_initialize.
