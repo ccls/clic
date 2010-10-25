@@ -19,11 +19,11 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
-	config.gem 'jakewendt-photos',
-		:lib    => 'photos'
+	config.gem 'jakewendt-simply_photos',
+		:lib    => 'simply_photos'
 
-	config.gem 'jakewendt-documents',
-		:lib    => 'documents'
+	config.gem 'jakewendt-simply_documents',
+		:lib    => 'simply_documents'
 
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
