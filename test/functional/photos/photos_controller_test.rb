@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
-class Photos::PhotosControllerTest < ActionController::TestCase
+class SimplyPhotos::PhotosControllerTest < ActionController::TestCase
 	tests PhotosController
 
 	ASSERT_ACCESS_OPTIONS = {

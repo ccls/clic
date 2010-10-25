@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
-class Photos::PhotoTest < ActiveSupport::TestCase
+class SimplyPhotos::PhotoTest < ActiveSupport::TestCase
 
 	assert_should_require(:title,
 		:model => 'Photo')

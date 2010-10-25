@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100714223802) do
+ActiveRecord::Schema.define(:version => 20101025222046) do
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"
@@ -43,10 +43,11 @@ ActiveRecord::Schema.define(:version => 20100714223802) do
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
+    t.string   "owner_type"
   end
 
   add_index "documents", ["document_file_name"], :name => "index_documents_on_document_file_name", :unique => true
-  add_index "documents", ["owner_id"], :name => "index_documents_on_owner_id"
+  add_index "documents", ["owner_id", "owner_type"], :name => "index_documents_on_owner_id_and_owner_type"
 
   create_table "forums", :force => true do |t|
     t.integer  "group_id",    :null => false
