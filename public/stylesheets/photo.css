@@ -1,0 +1,7 @@
+#images ul.ui-tabs-nav {
+/*
+	without this, the tabs background is too huge
+	with this, the tabs background is a bit too small
+*/
+	display:inline-block;
+}
