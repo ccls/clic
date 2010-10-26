@@ -1,3 +1,8 @@
+/* @import calls must be first.
+   This is a stupid rule that is not well documented.
+*/
+@import url("documents.css");
+@import url("photos.css");
 
 .flash {
 	/* http://css-radius.heroku.com */
@@ -9,14 +14,17 @@
 	font-weight: bold;
 	font-size: 12pt;
 }
+.flash.error,
 .flash#error {
 	border: 2px solid #F44;
 	background-color: #FCC;
 }
+.flash.notice,
 .flash#notice {
 	border: 2px solid #4F4;
 	background-color: #CFC;
 }
+.flash.noscript,
 .flash#noscript {
 	border: 2px solid #FF8C00;
 	background-color: #FFC5AF;
@@ -51,8 +59,8 @@ div.header {
 .row:nth-child(1) {
 	border-top: 1px solid silver;
 }
-.row:nth-child(2n)   { background-color: #EEE; }
-.row:nth-child(2n+1) { background-color: #DDD; }
+.row:nth-child(2n)   { background-color: #FCF9EF; }
+.row:nth-child(2n+1) { background-color: #F5F1E8; }
 
 table {
 	border-collapse:collapse;
@@ -87,11 +95,36 @@ div.pagination {
 
 .columns {
 	clear:both;
+	/* this holds the div open to the size of the contents */
+	display:table-row;
 }
 .columns > div {
-	float:left;
-	display:table;
+	/* and this seems to alleviate the need for floating */
+	display:table-cell;
 }
-.columns > div:last-child {
+
+
+
+th {
+	text-align: left;
+}
+
+
+.field_wrapper {
+	margin-bottom: 15px;
+	clear:both;
+}
+.field_wrapper * {
+	float:left;
+}
+.field_wrapper *:last-child {
 	float:none;
+}
+.field_wrapper .label,
+.field_wrapper  label {
+	width: 250px;
+}
+
+form.destroy_link_to {
+	display:inline;
 }
