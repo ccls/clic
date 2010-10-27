@@ -141,7 +141,6 @@ Warbler::Config.new do |config|
 		rack-1.2.1
 		rack-mount-
 		rack-test-
-		i18n-0.4 
 		abstract-
 		arel-
 		bundler-
@@ -152,7 +151,7 @@ Warbler::Config.new do |config|
 		treetop-
 		tzinfo-
 	)
-
+#		i18n-0.4 
 
 
 	# You can also use regexps or Gem::Dependency objects for flexibility or
