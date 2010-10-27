@@ -1,7 +1,9 @@
 #images ul.ui-tabs-nav {
 /*
-	without this, the tabs background is too huge
-	with this, the tabs background is a bit too small
+	without this, the tabs background is too tall
+		(bottom seems to get hung on menu to the left)
+	with this, the tabs background is a bit too narrow
+		(only as wide as needed to fit the tabs)
 */
 	display:inline-block;
 }
