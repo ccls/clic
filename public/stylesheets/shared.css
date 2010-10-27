@@ -1,12 +1,3 @@
-/* @import calls must be first.
-   This is a stupid rule that is not well documented.
-
-Explicitly adding these when needed
-
-@import url("documents.css");
-@import url("photos.css");
-*/
-
 .flash {
 	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 8px;
