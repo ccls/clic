@@ -51,3 +51,5 @@ require 'tasks/rails'
 if Gem.searcher.find('ccls_engine')
 	require 'ccls_engine/tasks'
 end
+#	From script/generate simply_pages ...
+require 'simply_pages/test_tasks'
