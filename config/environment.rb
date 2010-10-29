@@ -80,10 +80,10 @@ end
 if Gem.searcher.find('ccls_engine')
 require 'ccls_engine' # without this, rake has problems ...
 #undefined local variable or method `ucb_authenticated' for #<Class:0x1059408    d0>
+#require 'simply_documents'
 require 'user' unless defined?(User)
 #require 'role' unless defined?(Role)
 end
-
 
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't
