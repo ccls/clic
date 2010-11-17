@@ -1,54 +1,8 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
-gem 'activesupport', '=2.3.10'
-require 'active_support'	#	note the name disparity
-
-module WarblerWar
-
-	def self.included(base)
-		base.class_eval do
-			alias_method_chain :apply, :removal
-		end
-	end
-
-	def apply_with_removal(config,&block)
-		apply_without_removal(config,&block)
-		puts "BEFORE:#{@files.keys.length}"
-		@files.delete_if {|k,v|
-			#	MUST REMOVE SPECIFICATION TOO!
-			#	Wasn't removing 3.0 specs and then rails
-			#	complained that rails 2.3.8 wasn't installed??
-			k =~ %r{WEB-INF/gems/[^/]+/(#{config.remove_gem_files.join('|')})}
-		} unless config.remove_gem_files.empty?
-		puts "AFTER:#{@files.keys.length}"
-	end
-
-end
-Warbler::War.send(:include,WarblerWar)
-
-module WarblerConfig
-
-	def self.included(base)
-		base.class_eval do
-			attr_accessor :remove_gem_files
-			alias_method_chain :initialize, :removal
-		end
-	end
-
-	#	ALWAYS RECEIVE AND PASS A BLOCK!
-	def initialize_with_removal(warbler_home = WARBLER_HOME,&block)
-		@remove_gem_files = []
-		initialize_without_removal(warbler_home,&block)
-	end
-
-end
-Warbler::Config.send(:include,WarblerConfig)
-
-#	Always includes the latest version of a gem
-#	despite being told not to.  Bad dog!
-
-
+gem 'jakewendt-ccls_engine'
+require 'ccls_engine/warble'
 
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
@@ -123,35 +77,6 @@ Warbler::Config.new do |config|
 	# The most recent versions of gems are used.
 	# You can specify versions of gems by using a hash assignment:
 	# config.gems["rails"] = "2.0.2"
-
-
-
-	#	just before creating the war file, files matching
-	#	these will be removed from the list. 
-	#	  WEB-INF/gems/gems/REGEX
-	config.remove_gem_files = %w(
-		activesupport-3
-		activerecord-3
-		activeresource-3
-		actionpack-3
-		actionmailer-3
-		activemodel-3
-		railties-3
-		rails-3
-		rack-1.2.1
-		rack-mount-
-		rack-test-
-		abstract-
-		arel-
-		bundler-
-		erubis-
-		mail-
-		polyglot-
-		thor-
-		treetop-
-		tzinfo-
-	)
-#		i18n-0.4 
 
 
 	# You can also use regexps or Gem::Dependency objects for flexibility or
