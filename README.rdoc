@@ -147,6 +147,14 @@ then we continue ...
  #	generate a 128 character hex string perfect for using as your secret.
  rake secret
 
+ script/generate ccls_engine User
+ script/generate calnet_authenticated User
+ script/generate simply_authorized
+ script/generate simply_pages
+ script/generate simply_photos
+ script/generate simply_documents
+ script/generate simply_helpful
+
  rake db:migrate
 
  #	add some expected items (loads fixtures OVERWRITING some db data)
