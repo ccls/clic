@@ -31,3 +31,6 @@ versions/
 #test/unit/helpers/
 #db/*.sqlite3-journal
 #database_description_*
+
+config/*database.yml
+db/test_*_schema.rb
