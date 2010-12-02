@@ -16,6 +16,21 @@ RAILS_APP_NAME = 'clic'
 
 Rails::Initializer.run do |config|
 
+	if RUBY_PLATFORM =~ /java/
+		config.gem 'activerecord-jdbcsqlite3-adapter',
+			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
+		config.gem 'activerecord-jdbcmysql-adapter',
+			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
+		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
+		config.gem 'jruby-openssl', :lib => 'openssl'
+	else
+		config.gem 'mysql'
+		config.gem "sqlite3-ruby", :lib => "sqlite3"
+	end
+
+	#	due to some enhancements, the db gems MUST come first
+	#	for use in the jruby environment.
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
@@ -24,37 +39,6 @@ Rails::Initializer.run do |config|
 
 	config.gem 'jakewendt-simply_documents',
 		:lib    => 'simply_documents'
-
-	if RUBY_PLATFORM =~ /java/
-		#	For functionality with rvm/jruby
-		#	I expected to have to change database.yml for this but didn't
-		config.gem 'activerecord-jdbcsqlite3-adapter',
-			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter',
-			:version => '~>0.9'
-		#	1.0.1 is for rails 3 I think
-		config.gem 'activerecord-jdbcmysql-adapter',
-			:lib => 'active_record/connection_adapters/jdbcmysql_adapter',
-			:version => '~>0.9'
-		#	1.0.1 is for rails 3 I think
-
-		#	Additional jruby specific jars required in the war
-		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
-		config.gem 'jruby-openssl', :lib => 'openssl'
-	else
-
-		# If using mysql ...
-		# On Mac OS X:
-		#   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
-		# On Mac OS X Leopard:
-		#   sudo env ARCHFLAGS="-arch i386" gem install mysql 
-		#			-- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-		# ... however, I had to install the mysql gem like so ...
-		#   sudo env ARCHFLAGS="-arch x86_64" gem install mysql 
-		#			-- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-
-		config.gem 'mysql'
-		config.gem "sqlite3-ruby", :lib => "sqlite3"
-	end
 
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'will_paginate'
