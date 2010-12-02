@@ -1,6 +1,6 @@
-= UC Berkeley, School of Public Health, California Childhood Leukemia Study
+= CCLS CLIC
 
-
+UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
 
 == Requirements
@@ -35,9 +35,9 @@
 * {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {jakewendt-assert_this_and_that}[http://github.com/jakewendt/assert_this_and_that]
+* {jakewendt-simply_testable}[http://github.com/jakewendt/simply_testable]
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
-* {jakewendt-ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
+* {jakewendt-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
 * {jakewendt-simply_pages}[http://github.com/jakewendt/simply_pages]
 * {jakewendt-simply_photos}[http://github.com/jakewendt/simply_photos]
 * {jakewendt-simply_documents}[http://github.com/jakewendt/simply_documents]
@@ -146,14 +146,6 @@ then we continue ...
  #	Add your own session secret to config/initializers/session_store.rb
  #	generate a 128 character hex string perfect for using as your secret.
  rake secret
-
- script/generate ccls_engine User
- script/generate calnet_authenticated User
- script/generate simply_authorized
- script/generate simply_pages
- script/generate simply_photos
- script/generate simply_documents
- script/generate simply_helpful
 
  rake db:migrate
 
