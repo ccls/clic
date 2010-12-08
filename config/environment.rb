@@ -40,6 +40,9 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
+	config.gem 'jakewendt-simply_authorized',
+		:lib    => 'simply_authorized'
+
 	config.gem 'jakewendt-html_test',
 		:lib    => 'html_test'
 
