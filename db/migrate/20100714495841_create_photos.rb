@@ -4,7 +4,7 @@ class CreatePhotos < ActiveRecord::Migration
 			t.string :title, :null => false
 			t.text   :caption
 			t.timestamps
-		end
+		end unless table_exists?(:photos)
 	end
 
 	def self.down

@@ -1,6 +1,7 @@
 class CreateDocuments < ActiveRecord::Migration
 	def self.up
-		create_table :documents do |t|
+		table_name = 'documents'
+		create_table table_name do |t|
 			t.references :owner
 			t.string :title, :null => false
 			t.text   :abstract
@@ -9,8 +10,10 @@ class CreateDocuments < ActiveRecord::Migration
 			t.boolean :shared_with_select, 
 				:default => false, :null => false
 			t.timestamps
-		end
-		add_index :documents, :owner_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :owner_id
+			) unless idxs.include?("index_#{table_name}_on_owner_id")
 	end
 
 	def self.down

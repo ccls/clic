@@ -18,7 +18,7 @@ class CreateBackgroundrbQueueTable < ActiveRecord::Migration
       t.column :runner_info, :string
       t.column :worker_key, :string
       t.column :scheduled_at, :datetime
-    end
+    end unless table_exists?(:bdrb_job_queues)
   end
 
   def self.down
