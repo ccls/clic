@@ -46,9 +46,6 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_pages',
 		:lib    => 'simply_pages'
 
-	config.gem 'jakewendt-html_test',
-		:lib    => 'html_test'
-
 	config.gem 'jakewendt-simply_photos',
 		:lib    => 'simply_photos'
 
