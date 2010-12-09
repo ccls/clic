@@ -43,6 +43,9 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_authorized',
 		:lib    => 'simply_authorized'
 
+	config.gem 'jakewendt-simply_pages',
+		:lib    => 'simply_pages'
+
 	config.gem 'jakewendt-html_test',
 		:lib    => 'html_test'
 
