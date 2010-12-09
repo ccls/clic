@@ -1,0 +1,108 @@
+documents_1: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: 1CLIC_2009timelinefullproposal_033109.pdf
+  document_file_size: 30323
+  document_updated_at: 2010-07-26 23:12:44 Z
+  id: 1
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: 1CLIC_2009timelinefullproposal_033109.pdf
+documents_2: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: 2CLICEOIForm_030109.pdf
+  document_file_size: 107370
+  document_updated_at: 2010-07-26 23:12:44 Z
+  id: 2
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: 2CLICEOIForm_030109.pdf
+documents_3: 
+  abstract: ""
+  document_content_type: application/pdf
+  document_file_name: 3CLICAPAForm_030109.pdf
+  document_file_size: 139522
+  document_updated_at: 2010-07-26 23:12:44 Z
+  id: 3
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: 3CLICAPAForm_030109.pdf
+documents_4: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: CLIC2006MeetingMaterials.pdf
+  document_file_size: 32069
+  document_updated_at: 2010-07-26 23:12:44 Z
+  id: 4
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: CLIC2006MeetingMaterials.pdf
+documents_5: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: CLIC2007MeetingMaterials.pdf
+  document_file_size: 2666017
+  document_updated_at: 2010-07-26 23:12:45 Z
+  id: 5
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: CLIC2007MeetingMaterials.pdf
+documents_6: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: CLIC2008MeetingMaterials.pdf
+  document_file_size: 966480
+  document_updated_at: 2010-07-26 23:12:46 Z
+  id: 6
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: CLIC2008MeetingMaterials.pdf
+documents_7: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: CLICAuthorshipPolicy_020810.pdf
+  document_file_size: 24217
+  document_updated_at: 2010-07-26 23:12:46 Z
+  id: 7
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: CLICAuthorshipPolicy_020810.pdf
+documents_9: 
+  abstract: 
+  document_content_type: application/pdf
+  document_file_name: R01CollabTable062807FINAL.pdf
+  document_file_size: 20589
+  document_updated_at: 2010-07-26 23:12:46 Z
+  id: 9
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: R01CollabTable062807FINAL.pdf
+documents_10: 
+  abstract: ""
+  document_content_type: application/pdf
+  document_file_name: CLICMembershipGuidelines_07302009.pdf
+  document_file_size: 0
+  document_updated_at: 2010-12-06 21:54:41 Z
+  id: 10
+  owner_id: 
+  owner_type: 
+  shared_with_all: false
+  shared_with_select: false
+  title: CLICMembershipGuidelines_07302009.pdf

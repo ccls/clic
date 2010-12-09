@@ -1,4 +1,3 @@
---- 
 pages_1: 
   body_en: |-
     The Childhood Leukemia International Consortium (CLIC) is an international group of researchers established in 2006 in collaboration with the University of California at Berkeley and the International Agency for Research on Cancer, with the aim of sharing comparable data from case-control and family-based trio studies on childhood leukemia. Through this joint research, we will coordinate scientific efforts and achieve greater power to elucidate the role of a variety of clinical, infectious, environmental, and genetic risk factors in the etiology of childhood leukemia, especially for rare subtypes.
@@ -9,18 +8,9 @@ pages_1:
     
     h3. CLIC 2010 Meeting
     
-    The Fourth Annual CLIC Meeting in 2010 will be held on October 19-20, 2010, two days prior to the SIOP Conference at the Westin Copley Place in Boston, Massachusetts. There are no meeting registration expenses for this meeting. 
+    The Fourth Annual CLIC Meeting was held on October 19-20, 2010, two days prior to the SIOP Conference at the Westin Copley Place in Boston, Massachusetts. 
     
-    Please send all reservations and/or inquiries regarding the meeting to "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
-    
-    ---
-    
-    h2. Call for Expressions of Interest for Data Pooling
-    
-    The CLIC Data Pooling guidelines, forms, and timelines have been finalized and posted at "Research Projects":/ResearchProjects to begin requests for pooled analysis within our consortium.
-    
-    The next call for Expressions of Interest (EOI) will be announced shortly.  Interested researchers can begin preparing their EOI forms for submission.
-    
+    Please send all inquiries regarding the meeting to "CLIC_centraloffice@berkeley.edu":mailto:CLIC_centraloffice@berkeley.edu .
     
     ---
     
@@ -103,7 +93,7 @@ pages_3:
     
     CLIC members are epidemiologists involved in childhood leukemia studies and scientists with expertise in domains relevant to childhood leukemia. Members are expected to bring to the consortium their expertise, ideas and resources, including results, raw data and biological samples. Membership is effective upon notification to and confirmation of acceptance by the Coordination Group.
     
-    More information about membership (i.e. criteria, structure) can be found in the "Membership Guidelines":/documents/CLICMembershipGuidelinesFinal_030309.pdf.
+    More information about membership (e.g. criteria, structure) can be found in the "Membership Guidelines":/documents/CLICMembershipGuidelines_07302009.pdf .
     
     !{width:100%}https://s3.amazonaws.com/clic/images/CLICOrgChart_March09_000.jpg(CLIC Organization Chart)!
   body_es: ""
@@ -117,12 +107,12 @@ pages_3:
   title_en: Members
   title_es: ""
 pages_4: 
-  body_en: |-
+  body_en: |
     h1. CLIC Studies
     
     h2. Study Description
     
-    The time periods of recruitment vary between individual studies with commencement year ranging from 1989 to 2003.  About half of the studies are still ongoing.  Tthe majority of the studies are population-based. Most studies have an age criterion of 0 to 14 years, with the exception of the Brazilian study (0-2 yrs), Italian study (<11 years), and the St. Justine and Seoul studies (0-18 yrs).  Most studies have matched on age and sex with some studies also matching on race/ethnicity.  The total estimated target sample size for all studies combined is approximately 8,000 cases and 14,000 controls. A breakdown of the sample size by major leukemia subtypes shows that there are approximately 6,700 B- and T-cell acute lymphoid leukemia and 970 acute myeloid leukemia.
+    The time periods of recruitment vary between individual studies with commencement year ranging from 1989 to 2003.  About half of the studies are still ongoing.  The majority of the studies are population-based. Most studies have an age criterion of 0 to 14 years, with the exception of the Brazilian study (0-2 yrs), Italian study (<11 years), and the Qc-ALL and Seoul studies (0-18 yrs).  Most studies have matched on age and sex with some studies also matching on race/ethnicity.  The total estimated target sample size for all studies combined is approximately 8,000 cases and 14,000 controls. A breakdown of the sample size by major leukemia subtypes shows that there are approximately 6,700 B- and T-cell acute lymphoid leukemia and 970 acute myeloid leukemia.
     
     h3. Questionnaire data and DNA sample collection
     
@@ -130,7 +120,8 @@ pages_4:
     
     h3. Map of Distribution of the Research Groups and Study Areas in the World
     
-    !{width:100%}https://s3.amazonaws.com/clic/images/CLICStudies123009_studiesonlynoPI.jpg(CLIC Studies 2010)!
+    !{width:100%}https://s3.amazonaws.com/clic/photos/2/medium/CLICStudies_113010_studies_only_no_PI.jpg(CLIC Studies 2010)!
+
   body_es: ""
   hide_menu: false
   id: 4
@@ -299,7 +290,7 @@ pages_11:
     - Oversee scientific agenda/priorities
     - Review and approve new applications of a childhood leukemia study, and grant Active membership to its Principal Investigator upon acceptance of the study
     - Review and approve proposed CLIC pooled analyses
-    - Develop policies/guidelines related to governance of CLIC (i.e. data pooling, authorship)
+    - Develop policies/guidelines related to governance of CLIC (e.g. data pooling, authorship)
     - Be a point of reference for conflict resolution; and
     - Attend the annual meeting or send a representative if the principal investigator cannot attend.
     
@@ -307,26 +298,30 @@ pages_11:
     
     h4. Americas
     
-    Brazil-IAL Study, Brazil
+    Brazil-IAL, Brazil
     PI: Maria Pombo-de-Oliveira; Authorized Delegate: Sergio Koifman
     
-    Childrens Oncology Group (COG) (CCG E-14, CCG E-15), USA
+    Costa Rica
+    PI: Patricia Monge
+    
+    Children's Oncology Group (COG) (CCG E-14, CCG E-15), USA
     PI: Logan Spector
     
-    Northern California Childhood Leukemia Study (NCCLS), USA
-    PI: Patricia Buffler; co-PIs: Catherine Metayer, Anand Chokkalingam; Authorized Delegates: Martyn Smith, Joe Wiemels
+    California Childhood Leukemia Study (CCLS), USA
+    PI: Patricia Buffler; co-PI: Catherine Metayer; Authorized Delegates: Anand Chokkalingam, Martyn Smith, Joe Wiemels
     
-    Quebec Study, Canada
+    Quebec, Canada
     PI: Claire Infante-Rivard
     
-    St. Justine Study, Canada
+    Qc-ALL, Canada
     PI: Daniel Sinnett
     
     
     h4. Asia
     
-    Seoul Study, Korea
+    Seoul, Korea
     PI: Daehee Kang; Authorized Delegate: Kyoung-mu Lee
+    
     
     h4. Europe
     
@@ -337,16 +332,20 @@ pages_11:
     PI: Michael Murphy
     
     German Childhood Cancer Registry (GCCR) (LSP, NIP, WGP), Germany
-    co- PIs: Peter Kaatsch, Joachim Sch\xC3\xBCz
+    co-PIs: Peter Kaatsch, Joachim Sch&uuml;z
+    
+    NaReCHeM, Greece
+    PI: Eleni Petridou
     
     Italy
     PI: Corrado Magnani
     
     Manchester, UK
-    co- PIs: Jillian Birch, Malcolm Taylor
+    co-PIs: Jillian Birch, Malcolm Taylor
     
     United Kingdom Childhood Cancer Study (UKCCS), UK
     PI: Eve Roman; Authorized Delegate: Jill Simpson
+    
     
     h4. Oceania
     
@@ -371,7 +370,7 @@ pages_12:
     
     h2. Management Group
     
-    A Management Group (Executive Committee) is elected by the Coordination Group every two years, either during a general meeting of CLIC or by e-mail. The Management Group will select one member to serve as Chair or Convenor. Members of the Management Group serve for a maximum of 4 years (consecutive). The Management Group is responsible for the maintenance of an updated list of members, the overall coordination of the collaboration, the communication amongst Interest Groups and Working Groups, the organization of general meetings and the coordination of grant applications. It also provides assistance to the participants when needed (e.g., by supporting a grant application at the national or international level). It can make management/coordination decisions on matters relating to CLIC when appropriate with or without first consulting with members. All its decisions will be transmitted immediately to the members.
+    A Management Group (Executive Committee) is elected by the Coordination Group every two years, either during a general meeting of CLIC or by e-mail. The Management Group will select one member to serve as Chair or Convenor. Members of the Management Group serve for a maximum of 4 years (consecutive). The Management Group is responsible for the maintenance of an updated list of members, the overall coordination of the collaboration, the communication amongst Interest Groups and Working Groups, the organization of general meetings and the coordination of grant applications. It also provides assistance to the participants when needed (e.g. by supporting a grant application at the national or international level). It can make management/coordination decisions on matters relating to CLIC when appropriate with or without first consulting with members. All its decisions will be transmitted immediately to the members.
     
     h4. Acting Members of the Management Group are as follows:
     
@@ -399,17 +398,20 @@ pages_13:
     
     Core Logistics Groups will be established and responsible for advising and facilitating cross-cutting issues as below:
     
-    A. Data Management, Data Dictionary for Core Elements
-    (Lead: Catherine Metayer)
+    Data Management, Data Dictionary for Core Elements, Data Sharing and Pooled Analyses
+    (Leaders: Catherine Metayer and Elizabeth Milne)
     
-    B. Biospecimens: Transfer and Biorepository
-    (Lead: Daehee Kang)
+    Biospecimens: Transfer and Biorepository
+    (Leader: Daehee Kang)
     
-    C. Data Sharing and Pooled Analyses
-    (Lead: Elizabeth Milne, Jacqueline Clavel)
+    Disease Classification and Pathology
+    (Leaders: Maria Pombo de Oliveira and Joe Wiemels)
     
-    D. Disease Classification and Pathology
-    (Lead: Maria Pombo de Oliveira and Joe Wiemels)
+    Methods
+    (Leader: Roberta McKean-Cowdin)
+    
+    Ethics
+    (Leader: Eleni Petridou)
   body_es: ""
   hide_menu: true
   id: 13
@@ -426,16 +428,34 @@ pages_14:
     
     h2. Interest Groups
     
-    The Interest Groups will promote collaborative projects in specific areas of childhood leukemia research (e.g., immunity/infection; environmental/occupation exposures; subtypes of childhood leukemia) There are currently eight Interest Groups (by alphabetical order):
+    The Interest Groups will promote collaborative projects in specific areas of childhood leukemia research (e.g. immunity/infection; environmental/occupation exposures; subtypes of childhood leukemia) There are currently nine Interest Groups (in alphabetical order):
     
-    o AML/APL
-    o Birth Characteristics
-    o Environmental Exposures
-    o Family History
-    o Genetic Studies
-    o Infant Leukemia
-    o Infection and Immunity
-    o Occupational Exposures
+    AML/APL
+    (Leader: Martyn Smith; Co-leader: Maria Pombo-de-Oliveira)
+    
+    Birth Characteristics
+    (Leader: Liz Milne; Co-leader: Joachim Shuz)
+    
+    Environmental Exposures
+    (Leader: Catherine Metayer; Co-leader: Claire Infante-Rivard)
+    
+    Family History
+    (Leader: Jacqueline Clavel; Co-leader: Josh Schiffman)
+    
+    Genetic Studies
+    (Leaders: Patricia Buffler, Claire Infante-Rivard; Co-leader: Jacqueline Clavel)
+    
+    Infant Leukemia
+    (Leader: Maria Pombo-de-Oliveira; Co-leader: Logan Spector)
+    
+    Infection and Immunity
+    (Leader: John Dockerty; Co-leaders: Jacqueline Clavel, Joe Wiemels)
+    
+    Occupational Exposures
+    (Leader: Corrado Magnani; Co-leader: Sergio Koifman)
+    
+    Outcomes
+    (Leader: Eleni Petridou)
     
     Research on specific topics will be proposed by the Interest Groups to the Coordination Group by completion of the data pooling forms. If the research proposed is supported by the Coordination Group, a Working Group will be established to pursue the proposed research.
     
