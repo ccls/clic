@@ -35,3 +35,4 @@ versions/
 config/*database.yml
 db/test_*_schema.rb
 packages_updated.*
+development/
