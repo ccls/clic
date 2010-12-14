@@ -5,6 +5,8 @@ end
 
 DocumentsController.class_eval do
 
+	skip_before_filter :login_required,
+		:only => [:show,:preview]
 	skip_before_filter :may_maintain_pages_required,
 		:only => [:show,:preview]
 
