@@ -52,6 +52,9 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_documents',
 		:lib    => 'simply_documents'
 
+	config.gem 'jakewendt-rdoc_rails',
+		:lib    => 'rdoc_rails'
+
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
