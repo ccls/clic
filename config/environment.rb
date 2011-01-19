@@ -37,7 +37,7 @@ Rails::Initializer.run do |config|
 
 	#	due to some enhancements, the db gems MUST come first
 	#	for use in the jruby environment.
-	config.gem 'jakewendt-ccls_engine',
+	config.gem 'ccls-ccls_engine',
 		:lib    => 'ccls_engine'
 
 	config.gem 'jakewendt-simply_authorized',
@@ -52,8 +52,8 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_documents',
 		:lib    => 'simply_documents'
 
-	config.gem 'jakewendt-rdoc_rails',
-		:lib    => 'rdoc_rails'
+#	config.gem 'jakewendt-rdoc_rails',
+#		:lib    => 'rdoc_rails'
 
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'will_paginate'

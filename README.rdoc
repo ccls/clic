@@ -37,7 +37,7 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {jakewendt-simply_testable}[http://github.com/jakewendt/simply_testable]
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
-* {jakewendt-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
+* {ccls-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
 * {jakewendt-simply_pages}[http://github.com/jakewendt/simply_pages]
 * {jakewendt-simply_photos}[http://github.com/jakewendt/simply_photos]
 * {jakewendt-simply_documents}[http://github.com/jakewendt/simply_documents]
