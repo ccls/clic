@@ -38,8 +38,8 @@ protected	#	private #	(does it matter which or if neither?)
 	#skip_before_filter :build_menu_js
 	#	The before filter is defined too late,
 	#	but we can redefine the method!
-	def build_menu_js
-	end
+#	def build_menu_js
+#	end
 
 	#	This is a method that returns a hash containing
 	#	permissions used in the before_filters as keys
