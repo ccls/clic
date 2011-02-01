@@ -1,3 +1,4 @@
+#	Forum class
 class Forum < ActiveRecord::Base
 	belongs_to :group
 	has_many :topics
