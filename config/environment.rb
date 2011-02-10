@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
 
 #	I really shouldn't need this.
 #ENV['RAILS_ENV'] ||= 'production'
@@ -22,6 +22,8 @@ RAILS_APP_NAME = 'clic'
 
 Rails::Initializer.run do |config|
 
+	config.gem 'RedCloth', :version => '!= 4.2.6'
+
 	if RUBY_PLATFORM =~ /java/
 		config.gem 'activerecord-jdbcsqlite3-adapter',
 			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
@@ -37,20 +39,11 @@ Rails::Initializer.run do |config|
 
 	#	due to some enhancements, the db gems MUST come first
 	#	for use in the jruby environment.
-	config.gem 'ccls-ccls_engine',
-		:lib    => 'ccls_engine'
-
-	config.gem 'jakewendt-simply_authorized',
-		:lib    => 'simply_authorized'
-
-	config.gem 'jakewendt-simply_pages',
-		:lib    => 'simply_pages'
-
-	config.gem 'jakewendt-simply_photos',
-		:lib    => 'simply_photos'
-
-	config.gem 'jakewendt-simply_documents',
-		:lib    => 'simply_documents'
+	config.gem 'ccls-ccls_engine'
+	config.gem 'jakewendt-simply_authorized'
+	config.gem 'jakewendt-simply_pages'
+	config.gem 'jakewendt-simply_photos'
+	config.gem 'jakewendt-simply_documents'
 
 	#	require it, but don't load it
 	config.gem 'jakewendt-rdoc_rails', :lib => false
