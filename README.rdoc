@@ -35,7 +35,7 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {jakewendt-simply_testable}[http://github.com/jakewendt/simply_testable]
+* {jakewendt-rails_extension}[http://github.com/jakewendt/rails_extension]
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 * {ccls-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
 * {jakewendt-simply_pages}[http://github.com/jakewendt/simply_pages]
@@ -117,7 +117,8 @@ Everybody join hands together now to install some gems ...
  #
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
- sudo gem install rake rdoc 
+ sudo gem install rake
+ sudo gem install rdoc -v '~> 2'
  sudo gem install rails -v 2.3.11
  #
  # The rest should actually install with ...
