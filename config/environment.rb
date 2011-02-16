@@ -34,7 +34,8 @@ Rails::Initializer.run do |config|
 		config.gem 'jruby-openssl', :lib => 'openssl'
 	else
 		config.gem 'mysql'
-		config.gem "sqlite3-ruby", :lib => "sqlite3"
+#		config.gem "sqlite3-ruby", :lib => "sqlite3"
+		config.gem "sqlite3"
 	end
 
 	#	due to some enhancements, the db gems MUST come first
