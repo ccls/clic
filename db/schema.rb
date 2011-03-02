@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101118214737) do
+ActiveRecord::Schema.define(:version => 20110302002605) do
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"
@@ -157,16 +157,27 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "uid"
-    t.string   "sn"
-    t.string   "displayname"
-    t.string   "mail",            :default => "", :null => false
-    t.string   "telephonenumber"
+    t.string   "username",                           :null => false
+    t.string   "email",                              :null => false
+    t.string   "crypted_password",                   :null => false
+    t.string   "password_salt",                      :null => false
+    t.string   "persistence_token",                  :null => false
+    t.string   "single_access_token",                :null => false
+    t.string   "perishable_token",                   :null => false
+    t.integer  "login_count",         :default => 0, :null => false
+    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "users", ["sn"], :name => "index_users_on_sn"
-  add_index "users", ["uid"], :name => "index_users_on_uid", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token", :unique => true
+  add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

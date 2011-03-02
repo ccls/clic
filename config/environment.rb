@@ -27,9 +27,9 @@ Rails::Initializer.run do |config|
 	if RUBY_PLATFORM =~ /java/
 		config.gem 'activerecord-jdbcsqlite3-adapter',
 			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
-		config.gem 'activerecord-jdbcmysql-adapter',
-			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
-		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
+#		config.gem 'activerecord-jdbcmysql-adapter',
+#			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+#		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
 		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 		config.gem 'jruby-openssl', :lib => 'openssl'
 	else
@@ -38,13 +38,13 @@ Rails::Initializer.run do |config|
 		config.gem "sqlite3"
 	end
 
-	#	due to some enhancements, the db gems MUST come first
-	#	for use in the jruby environment.
-	config.gem 'ccls-ccls_engine'
+	config.gem 'authlogic'
 	config.gem 'jakewendt-simply_authorized'
 	config.gem 'jakewendt-simply_pages'
 	config.gem 'jakewendt-simply_photos'
 	config.gem 'jakewendt-simply_documents'
+	config.gem 'jakewendt-ruby_extension'
+	config.gem 'jakewendt-rails_extension'
 
 	#	require it, but don't load it
 	config.gem 'jakewendt-rdoc_rails', :lib => false

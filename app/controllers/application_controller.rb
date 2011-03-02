@@ -1,45 +1,16 @@
-
-	#	As this app is in a subdir in production,
-	#	Rails sets the ActionController::Base.relative_url_root
-	#	to its value of "/clic".
-	#	Since we are actually accessing the site via
-	#	a proxy where it is acting like root,
-	#	we need to undo that.
-
-##	Don't think this does anything either.
-#ActionController::Base.relative_url_root = ''
-#class ActionController::Base
-#	def relative_url_root
-#		''
-#	end
-#	#	not sure which of these I need.
-#	#	I can't seem to stop if from being set,
-#	#	but I can stop it from being read!
-#	def self.relative_url_root
-#		''
-#	end
-##	doesn't seem to do as expected
-##	def self.default_url_options(options)
-##		{ :skip_relative_url_root => true }
-##	end
-#end
-
-
 class ApplicationController < ActionController::Base
 
+	before_filter :login_required
+
+	filter_parameter_logging :password, :password_confirmation
+
 	helper :all # include all helpers, all the time
+	helper_method :current_user, :logged_in?
 
 	# See ActionController::RequestForgeryProtection for details
 	protect_from_forgery 
 
 protected	#	private #	(does it matter which or if neither?)
-
-	#	from ucb_ccls_engine_controller.rb 
-	#skip_before_filter :build_menu_js
-	#	The before filter is defined too late,
-	#	but we can redefine the method!
-#	def build_menu_js
-#	end
 
 	#	This is a method that returns a hash containing
 	#	permissions used in the before_filters as keys
@@ -56,8 +27,43 @@ protected	#	private #	(does it matter which or if neither?)
 		})
 	end
 
-#	def block_all_access
-#		access_denied("That route is no longer available")
+	def logged_in?
+		!current_user.nil?
+	end
+
+	def current_user_required
+		unless logged_in?
+			redirect_to login_path
+		end
+	end
+	alias_method :login_required, :current_user_required
+
+	def current_user_session
+		return @current_user_session if defined?(@current_user_session)
+		@current_user_session ||= UserSession.find
+#		@current_user_session ||= UserSession.find
+	end
+
+	def current_user
+		return @current_user if defined?(@current_user)
+		@current_user = current_user_session && current_user_session.user
+	end
+
+#	def current_user
+#		load 'user.rb' unless defined?(User)
+#		@current_user ||= if( session && session[:user_id] )
+#				#	if the user model hasn't been loaded yet
+#				#	this will return nil and fail.
+##				User.find_create_and_update_by_uid(session[:calnetuid])
+#			else
+#				nil
+#			end
 #	end
 
+end
+class PhotosController < ApplicationController
+unloadable
+end
+class PagesController < ApplicationController
+unloadable
 end
