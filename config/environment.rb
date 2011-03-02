@@ -39,6 +39,7 @@ Rails::Initializer.run do |config|
 	end
 
 	config.gem 'authlogic'
+	config.gem 'jakewendt-simply_helpful'
 	config.gem 'jakewendt-simply_authorized'
 	config.gem 'jakewendt-simply_pages'
 	config.gem 'jakewendt-simply_photos'
@@ -60,3 +61,7 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
+#	I don't know why I need to do this here, but nowhere else
+PagesController.class_eval { unloadable }
+PhotosController.class_eval { unloadable }
+DocumentsController.class_eval { unloadable }

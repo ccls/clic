@@ -1,6 +1,35 @@
 class User < ActiveRecord::Base
 
-	acts_as_authentic
+	#	by default, expects a username or login attribute
+	#	which I didn't have and caused a bit of a headache!
+	#	Also automatically logs newly created user in
+	#	behind the scenes which caused testing headaches.
+	#	Set this to false to remove this "feature."
+	acts_as_authentic do |c|
+		#	This can be a pain in testing so disabled.
+		#	Creating objects via Factory with associated users 
+		#	results in them being autmatically logged in.
+		c.maintain_sessions = false
+	end
+
+	default_scope :order => :username
+
+	validates_length_of :password, :minimum => 8, 
+		:if => :password_changed?
+
+	validates_format_of :password,
+		:with => Regexp.new(
+			'(?=.*[a-z])' <<
+			'(?=.*[A-Z])' <<
+			'(?=.*\d)' <<
+			# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+			# '(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
+			#	this probably includes control chars
+			'(?=.*\W)' ), 
+		:message => 'requires at least one lowercase and one uppercase ' <<
+			'letter, one number and one special character',
+		:if => :password_changed?
+
 
 	has_and_belongs_to_many :groups
 
@@ -38,10 +67,6 @@ class User < ActiveRecord::Base
 		gravatar.url.gsub(/&/,'&amp;')
 	end
 
-
-#	this has been included above
-#	ucb_authenticated
-
 #	defined in plugin/engine ...
 #
 #	def may_administrate?(*args)
@@ -59,28 +84,13 @@ class User < ActiveRecord::Base
 #			['superuser','administrator','editor']
 #		).length > 0
 #	end
+#
 
-#	def self.inherited(subclass)
-#
-#		subclass.class_eval do
-#			#	for some reason is nil which causes problems
-#			self.default_scoping = []
-#
-#			#	I don't think that having this in a separate gem
-#			#	is necessary anymore.  This is the only place that 
-#			#	it is ever used.  I'll import the calnet_authenticated
-#			#	functionality later.
-##			calnet_authenticated
-#			validates_presence_of   :uid
-#			validates_uniqueness_of :uid
-#
-#			#	include the many may_*? for use in the controllers
-#			authorized
-#
-#			alias_method :may_create?,  :may_edit?
-#			alias_method :may_update?,  :may_edit?
-#			alias_method :may_destroy?, :may_edit?
-#
+	alias_method :may_create?,  :may_edit?
+	alias_method :may_update?,  :may_edit?
+	alias_method :may_destroy?, :may_edit?
+	alias_method :may_view?,    :may_read?
+
 #			%w(	people races languages refusal_reasons ineligible_reasons
 #					).each do |resource|
 #				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
@@ -89,9 +99,5 @@ class User < ActiveRecord::Base
 #				alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
 #				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
 #			end
-#		end	#	class_eval
-#	end	#	inherited()
-
-
 
 end

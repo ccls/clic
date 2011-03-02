@@ -29,3 +29,10 @@ config.action_mailer.delivery_method = :smtp
 
 config.action_mailer.default_url_options = { 
 	:host => "dev.sph.berkeley.edu:3000" }
+
+config.after_initialize do
+#	I don't know why I need to do this here, but nowhere else
+PagesController.class_eval { unloadable }
+PhotosController.class_eval { unloadable }
+#DocumentsController.class_eval { unloadable }
+end

@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 #	unloadable
 
 	skip_before_filter :login_required, 
-		:only => [:new, :create]
+		:only => [:new, :create, :menu]
 
-#	before_filter :no_current_user_required, :only => [:new, :create]
+	before_filter :no_current_user_required, :only => [:new, :create]
 #	before_filter :valid_invitation_required, :only => [:new,:create]
 	before_filter :id_required, :only => [:edit, :show, :update ]
 	before_filter :may_view_user_required, :only => [:edit,:update,:show]
@@ -25,9 +25,9 @@ class UsersController < ApplicationController
 		User.transaction do
 			@user = User.new(params[:user])	
 			@user.save!
-			@user_invitation.accepted_at = Time.now
-			@user_invitation.recipient_id = @user.id
-			@user_invitation.save!
+#			@user_invitation.accepted_at = Time.now
+#			@user_invitation.recipient_id = @user.id
+#			@user_invitation.save!
 		end
 		flash[:notice] = "Registration successful."	
 		redirect_to login_url	
@@ -57,6 +57,14 @@ class UsersController < ApplicationController
 #		flash[:error] = @errors if @errors
 	end
 
+	ssl_allowed :menu
+
+	def menu
+		respond_to do |format|
+			format.js {}
+		end
+	end
+
 protected
 
 	def id_required
@@ -67,14 +75,14 @@ protected
 		end
 	end
 
-	def valid_invitation_required
-		if !params[:token].blank? && UserInvitation.exists?(
-			:token => params[:token],
-			:recipient_id => nil)
-			@user_invitation = UserInvitation.find_by_token(params[:token])
-		else
-			access_denied("Valid UserInvitation token required!")
-		end
-	end
+#	def valid_invitation_required
+#		if !params[:token].blank? && UserInvitation.exists?(
+#			:token => params[:token],
+#			:recipient_id => nil)
+#			@user_invitation = UserInvitation.find_by_token(params[:token])
+#		else
+#			access_denied("Valid UserInvitation token required!")
+#		end
+#	end
 
 end

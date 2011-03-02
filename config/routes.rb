@@ -1,7 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
 
 	map.resource :user_session
-	map.resources :users	#	overrides simply_authorized
+#	map.resources :users	#	overrides simply_authorized
+	map.resources :users, :except => :destroy,
+		:collection => { :menu => :get } do |user|
+		user.resources :roles, :only => [:update,:destroy]
+	end
+
 	map.signup   '/signup',  :controller => 'users',		:action => 'new'
 	map.signin   '/signin',  :controller => 'user_sessions', :action => 'new'
 	map.login	   '/login',	 :controller => 'user_sessions', :action => 'new'

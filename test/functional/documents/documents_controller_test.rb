@@ -1,8 +1,9 @@
 require 'test_helper'
 
-if g = Gem.source_index.find_name('jakewendt-simply_documents').last
-require 'simply_documents'
-require g.full_gem_path + '/test/functional/documents/documents_controller_test'
+if( g = Gem.source_index.find_name('jakewendt-simply_documents').last ) && 
+	!defined?(SimplyDocuments::DocumentsControllerTest)
+	require 'simply_documents'
+	require g.full_gem_path + '/test/functional/documents/documents_controller_test'
 end
 
 SimplyDocuments::DocumentsControllerTest.class_eval do
