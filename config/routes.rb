@@ -1,9 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
 
 	map.resource :user_session
+	map.resource :members_only, :only => :show
 #	map.resources :users	#	overrides simply_authorized
-	map.resources :users, :except => :destroy,
-		:collection => { :menu => :get } do |user|
+#	map.resources :users, :except => :destroy,
+#		:collection => { :menu => :get } do |user|
+	map.resources :users, :except => :destroy do |user|
 		user.resources :roles, :only => [:update,:destroy]
 	end
 
