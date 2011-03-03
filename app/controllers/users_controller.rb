@@ -7,7 +7,8 @@ class UsersController < ApplicationController
 #	unloadable
 
 	skip_before_filter :login_required, 
-		:only => [:new, :create, :menu]
+		:only => [:new, :create]
+#		:only => [:new, :create, :menu]
 
 	before_filter :no_current_user_required, :only => [:new, :create]
 #	before_filter :valid_invitation_required, :only => [:new,:create]
@@ -57,13 +58,13 @@ class UsersController < ApplicationController
 #		flash[:error] = @errors if @errors
 	end
 
-	ssl_allowed :menu
-
-	def menu
-		respond_to do |format|
-			format.js {}
-		end
-	end
+#	ssl_allowed :menu
+#
+#	def menu
+#		respond_to do |format|
+#			format.js {}
+#		end
+#	end
 
 protected
 
