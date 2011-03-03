@@ -8,8 +8,8 @@ jQuery(function(){
 		'/pages/translate.js?caller=' +
 		location.pathname.replace(new RegExp('^' + root),'') );
 
-	jQuery.getScript(root + '/users/menu.js');
 */
+	jQuery.getScript(root + '/users/menu.js');
 
 /*
 http://www.google.com/cse/docs/cref.html
