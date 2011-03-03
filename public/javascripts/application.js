@@ -1,21 +1,20 @@
 jQuery(function(){
 
-	var root = (location.host == 'ccls.berkeley.edu')?'/clic':''
+	var root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
 /*
 	jQuery.getScript(root + '/pages/translate.js' )
 */
 /*
 		'/pages/translate.js?caller=' +
 		location.pathname.replace(new RegExp('^' + root),'') );
-*/
 
 	jQuery.getScript(root + '/users/menu.js');
+*/
 
 /*
 http://www.google.com/cse/docs/cref.html
 */
-/*
-*/
+
 	(function(){
 		var ga = document.createElement('script'); 
 		ga.type = 'text/javascript'; 
