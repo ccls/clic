@@ -376,7 +376,55 @@ end
 #		assert_template 'new'
 #	end
 
+	test "should NOT create new user when create fails" do
+		User.any_instance.stubs(:create_or_update).returns(false)
+		assert_difference('User.count',0) do
+			post :create, :user => factory_attributes
+		end
+		assert assigns(:user)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
+	end
 
+	test "should NOT create new user with invalid user" do
+		User.any_instance.stubs(:valid?).returns(false)
+		assert_difference('User.count',0) do
+			post :create, :user => factory_attributes
+		end
+		assert assigns(:user)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT update user when update fails" do
+		user = create_user(:updated_at => Chronic.parse('yesterday'))
+		User.any_instance.stubs(:create_or_update).returns(false)
+		login_as user
+		deny_changes("User.find(#{user.id}).updated_at") {
+			put :update, :id => user.id,
+				:user => factory_attributes
+		}
+		assert assigns(:user)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT update user with invalid user" do
+		user = create_user(:updated_at => Chronic.parse('yesterday'))
+		User.any_instance.stubs(:valid?).returns(false)
+		login_as user
+		deny_changes("User.find(#{user.id}).updated_at") {
+			put :update, :id => user.id,
+				:user => factory_attributes
+		}
+		assert assigns(:user)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
+	end
 
 	test "should edit user with admin login" do
 		u = user

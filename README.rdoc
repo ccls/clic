@@ -31,26 +31,22 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
 * {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
-* {rubycas-client}[http://code.google.com/p/rubycas-client/] - user authentication
-* {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {jakewendt-rails_extension}[http://github.com/jakewendt/rails_extension]
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
-* {ccls-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
 * {jakewendt-simply_pages}[http://github.com/jakewendt/simply_pages]
 * {jakewendt-simply_photos}[http://github.com/jakewendt/simply_photos]
 * {jakewendt-simply_documents}[http://github.com/jakewendt/simply_documents]
 * {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
+* {jakewendt-html_test}[http://github.com/jakewendt/html_test] - html testing and validation
+* {jakewendt-rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 * {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
 
 
 == Required and included plugins
 
-* {html_test}[http://github.com/peter/html_test] - html testing and validation
-* {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb)
-* {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 
 
 == Installation 
@@ -63,7 +59,6 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
  #	Copy and add your own gmail credentials.
  cp config/initializers/mail.rb.example config/initializers/mail.rb
-
 
 
 
@@ -83,8 +78,6 @@ rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/in
  rvm use jruby
  # or perhaps
  rvm --default jruby
-
-
 
 
 

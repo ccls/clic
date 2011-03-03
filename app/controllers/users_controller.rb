@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 		@user.update_attributes!(params[:user])	
 		flash[:notice] = "Successfully updated profile."	
 		redirect_to root_url	
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Update failed"
 		render :action => 'edit'	
 	end 

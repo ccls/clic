@@ -62,6 +62,6 @@ Rails::Initializer.run do |config|
 
 end
 #	I don't know why I need to do this here, but nowhere else
-PagesController.class_eval { unloadable }
-PhotosController.class_eval { unloadable }
-DocumentsController.class_eval { unloadable }
+#PagesController.class_eval { unloadable }
+#PhotosController.class_eval { unloadable }
+#DocumentsController.class_eval { unloadable }
