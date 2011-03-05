@@ -1,11 +1,112 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-#one: {}
-# column: value
-#
-#two: {}
-#  column: value
+coordination:
+  id: 1
+  position: 1
+  name: Coordination Group
+  description: not a clue
+
+management:
+  id: 2
+  position: 2
+  name: Management Group
+  description: not a clue
+
+corelogistics:
+  id: 3
+  position: 3
+  groups_count: 3
+  name: Core Logistics Groups
+  description: not a clue
+datamanagement:
+  id: 4
+  parent_id: 3
+  position: 1
+  name: Data Management
+  description: not a clue
+biospecimen:
+  id: 5
+  parent_id: 3
+  position: 2
+  name: Biospecimen
+  description: not a clue
+disease:
+  id: 6
+  parent_id: 3
+  position: 3
+  name: Disease Classification and Pathology
+  description: not a clue
+
+interest:
+  id: 7
+  position: 4
+  groups_count: 8
+  name: Interest Groups
+  description: not a clue
+amlandapl:
+  id: 8
+  parent_id: 7
+  position: 1
+  name: AML and APL
+  description: not a clue
+birth:
+  id: 9
+  parent_id: 7
+  position: 2
+  name: Birth Characteristics
+  description: not a clue
+environment:
+  id: 10
+  parent_id: 7
+  position: 3
+  name: Environmental Exposure
+  description: not a clue
+family:
+  id: 11
+  parent_id: 7
+  position: 4
+  name: Family History
+  description: not a clue
+genetic:
+  id: 12
+  parent_id: 7
+  position: 5
+  name: Genetic Studies
+  description: not a clue
+infant:
+  id: 13
+  parent_id: 7
+  position: 6
+  name: Infant Leukemia
+  description: not a clue
+infection:
+  id: 14
+  parent_id: 7
+  position: 7
+  name: Infection and Immunity
+  description: not a clue
+occupation:
+  id: 15
+  parent_id: 7
+  position: 8
+  name: Occupational Exposures
+  description: not a clue
+
+working:
+  id: 16
+  position: 5
+  groups_count: 2
+  name: Working Groups
+  description: not a clue
+birthpooling:
+  id: 17
+  parent_id: 16
+  position: 1
+  name: Birth Characteristics Pooling
+  description: not a clue
+mthfr:
+  id: 18
+  parent_id: 16
+  position: 2
+  name: MTHFR Pooling
+  description: not a clue

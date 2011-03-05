@@ -1,12 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :group_roles
+  map.resources :groups, :shallow => true do |group|
+		group.resources :memberships
+	end
+
 	map.resource :user_session
 	map.resource :members_only, :only => :show
-#	map.resources :users	#	overrides simply_authorized
+
 	map.resources :users, :except => :destroy,
+		:shallow => true,
 		:collection => { :menu => :get } do |user|
-#	map.resources :users, :except => :destroy do |user|
 		user.resources :roles, :only => [:update,:destroy]
+  	user.resources :memberships
 	end
 
 	map.signup   '/signup',  :controller => 'users',		:action => 'new'
@@ -18,7 +24,6 @@ ActionController::Routing::Routes.draw do |map|
 #	map.forgot_password '/forgot_password',		:controller => 'passwords', :action => 'new'
 #	map.reset_password	'/reset_password/:id', :controller => 'passwords', :action => 'edit'
 #	map.change_password '/change_password',		:controller => 'accounts',	:action => 'edit'
-
 
 	map.root :controller => "pages", :action => "show", :path => [""]
 

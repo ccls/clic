@@ -31,7 +31,9 @@ class User < ActiveRecord::Base
 		:if => :password_changed?
 
 
-	has_and_belongs_to_many :groups
+#	has_and_belongs_to_many :groups
+	has_many :memberships
+	has_many :groups, :through => :memberships
 
 #	ucb_authenticated
 	authorized
@@ -89,15 +91,14 @@ class User < ActiveRecord::Base
 	alias_method :may_create?,  :may_edit?
 	alias_method :may_update?,  :may_edit?
 	alias_method :may_destroy?, :may_edit?
-	alias_method :may_view?,    :may_read?
+#	alias_method :may_view?,    :may_read?
 
-#			%w(	people races languages refusal_reasons ineligible_reasons
-#					).each do |resource|
-#				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
-#				alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
-#				alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
-#				alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
-#				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
-#			end
+	%w(	group_roles groups memberships ).each do |resource|
+		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
+		alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
+		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
+		alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
+		alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
+	end
 
 end

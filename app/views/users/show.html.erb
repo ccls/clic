@@ -1,8 +1,7 @@
 <% stylesheets('user') %>
 
-<fieldset id='user'>
-<legend><%= @user.username %></legend>
-
+<div id='user'>
+<div>
 <div class='person'><dl>
 	<% %w( username email ).each do |key| -%>
 		<dt><%= key -%></dt>
@@ -10,11 +9,18 @@
 	<% end -%>
 </dl>
 </div>
-
 <div id='roles'>
 <%= link_to( image_tag(@user.gravatar_url), "http://gravatar.com",
 	:target => 'new' )%>
 <%= user_roles() %>
 </div>
- 
-</fieldset> 
+</div>
+
+<div class='groups'>
+<h3>Groups:</h3>
+<% @user.memberships.each do |membership| %>
+<p><%= membership.group.name %></p>
+<% end %>
+</div> 
+<p><%= button_link_to( 'Edit', edit_user_path(current_user) )%></p>
+</div><!-- id='user' -->

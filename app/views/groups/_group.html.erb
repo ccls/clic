@@ -1,0 +1,18 @@
+<% content_tag_for( :tr, group, :class => 'row' ) do %>
+<td class='name'>
+<%= link_to group.name, group %>
+</td>
+<td class='manage'>
+<%= button_link_to 'Edit', edit_group_path(group) %>&nbsp;
+<% destroy_link_to 'Destroy', group_path(group) do %>
+<%= hidden_field_tag 'confirm', "Destroy group '#{group}'?", 
+	:id => nil %>
+<% end %>
+</td>
+<% end %><!-- class='group row' -->
+
+<% if group.children.length > 0 %>
+<tr><td>&nbsp;</td><td><table class='children'><tbody>
+<%= render :partial => 'group', :collection => group.children %>
+</tbody></table><!-- class='children' --></td></tr>
+<% end %>

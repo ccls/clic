@@ -5,6 +5,8 @@ namespace :app do
 		fixtures = []
 #		fixtures.push('pages')
 		fixtures.push('roles')
+		fixtures.push('group_roles')
+		fixtures.push('groups')
 #		fixtures.push('photos')
 #		fixtures.push('documents')
 		ENV['FIXTURES'] = fixtures.join(',')

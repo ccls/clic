@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302002605) do
+ActiveRecord::Schema.define(:version => 20110305002342) do
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"
@@ -60,22 +60,32 @@ ActiveRecord::Schema.define(:version => 20110302002605) do
   add_index "forums", ["group_id"], :name => "index_forums_on_group_id"
   add_index "forums", ["name"], :name => "index_forums_on_name", :unique => true
 
-  create_table "groups", :force => true do |t|
-    t.string   "name",        :null => false
-    t.text     "description"
+  create_table "group_roles", :force => true do |t|
+    t.integer  "position"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
-
-  create_table "groups_users", :id => false, :force => true do |t|
-    t.integer "group_id"
-    t.integer "user_id"
+  create_table "groups", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+    t.integer  "parent_id"
+    t.integer  "groups_count", :default => 0
   end
 
-  add_index "groups_users", ["group_id"], :name => "index_groups_users_on_group_id"
-  add_index "groups_users", ["user_id"], :name => "index_groups_users_on_user_id"
+  add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.integer  "group_role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pages", :force => true do |t|
     t.integer  "position"

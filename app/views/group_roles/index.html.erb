@@ -1,0 +1,12 @@
+<% javascripts('simply_helpful') %>
+<h2>Group Roles:</h2>
+
+<% if @group_roles.length > 0 %>
+<table id='group_roles'><tbody>
+<%= render :partial => 'group_role', :collection => @group_roles %>
+</tbody></table><!-- id='group_roles' -->
+<% else %>
+Sorry, but no group_roles yet.
+<% end %>
+
+<p><%= button_link_to 'Create New Group Role', new_group_role_path %></p>

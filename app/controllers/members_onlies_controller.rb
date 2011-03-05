@@ -1,3 +1,2 @@
 class MembersOnliesController < ApplicationController
-
 end

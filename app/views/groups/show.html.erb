@@ -1,0 +1,13 @@
+<h2>Group:</h2>
+<p>
+<b>Name:</b>
+<%=h @group.name %>
+</p>
+<p>
+<b>Description:</b>
+<%=h @group.description %>
+</p>
+<h3>Members:</h3>
+<% @group.memberships.each do |membership| %>
+<p><%= membership.user.username %></p>
+<% end %>

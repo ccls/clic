@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ForumTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_require(:name)
 	assert_should_require_unique(:name)
 	assert_should_initially_belong_to(:group)
@@ -14,14 +15,6 @@ class ForumTest < ActiveSupport::TestCase
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		} }
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:forum,options)
-		record.save
-		record
 	end
 
 end

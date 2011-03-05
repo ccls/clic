@@ -21,12 +21,35 @@ module ApplicationHelper
 				"<li>"  << link_to( "Pages", pages_path ) << "</li>" << 
 				"<li>"  << link_to( "Photos", photos_path ) << "</li>" << 
 				"<li>"  << link_to( "Users", users_path ) << "</li>" << 
-				"<li>"  << link_to( "Documents", documents_path ) << "</li>"
+				"<li>"  << link_to( "Documents", documents_path ) << "</li>" << 
+				"<li>"  << link_to( "Groups (temp)", groups_path ) << "</li>" << 
+				"<li>"  << link_to( "Group Roles (temp)", group_roles_path ) << "</li>"
 			end
-			menu << "<li>"  << link_to( "Logout", logout_path ) << "</li>" <<
+			menu << "<li>"  << link_to( "My Account", user_path(current_user) ) << "</li>" <<
+				"<li>"  << link_to( "Logout", logout_path ) << "</li>" <<
 				"</ul><!-- id=PrivateNav -->"
 			menu
 		end
+	end
+
+	def members_only_menu
+		load 'group.rb' if Rails.env == 'development'
+#		cache do
+		out = "<ul id='GlobalNav'>\n"
+		out << Group.roots.collect do |group|
+			root = "<li>#{group.name}</li>\n"
+			root << if group.groups_count > 0
+				children = "<li><ul>"
+				children << group.children.collect do |child|
+					"<li>#{child.name}</li>\n"
+				end.join()
+				children << "</ul></li>"
+			else
+				''
+			end
+		end.join()
+		out << "</ul><!-- id='GlobalNav' -->\n"
+#		end
 	end
 
 end

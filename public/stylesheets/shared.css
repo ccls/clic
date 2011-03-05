@@ -103,6 +103,10 @@ th {
 	text-align: left;
 }
 
+#content > form:nth-of-type(1) {
+	float:left;
+}
+
 
 .field_wrapper {
 	margin-bottom: 15px;

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_require(:title)
 	assert_should_require_unique(:title)
 	assert_should_initially_belong_to(:user)
@@ -17,14 +18,6 @@ class TopicTest < ActiveSupport::TestCase
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		} } } }
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:topic,options)
-		record.save
-		record
 	end
 
 end

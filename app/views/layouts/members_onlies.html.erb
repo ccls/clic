@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<%= render 'layouts/head' %>
+<body>
+<div id='container'>
+<%= render 'layouts/header' %>
+<div id='columns' class='equal_height_column_wrapper'>
+<div id='menu' class='equal_height_column'>
+<%#= render 'layouts/members_only_menu' %>
+<%= members_only_menu() %>
+</div><!-- id='menu' class='equal_height_column' -->
+<div id='content_wrapper' class='equal_height_column'>
+<div id='content'>
+<%= flasher() %>
+<%= yield %>
+</div><!-- id='content' -->
+<%= render 'layouts/footer' %>
+</div><!-- id='content_wrapper' class='equal_height_column' -->
+</div><!-- id='columns' class='equal_height_column_wrapper' -->
+</div><!-- id='container' -->
+</body>
+</html>

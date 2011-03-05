@@ -1,0 +1,19 @@
+<h2>Membership:</h2>
+<p>
+  <b>User:</b>
+  <%=h @membership.user.username %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%=h @membership.group.name %>
+</p>
+
+<p>
+  <b>Group role:</b>
+  <%=h @membership.group_role.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_membership_path(@membership) %> |
+<%= link_to 'Back', memberships_path %>

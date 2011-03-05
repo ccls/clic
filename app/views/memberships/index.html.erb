@@ -1,0 +1,12 @@
+<% javascripts('simply_helpful') %>
+
+<h2>Memberships:</h2>
+<% if @memberships.length > 0 %>
+<table id='memberships'><tbody>
+<%= render :partial => 'membership', :collection => @memberships %>
+</tbody></table><!-- id='memberships' -->
+<% else %>
+Sorry, but no memberships yet.
+<% end %>
+
+<p><%= button_link_to 'Create New Membership', new_membership_path %></p>

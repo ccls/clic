@@ -26,3 +26,13 @@ Factory.define :post do |f|
 	f.association :user
 	f.sequence(:body) { |n| "Body #{n}" }
 end
+
+Factory.define :group_role do |f|
+	f.sequence(:name) { |n| "name#{n}" }
+end
+
+Factory.define :membership do |f|
+	f.association :user
+	f.association :group
+	f.association :group_role
+end

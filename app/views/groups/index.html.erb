@@ -1,0 +1,12 @@
+<% javascripts('simply_helpful') %>
+<h2>Groups:</h2>
+
+<% if @groups.length > 0 %>
+<table id='groups'><tbody>
+<%= render :partial => 'group', :collection => @groups %>
+</tbody></table><!-- id='groups' -->
+<% else %>
+Sorry, but no groups yet.
+<% end %>
+
+<p><%= button_link_to 'Create New Group', new_group_path %></p>

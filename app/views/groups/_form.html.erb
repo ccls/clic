@@ -1,0 +1,8 @@
+<h2>Group:</h2>
+
+<% form_for(@group) do |f| %>
+	<%= f.error_messages %>
+	<%= f.wrapped_text_field :name %>
+	<%= f.wrapped_text_area  :description %>
+	<p><%= f.submit( (@group.new_record?)?'Create':'Update' ) %></p>
+<% end %>
