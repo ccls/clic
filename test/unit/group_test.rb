@@ -12,5 +12,7 @@ class GroupTest < ActiveSupport::TestCase
 #	assert_should_have_many(:users, :through => :memberships)
 	assert_should_belong_to( :parent, 
 		:class_name => 'Group' )
+#	assert_should_have_many( :children,
+#		:foreign_key => 'parent_id' )
 
 end

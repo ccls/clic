@@ -146,26 +146,29 @@ end
 	end
 
 	test "should create new user without login" do
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
 		assert_difference('User.count',1) {
 			post :create, :user => Factory.attributes_for(:user)
-		}
+		} }
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
 	end
 
 	test "should NOT create new user with login" do
 		login_as active_user
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
 
 	test "should NOT create new user without username" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user, :username => nil)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
@@ -173,80 +176,88 @@ end
 
 	test "should NOT create new user without unique username" do
 		u = active_user
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user, :username => u.username)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT create new user without complex password" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:password              => 'mybigbadpassword',
 				:password_confirmation => 'mybigbadpassword'
 			)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT create new user without password" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user, :password => nil)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT create new user without password confirmation" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user, :password_confirmation => nil)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT create new user without matching password and confirmation" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:password => 'alpha',
 				:password_confirmation => 'beta')
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT create new user without email" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:email => nil)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT create new user without formatted email" do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:email => 'blah blah blah')
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 	end
 
 	test "should NOT create new user without unique email" do
 		u = active_user
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:email => u.email)
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
@@ -254,9 +265,10 @@ end
 
 	test "should NOT create new user when create fails" do
 		User.any_instance.stubs(:create_or_update).returns(false)
-		assert_difference('User.count',0) do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('User.count',0) {
 			post :create, :user => factory_attributes
-		end
+		} }
 		assert assigns(:user)
 		assert_response :success
 		assert_template 'new'
@@ -265,9 +277,10 @@ end
 
 	test "should NOT create new user with invalid user" do
 		User.any_instance.stubs(:valid?).returns(false)
-		assert_difference('User.count',0) do
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('User.count',0) {
 			post :create, :user => factory_attributes
-		end
+		} }
 		assert assigns(:user)
 		assert_response :success
 		assert_template 'new'
@@ -324,7 +337,10 @@ end
 	test "should update user with self login" do
 		u = user
 		login_as u
-		put :update, :id => u.id, :user => Factory.attributes_for(:user)
+#	email address will change here
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
+			put :update, :id => u.id, :user => Factory.attributes_for(:user)
+		}
 		assert_redirected_to root_path
 		assert_not_nil flash[:notice]
 	end
@@ -332,7 +348,10 @@ end
 	test "should update user with admin login" do
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user)
+#	email address will change here
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
+			put :update, :id => u.id, :user => Factory.attributes_for(:user)
+		}
 		assert_redirected_to root_path
 		assert_not_nil flash[:notice]
 	end

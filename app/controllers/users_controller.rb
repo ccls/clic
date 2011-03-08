@@ -15,7 +15,8 @@ class UsersController < ApplicationController
 	def create	
 		@user = User.new(params[:user])	
 		@user.save!
-		flash[:notice] = "Registration successful."	
+		flash[:notice] = "Registration successful. Please check your email to complete."
+		UserMailer.deliver_confirm_email(@user)
 		redirect_to login_url	
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = 'User creation failed'
@@ -25,9 +26,18 @@ class UsersController < ApplicationController
 	def edit
 	end
 
-	def update	
+	def update
+		email_was = @user.email
 		@user.update_attributes!(params[:user])	
-		flash[:notice] = "Successfully updated profile."	
+		flash_notice = "Successfully updated profile."	
+		if (email_was != @user.email)
+			@user.old_email = email_was
+			@user.email_confirmed_at = nil
+			@user.save!
+			flash_notice << " Please check your email to complete email change."
+			UserMailer.deliver_confirm_email(@user)
+		end
+		flash[:notice] = flash_notice
 		redirect_to root_url	
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Update failed"

@@ -34,7 +34,6 @@ module ApplicationHelper
 
 	def members_only_menu
 		load 'group.rb' if Rails.env == 'development'
-#		cache do
 		out = "<ul id='GlobalNav'>\n"
 		out << Group.roots.collect do |group|
 			root = "<li>#{group.name}</li>\n"
@@ -49,7 +48,6 @@ module ApplicationHelper
 			end
 		end.join()
 		out << "</ul><!-- id='GlobalNav' -->\n"
-#		end
 	end
 
 end

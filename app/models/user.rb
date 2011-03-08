@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 		c.maintain_sessions = false
 	end
 
+#	def self.find_by_anything(login)
+#		find_by_login(login) || find_by_email(login) #|| find_by_id(login)
+#	end
+
 	default_scope :order => :username
 
 	validates_length_of :password, :minimum => 8, 
@@ -68,6 +72,35 @@ class User < ActiveRecord::Base
 	def gravatar_url
 		gravatar.url.gsub(/&/,'&amp;')
 	end
+
+	def email_confirmed?
+#	this attribute should probably be protected to avoid user
+#	manually confirming email address without access
+		!email_confirmed_at.nil?
+	end
+
+	def confirm_email
+		self.email_confirmed_at = Time.now
+		self.save
+		self
+	end
+
+	def self.confirm_email(perishable_token)
+		user = User.find_using_perishable_token(perishable_token)
+		raise ActiveRecord::RecordNotFound unless user
+		user.email_confirmed_at = Time.now
+		user.save
+		user
+	end
+
+#	before_save :confirm_new_email_address, :if => :email_changed?
+#	def confirm_new_email_address
+#		if email changed, save email_was in old_email
+#	reset_perishable_token?
+#		and set email_confirmed_at to nil and
+#		send email confirmation email
+#		UserMailer.deliver_confirm_email(self)
+#	end
 
 #	defined in plugin/engine ...
 #

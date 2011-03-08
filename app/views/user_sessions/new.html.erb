@@ -11,5 +11,18 @@
   <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
   <br />
   <%= f.submit "Login" %>
-  <%= button_link_to "Sign Up", signup_path %>
+  <%= link_to "Sign Up", signup_path %>
+
+<%# 
+	button_link_to (<a href='http://myapp.com'><button>MyLink</button></a>) causes double request?????? 
+	Why? Why? y?y?y?y?y?y?
+	button doesn't do anything
+	only noticed dues to double emails
+%>
+
+<% if @user_session.errors.on_attr_and_type(:base,:unconfirmed_email) %>
+<%= link_to( "Resend Email Confirmation?", 
+	resend_confirm_email_path(@user_session.attempted_record.perishable_token)) %>
+<% end %>
+
 <% end %>

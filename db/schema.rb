@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305002342) do
+ActiveRecord::Schema.define(:version => 20110307185855) do
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(:version => 20110305002342) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "old_email"
+    t.datetime "email_confirmed_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
