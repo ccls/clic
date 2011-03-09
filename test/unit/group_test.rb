@@ -15,4 +15,19 @@ class GroupTest < ActiveSupport::TestCase
 #	assert_should_have_many( :children,
 #		:foreign_key => 'parent_id' )
 
+	test "should return name as to_s" do
+		object = create_object
+		assert_equal object.name, "#{object}"
+	end
+
+	test "should find by name with ['string']" do
+		object = Group['Coordination Group']
+		assert object.is_a?(Group)
+	end
+
+	test "should find by name with [:symbol]" do
+		object = Group['Coordination Group'.to_sym]
+		assert object.is_a?(Group)
+	end
+
 end

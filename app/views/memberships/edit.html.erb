@@ -1,23 +1,12 @@
 <h1>Editing membership</h1>
 
 <% form_for(@membership) do |f| %>
-  <%= f.error_messages %>
+	<%= f.error_messages %>
 
-  <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :group_id %><br />
-    <%= f.text_field :group_id %>
-  </p>
-  <p>
-    <%= f.label :group_role_id %><br />
-    <%= f.text_field :group_role_id %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+	<%= f.wrapped_collection_select( :group_role_id, GroupRole.all,
+		:id, :name, :include_blank => true) %>
+
+	<p><%= f.submit 'Update' %></p>
 <% end %>
 
 <%= link_to 'Show', @membership %>&nbsp;|&nbsp;

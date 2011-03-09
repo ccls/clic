@@ -34,15 +34,11 @@ class User < ActiveRecord::Base
 			'letter, one number and one special character',
 		:if => :password_changed?
 
-
-#	has_and_belongs_to_many :groups
 	has_many :memberships
 	has_many :groups, :through => :memberships
-
-#	ucb_authenticated
-	authorized
-#	document_owner
 	has_many :documents, :as => :owner
+
+	authorized
 
 #	alias_method :may_view_calendar?, :may_read?
 
@@ -100,22 +96,6 @@ class User < ActiveRecord::Base
 			).length > 0
 	end
 
-#	def self.confirm_email(perishable_token)
-#		user = User.find_using_perishable_token(perishable_token)
-#		raise ActiveRecord::RecordNotFound unless user
-#		user.email_confirmed_at = Time.now
-#		user.save
-#		user
-#	end
-
-#	before_save :confirm_new_email_address, :if => :email_changed?
-#	def confirm_new_email_address
-#		if email changed, save email_was in old_email
-#	reset_perishable_token?
-#		and set email_confirmed_at to nil and
-#		send email confirmation email
-#		UserMailer.deliver_confirm_email(self)
-#	end
 
 #	defined in plugin/engine ...
 #
@@ -141,7 +121,7 @@ class User < ActiveRecord::Base
 	alias_method :may_destroy?, :may_edit?
 #	alias_method :may_view?,    :may_read?
 
-	%w(	group_roles memberships ).each do |resource|
+	%w(	group_roles ).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
 		alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
 		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
@@ -161,6 +141,7 @@ class User < ActiveRecord::Base
 	def may_update_membership?(membership)
 		may_administrate? || is_group_moderator?(membership.group)
 	end
+	alias_method :may_edit_membership?, :may_update_membership?
 
 	#	Only admins, group moderators and self can edit/update
 	def may_read_membership?(membership)
@@ -189,6 +170,7 @@ class User < ActiveRecord::Base
 	def may_update_group?(group)
 		may_administrate? || is_group_moderator?(group)
 	end
+	alias_method :may_edit_group?, :may_update_group?
 
 	#	Only admins can read groups
 	def may_read_groups?

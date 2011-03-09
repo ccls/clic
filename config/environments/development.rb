@@ -32,6 +32,7 @@ config.action_mailer.default_url_options = {
 
 config.after_initialize do
 #	I don't know why I need to do this here, but nowhere else
+#	And now I don't know why I don't need them?????
 #PagesController.class_eval { unloadable }
 #PhotosController.class_eval { unloadable }
 end

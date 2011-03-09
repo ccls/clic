@@ -25,4 +25,16 @@ class Group < ActiveRecord::Base
 	validates_presence_of :name
 	validates_uniqueness_of :name
 
+	def to_s
+		name
+	end
+
+#	class NotFound < StandardError; end
+
+	#	Treats the class a bit like a Hash and
+	#	searches for a record with a matching name.
+	def self.[](name)
+		find_by_name(name.to_s) #|| raise(NotFound)
+	end
+
 end

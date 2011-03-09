@@ -1,6 +1,7 @@
 module ApplicationHelper
 
 	def application_root_menu
+		load 'page.rb' if Rails.env == 'development'
 		out = "<ul id='GlobalNav'>\n"
 		out << Page.roots.collect do |page|
 			"<li>" << link_to( page.menu(session[:locale]), 

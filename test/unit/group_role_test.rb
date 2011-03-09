@@ -10,4 +10,19 @@ class GroupRoleTest < ActiveSupport::TestCase
 #	assert_should_have_many(:users,  :through => :memberships)
 #	assert_should_have_many(:groups, :through => :memberships)
 
+	test "should return name as to_s" do
+		object = create_object
+		assert_equal object.name, "#{object}"
+	end
+
+	test "should find by name with ['string']" do
+		object = GroupRole['moderator']
+		assert object.is_a?(GroupRole)
+	end
+
+	test "should find by name with [:symbol]" do
+		object = GroupRole[:moderator]
+		assert object.is_a?(GroupRole)
+	end
+
 end

@@ -45,13 +45,17 @@ class GroupsController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && 
-				Group.exists?(params[:id]) )
+		if( !params[:id].blank? && Group.exists?(params[:id]) )
 			@group = Group.find(params[:id])
+			@memberships = @group.memberships
 		else
-			access_denied("Valid id required!",
-				groups_path)			#	root_path
+			access_denied("Valid id required!", groups_path)
 		end
+	end
+
+	def may_read_group_required
+		current_user.may_read_group?(@group) || access_denied(
+			"special read redirect", new_group_membership_path(@group) )
 	end
 
 end

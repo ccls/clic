@@ -1,0 +1,15 @@
+<% content_tag_for( :tr, membership, :class => 'row' ) do %>
+<td class='name'>
+<%= link_to membership.user.username, membership.user %>
+</td>
+<td class='group_role'>
+<%#= membership.group_role.try(:name) || 'NONE' %>
+</td>
+<td class='manage'>
+<%#= button_link_to 'Edit', edit_group_path(group) %>&nbsp;
+<%# destroy_link_to 'Destroy', group_path(group) do %>
+<%#= hidden_field_tag 'confirm', "Destroy group '#{group}'?", 
+	:id => nil %>
+<%# end %>
+</td>
+<% end %><!-- class='group row' -->

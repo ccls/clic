@@ -126,3 +126,15 @@ th {
 form.destroy_link_to {
 	display:inline;
 }
+
+
+
+
+
+
+
+
+
+form.edit_group .field_wrapper label {
+	width: 200px;
+}

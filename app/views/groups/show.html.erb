@@ -7,9 +7,21 @@
 <b>Description:</b>
 <%=h @group.description %>
 </p>
-<h3>Members:</h3>
-<% @group.memberships.each do |membership| %>
+<%# if current_user.may_edit_group?(@group) %>
 <p>
-<%= membership.user.username %>&nbsp;|&nbsp;<%= membership.group_role %>
+<%= link_to "Edit Group", edit_group_path(@group) %>
+&nbsp;|&nbsp;
+<%= link_to "Request Membership", new_group_membership_path(@group) %>
 </p>
+<%# end %>
+<hr/>
+<h3>Members:</h3>
+<% if @memberships.length > 0 %>
+<table id='memberships'><thead>
+<tr><th>User</th><th>Role</th></tr>
+</thead><tbody>
+<%= render :partial => 'membership', :collection => @memberships %>
+</tbody></table><!-- id='memberships' -->
+<% else %>
+Sorry, but no memberships yet.
 <% end %>

@@ -71,6 +71,7 @@ body {
 	padding: 5px;
 	border-bottom: 1px solid #99CCFF;
 	font: 0.8em Arial, Helvetica, sans-serif;
+	color: #fff;
 }
 #PrivateNav li {
 	background: #CC6699;
@@ -88,6 +89,10 @@ body {
 #PrivateNav a:hover,
 #GlobalNav a:hover {
 	text-decoration: underline;
+}
+
+#GlobalNav li ul li:last-child {
+	border-bottom: 0;
 }
 
 #members_only {

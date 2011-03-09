@@ -33,7 +33,7 @@ Rails::Initializer.run do |config|
 		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 		config.gem 'jruby-openssl', :lib => 'openssl'
 	else
-		config.gem 'mysql'
+#		config.gem 'mysql'
 #		config.gem "sqlite3-ruby", :lib => "sqlite3"
 		config.gem "sqlite3"
 	end
@@ -41,6 +41,9 @@ Rails::Initializer.run do |config|
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic'
 	config.gem 'paperclip'
+	config.gem 'gravatar'
+	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
+	config.gem "aws-s3", :lib => "aws/s3"
 	config.gem 'jakewendt-simply_helpful'
 	config.gem 'jakewendt-simply_authorized'
 	config.gem 'jakewendt-simply_pages'

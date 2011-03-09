@@ -70,7 +70,7 @@ namespace :app do
 		puts
 		if ENV['username'].blank?
 			puts "Username required."
-			puts "Usage: rake #{$*} username=INTEGER"
+			puts "Usage: rake #{$*} username=STRING"
 			puts
 			exit
 		end
