@@ -1,19 +1,20 @@
 <h2>Membership:</h2>
 <p>
   <b>User:</b>
-  <%=h @membership.user.username %>
+  <%=h @membership.user.try(:username) %>
 </p>
 
 <p>
   <b>Group:</b>
-  <%=h @membership.group.name %>
+  <%=h @membership.group.try(:name) %>
 </p>
 
 <p>
   <b>Group role:</b>
-  <%=h @membership.group_role.name %>
+  <%=h @membership.group_role.try(:name) %>
 </p>
 
 
-<%= link_to 'Edit', edit_membership_path(@membership) %> |
-<%= link_to 'Back', memberships_path %>
+<%= link_to 'Edit', edit_membership_path(@membership) %>&nbsp;|&nbsp;
+<%= link_to 'Group', group_path(@membership.group) %>&nbsp;|&nbsp;
+<%#= link_to 'Back', memberships_path %>

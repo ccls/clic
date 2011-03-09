@@ -35,7 +35,8 @@ end
 Factory.define :membership do |f|
 	f.association :user
 	f.association :group
-	f.association :group_role
+#	f.association :group_role
+	f.updated_at Time.now	#	to make it dirty
 end
 
 Factory.define :document do |f|

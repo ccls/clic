@@ -20,5 +20,6 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @membership %> |
-<%= link_to 'Back', memberships_path %>
+<%= link_to 'Show', @membership %>&nbsp;|&nbsp;
+<%= link_to 'Group', group_path(@membership.group) %>&nbsp;|&nbsp;
+<%#= link_to 'Back', memberships_path %>

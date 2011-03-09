@@ -29,6 +29,9 @@ class MembershipsController < ApplicationController
 		@membership.save!
 		flash[:notice] = "Membership request created."
 		redirect_to members_only_path
+#	rescue
+#puts "Something bad happened"
+#		redirect_to members_only_path
 	end
 
 	def show
@@ -36,11 +39,16 @@ class MembershipsController < ApplicationController
 	def edit
 	end
 	def update
-#		redirect_to ...
+		@membership.update_attributes!(params[:membership])			#	BAD IDEA
+		flash[:notice] = 'Success!'
+		redirect_to members_only_path
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "There was a problem updating the membership"
+		render :action => "edit"
 	end
 	def destroy
-#		@membership.destroy
-#		redirect_to ...
+		@membership.destroy
+		redirect_to members_only_path
 	end
 
 protected
@@ -77,11 +85,11 @@ protected
 #			) && access_denied("You are already a member.",members_only_path)
 #	end
 
-	def may_create_memberships_required?
+	def may_create_memberships_required
 		current_user.may_create_membership?(@group) || access_denied
 	end
 
-	def may_read_memberships_required?
+	def may_read_memberships_required
 		current_user.may_read_memberships?(@group) || access_denied
 	end
 
