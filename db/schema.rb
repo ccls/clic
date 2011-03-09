@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110307185855) do
+ActiveRecord::Schema.define(:version => 20110309231407) do
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"
@@ -153,18 +153,6 @@ ActiveRecord::Schema.define(:version => 20110307185855) do
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
-
-  create_table "user_invitations", :force => true do |t|
-    t.integer  "sender_id"
-    t.string   "email"
-    t.string   "token"
-    t.datetime "accepted_at"
-    t.integer  "recipient_id"
-    t.text     "message"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "username",                           :null => false
