@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+	map.resources :documents, :member => { :preview => :get }
+
 	map.resources :group_roles
 	map.resources :groups, :shallow => true do |group|
 		group.resources :memberships
@@ -19,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
 #		:shallow => true,
 		:collection => { :menu => :get } do |user|
 		user.resources :roles, :only => [:update,:destroy]
-  	user.resources :memberships
+#  	user.resources :memberships
 	end
 
 	map.signup   '/signup',  :controller => 'users',		:action => 'new'

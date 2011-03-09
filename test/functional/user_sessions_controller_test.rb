@@ -2,9 +2,20 @@ require 'test_helper'
 
 class UserSessionsControllerTest < ActionController::TestCase
 
+	test "should not log in without email confirmation" do
+		assert_not_logged_in
+		user = active_user(:email_confirmed_at => nil)
+		assert_not_logged_in
+		user_session = UserSession.create(user)
+		assert user_session.errors.on_attr_and_type(:base, :unconfirmed_email)
+		assert_nil UserSession.find
+		assert_not_logged_in
+	end
+
 	test "should not automatically log user in after creation" do
 		assert_not_logged_in
 		user = active_user
+		assert_not_nil user.email_confirmed_at
 		assert_not_logged_in
 	end
 

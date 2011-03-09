@@ -19,6 +19,7 @@ class Group < ActiveRecord::Base
 
 	has_many :memberships
 	has_many :users, :through => :memberships
+	has_many :documents, :as => :owner
 
 	has_many :forums
 	validates_presence_of :name

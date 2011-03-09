@@ -1,5 +1,20 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+
+#	"Foxy Fixtures" generates ids based on a hash
+#	which results in the possibilty of non-unique ids
+#	and makes sorting by it pointless
+#	We'd need to sort by parent's position which introduces a join
+#	for something that should be simple.
+
+#	the "children" really don't need ids as they aren't referenced
+
+
+#	perhaps I should create a "collection_position" to effectively do 
+#	the same thing that the id is doing but would allow for
+#	the "foxiness" of using the labels
+
+
 coordination:
   id: 1
   position: 1
@@ -15,26 +30,39 @@ management:
 corelogistics:
   id: 3
   position: 3
-  groups_count: 3
+  groups_count: 5
   name: Core Logistics Groups
   description: not a clue
 datamanagement:
-  id: 4
+#  id: 4
   parent_id: 3
+#  parent: corelogistics
   position: 1
   name: Data Management
   description: not a clue
 biospecimen:
-  id: 5
+#  id: 5
   parent_id: 3
+#  parent: corelogistics
   position: 2
   name: Biospecimen
   description: not a clue
 disease:
-  id: 6
+#  id: 6
   parent_id: 3
+#  parent: corelogistics
   position: 3
   name: Disease Classification and Pathology
+  description: not a clue
+methods:
+  parent_id: 3
+  position: 4
+  name: Methods
+  description: not a clue
+ethics:
+  parent_id: 3
+  position: 5
+  name: Ethics
   description: not a clue
 
 interest:
@@ -44,52 +72,65 @@ interest:
   name: Interest Groups
   description: not a clue
 amlandapl:
-  id: 8
+#  id: 8
   parent_id: 7
+#  parent: interest
   position: 1
   name: AML and APL
   description: not a clue
 birth:
-  id: 9
+#  id: 9
   parent_id: 7
+#  parent: interest
   position: 2
   name: Birth Characteristics
   description: not a clue
 environment:
-  id: 10
+#  id: 10
   parent_id: 7
+#  parent: interest
   position: 3
   name: Environmental Exposure
   description: not a clue
 family:
-  id: 11
+#  id: 11
   parent_id: 7
+#  parent: interest
   position: 4
   name: Family History
   description: not a clue
 genetic:
-  id: 12
+#  id: 12
   parent_id: 7
+#  parent: interest
   position: 5
   name: Genetic Studies
   description: not a clue
 infant:
-  id: 13
+#  id: 13
   parent_id: 7
+#  parent: interest
   position: 6
   name: Infant Leukemia
   description: not a clue
 infection:
-  id: 14
+#  id: 14
   parent_id: 7
+#  parent: interest
   position: 7
   name: Infection and Immunity
   description: not a clue
 occupation:
-  id: 15
+#  id: 15
   parent_id: 7
+#  parent: interest
   position: 8
   name: Occupational Exposures
+  description: not a clue
+occupation:
+  parent_id: 7
+  position: 9
+  name: Outcomes
   description: not a clue
 
 working:
@@ -99,14 +140,16 @@ working:
   name: Working Groups
   description: not a clue
 birthpooling:
-  id: 17
+#  id: 17
   parent_id: 16
+#  parent: working
   position: 1
   name: Birth Characteristics Pooling
   description: not a clue
 mthfr:
-  id: 18
+#  id: 18
   parent_id: 16
+#  parent: working
   position: 2
   name: MTHFR Pooling
   description: not a clue

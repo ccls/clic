@@ -9,5 +9,7 @@
 </p>
 <h3>Members:</h3>
 <% @group.memberships.each do |membership| %>
-<p><%= membership.user.username %></p>
+<p>
+<%= membership.user.username %>&nbsp;|&nbsp;<%= membership.group_role %>
+</p>
 <% end %>

@@ -38,12 +38,15 @@ Rails::Initializer.run do |config|
 		config.gem "sqlite3"
 	end
 
+	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic'
+	config.gem 'paperclip'
 	config.gem 'jakewendt-simply_helpful'
 	config.gem 'jakewendt-simply_authorized'
 	config.gem 'jakewendt-simply_pages'
 	config.gem 'jakewendt-simply_photos'
-	config.gem 'jakewendt-simply_documents'
+#	documents will become too complex so importing and then cutting the cord
+#	config.gem 'jakewendt-simply_documents'
 	config.gem 'jakewendt-ruby_extension'
 	config.gem 'jakewendt-rails_extension'
 
@@ -65,3 +68,8 @@ end
 #PagesController.class_eval { unloadable }
 #PhotosController.class_eval { unloadable }
 #DocumentsController.class_eval { unloadable }
+
+if RUBY_PLATFORM =~ /java/i
+	require 'file_utils_extension'
+end
+require 'acts_as_list'
