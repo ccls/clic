@@ -205,7 +205,7 @@ class MembershipsControllerTest < ActionController::TestCase
 		assert_changes("Membership.find(#{membership.id}).group_role_id") {
 			put :update, :id => membership.id, :membership => { :group_role_id => 0 }
 		}
-		assert_redirected_to members_only_path
+		assert_redirected_to group_path(membership.group)
 	end
 
 	test "should update membership with system admin login" do
@@ -214,7 +214,7 @@ class MembershipsControllerTest < ActionController::TestCase
 		assert_changes("Membership.find(#{membership.id}).group_role_id") {
 			put :update, :id => membership.id, :membership => { :group_role_id => 0 }
 		}
-		assert_redirected_to members_only_path
+		assert_redirected_to group_path(membership.group)
 	end
 
 
