@@ -2,13 +2,11 @@
 
 <% form_for(@membership) do |f| %>
 	<%= f.error_messages %>
-
+	<h4>User</h4><%= link_to @membership.user.username, @membership.user %><br/>
+	<h4>Group</h4><%= link_to @membership.group.name, @membership.group %><br/>
+	<h4>Role</h4>
 	<%= f.wrapped_collection_select( :group_role_id, GroupRole.all,
 		:id, :name, :include_blank => true) %>
 
 	<p><%= f.submit 'Update' %></p>
 <% end %>
-
-<%= link_to 'Show', @membership %>&nbsp;|&nbsp;
-<%= link_to 'Group', group_path(@membership.group) %>&nbsp;|&nbsp;
-<%#= link_to 'Back', memberships_path %>

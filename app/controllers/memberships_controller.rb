@@ -41,7 +41,8 @@ class MembershipsController < ApplicationController
 		@membership.group_role_id = params.dig('membership','group_role_id')
 		@membership.save!
 		flash[:notice] = 'Success!'
-		redirect_to members_only_path
+#		redirect_to members_only_path
+		redirect_to group_path(@membership.group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the membership"
 		render :action => "edit"
