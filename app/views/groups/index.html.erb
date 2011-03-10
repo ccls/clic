@@ -2,7 +2,9 @@
 <h2>Groups:</h2>
 
 <% if @groups.length > 0 %>
-<table id='groups'><tbody>
+<table id='groups'><thead>
+<tr><th>Group</th><th>Subgroup</th><th>&nbsp;</th></tr>
+</thead><tbody>
 <%= render :partial => 'group', :collection => @groups %>
 </tbody></table><!-- id='groups' -->
 <% else %>

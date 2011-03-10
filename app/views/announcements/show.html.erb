@@ -1,0 +1,18 @@
+<p>
+  <b>Title:</b>
+  <%=h @announcement.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @announcement.content %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @announcement.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_announcement_path(@announcement) %> |
+<%= link_to 'Back', announcements_path %>

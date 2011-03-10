@@ -1,10 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
-
+	map.resources :events
+	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }
 
 	map.resources :group_roles
 	map.resources :groups, :shallow => true do |group|
 		group.resources :memberships
+		group.resources :events
+		group.resources :announcements
 	end
 
 #	map.resource :email_confirmation, :only => :create

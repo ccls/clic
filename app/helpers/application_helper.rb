@@ -36,6 +36,7 @@ module ApplicationHelper
 	def members_only_menu
 		load 'group.rb' if Rails.env == 'development'
 		out = "<ul id='GlobalNav'>\n"
+		out << "<li>#{link_to( "Home", root_path )}</li>\n"
 		out << Group.roots.collect do |group|
 			root = "<li>#{link_to_unless(group.groups_count>0,group.name,group)}</li>\n"
 			root << if group.groups_count > 0

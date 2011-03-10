@@ -95,22 +95,20 @@ body {
 	border-bottom: 0;
 }
 
-#members_only {
-}
 
-#members_only > .section {
+.members_only > .section {
 	width: 49%;
 }
 
-#members_only > .section h2:nth-child(1) {
+.members_only > .section h2:nth-child(1) {
 	text-align: center;
 }
 
-#members_only > #announcement_section {
+.members_only > .announcement_section {
 	float:left;
 }
 
-#members_only > #calendar_section {
+.members_only > .calendar_section {
 	float:right;
 }
 

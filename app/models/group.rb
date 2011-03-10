@@ -11,12 +11,17 @@ class Group < ActiveRecord::Base
 			:dependent => :nullify
 	end
 	
+	named_scope :joinable, :conditions => { 
+		:groups_count => 0 }
+
 	named_scope :roots, :conditions => { 
 		:parent_id => nil }
 
 	named_scope :not_roots, :conditions => [
 		'groups.parent_id IS NOT NULL' ]
 
+	has_many :announcements
+	has_many :events
 	has_many :memberships
 	has_many :users, :through => :memberships
 	has_many :documents, :as => :owner

@@ -43,3 +43,15 @@ Factory.define :document do |f|
 	f.sequence(:title) { |n| "Title#{n}" }
 #	f.sequence(:document_file_name) { |n| "document_file_name#{n}" }
 end
+
+Factory.define :announcement do |f|
+	f.association :user
+	f.sequence(:title) { |n| "Title#{n}" }
+	f.content "Some announcement content"
+end
+Factory.define :event do |f|
+	f.association :user
+	f.sequence(:title) { |n| "Title#{n}" }
+	f.content "Some event content"
+	f.begins_on Chronic.parse('tomorrow')
+end

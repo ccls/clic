@@ -1,7 +1,9 @@
 <% content_tag_for( :tr, group, :class => 'row' ) do %>
+<%= "<td>&nbsp;</td>" unless( group.parent_id.nil?  ) %>
 <td class='name'>
 <%= link_to group.name, group %>
 </td>
+<%= "<td>&nbsp;</td>" if( group.parent_id.nil? ) %>
 <td class='manage'>
 <%= link_to 'Edit', edit_group_path(group), :class => 'button' %>
 <% destroy_link_to 'Destroy', group_path(group) do %>
@@ -12,7 +14,5 @@
 <% end %><!-- class='group row' -->
 
 <% if group.children.length > 0 %>
-<tr><td>&nbsp;</td><td><table class='children'><tbody>
 <%= render :partial => 'group', :collection => group.children %>
-</tbody></table><!-- class='children' --></td></tr>
 <% end %>

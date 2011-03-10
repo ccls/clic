@@ -1,0 +1,18 @@
+<% content_tag_for( :tr, event, :class => 'row' ) do %>
+<td class='title'>
+<%= link_to event.title, event %>
+</td>
+<td class='begins_on'>
+<%= mdy event.begins_on %>
+</td>
+<td class='ends_on'>
+<%= mdy event.ends_on %>
+</td>
+<td class='manage'>
+<%= link_to 'Edit', edit_event_path(event), :class => 'button' %>&nbsp;
+<% destroy_link_to 'Destroy', event_path(event) do %>
+<%= hidden_field_tag 'confirm', "Destroy event '#{event}'?", 
+	:id => nil %>
+<% end %>
+</td>
+<% end %><!-- class='event row' -->

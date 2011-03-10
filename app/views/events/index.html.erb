@@ -1,0 +1,13 @@
+<% javascripts('simply_helpful') %>
+<h2>Events:</h2>
+
+<% if @events.length > 0 %>
+<table id='events'><thead>
+<tr><th>Title</th><th>Begins</th><th>Ends</th></thead><tbody>
+<%= render :partial => 'event', :collection => @events %>
+</tbody></table><!-- id='events' -->
+<% else %>
+<p>Sorry, but no events yet.</p>
+<% end %>
+
+<p><%= link_to 'Create New Event', new_event_path, :class => 'button' %></p>

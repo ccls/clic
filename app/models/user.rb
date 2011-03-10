@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
 		:if => :password_changed?
 
 	has_many :memberships
+	has_many :announcements
+	has_many :events
 	has_many :groups, :through => :memberships
 	has_many :documents, :as => :owner
 
@@ -96,6 +98,19 @@ class User < ActiveRecord::Base
 			).length > 0
 	end
 
+	def to_s
+		username
+	end
+
+#	class NotFound < StandardError; end
+
+	#	Treats the class a bit like a Hash and
+	#	searches for a record with a matching name.
+	def self.[](username)
+		find_by_username(username.to_s) #|| raise(NotFound)
+	end
+
+
 
 #	defined in plugin/engine ...
 #
@@ -121,7 +136,7 @@ class User < ActiveRecord::Base
 	alias_method :may_destroy?, :may_edit?
 #	alias_method :may_view?,    :may_read?
 
-	%w(	group_roles ).each do |resource|
+	%w(	announcements events group_roles ).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
 		alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
 		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
