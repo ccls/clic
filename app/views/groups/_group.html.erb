@@ -3,6 +3,11 @@
 <%= link_to group.name, group %>
 </td>
 <td class='manage'>
+<%#= link_to 'Edit', edit_group_path(group), :class => 'button' %>
+<%# form_link_to DOES NOT SEND REQUEST TWICE but forms CANNOT be nested %>
+<%#= form_link_to 'Edit', edit_group_path(group), 'method' => 'get' %>
+<%#= "<a href='#{edit_group_path(group)}' style='text-decoration:none;'><button type='submit'>Edit</button></a>" %>
+<%#= "<a href='#{edit_group_path(group)}' style='text-decoration:none;'><button type='button'>Edit</button></a>" %>
 <%= button_link_to 'Edit', edit_group_path(group) %>&nbsp;
 <% destroy_link_to 'Destroy', group_path(group) do %>
 <%= hidden_field_tag 'confirm', "Destroy group '#{group}'?", 
