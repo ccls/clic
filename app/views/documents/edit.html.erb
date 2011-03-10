@@ -6,9 +6,9 @@
   <%= render 'form',:f => f %>
 <p>
 <%= f.submit( "Update this Document" )%>&nbsp;
-<%= button_link_to 'Preview this Document', 
-	preview_document_path(@document) %>&nbsp;
-<%= button_link_to 'Download this Document', @document %>&nbsp;
-<%= button_link_to 'Back to Documents', documents_path %>
+<%= link_to 'Preview this Document', 
+	preview_document_path(@document), :class => 'button' %>&nbsp;
+<%= link_to 'Download this Document', @document, :class => 'button' %>&nbsp;
+<%= link_to 'Back to Documents', documents_path, :class => 'button' %>
 </p>
 <% end %>

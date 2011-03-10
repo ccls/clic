@@ -22,5 +22,5 @@
 <p><%= membership.group.name %></p>
 <% end %>
 </div> 
-<p><%= button_link_to( 'Edit', edit_user_path(current_user) )%></p>
+<p><%= link_to( 'Edit', edit_user_path(current_user), :class => 'button' )%></p>
 </div><!-- id='user' -->

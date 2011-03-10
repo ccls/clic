@@ -7,7 +7,7 @@
 </td>
 <td class='manage'>
 <% if current_user.may_edit_membership?(membership) %>
-<%= button_link_to 'Edit', edit_membership_path(membership) %>&nbsp;
+<%= link_to 'Edit', edit_membership_path(membership), :class => 'button' %>&nbsp;
 <%# destroy_link_to 'Destroy', group_path(group) do %>
 <%#= hidden_field_tag 'confirm', "Destroy group '#{group}'?", 
 	:id => nil %>

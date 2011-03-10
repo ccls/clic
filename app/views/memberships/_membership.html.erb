@@ -6,7 +6,7 @@
 <%= membership.group_role.try(:name) %>
 </td>
 <td class='manage'>
-<%= button_link_to 'Edit', edit_membership_path(membership) %>&nbsp;
+<%= link_to 'Edit', edit_membership_path(membership), :class => 'button' %>&nbsp;
 <% destroy_link_to 'Destroy', membership_path(membership) do %>
 <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?", 
 	:id => nil %>

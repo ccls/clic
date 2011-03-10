@@ -3,7 +3,7 @@
 <%= link_to group_role.name, group_role %>
 </td>
 <td class='manage'>
-<%= button_link_to 'Edit', edit_group_role_path(group_role) %>&nbsp;
+<%= link_to 'Edit', edit_group_role_path(group_role), :class => 'button' %>&nbsp;
 <% destroy_link_to 'Destroy', group_role_path(group_role) do %>
 <%= hidden_field_tag 'confirm', "Destroy group_role '#{group_role}'?", 
 	:id => nil %>

@@ -6,6 +6,6 @@
 <%= render 'form',:f => f %>
 <p>
 <%= f.submit( "Create new Document" )%>
-<%= button_link_to 'Back to Documents', documents_path %>
+<%= link_to 'Back to Documents', documents_path, :class => 'button' %>
 </p>
 <% end %>
