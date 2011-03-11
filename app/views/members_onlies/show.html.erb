@@ -1,38 +1,39 @@
-<p>You've reached the members only section.  We're not in right now to take your call, but if you leave a message, we'll be sure to get back to you as soon as possible.</p>
 <div class='members_only equal_height_column_wrapper'>
 
-<div class='announcement_section equal_height_column section'>
-<h2>Announcement Section</h2>
-<% if @announcements.length > 0 %>
-<table id='announcements'><tbody>
-<%= render :partial => 'announcement', :collection => @announcements %>
-</tbody></table><!-- id='announcements' -->
-<% else %>
-<p>Sorry, but no announcements yet.</p>
-<% end %>
-</div><!-- class='announcement_section equal_height_column section' -->
+ <div class='announcement_section equal_height_column section'>
+  <h2>Announcement Section</h2>
+  <% if @announcements.length > 0 %>
+   <table id='announcements'><tbody>
+   <%= render :partial => 'announcement', :collection => @announcements %>
+   </tbody></table><!-- id='announcements' -->
+  <% else %>
+   <p>Sorry, but no announcements yet.</p>
+  <% end %>
+ </div><!-- class='announcement_section equal_height_column section' -->
 
-<div class='calendar_section equal_height_column section'>
-<h2>Calendar Section</h2>
-<% if @events.length > 0 %>
-<table id='events'><tbody>
-<%= render :partial => 'event', :collection => @events %>
-</tbody></table><!-- id='events' -->
-<% else %>
-<p>Sorry, but no events yet.</p>
-<% end %>
-<p>(show two months at a time)</p>
-</div><!-- class='calendar_section equal_height_column section' -->
+ <div class='calendar_section equal_height_column section'>
+  <h2>Calendar Section</h2>
+  <% if @events.length > 0 %>
+   <table id='events'><tbody>
+   <%= render :partial => 'event', :collection => @events %>
+   </tbody></table><!-- id='events' -->
+  <% else %>
+   <p>Sorry, but no events yet.</p>
+  <% end %>
+  <p>(show two months at a time)</p>
+ </div><!-- class='calendar_section equal_height_column section' -->
 
 </div><!-- class='equal_height_column_wrapper' -->
 
 <div class='members_only equal_height_column_wrapper'>
-<div class='announcement_section equal_height_column section'>
-<p><%= link_to "New Site Announcement", new_announcement_path,
-	:class => 'button' %></p>
-</div>
-<div class='calendar_section equal_height_column section'>
-<p><%= link_to "New Site Event", new_event_path,
-	:class => 'button' %></p>
-</div>
+ <div class='announcement_section equal_height_column section'>
+ <p>
+  <%= link_to "New Site Announcement", new_announcement_path,
+   :class => 'button' %></p>
+ </div>
+ <div class='calendar_section equal_height_column section'>
+ <p>
+  <%= link_to "New Site Event", new_event_path,
+   :class => 'button' %></p>
+ </div>
 </div>

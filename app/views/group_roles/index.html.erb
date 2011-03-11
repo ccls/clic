@@ -2,11 +2,13 @@
 <h2>Group Roles:</h2>
 
 <% if @group_roles.length > 0 %>
-<table id='group_roles'><tbody>
-<%= render :partial => 'group_role', :collection => @group_roles %>
-</tbody></table><!-- id='group_roles' -->
+ <table id='group_roles'><tbody>
+ <%= render :partial => 'group_role', :collection => @group_roles %>
+ </tbody></table><!-- id='group_roles' -->
 <% else %>
-Sorry, but no group_roles yet.
+ <p>Sorry, but no group_roles yet.</p>
 <% end %>
 
-<p><%= link_to 'Create New Group Role', new_group_role_path, :class => 'button' %></p>
+<p>
+<%= link_to 'Create New Group Role', new_group_role_path, :class => 'button' %>
+</p>

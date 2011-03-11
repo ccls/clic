@@ -23,7 +23,8 @@
   <%=mdy @event.ends_on %>
 </p>
 
-
+<p>
 <%= link_to 'Edit', edit_group_event_path(@group,@event),:class => 'button' %>
-&nbsp;|&nbsp;
+&nbsp;
 <%= link_to 'Back', group_events_path(@group),:class => 'button' %>
+</p>

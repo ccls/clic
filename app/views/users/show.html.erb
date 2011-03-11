@@ -1,26 +1,27 @@
 <% stylesheets('user') %>
 
 <div id='user'>
-<div>
-<div class='person'><dl>
-	<% %w( username email ).each do |key| -%>
-		<dt><%= key -%></dt>
-		<dd><%= @user.attributes[key] -%></dd>
-	<% end -%>
-</dl>
-</div>
-<div id='roles'>
-<%= link_to( image_tag(@user.gravatar_url), "http://gravatar.com",
-	:target => 'new' )%>
-<%= user_roles() %>
-</div>
-</div>
+ <div>
+  <div class='person'><dl>
+   <% %w( username email ).each do |key| -%>
+    <dt><%= key -%></dt>
+    <dd><%= @user.attributes[key] -%></dd>
+   <% end -%>
+  </dl></div><!-- class='person' -->
+  <div id='roles'>
+   <%= link_to( image_tag(@user.gravatar_url), "http://gravatar.com",
+    :target => 'new' )%>
+   <%= user_roles() %>
+  </div><!-- id='roles' -->
+ </div>
 
-<div class='groups'>
-<h3>Groups:</h3>
-<% @user.memberships.each do |membership| %>
-<p><%= membership.group.name %></p>
-<% end %>
-</div> 
-<p><%= link_to( 'Edit', edit_user_path(current_user), :class => 'button' )%></p>
+ <div class='groups'>
+  <h3>Groups:</h3>
+  <% @user.memberships.each do |membership| %>
+   <p><%= membership.group.name %></p>
+  <% end %>
+ </div> 
+ <p>
+  <%= link_to( 'Edit', edit_user_path(current_user), :class => 'button' )%>
+ </p>
 </div><!-- id='user' -->

@@ -1,7 +1,6 @@
 <h1>Request membership</h1>
 
-<%# form_for(@membership,:url => group_memberships_path(@group)) do |f| %>
 <% form_for([@group,@membership]) do |f| %>
-	<p>Group: <%= @group.name %></p>
-	<p><%= f.submit 'Send Request' %></p>
+ <p>Group: <%= @group.name %></p>
+ <p><%= f.submit 'Send Request' %></p>
 <% end %>

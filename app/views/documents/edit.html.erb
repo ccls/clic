@@ -1,14 +1,14 @@
 <h2>Editing Document</h2>
 
 <% form_for(@document,
-		:html => { :multipart => true }) do |f| %>
-  <%= f.error_messages %>
-  <%= render 'form',:f => f %>
-<p>
-<%= f.submit( "Update this Document" )%>&nbsp;
-<%= link_to 'Preview this Document', 
-	preview_document_path(@document), :class => 'button' %>&nbsp;
-<%= link_to 'Download this Document', @document, :class => 'button' %>&nbsp;
-<%= link_to 'Back to Documents', documents_path, :class => 'button' %>
-</p>
+  :html => { :multipart => true }) do |f| %>
+ <%= f.error_messages %>
+ <%= render 'form',:f => f %>
+ <p>
+  <%= f.submit( "Update this Document" )%>&nbsp;
+  <%= link_to 'Preview this Document', 
+   preview_document_path(@document), :class => 'button' %>&nbsp;
+  <%= link_to 'Download this Document', @document, :class => 'button' %>&nbsp;
+  <%= link_to 'Back to Documents', documents_path, :class => 'button' %>
+ </p>
 <% end %>

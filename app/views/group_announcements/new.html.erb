@@ -1,11 +1,10 @@
 <h1>New group announcement</h1>
 
-<%# form_for(@announcement, :url => group_group_announcements_path(@group) ) do |f| %>
 <% form_for([@group,@announcement] ) do |f| %>
-<%= render :partial => 'form', :locals => { :f => f } %>
-<p><%= f.submit( 'Create' ) %>
-&nbsp;|&nbsp;
-<%= link_to 'Back', group_announcements_path(@group),:class => 'button' %>
-</p>
+ <%= render :partial => 'form', :locals => { :f => f } %>
+ <p>
+  <%= f.submit( 'Create' ) %>
+&nbsp;
+  <%= link_to 'Back', group_announcements_path(@group),:class => 'button' %>
+ </p>
 <% end %>
-

@@ -14,7 +14,10 @@
   <%=h @membership.group_role.try(:name) %>
 </p>
 
-
-<%= link_to 'Edit', edit_group_membership_path(@group,@membership), :class => 'button' %>&nbsp;|&nbsp;
-<%= link_to 'Group', group_path(@group), :class => 'button' %>&nbsp;|&nbsp;
-<%#= link_to 'Back', group_memberships_path(@membership.group) %>
+<p>
+ <%= link_to 'Edit', edit_group_membership_path(@group,@membership), 
+  :class => 'button' %>&nbsp;
+ <%= link_to 'Group', group_path(@group), 
+  :class => 'button' %>&nbsp;
+ <%#= link_to 'Back', group_memberships_path(@membership.group) %>
+</p>

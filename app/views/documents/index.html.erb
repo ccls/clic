@@ -3,11 +3,11 @@
 
 <h2>Documents</h2>
 <% if @documents.length > 0 %>
-<table id='documents'><tbody>
-<%= render :partial => 'document', :collection => @documents %>
-</tbody></table><!-- id='documents' -->
+ <table id='documents'><tbody>
+ <%= render :partial => 'document', :collection => @documents %>
+ </tbody></table><!-- id='documents' -->
 <% else %>
-Sorry, but no documents yet.
+ <p>Sorry, but no documents yet.</p>
 <% end %>
 
 <p>

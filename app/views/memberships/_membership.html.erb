@@ -1,15 +1,15 @@
 <% content_tag_for( :tr, membership, :class => 'row' ) do %>
-<td class='user'>
-<%= membership.user.username %>
-</td>
-<td class='group_role'>
-<%= membership.group_role.try(:name) %>
-</td>
-<td class='manage'>
-<%= link_to 'Edit', edit_group_membership_path(@group,membership), :class => 'button' %>&nbsp;
-<% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
-<%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?", 
-	:id => nil %>
-<% end %>
-</td>
+ <td class='user'>
+  <%= membership.user.username %>
+ </td>
+ <td class='group_role'>
+  <%= membership.group_role.try(:name) %>
+ </td>
+ <td class='manage'>
+  <%= link_to 'Edit', edit_group_membership_path(@group,membership), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
+   <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?", 
+    :id => nil %>
+  <% end %>
+ </td>
 <% end %><!-- class='membership row' -->

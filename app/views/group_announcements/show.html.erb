@@ -13,7 +13,8 @@
   <%=h @announcement.user.username %>
 </p>
 
-
+<p>
 <%= link_to 'Edit', edit_group_announcement_path(@group,@announcement),:class => 'button' %>
-&nbsp;|&nbsp;
+&nbsp;
 <%= link_to 'Back', group_announcements_path(@group),:class => 'button' %>
+</p>

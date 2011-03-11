@@ -1,68 +1,65 @@
 <h2>Group:</h2>
-<p>
-<b>Name:</b>
-<%=h @group.name %>
-</p>
-<p>
-<b>Description:</b>
-<%=h @group.description %>
-</p>
+<p><b>Name:</b><%=h @group.name %></p>
+<p><b>Description:</b><%=h @group.description %></p>
+
 <%# if current_user.may_edit_group?(@group) %>
 <p>
-<%= link_to "Edit Group", edit_group_path(@group),
-	:class => 'button' %>
-&nbsp;|&nbsp;
-<%= link_to "Request Membership", new_group_membership_path(@group),
-	:class => 'button' %>
+ <%= link_to "Edit Group", edit_group_path(@group),
+  :class => 'button' %>
+&nbsp;
+ <%= link_to "Request Membership", new_group_membership_path(@group),
+  :class => 'button' %>
 </p>
 <%# end %>
+
 <hr/>
+
 <div class='members_only equal_height_column_wrapper'>
-<div class='announcement_section equal_height_column section'>
-<h3>Announcements</h3>
+ <div class='announcement_section equal_height_column section'>
+  <h3>Announcements</h3>
+  <% if @announcements.length > 0 %>
+   <table id='announcements'><tbody>
+   <%= render :partial => 'announcement', :collection => @announcements %>
+   </tbody></table><!-- id='announcements' -->
+  <% else %>
+   <p>Sorry, but no announcements yet.</p>
+  <% end %>
+ </div><!-- class='announcement_section equal_height_column section' -->
 
-<% if @announcements.length > 0 %>
-<table id='announcements'><tbody>
-<%= render :partial => 'announcement', :collection => @announcements %>
-</tbody></table><!-- id='announcements' -->
-<% else %>
-<p>Sorry, but no announcements yet.</p>
-<% end %>
-
-</div><!-- class='announcement_section equal_height_column section' -->
-<div class='calendar_section equal_height_column section'>
-<h3>Events</h3>
-
-<% if @events.length > 0 %>
-<table id='events'><tbody>
-<%= render :partial => 'event', :collection => @events %>
-</tbody></table><!-- id='events' -->
-<% else %>
-<p>Sorry, but no events yet.</p>
-<% end %>
-
-</div><!-- class='calendar_section equal_height_column section' -->
+ <div class='calendar_section equal_height_column section'>
+  <h3>Events</h3>
+  <% if @events.length > 0 %>
+   <table id='events'><tbody>
+   <%= render :partial => 'event', :collection => @events %>
+   </tbody></table><!-- id='events' -->
+  <% else %>
+   <p>Sorry, but no events yet.</p>
+  <% end %>
+ </div><!-- class='calendar_section equal_height_column section' -->
 </div><!-- class='members_only equal_height_column_wrapper' -->
 
 <div class='members_only equal_height_column_wrapper'>
-<div class='announcement_section equal_height_column section'>
-<p><%= link_to "Create new announcement", new_group_announcement_path(@group), 
-	:class => 'button' %></p>
-</div><!-- class='announcement_section equal_height_column section' -->
-<div class='calendar_section equal_height_column section'>
-<p><%= link_to "Create new event", new_group_event_path(@group), 
-	:class => 'button' %></p>
-</div><!-- class='calendar_section equal_height_column section' -->
+ <div class='announcement_section equal_height_column section'>
+  <p>
+   <%= link_to "Create new announcement", new_group_announcement_path(@group), 
+    :class => 'button' %></p>
+ </div><!-- class='announcement_section equal_height_column section' -->
+ <div class='calendar_section equal_height_column section'>
+ <p>
+  <%= link_to "Create new event", new_group_event_path(@group), 
+   :class => 'button' %></p>
+ </div><!-- class='calendar_section equal_height_column section' -->
 </div><!-- class='members_only equal_height_column_wrapper' -->
 
 <hr/>
+
 <h3>Members:</h3>
 <% if @memberships.length > 0 %>
-<table id='memberships'><thead>
-<tr><th>User</th><th>Role</th></tr>
-</thead><tbody>
-<%= render :partial => 'membership', :collection => @memberships %>
-</tbody></table><!-- id='memberships' -->
+ <table id='memberships'><thead>
+ <tr><th>User</th><th>Role</th></tr>
+ </thead><tbody>
+ <%= render :partial => 'membership', :collection => @memberships %>
+ </tbody></table><!-- id='memberships' -->
 <% else %>
-<p>Sorry, but no memberships yet.</p>
+ <p>Sorry, but no memberships yet.</p>
 <% end %>

@@ -7,4 +7,7 @@ class Event < ActiveRecord::Base
 	validates_presence_of :content
 	validates_presence_of :begins_on
 	validates_complete_date_for :begins_on
+
+#	protect user_id and group_id
+
 end

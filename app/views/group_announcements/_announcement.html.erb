@@ -1,12 +1,13 @@
 <% content_tag_for( :tr, announcement, :class => 'row' ) do %>
-<td class='title'>
-<%= link_to announcement.title, group_announcement_path(@group,announcement) %>
-</td>
-<td class='manage'>
-<%= link_to 'Edit', edit_group_announcement_path(@group,announcement), :class => 'button' %>&nbsp;
-<% destroy_link_to 'Destroy', group_announcement_path(@group,announcement) do %>
-<%= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
-	:id => nil %>
-<% end %>
-</td>
+ <td class='title'>
+  <%= link_to announcement.title, group_announcement_path(@group,announcement) %>
+ </td>
+ <td class='manage'>
+  <%= link_to 'Edit', edit_group_announcement_path(@group,announcement), 
+    :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', group_announcement_path(@group,announcement) do %>
+   <%= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
+     :id => nil %>
+  <% end %>
+ </td>
 <% end %><!-- class='announcement row' -->

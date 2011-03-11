@@ -1,11 +1,11 @@
 <h2>New Document</h2>
 
 <% form_for(@document,
-		:html => { :multipart => true }) do |f| %>
-	<%= f.error_messages %>
-<%= render 'form',:f => f %>
-<p>
-<%= f.submit( "Create new Document" )%>
-<%= link_to 'Back to Documents', documents_path, :class => 'button' %>
-</p>
+  :html => { :multipart => true }) do |f| %>
+ <%= f.error_messages %>
+ <%= render 'form',:f => f %>
+ <p>
+  <%= f.submit( "Create new Document" )%>
+  <%= link_to 'Back to Documents', documents_path, :class => 'button' %>
+ </p>
 <% end %>

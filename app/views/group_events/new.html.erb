@@ -1,10 +1,10 @@
 <h1>New group event</h1>
 
 <% form_for([@group,@event] ) do |f| %>
-<%= render :partial => 'form', :locals => { :f => f } %>
-<p><%= f.submit( 'Create' ) %>
-&nbsp;|&nbsp;
-<%= link_to 'Back', group_events_path(@group),:class => 'button' %>
-</p>
+ <%= render :partial => 'form', :locals => { :f => f } %>
+ <p>
+  <%= f.submit( 'Create' ) %>
+&nbsp;
+  <%= link_to 'Back', group_events_path(@group),:class => 'button' %>
+ </p>
 <% end %>
-

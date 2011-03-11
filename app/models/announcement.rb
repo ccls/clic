@@ -5,4 +5,7 @@ class Announcement < ActiveRecord::Base
 	validates_presence_of :user
 	validates_presence_of :title
 	validates_presence_of :content
+
+#	protect user_id and group_id ???
+
 end

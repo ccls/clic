@@ -2,13 +2,17 @@
 <h2>Group Events:</h2>
 
 <% if @events.length > 0 %>
-<table id='events'><thead>
-<tr><th>Title</th></tr></thead><tbody>
-<%= render :partial => 'event', :collection => @events %>
-</tbody></table><!-- id='events' -->
+ <table id='events'><thead>
+ <tr><th>Title</th></tr></thead><tbody>
+ <%= render :partial => 'event', :collection => @events %>
+ </tbody></table><!-- id='events' -->
 <% else %>
-<p>Sorry, but no events yet.</p>
+ <p>Sorry, but no events yet.</p>
 <% end %>
 
-<p><%= link_to 'Create New Group Event', 
-	new_group_event_path(@group), :class => 'button' %></p>
+<p>
+<%= link_to 'Group', 
+	group_path(@group), :class => 'button' %>
+<%= link_to 'Create New Group Event', 
+	new_group_event_path(@group), :class => 'button' %>
+</p>

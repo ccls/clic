@@ -2,9 +2,9 @@
 
 <h2>Memberships:</h2>
 <% if @memberships.length > 0 %>
-<table id='memberships'><tbody>
-<%= render :partial => 'membership', :collection => @memberships %>
-</tbody></table><!-- id='memberships' -->
+ <table id='memberships'><tbody>
+ <%= render :partial => 'membership', :collection => @memberships %>
+ </tbody></table><!-- id='memberships' -->
 <% else %>
-Sorry, but no memberships yet.
+ <p>Sorry, but no memberships yet.</p>
 <% end %>

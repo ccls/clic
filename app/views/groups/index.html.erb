@@ -2,13 +2,15 @@
 <h2>Groups:</h2>
 
 <% if @groups.length > 0 %>
-<table id='groups'><thead>
-<tr><th>Group</th><th>Subgroup</th><th>&nbsp;</th></tr>
-</thead><tbody>
-<%= render :partial => 'group', :collection => @groups %>
-</tbody></table><!-- id='groups' -->
+ <table id='groups'><thead>
+ <tr><th>Group</th><th>Subgroup</th><th>&nbsp;</th></tr>
+ </thead><tbody>
+ <%= render :partial => 'group', :collection => @groups %>
+ </tbody></table><!-- id='groups' -->
 <% else %>
-Sorry, but no groups yet.
+ <p>Sorry, but no groups yet.</p>
 <% end %>
 
-<p><%= link_to 'Create New Group', new_group_path, :class => 'button' %></p>
+<p>
+ <%= link_to 'Create New Group', new_group_path, :class => 'button' %>
+</p>

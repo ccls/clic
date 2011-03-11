@@ -1,14 +1,14 @@
 <% content_tag_for( :tr, announcement, :class => 'row' ) do %>
-<td class='title'>
-<%= link_to announcement.title, announcement %>
-</td>
-<td class='manage'>
-<% if current_user.may_edit_announcements? %>
-<%= link_to 'Edit', edit_announcement_path(announcement), :class => 'button' %>&nbsp;
-<%# destroy_link_to 'Destroy', announcement_path(announcement) do %>
-<%#= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
-	:id => nil %>
-<%# end %>
-<% end %>
-</td>
+ <td class='title'>
+  <%= link_to announcement.title, announcement %>
+ </td>
+ <td class='manage'>
+  <% if current_user.may_edit_announcements? %>
+   <%= link_to 'Edit', edit_announcement_path(announcement), :class => 'button' %>&nbsp;
+   <%# destroy_link_to 'Destroy', announcement_path(announcement) do %>
+    <%#= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
+     :id => nil %>
+   <%# end %>
+  <% end %>
+ </td>
 <% end %><!-- class='announcement row' -->
