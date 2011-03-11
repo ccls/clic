@@ -1,0 +1,29 @@
+<p>
+  <b>Title:</b>
+  <%=h @event.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @event.content %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @event.user.username %>
+</p>
+
+<p>
+  <b>Begins On:</b>
+  <%=mdy @event.begins_on %>
+</p>
+
+<p>
+  <b>Ends On:</b>
+  <%=mdy @event.ends_on %>
+</p>
+
+
+<%= link_to 'Edit', edit_group_event_path(@group,@event),:class => 'button' %>
+&nbsp;|&nbsp;
+<%= link_to 'Back', group_events_path(@group),:class => 'button' %>

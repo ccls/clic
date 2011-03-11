@@ -103,9 +103,24 @@ th {
 	text-align: left;
 }
 
+/*
+
+Not sure if this is needed. 
+If it is the last tag, the float stops the menu background / content border
+	from going all the way to the bottom.
 #content > form:nth-of-type(1) {
 	float:left;
 }
+*/
+
+/* 
+	added this to force error explanations and forms to be full width 
+	but we'll see if it messes other stuff up
+#content > form {
+	width: 100%;
+}
+*/
+
 
 
 .field_wrapper {
@@ -120,7 +135,10 @@ th {
 }
 .field_wrapper .label,
 .field_wrapper  label {
-	width: 250px;
+	width: 10em;
+	font-size: 12pt;
+	line-height: 12pt;
+	padding: 1px;
 }
 
 form.destroy_link_to {
@@ -149,9 +167,40 @@ td.manage {
 
 
 
-
-
-
 form.edit_group .field_wrapper label {
 	width: 200px;
 }
+
+.field_error {
+  background-color: #F88;
+}
+
+#errorExplanation {
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: none;
+}
+

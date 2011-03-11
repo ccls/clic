@@ -1,0 +1,19 @@
+<p>
+  <b>Title:</b>
+  <%=h @announcement.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @announcement.content %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @announcement.user.username %>
+</p>
+
+
+<%= link_to 'Edit', edit_group_announcement_path(@group,@announcement),:class => 'button' %>
+&nbsp;|&nbsp;
+<%= link_to 'Back', group_announcements_path(@group),:class => 'button' %>

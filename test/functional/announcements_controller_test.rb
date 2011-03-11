@@ -90,4 +90,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
 end
 
+	test "should NOT show announcement if has group" do
+		announcement = Factory(:group_announcement)
+		login_as admin
+		get :show, :id => announcement.id
+		assert_not_nil flash[:error]
+		assert_redirected_to members_only_path
+	end
+
 end

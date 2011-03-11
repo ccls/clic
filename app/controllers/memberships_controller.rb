@@ -2,8 +2,9 @@ class MembershipsController < ApplicationController
 
 	layout 'members_onlies'
 
-	before_filter :group_required,
-		:only => [:new,:create,:index]
+#	before_filter :group_required,
+#		:only => [:new,:create,:index]
+	before_filter :group_required
 	before_filter :membership_required,
 		:only => [:edit,:update,:show,:destroy]
 

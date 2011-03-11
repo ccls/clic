@@ -10,19 +10,21 @@
 
 <p>
   <b>User:</b>
-  <%=h @event.user_id %>
+  <%=h @event.user.username %>
 </p>
 
 <p>
   <b>Begins On:</b>
-  <%=h @event.begins_on %>
+  <%=mdy @event.begins_on %>
 </p>
 
 <p>
   <b>Ends On:</b>
-  <%=h @event.ends_on %>
+  <%=mdy @event.ends_on %>
 </p>
 
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<p>
+<%= link_to 'Edit', edit_event_path(@event), :class => 'button' %>
+&nbsp;|&nbsp;
+<%= link_to 'Back', events_path, :class => 'button' %>
+</p>

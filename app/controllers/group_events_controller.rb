@@ -24,7 +24,8 @@ class GroupEventsController < ApplicationController
 	end
 
 	def create
-		@event = @group.events.new(:user_id => current_user.id)
+		@event = @group.events.new(params[:event].merge(
+			:user_id => current_user.id))
 		@event.save!
 		flash[:notice] = "Event created."
 		redirect_to group_path(@event.group)
@@ -55,6 +56,8 @@ class GroupEventsController < ApplicationController
 
 protected
 
+	#	double check that the :group_id in the route
+	#	and the group_id attribute are the same
 	def event_group_required
 		( @group = @event.group ) || access_denied(
 			"Group required",members_only_path)
@@ -65,14 +68,7 @@ protected
 			@event = Event.find(params[:id])
 		else
 			access_denied("Valid event id required",members_only_path)
-		end
-	end
-
-	def valid_group_id_required
-		if Group.exists?(params[:group_id])
-			@group = Group.find(params[:group_id])
-		else
-			access_denied("Valid group_id required",members_only_path)
+#			access_denied("Valid event id required",group_path(@group))
 		end
 	end
 

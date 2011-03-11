@@ -59,6 +59,7 @@ Rails::Initializer.run do |config|
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
+	config.gem 'hpricot'
 
 	config.frameworks -= [ :active_resource ]
 
@@ -76,3 +77,16 @@ if RUBY_PLATFORM =~ /java/i
 	require 'file_utils_extension'
 end
 require 'acts_as_list'
+
+#	don't use the default div wrappers as they muck up style
+#	just adding a class to the tag is a little better
+require 'hpricot'
+ActionView::Base.field_error_proc = Proc.new { |html_tag, instance| 
+	error_class = 'field_error'
+	nodes = Hpricot(html_tag)
+	nodes.each_child { |node| 
+		node[:class] = node.classes.push(error_class).join(' ') unless !node.elem? || node[:type] == 'hidden' || node.classes.include?(error_class) 
+	}
+	nodes.to_html
+}
+

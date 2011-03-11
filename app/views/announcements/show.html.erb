@@ -10,9 +10,11 @@
 
 <p>
   <b>User:</b>
-  <%=h @announcement.user_id %>
+  <%=h @announcement.user.username %>
 </p>
 
-
-<%= link_to 'Edit', edit_announcement_path(@announcement) %> |
-<%= link_to 'Back', announcements_path %>
+<p>
+<%= link_to 'Edit', edit_announcement_path(@announcement),:class => 'button' %>
+&nbsp;|&nbsp;
+<%= link_to 'Back', announcements_path,:class => 'button' %>
+</p>

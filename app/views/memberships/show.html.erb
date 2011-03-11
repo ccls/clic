@@ -15,6 +15,6 @@
 </p>
 
 
-<%= link_to 'Edit', edit_membership_path(@membership) %>&nbsp;|&nbsp;
-<%= link_to 'Group', group_path(@membership.group) %>&nbsp;|&nbsp;
-<%#= link_to 'Back', memberships_path %>
+<%= link_to 'Edit', edit_group_membership_path(@group,@membership), :class => 'button' %>&nbsp;|&nbsp;
+<%= link_to 'Group', group_path(@group), :class => 'button' %>&nbsp;|&nbsp;
+<%#= link_to 'Back', group_memberships_path(@membership.group) %>

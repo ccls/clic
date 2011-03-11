@@ -79,4 +79,12 @@ protected	#	private #	(does it matter which or if neither?)
 	end
 	alias_method :no_login_required, :no_current_user_required
 
+	def valid_group_id_required
+		if Group.exists?(params[:group_id])
+			@group = Group.find(params[:group_id])
+		else
+			access_denied("Valid group_id required",members_only_path)
+		end
+	end
+
 end

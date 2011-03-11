@@ -1,9 +1,6 @@
 /* CSS layout for clic, Buffler Center website */
 
 body {
-/*
-	background: url(../images/backgroundBG.gif)
-*/
 	background: url(https://s3.amazonaws.com/clic/images/backgroundBG.gif)
 }
 
@@ -64,7 +61,21 @@ body {
 	float: left;
 	width: 145px;
 	clear: left;
+	background:#99CCFF;
 }
+#content_wrapper {
+	float:right;
+}
+#content {
+	padding-left: 15px;
+	padding-bottom: 30px; /* makes room for shifted footer */
+	margin-bottom: -30px;
+	min-height: 300px;
+	font: 0.8em Arial, Helvetica, sans-serif;
+	color: #000;
+	width: 640px;
+}
+
 
 #PrivateNav li,
 #GlobalNav li {
@@ -113,21 +124,10 @@ body {
 }
 
 
-#content {
-	border-left: 145px solid #99CCFF;
-	padding-left: 15px;
-	padding-bottom: 30px; /* makes room for shifted footer */
-	margin-bottom: -30px;
-	min-height: 300px;
-	font: 0.8em Arial, Helvetica, sans-serif;
-	color: #000;
-	width: 640px;
-}
-
 #footer {
-	margin-left: 160px;
+	margin-top: 5px;
+	margin-left: 15px;
 	border-top: 1px solid #999;
-	padding-top: 15px;
 	padding-top: 15px;
 	font: 0.7em Arial, Helvetica, sans-serif;
 	color: #666;
@@ -187,3 +187,8 @@ ol {
 	color: #0099FF;
 	font-weight: bold;
 }
+
+form.edit_group .field_wrapper label {
+	width: 200px;
+}
+

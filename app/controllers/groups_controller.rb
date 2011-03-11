@@ -28,6 +28,11 @@ class GroupsController < ApplicationController
 		render :action => "new"
 	end 
 
+	def show
+		@announcements = @group.announcements
+		@events = @group.events
+	end
+
 	def update
 		@group.update_attributes!(params[:group])
 		flash[:notice] = 'Success!'

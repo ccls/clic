@@ -4,10 +4,24 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :documents, :member => { :preview => :get }
 
 	map.resources :group_roles
-	map.resources :groups, :shallow => true do |group|
+	map.resources :groups do |group|
 		group.resources :memberships
-		group.resources :group_events
-		group.resources :group_announcements
+#
+#	I don't like the duplication of group here, but
+#	I want to separate events from group_events
+#	and announcements from group_announcements
+#	otherwise the controller would get pretty ugly
+#	It would be nice if I could say
+#
+#	group.resources :events, :controller => 'group_events'
+#
+#	but this would cause problems if shallow
+#	so DO NOT USE SHALLOW => TRUE
+#
+#		group.resources :group_events
+		group.resources :events, :controller => 'group_events'
+#		group.resources :group_announcements
+		group.resources :announcements, :controller => 'group_announcements'
 	end
 
 #	map.resource :email_confirmation, :only => :create

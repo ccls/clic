@@ -2,8 +2,9 @@ class GroupAnnouncementsController < ApplicationController
 
 	layout 'members_onlies'
 
-	before_filter :valid_group_id_required,
-		:only => [:new,:create,:index]
+#	before_filter :valid_group_id_required,
+#		:only => [:new,:create,:index]
+	before_filter :valid_group_id_required
 
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:show,:destroy]
@@ -24,7 +25,8 @@ class GroupAnnouncementsController < ApplicationController
 	end
 
 	def create
-		@announcement = @group.announcements.new(:user_id => current_user.id)
+		@announcement = @group.announcements.new(params[:announcement].merge(
+			:user_id => current_user.id))
 		@announcement.save!
 		flash[:notice] = "Announcement created."
 		redirect_to group_path(@announcement.group)
@@ -55,6 +57,8 @@ class GroupAnnouncementsController < ApplicationController
 
 protected
 
+	#	double check that the :group_id in the route
+	#	and the group_id attribute are the same
 	def announcement_group_required
 		( @group = @announcement.group ) || access_denied(
 			"Group required",members_only_path)
@@ -65,14 +69,6 @@ protected
 			@announcement = Announcement.find(params[:id])
 		else
 			access_denied("Valid announcement id required",members_only_path)
-		end
-	end
-
-	def valid_group_id_required
-		if Group.exists?(params[:group_id])
-			@group = Group.find(params[:group_id])
-		else
-			access_denied("Valid group_id required",members_only_path)
 		end
 	end
 
