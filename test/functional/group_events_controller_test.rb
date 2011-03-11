@@ -43,8 +43,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get new event without login" do
-		group = Factory(:group)
-		get :new, :group_id => group.id
+		get :new, :group_id => @membership.group.id
 		assert_redirected_to_login
 	end
 
@@ -56,9 +55,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get new event with group and any login" do
-		group = Factory(:group)
 		login_as active_user
-		get :new, :group_id => group.id
+		get :new, :group_id => @membership.group.id
 		assert_redirected_to root_path
 	end
 
@@ -131,7 +129,9 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 
 	test "should NOT edit event without login" do
-
+		event = create_group_event(:group => @membership.group)
+		get :edit, :group_id => @membership.group.id, :id => event.id
+		assert_redirected_to_login
 	end
 
 	test "should edit event with self login" do
@@ -171,7 +171,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should edit event with system admin login" do
-		event = create_group_event
+		event = create_group_event(:group => @membership.group)
 		login_as admin
 		get :edit, :group_id => @membership.group.id, :id => event.id
 		assert_response :success
@@ -195,7 +195,12 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 
 	test "should NOT update event without login" do
-
+		event = create_group_event(:group => @membership.group)
+		sleep 1
+		deny_changes("Event.find(#{event.id}).updated_at") {
+			put :update, :group_id => @membership.group.id, :id => event.id, :event => factory_attributes
+		}
+		assert_redirected_to_login
 	end
 
 	test "should update event with self login" do
@@ -242,7 +247,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should update event with system admin login" do
-		event = create_group_event
+		event = create_group_event(:group => @membership.group)
 		sleep 1
 		login_as admin
 		assert_changes("Event.find(#{event.id}).updated_at") {
@@ -263,7 +268,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 
 	test "should NOT update event with admin login when update fails" do
-		event = create_group_event
+		event = create_group_event(:group => @membership.group)
 		Event.any_instance.stubs(:create_or_update).returns(false)
 		login_as admin
 		deny_changes("Event.find(#{event.id}).updated_at") {
@@ -275,7 +280,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update event with admin login and invalid event" do
-		event = create_group_event
+		event = create_group_event(:group => @membership.group)
 		Event.any_instance.stubs(:valid?).returns(false)
 		login_as admin
 		deny_changes("Event.find(#{event.id}).updated_at") {
@@ -295,7 +300,11 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 
 	test "should NOT destroy event without login" do
-
+		event = create_group_event(:group => @membership.group)
+		assert_difference("Event.count",0){
+			delete :destroy, :group_id => @membership.group.id, :id => event.id
+		}
+		assert_redirected_to_login
 	end
 
 	test "should NOT destroy event with self login" do
@@ -341,7 +350,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should destroy event with system admin login" do
-		event = create_group_event
+		event = create_group_event(:group => @membership.group)
 		login_as admin
 		assert_difference("Event.count",-1){
 			delete :destroy, :group_id => @membership.group.id, :id => event.id
@@ -369,7 +378,7 @@ class GroupEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get all events without login" do
-		event = create_group_event
+		event = create_group_event(:group => @membership.group)
 		get :index, :group_id => event.group.id
 		assert_redirected_to_login
 	end
@@ -405,19 +414,33 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 
 	test "should NOT show event without login" do
-
+		event = create_group_event(:group => @membership.group)
+		get :show, :group_id => @membership.group.id, :id => event.id
+		assert_redirected_to_login
 	end
 
 	test "should NOT show event with non-member login" do
-
+		event = create_group_event(:group => @membership.group)
+		login_as active_user
+		get :show, :group_id => @membership.group.id, :id => event.id
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should show event with member login" do
-
+		event = create_group_event(:group => @membership.group)
+		login_as @membership.user
+		get :show, :group_id => @membership.group.id, :id => event.id
+		assert_response :success
+		assert_template 'show'
 	end
 
 	test "should show even with system admin login" do
-
+		event = create_group_event(:group => @membership.group)
+		login_as admin
+		get :show, :group_id => @membership.group.id, :id => event.id
+		assert_response :success
+		assert_template 'show'
 	end
 
 end

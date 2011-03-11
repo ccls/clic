@@ -2,10 +2,7 @@ class GroupAnnouncementsController < ApplicationController
 
 	layout 'members_onlies'
 
-#	before_filter :valid_group_id_required,
-#		:only => [:new,:create,:index]
 	before_filter :valid_group_id_required
-
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:show,:destroy]
 	before_filter :announcement_group_required,
@@ -60,8 +57,8 @@ protected
 	#	double check that the :group_id in the route
 	#	and the group_id attribute are the same
 	def announcement_group_required
-		( @group = @announcement.group ) || access_denied(
-			"Group required",members_only_path)
+		( @group == @announcement.group ) || access_denied(
+			"Group Mismatch",members_only_path)
 	end
 
 	def valid_id_required

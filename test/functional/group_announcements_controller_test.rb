@@ -127,6 +127,9 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 
 	test "should NOT edit announcement without login" do
+		announcement = create_group_announcement(:group => @membership.group)
+		get :edit, :group_id => @membership.group.id, :id => announcement.id
+		assert_redirected_to_login
 	end
 
 	test "should edit announcement with self login" do
@@ -139,7 +142,6 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should edit announcement with other member login" do
 		announcement = create_group_announcement(:group => @membership.group)
-#		Factory(:announcement, :user => membership.user)
 		login_as Factory(:membership,:group => @membership.group).user
 		get :edit, :group_id => @membership.group.id, :id => announcement.id
 		assert_response :success
@@ -181,16 +183,14 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 		assert_redirected_to members_only_path
 	end
 
-#	test "should NOT edit announcement without group" do
-#		announcement = Factory(:announcement)
-#		login_as admin
-#		get :edit, :group_id => announcement.group.id, :id => announcement.id
-#		assert_not_nil flash[:error]
-#		assert_redirected_to members_only_path
-#	end
-
 
 	test "should NOT update announcement without login" do
+		announcement = create_group_announcement(:group => @membership.group)
+		sleep 1
+		deny_changes("Announcement.find(#{announcement.id}).updated_at") {
+			put :update, :group_id => @membership.group.id, :id => announcement.id, :announcement => factory_attributes
+		}
+		assert_redirected_to_login
 	end
 
 	test "should update announcement with self login" do
@@ -246,16 +246,6 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 		assert_redirected_to group_path(announcement.group)
 	end
 
-#	test "should NOT update announcement without group" do
-#		announcement = Factory(:announcement)
-#		login_as admin
-#		deny_changes("Announcement.find(#{announcement.id}).updated_at") {
-#			put :update, :group_id => announcement.group.id, :id => announcement.id, :announcement => factory_attributes
-#		}
-#		assert_not_nil flash[:error]
-#		assert_redirected_to members_only_path
-#	end
-
 
 	test "should NOT update announcement with admin login when update fails" do
 		announcement = create_group_announcement
@@ -291,7 +281,11 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 
 	test "should NOT destroy announcement without login" do
-
+		announcement = create_group_announcement(:group => @membership.group)
+		assert_difference("Announcement.count",0){
+			delete :destroy, :group_id => @membership.group.id, :id => announcement.id
+		}
+		assert_redirected_to_login
 	end
 
 	test "should NOT destroy announcement with self login" do
@@ -337,23 +331,13 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 	end
 
 	test "should destroy announcement with system admin login" do
-		announcement = create_group_announcement
+		announcement = create_group_announcement(:group => @membership.group)
 		login_as admin
 		assert_difference("Announcement.count",-1){
 			delete :destroy, :group_id => announcement.group.id, :id => announcement.id
 		}
 		assert_redirected_to group_path(announcement.group)
 	end
-
-#	test "should NOT destroy announcement without group" do
-#		announcement = Factory(:announcement)
-#		login_as admin
-#		assert_difference("Announcement.count",0){
-#			delete :destroy, :group_id => announcement.group.id, :id => announcement.id
-#		}
-#		assert_not_nil flash[:error]
-#		assert_redirected_to members_only_path
-#	end
 
 	test "should NOT destroy announcement without id" do
 		announcement = create_group_announcement
@@ -402,19 +386,32 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 
 	test "should NOT show announcement without login" do
-
+		announcement = create_group_announcement(:group => @membership.group)
+		get :show, :group_id => @membership.group.id, :id => announcement.id
+		assert_redirected_to_login
 	end
 
 	test "should NOT show announcement with non-member login" do
-
+		announcement = create_group_announcement(:group => @membership.group)
+		login_as active_user
+		get :show, :group_id => @membership.group.id, :id => announcement.id
+		assert_redirected_to root_path
 	end
 
 	test "should show announcement with member login" do
-
+		announcement = create_group_announcement(:group => @membership.group)
+		login_as @membership.user
+		get :show, :group_id => @membership.group.id, :id => announcement.id
+		assert_response :success
+		assert_template 'show'
 	end
 
 	test "should show announcement with system admin login" do
-
+		announcement = create_group_announcement(:group => @membership.group)
+		login_as admin
+		get :show, :group_id => @membership.group.id, :id => announcement.id
+		assert_response :success
+		assert_template 'show'
 	end
 
 end

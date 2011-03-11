@@ -107,7 +107,8 @@ class MembershipsControllerTest < ActionController::TestCase
 
 
 	test "should NOT edit membership without login" do
-
+		get :edit, :group_id => @membership.group.id, :id => @membership.id
+		assert_redirected_to_login
 	end
 
 	test "should NOT edit membership with self login" do
@@ -159,7 +160,10 @@ class MembershipsControllerTest < ActionController::TestCase
 
 
 	test "should NOT update membership without login" do
-
+		deny_changes("Membership.find(#{@membership.id}).group_role_id") {
+			put :update, :group_id => @membership.group.id, :id => @membership.id, :membership => { :group_role_id => 0 }
+		}
+		assert_redirected_to_login
 	end
 
 	test "should NOT update membership with self login" do
@@ -239,7 +243,10 @@ class MembershipsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT destroy membership without login" do
-
+		assert_difference("Membership.count",0){
+			delete :destroy, :group_id => @membership.group.id, :id => @membership.id
+		}
+		assert_redirected_to_login
 	end
 
 	test "should NOT destroy membership with self login" do
@@ -332,19 +339,29 @@ class MembershipsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT show membership without login" do
-
+		get :show, :group_id => @membership.group.id, :id => @membership.id
+		assert_redirected_to_login
 	end
 
 	test "should NOT show membership with non-member login" do
-
+		login_as active_user
+		get :show, :group_id => @membership.group.id, :id => @membership.id
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should show membership with member login" do
-	
+		login_as @membership.user
+		get :show, :group_id => @membership.group.id, :id => @membership.id
+		assert_response :success
+		assert_template 'show'
 	end
 
 	test "should show membership with system admin login" do
-
+		login_as admin
+		get :show, :group_id => @membership.group.id, :id => @membership.id
+		assert_response :success
+		assert_template 'show'
 	end
 
 end
