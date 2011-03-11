@@ -174,6 +174,54 @@ class User < ActiveRecord::Base
 	end
 
 #
+#	Group Events
+#
+	#	Only members can new/create a group event
+	def may_create_group_events?(group)
+		may_administrate? || is_group_member?(group)
+	end
+
+	#	Only admins and group moderators can edit/update
+	def may_update_group_events?(group)
+		may_administrate? || is_group_member?(group)
+	end
+	alias_method :may_edit_group_events?, :may_update_group_events?
+
+	#	Only admins, group members can edit/update
+	def may_read_group_events?(group)
+		may_administrate? || is_group_member?(group)
+	end
+
+	#	Only admins and group moderators can destroy the group events
+	def may_destroy_group_events?(group)
+		may_administrate? || is_group_moderator?(group)
+	end
+
+#
+#	Group Announcements
+#
+	#	Only members can new/create a group announcement
+	def may_create_group_announcements?(group)
+		may_administrate? || is_group_member?(group)
+	end
+
+	#	Only admins and group moderators can edit/update
+	def may_update_group_announcements?(group)
+		may_administrate? || is_group_member?(group)
+	end
+	alias_method :may_edit_group_announcements?, :may_update_group_announcements?
+
+	#	Only admins, group members can edit/update
+	def may_read_group_announcements?(group)
+		may_administrate? || is_group_member?(group)
+	end
+
+	#	Only admins and group moderators can destroy the group announcements
+	def may_destroy_group_announcements?(group)
+		may_administrate? || is_group_moderator?(group)
+	end
+
+#
 #		Groups
 #
 	#	Only admins can new/create groups

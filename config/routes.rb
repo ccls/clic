@@ -6,8 +6,8 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :group_roles
 	map.resources :groups, :shallow => true do |group|
 		group.resources :memberships
-		group.resources :events
-		group.resources :announcements
+		group.resources :group_events
+		group.resources :group_announcements
 	end
 
 #	map.resource :email_confirmation, :only => :create
