@@ -10,7 +10,7 @@
  </td>
  <td class='manage'>
   <% if current_user.may_edit_group_events?(@group) %>
-   <%= link_to 'Edit', edit_event_path(event), :class => 'button' %>&nbsp;
+   <%= link_to 'Edit', edit_group_event_path(@group,event), :class => 'button' %>&nbsp;
    <%# destroy_link_to 'Destroy', event_path(event) do %>
     <%#= hidden_field_tag 'confirm', "Destroy event '#{event}'?", 
       :id => nil %>
