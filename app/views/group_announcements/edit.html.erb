@@ -2,7 +2,7 @@
 
 <%# form_for([@group,@announcement]) do |f| %>
 <% form_for(@announcement, 
-	:url => group_annoucement_path(@group,@annoucement) ) do |f| %>
+	:url => group_announcement_path(@group,@annoucement) ) do |f| %>
  <%= render :partial => 'form', :locals => {:f => f} %>
  <p>
   <%= f.submit( 'Update' ) %>

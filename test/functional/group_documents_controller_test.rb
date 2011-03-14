@@ -29,7 +29,12 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	def create_a_membership
-		@membership = Factory(:membership)
+		@membership = create_membership
+	end
+
+	def create_membership(options={})
+		Factory(:membership,{
+			:group_role => GroupRole['reader']}.merge(options))
 	end
 
 	test "should NOT get new document without login" do
@@ -132,7 +137,9 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should edit document with other member login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,:group => @membership.group).user
+#		login_as Factory(:membership,
+		login_as create_membership(
+			:group => @membership.group).user
 		get :edit, :group_id => @membership.group.id, :id => document.id
 		assert_response :success
 		assert_template 'edit'
@@ -140,7 +147,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should NOT edit document with other group moderator login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		get :edit, :group_id => @membership.group.id, :id => document.id
 		assert_not_nil flash[:error]
@@ -149,7 +157,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should edit document with group moderator login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		get :edit, :group_id => @membership.group.id, :id => document.id
@@ -196,7 +205,9 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	test "should update document with other member login" do
 		document = create_group_document(:group => @membership.group)
 		sleep 1
-		login_as Factory(:membership, :group => @membership.group ).user
+#		login_as Factory(:membership, 
+		login_as create_membership(
+			:group => @membership.group ).user
 		assert_changes("GroupDocument.find(#{document.id}).updated_at") {
 			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
 		}
@@ -205,7 +216,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should NOT update document with other group moderator login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		deny_changes("GroupDocument.find(#{document.id}).updated_at") {
 			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
@@ -217,7 +229,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	test "should update document with group moderator login" do
 		document = create_group_document(:group => @membership.group)
 		sleep 1
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		assert_changes("GroupDocument.find(#{document.id}).updated_at") {
@@ -290,7 +303,9 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should NOT destroy document with other member login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,:group => @membership.group).user
+#		login_as Factory(:membership,
+		login_as create_membership(
+			:group => @membership.group).user
 		assert_difference("GroupDocument.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => document.id
 		}
@@ -300,7 +315,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should NOT destroy document with other group moderator login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		assert_difference("GroupDocument.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => document.id
@@ -311,7 +327,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	test "should destroy document with group moderator login" do
 		document = create_group_document(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		assert_difference("GroupDocument.count",-1){

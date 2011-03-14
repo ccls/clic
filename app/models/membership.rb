@@ -2,6 +2,8 @@ class Membership < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :group
 	belongs_to :group_role
+	validates_presence_of :user
+	validates_presence_of :group
 
 	before_validation :nullify_blank_group_role_id
 

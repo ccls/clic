@@ -39,7 +39,12 @@ class GroupEventsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	def create_a_membership
-		@membership = Factory(:membership)
+		@membership = create_membership
+	end
+
+	def create_membership(options={})
+		Factory(:membership,{
+			:group_role => GroupRole['reader']}.merge(options))
 	end
 
 	test "should NOT get new event without login" do
@@ -145,7 +150,9 @@ class GroupEventsControllerTest < ActionController::TestCase
 	test "should edit event with other member login" do
 		event = create_group_event(:group => @membership.group)
 		Factory(:event, :user => @membership.user)
-		login_as Factory(:membership,:group => @membership.group).user
+#		login_as Factory(:membership,
+		login_as create_membership(
+			:group => @membership.group).user
 		get :edit, :group_id => @membership.group.id, :id => event.id
 		assert_response :success
 		assert_template 'edit'
@@ -153,7 +160,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 	test "should NOT edit event with other group moderator login" do
 		event = create_group_event(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		get :edit, :group_id => @membership.group.id, :id => event.id
 		assert_not_nil flash[:error]
@@ -162,7 +170,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 	test "should edit event with group moderator login" do
 		event = create_group_event(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		get :edit, :group_id => @membership.group.id, :id => event.id
@@ -216,7 +225,9 @@ class GroupEventsControllerTest < ActionController::TestCase
 	test "should update event with other member login" do
 		event = create_group_event(:group => @membership.group)
 		sleep 1
-		login_as Factory(:membership, :group => @membership.group ).user
+#		login_as Factory(:membership, 
+		login_as create_membership(
+			:group => @membership.group ).user
 		assert_changes("Event.find(#{event.id}).updated_at") {
 			put :update, :group_id => @membership.group.id, :id => event.id, :event => factory_attributes
 		}
@@ -225,7 +236,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 	test "should NOT update event with other group moderator login" do
 		event = create_group_event(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		deny_changes("Event.find(#{event.id}).updated_at") {
 			put :update, :group_id => @membership.group.id, :id => event.id, :event => factory_attributes
@@ -237,7 +249,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 	test "should update event with group moderator login" do
 		event = create_group_event(:group => @membership.group)
 		sleep 1
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		assert_changes("Event.find(#{event.id}).updated_at") {
@@ -319,7 +332,9 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 	test "should NOT destroy event with other member login" do
 		event = create_group_event(:group => @membership.group)
-		login_as Factory(:membership,:group => @membership.group).user
+#		login_as Factory(:membership,
+		login_as create_membership(
+			:group => @membership.group).user
 		assert_difference("Event.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => event.id
 		}
@@ -329,7 +344,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 	test "should NOT destroy event with other group moderator login" do
 		event = create_group_event(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		assert_difference("Event.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => event.id
@@ -340,7 +356,8 @@ class GroupEventsControllerTest < ActionController::TestCase
 
 	test "should destroy event with group moderator login" do
 		event = create_group_event(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		assert_difference("Event.count",-1){

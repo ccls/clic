@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 	has_many :groups, :through => :memberships
 	has_many :documents, :as => :owner
 
-	authorized
+	authorized	#	adds methods include role_names
 
 #	alias_method :may_view_calendar?, :may_read?
 
@@ -85,18 +85,38 @@ class User < ActiveRecord::Base
 		self
 	end
 
+	def group_membership_roles(group)
+		memberships.select{|m| m.group_id == group.id }.collect(&:group_role).compact
+	end
+
+	def group_membership_role_names(group)
+		group_membership_roles(group).collect(&:name)
+	end
+
 	def is_group_moderator?(group)
-		memberships.find(:all,:conditions => [
-			'memberships.group_id = ? AND group_roles.name IN (?)', group.id, 
-			['administrator','moderator'] ],
-			:joins => 'LEFT JOIN group_roles on memberships.group_role_id = group_roles.id'
-			).length > 0
+#		memberships.find(:all,:conditions => [
+#			'memberships.group_id = ? AND group_roles.name IN (?)', group.id, 
+#			['administrator','moderator'] ],
+#			:joins => 'LEFT JOIN group_roles on memberships.group_role_id = group_roles.id'
+#			).length > 0
+		( group_membership_role_names(group) & ['administrator','moderator'] ).length > 0
+	end
+
+	def is_group_editor?(group)
+		( group_membership_role_names(group) & [
+			'administrator','moderator','editor'] ).length > 0
+	end
+
+	def is_group_reader?(group)
+		( group_membership_role_names(group) & [
+			'administrator','moderator','editor','reader'] ).length > 0
 	end
 
 	def is_group_member?(group)
-		memberships.find(:all,:conditions => [
-			'memberships.group_id = ?', group.id]
-			).length > 0
+#		memberships.find(:all,:conditions => [
+#			'memberships.group_id = ? AND memberships.group_role_id IS NOT NULL', group.id]
+#			).length > 0
+		group_membership_role_names(group).length > 0
 	end
 
 	def to_s

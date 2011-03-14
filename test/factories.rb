@@ -66,4 +66,3 @@ Factory.define :group_document do |f|
 	f.association :group
 	f.sequence(:title) { |n| "Title#{n}" }
 end
-

@@ -39,7 +39,12 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	def create_a_membership
-		@membership = Factory(:membership)
+		@membership = create_membership
+	end
+
+	def create_membership(options={})
+		Factory(:membership,{
+			:group_role => GroupRole['reader']}.merge(options))
 	end
 
 	test "should NOT get new announcement without login" do
@@ -142,7 +147,9 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should edit announcement with other member login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,:group => @membership.group).user
+#		login_as Factory(:membership,:group => @membership.group).user
+		login_as create_membership(
+			:group => @membership.group).user
 		get :edit, :group_id => @membership.group.id, :id => announcement.id
 		assert_response :success
 		assert_template 'edit'
@@ -150,7 +157,8 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should NOT edit announcement with other group moderator login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		get :edit, :group_id => @membership.group.id, :id => announcement.id
 		assert_not_nil flash[:error]
@@ -159,7 +167,8 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should edit announcement with group moderator login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		get :edit, :group_id => @membership.group.id, :id => announcement.id
@@ -206,7 +215,9 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 	test "should update announcement with other member login" do
 		announcement = create_group_announcement(:group => @membership.group)
 		sleep 1
-		login_as Factory(:membership, :group => @membership.group ).user
+#		login_as Factory(:membership, 
+		login_as create_membership(
+			:group => @membership.group ).user
 		assert_changes("Announcement.find(#{announcement.id}).updated_at") {
 			put :update, :group_id => @membership.group.id, :id => announcement.id, :announcement => factory_attributes
 		}
@@ -215,7 +226,8 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should NOT update announcement with other group moderator login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		deny_changes("Announcement.find(#{announcement.id}).updated_at") {
 			put :update, :group_id => @membership.group.id, :id => announcement.id, :announcement => factory_attributes
@@ -227,7 +239,8 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 	test "should update announcement with group moderator login" do
 		announcement = create_group_announcement(:group => @membership.group)
 		sleep 1
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		assert_changes("Announcement.find(#{announcement.id}).updated_at") {
@@ -300,7 +313,9 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should NOT destroy announcement with other member login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,:group => @membership.group).user
+#		login_as Factory(:membership,
+		login_as create_membership(
+			:group => @membership.group).user
 		assert_difference("Announcement.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => announcement.id
 		}
@@ -310,7 +325,8 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should NOT destroy announcement with other group moderator login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group_role => GroupRole['moderator']).user
 		assert_difference("Announcement.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => announcement.id
@@ -321,7 +337,8 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 
 	test "should destroy announcement with group moderator login" do
 		announcement = create_group_announcement(:group => @membership.group)
-		login_as Factory(:membership,
+#		login_as Factory(:membership,
+		login_as create_membership(
 			:group => @membership.group,
 			:group_role => GroupRole['moderator']).user
 		assert_difference("Announcement.count",-1){
