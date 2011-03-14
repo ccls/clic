@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
 	has_many :memberships
 	has_many :announcements
+	has_many :group_documents
 	has_many :events
 	has_many :groups, :through => :memberships
 	has_many :documents, :as => :owner
@@ -173,6 +174,31 @@ class User < ActiveRecord::Base
 		may_administrate? || is_group_moderator?(membership.group)
 	end
 
+#
+#	Group Documents
+#
+	#	Only members can new/create a group document
+	def may_create_group_documents?(group)
+		may_administrate? || is_group_member?(group)
+	end
+
+	#	Only admins and group moderators can edit/update
+	def may_update_group_documents?(group)
+		may_administrate? || is_group_member?(group)
+	end
+	alias_method :may_edit_group_documents?, :may_update_group_documents?
+
+	#	Only admins, group members can edit/update
+	def may_read_group_documents?(group)
+		may_administrate? || is_group_member?(group)
+	end
+
+	#	Only admins and group moderators can destroy the group documents
+	def may_destroy_group_documents?(group)
+		may_administrate? || is_group_moderator?(group)
+	end
+
+#
 #
 #	Group Events
 #

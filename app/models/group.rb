@@ -22,9 +22,10 @@ class Group < ActiveRecord::Base
 
 	has_many :announcements
 	has_many :events
+	has_many :documents, :class_name => 'GroupDocument'
 	has_many :memberships
 	has_many :users, :through => :memberships
-	has_many :documents, :as => :owner
+#	has_many :documents, :as => :owner
 
 	has_many :forums
 	validates_presence_of :name

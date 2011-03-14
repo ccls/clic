@@ -2,23 +2,22 @@ require 'hmac-sha1'
 #
 #	http://amazon.rubyforge.org/
 #
-class Document < ActiveRecord::Base
+class GroupDocument < ActiveRecord::Base
+	belongs_to :group
+	belongs_to :user
 
-#	polymorphism is unecessary now that GroupDocument is its own class
-	belongs_to :owner, :polymorphic => true
-
+	validates_presence_of :group
+	validates_presence_of :user
 	validates_presence_of :title
-	validates_length_of :title, :minimum => 4
+#	validates_presence_of :content
 
 
 #	WHY?
-	validates_uniqueness_of :document_file_name, :allow_nil => true
-
 	before_validation :nullify_blank_document_file_name
 
 	has_attached_file :document,
 		YAML::load(ERB.new(IO.read(File.expand_path(
-			File.join(File.dirname(__FILE__),'../..','config/document.yml')
+			File.join(File.dirname(__FILE__),'../..','config/group_document.yml')
 		))).result)[Rails.env]
 
 	def nullify_blank_document_file_name

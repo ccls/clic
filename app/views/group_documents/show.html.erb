@@ -1,0 +1,20 @@
+<p>
+  <b>Title:</b>
+  <%=h @document.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @document.description %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @document.user.username %>
+</p>
+
+<p>
+<%= link_to 'Edit', edit_group_document_path(@group,@document),:class => 'button' %>
+&nbsp;
+<%= link_to 'Back', group_documents_path(@group),:class => 'button' %>
+</p>

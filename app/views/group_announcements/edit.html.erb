@@ -1,6 +1,8 @@
 <h1>Editing group announcement</h1>
 
-<% form_for([@group,@announcement]) do |f| %>
+<%# form_for([@group,@announcement]) do |f| %>
+<% form_for(@announcement, 
+	:url => group_annoucement_path(@group,@annoucement) ) do |f| %>
  <%= render :partial => 'form', :locals => {:f => f} %>
  <p>
   <%= f.submit( 'Update' ) %>

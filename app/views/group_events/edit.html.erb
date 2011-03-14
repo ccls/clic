@@ -1,6 +1,8 @@
 <h1>Editing group event</h1>
 
-<% form_for([@group,@event]) do |f| %>
+<%# form_for([@group,@event]) do |f| %>
+<% form_for(@event,
+	:url => group_event_path(@group,@event) ) do |f| %>
  <%= render :partial => 'form', :locals => {:f => f} %>
  <p>
   <%= f.submit( 'Update' ) %>

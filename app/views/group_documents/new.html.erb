@@ -1,0 +1,11 @@
+<h1>New group document</h1>
+
+<% form_for( @document, 
+	:url => group_documents_path(@group) ) do |f| %>
+ <%= render :partial => 'form', :locals => { :f => f } %>
+ <p>
+  <%= f.submit( 'Create' ) %>
+&nbsp;
+  <%= link_to 'Back', group_documents_path(@group),:class => 'button' %>
+ </p>
+<% end %>

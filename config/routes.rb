@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
 	map.resources :events
 	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }
@@ -22,6 +23,14 @@ ActionController::Routing::Routes.draw do |map|
 		group.resources :events, :controller => 'group_events'
 #		group.resources :group_announcements
 		group.resources :announcements, :controller => 'group_announcements'
+		group.resources :documents, :controller => 'group_documents'
+#	|document|
+#			document.resources :comments,
+#				:controller => 'group_document_comments'
+#	this'll get outta hand if comments can have documents
+#		which can have comments
+#		which can have documents ........
+#	end
 	end
 
 #	map.resource :email_confirmation, :only => :create

@@ -9,7 +9,7 @@ class GroupAnnouncementsController < ApplicationController
 		:only => [:edit,:update,:show,:destroy]
 
 	before_filter "may_create_group_announcements_required",  :only => [:new,:create]
-	before_filter "may_read_group_announcments_required",     :only => [:index,:show]
+	before_filter "may_read_group_announcements_required",    :only => [:index,:show]
 	before_filter "may_update_group_announcements_required",  :only => [:edit,:update]
 	before_filter "may_destroy_group_announcements_required", :only => [:destroy]
 
@@ -73,7 +73,7 @@ protected
 		current_user.may_create_group_announcements?(@group) || access_denied
 	end
 
-	def may_read_group_announcments_required
+	def may_read_group_announcements_required
 		current_user.may_read_group_announcements?(@group) || access_denied
 	end
 

@@ -16,6 +16,7 @@ class GroupTest < ActiveSupport::TestCase
 #		:foreign_key => 'parent_id' )
 	assert_should_have_many(:announcements)
 	assert_should_have_many(:events)
+	assert_should_have_many(:documents, :class_name => 'GroupDocument')
 
 	test "should return name as to_s" do
 		object = create_object
