@@ -1,6 +1,8 @@
 <% content_tag_for( :tr, event, :class => 'row' ) do %>
  <td class='title'>
-  <%= link_to event.title, event %>
+  <%= link_to event.title, event %><br/>
+  <%= mdy event.begins_on %>&nbsp;-&nbsp;
+  <%= mdy event.ends_on %>
  </td>
  <td class='manage'>
   <% if current_user.may_edit_events? %>
