@@ -19,11 +19,14 @@ ActionController::Routing::Routes.draw do |map|
 #	but this would cause problems if shallow
 #	so DO NOT USE SHALLOW => TRUE
 #
-#		group.resources :group_events
-		group.resources :events, :controller => 'group_events'
-#		group.resources :group_announcements
-		group.resources :announcements, :controller => 'group_announcements'
-		group.resources :documents, :controller => 'group_documents'
+		group.resources :events, 
+			:controller => 'group_events'
+		group.resources :announcements, 
+			:controller => 'group_announcements'
+
+#	make this go away
+		group.resources :documents, 
+			:controller => 'group_documents'
 #	|document|
 #			document.resources :comments,
 #				:controller => 'group_document_comments'
@@ -31,9 +34,15 @@ ActionController::Routing::Routes.draw do |map|
 #		which can have comments
 #		which can have documents ........
 #	end
+#		group.resources :forums, :shallow => true do |forum|
+#			forum.resources :topics do |topic|
+#				topic.resources :posts do |post|
+#					post.resources :documents, :controller => 'group_documents'
+#				end
+#			end
+#		end
 	end
 
-#	map.resource :email_confirmation, :only => :create
 	map.confirm_email 'confirm_email/:id', 
 		:controller => 'email_confirmations', :action => 'confirm'
 	map.resend_confirm_email 'resend_confirm_email/:id', 

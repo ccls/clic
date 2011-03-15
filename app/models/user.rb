@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
 		c.maintain_sessions = false
 	end
 
+#	the above adds some validations, some of which I'd like to remove
+#		password length
+#		password_confirmation length
+#		password confirmation when password hasn't changed
+
 #	def self.find_by_anything(login)
 #		find_by_login(login) || find_by_email(login) #|| find_by_id(login)
 #	end
