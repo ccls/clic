@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
 
 	default_scope :order => :username
 
-	validates_length_of :password, :minimum => 8, 
-		:if => :password_changed?
+#	It seems that authlogic includes a minimum length of 4
+#	validates_length_of :password, :minimum => 8, 
+#		:if => :password_changed?
 
 	validates_format_of :password,
 		:with => Regexp.new(
