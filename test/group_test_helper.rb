@@ -276,6 +276,15 @@ module ClassMethods
 				assert_not_nil flash[:error]
 			end
 	
+			test "should NOT create #{options[:attributes_key]} with #{cu} login " <<
+					"and group_id change" do
+
+#	we don't want :group_id and object[:group_id] to differ
+
+				pending
+
+			end
+	
 			test "should edit #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)
 				assert object.is_a?(options[:model].constantize)
@@ -367,6 +376,15 @@ module ClassMethods
 					options[:attributes_key] => send(options[:attributes_method])
 				assert_not_nil flash[:error]
 				assert_redirected_to members_only_path
+			end
+
+			test "should NOT update #{options[:attributes_key]} with #{cu} login " <<
+					"and group_id change" do
+
+#	we don't want :group_id and object[:group_id] to differ
+
+				pending
+
 			end
 	
 		end	#	Edit access roles
