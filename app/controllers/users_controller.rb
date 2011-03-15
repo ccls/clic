@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 		@user.update_attributes!(params[:user])	
 		flash_notice = "Successfully updated profile."	
 		if (email_was != @user.email)
+			current_user_session.destroy
 			@user.old_email = email_was
 			@user.email_confirmed_at = nil
 			@user.save!
