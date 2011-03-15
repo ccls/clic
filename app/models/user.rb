@@ -116,6 +116,7 @@ class User < ActiveRecord::Base
 #		memberships.find(:all,:conditions => [
 #			'memberships.group_id = ? AND memberships.group_role_id IS NOT NULL', group.id]
 #			).length > 0
+#	effectively the same as is_group_reader?
 		group_membership_role_names(group).length > 0
 	end
 
@@ -199,18 +200,18 @@ class User < ActiveRecord::Base
 #
 	#	Only members can new/create a group document
 	def may_create_group_documents?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_reader?(group)				#	change to editor
 	end
 
 	#	Only admins and group moderators can edit/update
 	def may_update_group_documents?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_reader?(group)				#	change to editor
 	end
 	alias_method :may_edit_group_documents?, :may_update_group_documents?
 
 	#	Only admins, group members can edit/update
 	def may_read_group_documents?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_reader?(group)
 	end
 
 	#	Only admins and group moderators can destroy the group documents
@@ -224,18 +225,18 @@ class User < ActiveRecord::Base
 #
 	#	Only members can new/create a group event
 	def may_create_group_events?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_editor?(group)
 	end
 
 	#	Only admins and group moderators can edit/update
 	def may_update_group_events?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_editor?(group)
 	end
 	alias_method :may_edit_group_events?, :may_update_group_events?
 
 	#	Only admins, group members can edit/update
 	def may_read_group_events?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_reader?(group)
 	end
 
 	#	Only admins and group moderators can destroy the group events
@@ -248,18 +249,18 @@ class User < ActiveRecord::Base
 #
 	#	Only members can new/create a group announcement
 	def may_create_group_announcements?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_editor?(group)
 	end
 
 	#	Only admins and group moderators can edit/update
 	def may_update_group_announcements?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_editor?(group)
 	end
 	alias_method :may_edit_group_announcements?, :may_update_group_announcements?
 
 	#	Only admins, group members can edit/update
 	def may_read_group_announcements?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_reader?(group)
 	end
 
 	#	Only admins and group moderators can destroy the group announcements
@@ -288,7 +289,7 @@ class User < ActiveRecord::Base
 
 	#	Only admins and group members can read a given group
 	def may_read_group?(group)
-		may_administrate? || is_group_member?(group)
+		may_administrate? || is_group_reader?(group)
 	end
 
 	#	Only admins can destroy a given group
