@@ -10,11 +10,11 @@ class GroupMembershipsController < ApplicationController
 	before_filter :membership_required,
 		:only => [:edit,:update,:show,:destroy]
 
-	before_filter "may_create_memberships_required", :only => [:new,:create]
-	before_filter "may_read_memberships_required",   :only => [:index]
-	before_filter "may_read_membership_required",    :only => [:show]
-	before_filter "may_update_membership_required",  :only => [:edit,:update]
-	before_filter "may_destroy_membership_required", :only => [:destroy]
+	before_filter "may_create_group_memberships_required", :only => [:new,:create]
+	before_filter "may_read_group_memberships_required",   :only => [:index]
+	before_filter "may_read_group_membership_required",    :only => [:show]
+	before_filter "may_update_group_membership_required",  :only => [:edit,:update]
+	before_filter "may_destroy_group_membership_required", :only => [:destroy]
 
 	def index
 		@memberships = @group.memberships
@@ -85,17 +85,29 @@ protected
 		end
 	end
 
-	def may_create_memberships_required
-		current_user.may_create_membership?(@group) || access_denied
+	def may_create_group_memberships_required
+		current_user.may_create_group_membership?(@group) || access_denied
 	end
 
-	def may_read_memberships_required
-		current_user.may_read_memberships?(@group) || access_denied
+	def may_read_group_memberships_required
+		current_user.may_read_group_memberships?(@group) || access_denied
+	end
+
+	def may_read_group_membership_required
+		current_user.may_read_group_membership?(@membership) || access_denied
 	end
 
 #	def may_read_membership_required
 #		current_user.may_read_membership?(@group) || access_denied(
 #			"special read redirect", new_group_membership_path(@group) )
 #	end
+
+	def may_update_group_membership_required
+		current_user.may_update_group_membership?(@membership) || access_denied
+	end
+
+	def may_destroy_group_membership_required
+		current_user.may_destroy_group_membership?(@membership) || access_denied
+	end
 
 end

@@ -1,0 +1,22 @@
+<% content_tag_for( :tr, membership, :class => 'row' ) do %>
+ <td class='user'>
+  <%= link_to membership.user.username, membership.user %>
+ </td>
+ <td class='group'>
+  <%= link_to membership.group.name, membership.group %>
+ </td>
+ <td class='group_role'>
+  <%= membership.group_role.try(:name) || 'NONE' %>
+ </td>
+ <td class='manage'>
+  <%# if current_user.may_edit_membership?(membership) %>
+   <%#= link_to 'Edit', edit_group_membership_path(membership.group,membership), 
+     :class => 'button' %>&nbsp;
+   <%# destroy_link_to 'Destroy', group_path(group) do %>
+    <%#= hidden_field_tag 'confirm', "Destroy group '#{group}'?", 
+     :id => nil %>
+<%#= submit_link_to('Destroy') %>
+   <%# end %>
+  <%# end %>
+ </td>
+<% end %><!-- class='group row' -->

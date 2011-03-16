@@ -22,7 +22,10 @@ module ApplicationHelper
 				"<li>#{link_to( "Pages", pages_path )}</li>" << 
 				"<li>#{link_to( "Photos", photos_path )}</li>" << 
 				"<li>#{link_to( "Users", users_path )}</li>" << 
-				"<li>#{link_to( "Documents", documents_path )}</li>" << 
+				"<li>#{link_to( "Documents", documents_path )}</li>"
+			end
+			menu << if ( current_user.may_administrate? )
+				"<li>#{link_to( "Memberships", memberships_path )}</li>" << 
 				"<li>#{link_to( "Groups (temp)", groups_path )}</li>" << 
 				"<li>#{link_to( "Group Roles (temp)", group_roles_path )}</li>"
 			end

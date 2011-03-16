@@ -164,7 +164,7 @@ class User < ActiveRecord::Base
 	alias_method :may_destroy?, :may_edit?
 #	alias_method :may_view?,    :may_read?
 
-	%w(	announcements events group_roles ).each do |resource|
+	%w(	announcements events memberships group_roles ).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
 		alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
 		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
@@ -173,31 +173,31 @@ class User < ActiveRecord::Base
 	end
 
 #
-#	Memberships
+#	Group Memberships
 #
 	#	Only non-members can new/create a membership
-	def may_create_membership?(group)
+	def may_create_group_membership?(group)
 		!is_group_member?(group)
 	end
 
 	#	Only admins and group moderators can edit/update
-	def may_update_membership?(membership)
+	def may_update_group_membership?(membership)
 		may_administrate? || is_group_moderator?(membership.group)
 	end
-	alias_method :may_edit_membership?, :may_update_membership?
+	alias_method :may_edit_group_membership?, :may_update_group_membership?
 
 	#	Only admins, group members and self can edit/update
-	def may_read_membership?(membership)
+	def may_read_group_membership?(membership)
 		may_administrate? || is_group_reader?(membership.group) || self == membership.user
 	end
 
 	#	Only admins and group members can read the groups memberships
-	def may_read_memberships?(group)
+	def may_read_group_memberships?(group)
 		may_administrate? || is_group_reader?(group)
 	end
 
 	#	Only admins and group moderators can destroy the groups memberships
-	def may_destroy_membership?(membership)
+	def may_destroy_group_membership?(membership)
 		may_administrate? || is_group_moderator?(membership.group)
 	end
 

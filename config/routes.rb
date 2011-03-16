@@ -1,6 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-
 #	remove password from user edit form?
 #	only on user new
 #	due to requiring confirmation but doesn't check or change if blank?
@@ -16,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :documents, :member => { :preview => :get }
 
 	map.resources :group_roles
+  map.resources :memberships, :only => [:index,:update,:destroy]
 	map.resources :groups do |group|
 		group.resources :memberships,
 			:controller => 'group_memberships'

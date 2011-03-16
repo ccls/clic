@@ -1,0 +1,11 @@
+<h1>Listing memberships</h1>
+
+<% if @memberships.length > 0 %>
+ <table id='memberships'><thead>
+ <tr><th>User</th><th>Group</th><th>Role</th></tr>
+ </thead><tbody>
+ <%= render :partial => 'membership', :collection => @memberships %>
+ </tbody></table><!-- id='memberships' -->
+<% else %>
+ <p>Sorry, but no memberships yet.</p>
+<% end %>
