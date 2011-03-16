@@ -8,4 +8,8 @@ class Announcement < ActiveRecord::Base
 
 #	protect user_id and group_id ???
 
+	def to_s
+		title
+	end
+
 end

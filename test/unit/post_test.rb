@@ -19,4 +19,9 @@ class PostTest < ActiveSupport::TestCase
 		} } } } }
 	end
 
+	test "should return first 10 of body as to_s" do
+		object = create_object
+		assert_equal object.body[0..9], "#{object}"
+	end
+
 end

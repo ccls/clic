@@ -17,4 +17,9 @@ class ForumTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should return name as to_s" do
+		object = create_object
+		assert_equal object.name, "#{object}"
+	end
+
 end

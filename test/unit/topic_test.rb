@@ -20,4 +20,9 @@ class TopicTest < ActiveSupport::TestCase
 		} } } }
 	end
 
+	test "should return title as to_s" do
+		object = create_object
+		assert_equal object.title, "#{object}"
+	end
+
 end
