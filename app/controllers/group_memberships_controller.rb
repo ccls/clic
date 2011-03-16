@@ -1,4 +1,4 @@
-class MembershipsController < ApplicationController
+class GroupMembershipsController < ApplicationController
 
 	layout 'members_onlies'
 

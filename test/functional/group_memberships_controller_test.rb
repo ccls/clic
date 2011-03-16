@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MembershipsControllerTest < ActionController::TestCase
+class GroupMembershipsControllerTest < ActionController::TestCase
 
 	#	no group_id
 	assert_no_route(:get,:index)

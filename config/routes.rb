@@ -17,7 +17,8 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :group_roles
 	map.resources :groups do |group|
-		group.resources :memberships
+		group.resources :memberships,
+			:controller => 'group_memberships'
 #
 #	I don't like the duplication of group here, but
 #	I want to separate events from group_events
