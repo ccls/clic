@@ -5,6 +5,8 @@ class GroupMembershipsController < ApplicationController
 #	before_filter :group_required,
 #		:only => [:new,:create,:index]
 	before_filter :group_required
+	before_filter :group_role_required,
+		:only => [:update]
 	before_filter :membership_required,
 		:only => [:edit,:update,:show,:destroy]
 
@@ -23,7 +25,9 @@ class GroupMembershipsController < ApplicationController
 	end
 
 	def create
-		@membership = @group.memberships.new(:user_id => current_user.id)
+		@membership = @group.memberships.new
+		@membership.group_role = @group_role
+		@membership.user = current_user
 		@membership.save!
 		flash[:notice] = "Membership request created."
 		redirect_to members_only_path
@@ -39,7 +43,8 @@ class GroupMembershipsController < ApplicationController
 	end
 
 	def update
-		@membership.group_role_id = params.dig('membership','group_role_id')
+#		@membership.group_role_id = params.dig('membership','group_role_id')
+		@membership.group_role = @group_role
 		@membership.save!
 		flash[:notice] = 'Success!'
 #		redirect_to members_only_path
@@ -69,6 +74,14 @@ protected
 			@group = Group.find(params[:group_id])
 		else
 			access_denied("Valid group required",members_only_path)
+		end
+	end
+
+	def group_role_required
+		if GroupRole.exists?(params[:membership][:group_role_id])
+			@group_role = GroupRole.find(params[:membership][:group_role_id])
+		else
+			access_denied("Valid group role required",members_only_path)
 		end
 	end
 

@@ -5,11 +5,23 @@ class Membership < ActiveRecord::Base
 	validates_presence_of :user
 	validates_presence_of :group
 
-	before_validation :nullify_blank_group_role_id
+#	Is this really needed????
+#	Let's see!
+#	before_validation :nullify_blank_group_role_id
 
 	def nullify_blank_group_role_id
 		self.group_role_id = nil if group_role_id.blank?
 	end
+
+#	attr_protected :approved
+	attr_protected :group_id
+	attr_protected :user_id
+	attr_protected :group_role_id
+
+#	after_create, if not approved, send membership_approval email
+
+
+
 
 #	def is_administrator?
 #		['administrator'].include?(group_role.try(:name))

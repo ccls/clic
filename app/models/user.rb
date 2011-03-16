@@ -186,14 +186,14 @@ class User < ActiveRecord::Base
 	end
 	alias_method :may_edit_membership?, :may_update_membership?
 
-	#	Only admins, group moderators and self can edit/update
+	#	Only admins, group members and self can edit/update
 	def may_read_membership?(membership)
-		may_administrate? || is_group_moderator?(membership.group) || self == membership.user
+		may_administrate? || is_group_reader?(membership.group) || self == membership.user
 	end
 
-	#	Only admins and group moderators can read the groups memberships
+	#	Only admins and group members can read the groups memberships
 	def may_read_memberships?(group)
-		may_administrate? || is_group_moderator?(group)
+		may_administrate? || is_group_reader?(group)
 	end
 
 	#	Only admins and group moderators can destroy the groups memberships
