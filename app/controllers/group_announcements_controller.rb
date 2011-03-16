@@ -22,8 +22,8 @@ class GroupAnnouncementsController < ApplicationController
 	end
 
 	def create
-		@announcement = @group.announcements.new(params[:announcement].merge(
-			:user_id => current_user.id))
+		@announcement = @group.announcements.new(params[:announcement])
+		@announcement.user = current_user
 		@announcement.save!
 		flash[:notice] = "Announcement created."
 		redirect_to group_path(@announcement.group)

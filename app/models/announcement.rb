@@ -6,7 +6,8 @@ class Announcement < ActiveRecord::Base
 	validates_presence_of :title
 	validates_presence_of :content
 
-#	protect user_id and group_id ???
+	attr_protected :group_id
+	attr_protected :user_id
 
 	def to_s
 		title

@@ -13,8 +13,8 @@ class EventsController < ApplicationController
 	before_filter 'may_not_have_group_required', :only => [:edit,:update,:show,:destroy]
 
 	def create
-		@event = Event.new(
-			params[:event].merge(:user_id => current_user.id))
+		@event = Event.new(params[:event])
+		@event.user = current_user
 		@event.save!
 		flash[:notice] = "Event created."
 		redirect_to members_only_path

@@ -22,8 +22,8 @@ class GroupEventsController < ApplicationController
 	end
 
 	def create
-		@event = @group.events.new(params[:event].merge(
-			:user_id => current_user.id))
+		@event = @group.events.new(params[:event])
+		@event.user = current_user
 		@event.save!
 		flash[:notice] = "Event created."
 		redirect_to group_path(@event.group)

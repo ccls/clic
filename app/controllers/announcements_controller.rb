@@ -13,8 +13,8 @@ class AnnouncementsController < ApplicationController
 	before_filter 'may_not_have_group_required', :only => [:edit,:update,:show,:destroy]
 
 	def create
-		@announcement = Announcement.new(
-			params[:announcement].merge(:user_id => current_user.id))
+		@announcement = Announcement.new(params[:announcement])
+		@announcement.user = current_user
 		@announcement.save!
 		flash[:notice] = "Announcement created."
 		redirect_to members_only_path

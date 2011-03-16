@@ -233,7 +233,35 @@ module ClassMethods
 					post :create, :group_id => @membership.group.id, 
 						options[:attributes_key] => send(options[:attributes_method])
 				}
-				assert assigns(options[:attributes_key])
+				assert       assigns(options[:attributes_key])
+				assert_equal assigns(options[:attributes_key]).user,  user
+				assert_equal assigns(options[:attributes_key]).group, @membership.group
+				assert_redirected_to group_path(@membership.group)
+			end
+	
+			test "should create #{options[:attributes_key]} with #{cu} login " <<
+					"and ignore user_id" do
+				login_as user = send(cu)
+				assert_difference("#{options[:model]}.count",1){
+					post :create, :group_id => @membership.group.id, 
+						options[:attributes_key] => send(options[:attributes_method]).merge(
+							:user_id => 0)
+				}
+				assert       assigns(options[:attributes_key])
+				assert_equal assigns(options[:attributes_key]).user,  user
+				assert_equal assigns(options[:attributes_key]).group, @membership.group
+				assert_redirected_to group_path(@membership.group)
+			end
+	
+			test "should create #{options[:attributes_key]} with #{cu} login " <<
+					"and ignore group_id" do
+				login_as user = send(cu)
+				assert_difference("#{options[:model]}.count",1){
+					post :create, :group_id => @membership.group.id, 
+						options[:attributes_key] => send(options[:attributes_method]).merge(
+							:group_id => 0 )
+				}
+				assert       assigns(options[:attributes_key])
 				assert_equal assigns(options[:attributes_key]).user,  user
 				assert_equal assigns(options[:attributes_key]).group, @membership.group
 				assert_redirected_to group_path(@membership.group)
@@ -274,15 +302,6 @@ module ClassMethods
 				assert_response :success
 				assert_template 'new'
 				assert_not_nil flash[:error]
-			end
-	
-			test "should NOT create #{options[:attributes_key]} with #{cu} login " <<
-					"and group_id change" do
-
-#	we don't want :group_id and object[:group_id] to differ
-
-				pending
-
 			end
 	
 			test "should edit #{options[:attributes_key]} with #{cu} login" do
@@ -378,13 +397,43 @@ module ClassMethods
 				assert_redirected_to members_only_path
 			end
 
-			test "should NOT update #{options[:attributes_key]} with #{cu} login " <<
-					"and group_id change" do
-
-#	we don't want :group_id and object[:group_id] to differ
-
-				pending
-
+			test "should update #{options[:attributes_key]} with #{cu} login " <<
+					"and ignore group_id change" do
+				object = send(options[:create_method],:group => @membership.group)
+				assert object.is_a?(options[:model].constantize)
+				assert_equal object.group, @membership.group
+				sleep 1
+				login_as user = send(cu)
+				assert_changes("#{options[:model]}.find(#{object.id}).updated_at") {
+					put :update, :group_id => @membership.group.id, :id => object.id, 
+						options[:attributes_key] => send(options[:attributes_method]).merge(
+							:group_id => 0 )
+				}
+				assert           assigns(options[:attributes_key])
+				assert_equal     assigns(options[:attributes_key]).group, @membership.group
+				assert_not_equal assigns(options[:attributes_key]).user,  @membership.user
+				assert_not_equal assigns(options[:attributes_key]).user,  user
+				assert_redirected_to group_path(@membership.group)
+			end
+	
+			test "should update #{options[:attributes_key]} with #{cu} login " <<
+					"and ignore user_id change" do
+				object = send(options[:create_method],:group => @membership.group)
+				assert object.is_a?(options[:model].constantize)
+				assert_equal object.group, @membership.group
+				sleep 1
+				login_as user = send(cu)
+				assert_changes("#{options[:model]}.find(#{object.id}).updated_at") {
+					put :update, :group_id => @membership.group.id, :id => object.id, 
+						options[:attributes_key] => send(options[:attributes_method]).merge(
+							:user_id => 0 )
+				}
+				assert           assigns(options[:attributes_key])
+				assert_equal     assigns(options[:attributes_key]).group, @membership.group
+				assert_not_equal assigns(options[:attributes_key]).user,  @membership.user
+				assert_not_equal assigns(options[:attributes_key]).user,  user
+				assert_not_equal assigns(options[:attributes_key]).user_id, 0
+				assert_redirected_to group_path(@membership.group)
 			end
 	
 		end	#	Edit access roles
