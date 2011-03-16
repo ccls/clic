@@ -1,5 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
 
+
+#	remove password from user edit form?
+#	only on user new
+#	due to requiring confirmation but doesn't check or change if blank?
+#	map.resource :password
+#	:new => initiate reset form gets username or email? (not_logged_in_required)
+#	:create => if user found, sends email with link to show (not_logged_in_required)
+#	:show => confirms username and forwards to password edit (not_logged_in_required)
+#	:edit => password and password_confirmation only (works with password reset or just by choice)
+#	:update => updates password
+
 	map.resources :events
 	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }
