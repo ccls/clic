@@ -8,10 +8,10 @@ class Membership < ActiveRecord::Base
 #	Is this really needed????
 #	Let's see!
 #	before_validation :nullify_blank_group_role_id
-
-	def nullify_blank_group_role_id
-		self.group_role_id = nil if group_role_id.blank?
-	end
+#
+#	def nullify_blank_group_role_id
+#		self.group_role_id = nil if group_role_id.blank?
+#	end
 
 #	attr_protected :approved
 	attr_protected :group_id
