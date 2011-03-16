@@ -1,19 +1,6 @@
 <% stylesheets('user') %>
 
-<h2>User:</h2>
-<% form_for( @user, :html => { :class => 'edit_user' } ) do |f| %>
- <%= f.error_messages %>
- <%= hidden_field_tag( :token, params[:token] ) if( params[:token] ) %>
- <%= f.wrapped_text_field :username %>
- <%= f.wrapped_text_field :email %>
- <%= f.wrapped_password_field :password,
-		:label_text => 'Password *' %>
- <%= f.wrapped_password_field :password_confirmation %>
- <p>
-  <%= f.submit "Submit" %>
-  <%= submit_link_to "Submit" %>
- </p>
-<p>
-* Password requires at least one lowercase and one uppercase letter, one number and one special character
-</p>
-<% end %>
+<%= f.error_messages %>
+<%#= hidden_field_tag( :token, params[:token] ) if( params[:token] ) %>
+<%= f.wrapped_text_field :username %>
+<%= f.wrapped_text_field :email %>

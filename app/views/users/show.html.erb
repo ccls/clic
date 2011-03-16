@@ -13,15 +13,16 @@
     :target => 'new' )%>
    <%= user_roles() %>
   </div><!-- id='roles' -->
+ <p>
+  <%= link_to( 'Edit User Info', edit_user_path(current_user), :class => 'button' )%>
+  <a class='button'>Edit Password (coming soon)</a>
+ </p>
  </div>
-
+<hr/>
  <div class='groups'>
   <h3>Groups:</h3>
   <% @user.memberships.each do |membership| %>
-   <p><%= membership.group.name %></p>
+   <p><%= membership.group.name %>&nbsp;(<%= membership.group_role.try(:name) || 'NONE' %>)</p>
   <% end %>
  </div> 
- <p>
-  <%= link_to( 'Edit', edit_user_path(current_user), :class => 'button' )%>
- </p>
 </div><!-- id='user' -->
