@@ -10,7 +10,8 @@
 		:label_text => 'Password *' %>
  <%= f.wrapped_password_field :password_confirmation %>
  <p>
-  <%= f.submit "Submit" %>
+  <%= f.submit "Submit", :style => 'display:none' %>
+  <%= submit_link_to "Submit" %>
  </p>
 <p>
 * Password requires at least one lowercase and one uppercase letter, one number and one special character

@@ -40,6 +40,4 @@ http://www.google.com/cse/docs/cref.html
 		jQuery('form#cse-search-box input[name=siteurl]').remove();
 	});
 
-	jQuery('.datepicker').datepicker();
-
 });

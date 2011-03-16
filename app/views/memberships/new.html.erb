@@ -2,5 +2,8 @@
 
 <% form_for([@group,@membership]) do |f| %>
  <p>Group: <%= @group.name %></p>
- <p><%= f.submit 'Send Request' %></p>
+ <p>
+<%= f.submit 'Send Request', :style => 'display:none' %>
+<%= submit_link_to 'Send Request' %>
+</p>
 <% end %>

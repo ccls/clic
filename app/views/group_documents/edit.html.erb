@@ -4,7 +4,8 @@
 	:url => group_document_path(@group,@document)) do |f| %>
  <%= render :partial => 'form', :locals => {:f => f} %>
  <p>
-  <%= f.submit( 'Update' ) %>
+  <%= f.submit( 'Update', :style => 'display:none' ) %>
+  <%= submit_link_to( 'Update' ) %>
 &nbsp;
   <%= link_to 'Show', group_document_path(@group,@document),:class => 'button' %>
 &nbsp;

@@ -1,11 +1,11 @@
 <h1>Editing group event</h1>
 
-<%# form_for([@group,@event]) do |f| %>
 <% form_for(@event,
 	:url => group_event_path(@group,@event) ) do |f| %>
  <%= render :partial => 'form', :locals => {:f => f} %>
  <p>
-  <%= f.submit( 'Update' ) %>
+  <%= f.submit( 'Update', :style => 'display:none' ) %>
+  <%= submit_link_to( 'Update' ) %>
 &nbsp;
   <%= link_to 'Show', group_event_path(@group,@event),:class => 'button' %>
 &nbsp;
