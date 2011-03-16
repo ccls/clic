@@ -4,7 +4,7 @@
 	:url => group_event_path(@group,@event) ) do |f| %>
  <%= render :partial => 'form', :locals => {:f => f} %>
  <p>
-  <%= f.submit( 'Update', :style => 'display:none' ) %>
+  <%= f.submit( 'Update' ) %>
   <%= submit_link_to( 'Update' ) %>
 &nbsp;
   <%= link_to 'Show', group_event_path(@group,@event),:class => 'button' %>

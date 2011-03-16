@@ -10,6 +10,7 @@
   <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
    <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?", 
     :id => nil %>
+<%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %><!-- class='membership row' -->

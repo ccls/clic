@@ -10,7 +10,7 @@
  <%= f.wrapped_date_text_field :begins_on %>
  <%= f.wrapped_date_text_field :ends_on %>
  <p>
-  <%= f.submit( (@event.new_record?)?'Create':'Update',:style => 'display:none' ) %>
+  <%= f.submit( (@event.new_record?)?'Create':'Update' ) %>
   <%= submit_link_to( (@event.new_record?)?'Create':'Update' ) %>
 &nbsp;
   <%= link_to 'Show', @event, :class => 'button' %>

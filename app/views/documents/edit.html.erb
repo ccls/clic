@@ -5,7 +5,7 @@
  <%= f.error_messages %>
  <%= render 'form',:f => f %>
  <p>
-  <%= f.submit( "Update this Document", :style => 'display:none' )%>
+  <%= f.submit( "Update this Document" )%>
   <%= submit_link_to( "Update this Document" )%>&nbsp;
   <%= link_to 'Preview this Document', 
    preview_document_path(@document), :class => 'button' %>&nbsp;

@@ -7,7 +7,7 @@
  <%= f.wrapped_text_area :content,
 	:class => 'autosize' %>
  <p>
-  <%= f.submit( (@announcement.new_record?)?'Create':'Update', :style => 'display:none' ) %>
+  <%= f.submit( (@announcement.new_record?)?'Create':'Update' ) %>
   <%= submit_link_to( (@announcement.new_record?)?'Create':'Update' ) %>
   <%= link_to 'Show', @announcement, :class => 'button' %>
   <%= link_to 'Back', announcements_path, :class => 'button' %>

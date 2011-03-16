@@ -20,7 +20,9 @@
 <%#
 	No destroy action yet
 %> 
-    <%#= destroy_link_to( 'Destroy', user_path(user) ) %>
+    <%# destroy_link_to( 'Destroy', user_path(user) ) do %>
+<%#= submit_link_to('Destroy') %>
+    <%# end %>
    </td>
   </tr>
  <% end %>

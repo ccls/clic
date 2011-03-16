@@ -10,7 +10,7 @@
  <%= f.wrapped_collection_select( :group_role_id, GroupRole.all,
   :id, :name, :include_blank => true) %>
  <p>
-  <%= f.submit 'Update', :style => 'display:none' %>
+  <%= f.submit 'Update' %>
   <%= submit_link_to 'Update' %>
  </p>
 <% end %>

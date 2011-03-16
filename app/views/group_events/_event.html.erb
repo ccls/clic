@@ -7,6 +7,7 @@
   <% destroy_link_to 'Destroy', group_event_path(@group,event) do %>
    <%= hidden_field_tag 'confirm', "Destroy event '#{event}'?", 
     :id => nil %>
+<%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %><!-- class='event row' -->
