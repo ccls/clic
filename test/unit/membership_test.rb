@@ -10,5 +10,6 @@ class MembershipTest < ActiveSupport::TestCase
 	assert_should_protect( :group_id )
 	assert_should_protect( :user_id )
 	assert_should_protect( :group_role_id )
+	assert_should_protect( :approved )
 
 end

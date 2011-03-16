@@ -13,7 +13,7 @@ class Membership < ActiveRecord::Base
 #		self.group_role_id = nil if group_role_id.blank?
 #	end
 
-#	attr_protected :approved
+	attr_protected :approved
 	attr_protected :group_id
 	attr_protected :user_id
 	attr_protected :group_role_id
