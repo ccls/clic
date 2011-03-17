@@ -46,6 +46,13 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
+		test "should NOT get new topic with #{cu} login and invalid forum_id" do
+			login_as send(cu)
+			get :new, :forum_id => 0
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
 		test "should create new topic with #{cu} login" do
 			login_as user = send(cu)
 			forum = create_forum
@@ -59,6 +66,16 @@ class TopicsControllerTest < ActionController::TestCase
 			assert assigns(:topic)
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
+		end
+
+		test "should NOT create new topic with #{cu} login and invalid forum_id" do
+			login_as user = send(cu)
+			assert_difference('Topic.count',0) {
+				post :create, :forum_id => 0, :topic => factory_attributes.merge(
+					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
+			}
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 		test "should NOT create new topic with #{cu} login when create fails" do

@@ -22,4 +22,25 @@ class ForumTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should increment posts_count with post creation" do
+		forum = create_forum
+		topic = create_topic(:forum => forum)
+		post = Factory(:post, :topic => topic)
+		assert_equal 1, post.topic.forum.reload.posts_count
+		assert_difference("Forum.find(#{post.topic.forum.id}).posts_count",1) do
+			Factory(:post, :topic => post.topic)
+		end
+		assert_equal 2, post.topic.forum.reload.posts_count
+	end
+
+	test "should decrement posts_count with post destruction" do
+		forum = create_forum
+		topic = create_topic(:forum => forum)
+		post = Factory(:post, :topic => topic)
+		assert_equal 1, post.topic.forum.reload.posts_count
+		assert_difference("Forum.find(#{post.topic.forum.id}).posts_count",-1) do
+			post.destroy
+		end
+	end
+
 end

@@ -33,6 +33,13 @@ class PostsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
+		test "should NOT get new post with #{cu} login and invalid topic_id" do
+			login_as send(cu)
+			get :new, :topic_id => 0
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
 		test "should create new post with #{cu} login" do
 			login_as user = send(cu)
 			topic = create_topic
@@ -47,6 +54,15 @@ class PostsControllerTest < ActionController::TestCase
 			assert assigns(:post)
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
+		end
+
+		test "should NOT create new post with #{cu} login and invalid topic_id" do
+			login_as user = send(cu)
+			assert_difference('Post.count',0) {
+				post :create, :topic_id => 0, :post => factory_attributes
+			}
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 		test "should NOT create new post with #{cu} login when create fails" do
