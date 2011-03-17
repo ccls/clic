@@ -9,6 +9,9 @@ class Forum < ActiveRecord::Base
 	named_scope :groupless, :conditions => {
 		:group_id => nil }
 
+	has_one :last_post, :class_name => 'Post',
+		:through => :topics, :order => 'created_at DESC'
+
 	def to_s
 		name
 	end

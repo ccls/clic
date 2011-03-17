@@ -8,6 +8,9 @@ class Topic < ActiveRecord::Base
 
 	accepts_nested_attributes_for :posts	#	really just for create
 
+	has_one :last_post, :class_name => 'Post', 
+		:order => "created_at DESC"
+
 	def to_s
 		title
 	end
