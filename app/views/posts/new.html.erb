@@ -1,0 +1,12 @@
+<h2>Replying to ...</h2>
+
+<% form_for @post, :url => topic_posts_path(@topic) do |f| %>
+	<%= f.error_messages %>
+	<%= f.wrapped_text_area :body,
+		:class => 'autosize' %>
+
+<p>
+<%= f.submit 'Submit' %>
+<%= submit_link_to 'Submit' %>
+</p>
+<% end %>

@@ -1,0 +1,22 @@
+<h2>
+<% if @topic.forum.group %>
+<%= link_to @topic.forum.group.name, @topic.forum.group %>
+&nbsp;&raquo;&nbsp;
+<% end %>
+<%= link_to @topic.forum.name, @topic.forum %></h2>
+<h3><%= @topic.title %></h3>
+
+<h3>Posts:</h3>
+<% if @topic.posts_count > 0 %>
+<table id='posts'><thead>
+<tr><th>User</th><th>Post</th></th></tr>
+</thead><tbody>
+<%= render :partial => 'post', :collection => @topic.posts %>
+</tbody></table><!-- id='posts' -->
+<% else %>
+<p>Sorry, but no posts yet.</p>
+<% end %>
+
+<p>
+<%= link_to "Reply", new_topic_post_path(@topic),
+	:class => 'button' %></p>

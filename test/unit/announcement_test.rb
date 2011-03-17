@@ -14,4 +14,13 @@ class AnnouncementTest < ActiveSupport::TestCase
 		assert_equal object.title, "#{object}"
 	end
 
+	test "should return only those not associated to a group" do
+		create_object(:group => Factory(:group))
+		create_object(:group => nil)
+		assert Announcement.groupless.length > 0
+		Announcement.groupless.each do |groupless|
+			assert_nil groupless.group_id
+		end
+	end
+
 end

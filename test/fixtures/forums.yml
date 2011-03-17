@@ -1,11 +1,127 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-#one: {}
-# column: value
-#
-#two: {}
-#  column: value
+--- 
+forums_18: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 18
+  group_id: 
+  description: 
+forums_4: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 4
+  group_id: 833231281
+  description: 
+forums_5: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 5
+  group_id: 255552193
+  description: 
+forums_6: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 6
+  group_id: 383973226
+  description: 
+forums_10: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 10
+  group_id: 103210531
+  description: 
+forums_7: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 7
+  group_id: 467750631
+  description: 
+forums_11: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 11
+  group_id: 635838813
+  description: 
+forums_8: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 8
+  group_id: 422154922
+  description: 
+forums_12: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 12
+  group_id: 314760547
+  description: 
+forums_9: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 9
+  group_id: 1018266143
+  description: 
+forums_13: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 13
+  group_id: 58051802
+  description: 
+forums_14: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 14
+  group_id: 374441761
+  description: 
+forums_15: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 15
+  group_id: 49839441
+  description: 
+forums_1: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 1
+  group_id: 1
+  description: 
+forums_16: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 16
+  group_id: 405694412
+  description: 
+forums_2: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 2
+  group_id: 2
+  description: 
+forums_17: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 17
+  group_id: 146093445
+  description: 
+forums_3: 
+  name: General Discussion
+  topics_count: 0
+  posts_count: 0
+  id: 3
+  group_id: 159216743
+  description: 

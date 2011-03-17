@@ -1,0 +1,21 @@
+<h2>
+<% if @forum.group %>
+<%= link_to @forum.group.name, @forum.group %>
+&nbsp;&raquo;&nbsp;
+<% end %>
+<%= @forum.name %></h2>
+
+<h3>Topics:</h3>
+<% if @forum.topics_count > 0 %>
+<table id='topics'><thead>
+<tr><th>Title</th><th>Posts</th><th>Views</th><th>Last Post</th></tr>
+</thead><tbody>
+<%= render :partial => 'topic', :collection => @forum.topics %>
+</tbody></table><!-- id='topics' -->
+<% else %>
+<p>Sorry, but no topics yet.</p>
+<% end %>
+
+<p>
+<%= link_to "Start New Topic", new_forum_topic_path(@forum),
+	:class => 'button' %></p>

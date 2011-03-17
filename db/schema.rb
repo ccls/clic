@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110316223628) do
+ActiveRecord::Schema.define(:version => 20110317165721) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -70,15 +70,17 @@ ActiveRecord::Schema.define(:version => 20110316223628) do
   end
 
   create_table "forums", :force => true do |t|
-    t.integer  "group_id",    :null => false
-    t.string   "name",        :null => false
+    t.integer  "group_id"
+    t.string   "name",                        :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "topics_count", :default => 0
+    t.integer  "posts_count",  :default => 0
   end
 
+  add_index "forums", ["group_id", "name"], :name => "index_forums_on_group_id_and_name", :unique => true
   add_index "forums", ["group_id"], :name => "index_forums_on_group_id"
-  add_index "forums", ["name"], :name => "index_forums_on_name", :unique => true
 
   create_table "group_documents", :force => true do |t|
     t.integer  "group_id",              :null => false
@@ -179,11 +181,12 @@ ActiveRecord::Schema.define(:version => 20110316223628) do
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "topics", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "forum_id",   :null => false
-    t.string   "title",      :null => false
+    t.integer  "user_id",                    :null => false
+    t.integer  "forum_id",                   :null => false
+    t.string   "title",                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "posts_count", :default => 0
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
@@ -207,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20110316223628) do
     t.datetime "updated_at"
     t.string   "old_email"
     t.datetime "email_confirmed_at"
+    t.integer  "topics_count",        :default => 0
+    t.integer  "posts_count",         :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

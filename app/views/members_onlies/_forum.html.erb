@@ -1,0 +1,14 @@
+<% content_tag_for( :tr, forum, :class => 'row' ) do %>
+ <td class='name'>
+  <%= link_to forum.name, forum %>
+ </td>
+ <td class='topics'>
+  <%= forum.topics_count %>
+ </td>
+ <td class='posts'>
+  <%= forum.posts_count %>
+ </td>
+ <td class='last_post'>
+  (working)
+ </td>
+<% end %><!-- class='forum row' -->

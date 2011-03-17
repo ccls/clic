@@ -1,10 +1,9 @@
 class MembersOnliesController < ApplicationController
 
 	def show
-		@announcements = Announcement.find(:all, :conditions => {
-			:group_id => nil })
-		@events = Event.find(:all, :conditions => {
-			:group_id => nil })
+		@announcements = Announcement.groupless
+		@events = Event.groupless
+		@forums = Forum.groupless
 	end
 
 end

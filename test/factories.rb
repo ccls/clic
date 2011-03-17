@@ -12,7 +12,7 @@ Factory.define :group do |f|
 end
 
 Factory.define :forum do |f|
-	f.association :group
+#	f.association :group
 	f.sequence(:name) { |n| "Name#{n}" }
 end
 

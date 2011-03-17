@@ -11,6 +11,9 @@ class Event < ActiveRecord::Base
 	attr_protected :group_id
 	attr_protected :user_id
 
+	named_scope :groupless, :conditions => {
+		:group_id => nil }
+
 	def to_s
 		title
 	end

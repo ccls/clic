@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 	has_many :announcements
 	has_many :group_documents
 	has_many :events
+	has_many :topics
+	has_many :posts
 	has_many :groups, :through => :memberships
 	has_many :documents, :as => :owner
 
@@ -172,6 +174,22 @@ class User < ActiveRecord::Base
 		alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
 	end
 
+	def may_read_forum?(forum)
+		if forum && forum.group
+			may_administrate? || is_group_reader?(forum.group)
+		else
+			true
+		end
+	end
+
+	def may_edit_forum?(forum)
+		if forum && forum.group
+			may_administrate? || is_group_editor?(forum.group)
+		else
+			may_edit?
+		end
+	end
+
 #
 #	Group Memberships
 #
@@ -225,7 +243,7 @@ class User < ActiveRecord::Base
 		may_administrate? || is_group_moderator?(group)
 	end
 
-#
+
 #
 #	Group Events
 #
@@ -253,26 +271,11 @@ class User < ActiveRecord::Base
 #
 #	Group Announcements
 #
-	#	Only members can new/create a group announcement
-	def may_create_group_announcements?(group)
-		may_administrate? || is_group_editor?(group)
-	end
-
-	#	Only admins and group moderators can edit/update
-	def may_update_group_announcements?(group)
-		may_administrate? || is_group_editor?(group)
-	end
-	alias_method :may_edit_group_announcements?, :may_update_group_announcements?
-
-	#	Only admins, group members can edit/update
-	def may_read_group_announcements?(group)
-		may_administrate? || is_group_reader?(group)
-	end
-
-	#	Only admins and group moderators can destroy the group announcements
-	def may_destroy_group_announcements?(group)
-		may_administrate? || is_group_moderator?(group)
-	end
+	alias_method :may_create_group_announcements?,  :may_create_group_events?
+	alias_method :may_update_group_announcements?,  :may_update_group_events?
+	alias_method :may_edit_group_announcements?,    :may_edit_group_events?
+	alias_method :may_read_group_announcements?,    :may_read_group_events?
+	alias_method :may_destroy_group_announcements?, :may_destroy_group_events?
 
 #
 #		Groups

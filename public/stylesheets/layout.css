@@ -205,3 +205,8 @@ form.edit_group .field_wrapper label {
 	width: 200px;
 }
 
+
+tr.forum td,
+tr.topic td {
+	vertical-align:middle;
+}

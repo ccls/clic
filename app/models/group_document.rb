@@ -11,8 +11,7 @@ class GroupDocument < ActiveRecord::Base
 	validates_presence_of :title
 #	validates_presence_of :content
 
-
-#	WHY?
+#	WHY? (blank creates an error, nil does not)
 	before_validation :nullify_blank_document_file_name
 
 	has_attached_file :document,

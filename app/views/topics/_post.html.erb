@@ -1,0 +1,8 @@
+<% content_tag_for( :tr, post, :class => 'row' ) do %>
+ <td class='user'>
+	<span>by <%= post.user.username %></span>
+ </td>
+ <td class='body'>
+  <%= post.body %>
+ </td>
+<% end %><!-- class='post row' -->

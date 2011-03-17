@@ -6,7 +6,7 @@
   <%= membership.group_role.try(:name) || 'NONE' %>
  </td>
  <td class='manage'>
-  <% if current_user.may_edit_membership?(membership) %>
+  <% if current_user.may_edit_group_membership?(membership) %>
    <%= link_to 'Edit', edit_group_membership_path(membership.group,membership), 
      :class => 'button' %>&nbsp;
    <%# destroy_link_to 'Destroy', group_path(group) do %>
@@ -16,4 +16,4 @@
    <%# end %>
   <% end %>
  </td>
-<% end %><!-- class='group row' -->
+<% end %><!-- class='membership row' -->

@@ -46,13 +46,17 @@ ActionController::Routing::Routes.draw do |map|
 #		which can have comments
 #		which can have documents ........
 #	end
-#		group.resources :forums, :shallow => true do |forum|
-#			forum.resources :topics do |topic|
-#				topic.resources :posts do |post|
-#					post.resources :documents, :controller => 'group_documents'
-#				end
-#			end
-#		end
+
+	end
+
+	map.resources :groups, :shallow => true do |group|
+	group.resources :forums, :only => :show do |forum|
+		forum.resources :topics, :only => [:new,:create,:show] do |topic|
+			topic.resources :posts, :only => [:new, :create ] do |post|
+#				post.resources :documents, :controller => 'group_documents'
+			end
+		end
+	end
 	end
 
 	map.confirm_email 'confirm_email/:id', 
