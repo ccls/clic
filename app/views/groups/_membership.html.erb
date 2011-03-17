@@ -3,7 +3,7 @@
   <%= link_to membership.user.username, membership.user %>
  </td>
  <td class='group_role'>
-  <%= membership.group_role.try(:name) || 'NONE' %>
+  <%=h membership.group_role.try(:name) || 'NONE' %>
  </td>
  <td class='manage'>
   <% if current_user.may_edit_group_membership?(membership) %>

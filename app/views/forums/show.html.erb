@@ -3,7 +3,7 @@
 <%= link_to @forum.group.name, @forum.group %>
 &nbsp;&raquo;&nbsp;
 <% end %>
-<%= @forum.name %></h2>
+<%=h @forum.name %></h2>
 
 <h3>Topics:</h3>
 <% if @forum.topics_count > 0 %>

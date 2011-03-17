@@ -1,18 +1,18 @@
 <h2>Creating new discussion topic</h2>
 
 <% form_for( @topic, :url => forum_topics_path(@forum) ) do |f| %>
-	<%= f.error_messages %>
+  <%= f.error_messages %>
   <%= f.wrapped_text_field :title,
-		:class => 'autosize' %>
+    :class => 'autosize' %>
 
-<%# There should be only one %>
+  <%# There should be only one %>
   <% f.fields_for :posts do |p| %>
     <%= p.wrapped_text_area :body,
-		:class => 'autosize' %>
-<% end %>
+      :class => 'autosize' %>
+  <% end %>
 
   <p>
-	<%= submit_tag %>
-	<%= submit_link_to 'Create' %>
-	</p>
+    <%= submit_tag %>
+    <%= submit_link_to 'Create' %>
+  </p>
 <% end %>

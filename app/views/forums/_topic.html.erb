@@ -1,7 +1,7 @@
 <% content_tag_for( :tr, topic, :class => 'row' ) do %>
  <td class='title'>
   <%= link_to topic.title, topic %><br/>
-	<span>by <%= topic.user.username %></span>
+	<span>by&nbsp;<%=h topic.user.username %></span>
  </td>
  <td class='posts'>
   <%= topic.posts_count %>
@@ -10,7 +10,9 @@
   (possible)
  </td>
  <td class='last_post'>
-  <span>when</span><br/>
-	<span>by who</span>
+  <% if topic.last_post %>
+  <span><%= topic.last_post.created_at %></span><br/>
+	<span>by&nbsp;<%=h topic.last_post.user.username %></span>
+  <% end %>
  </td>
 <% end %><!-- class='topic row' -->

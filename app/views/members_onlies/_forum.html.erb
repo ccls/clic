@@ -9,6 +9,9 @@
   <%= forum.posts_count %>
  </td>
  <td class='last_post'>
-  (working)
+  <% if forum.last_post %>
+  <span><%= forum.last_post.created_at %></span><br/>
+	<span>by&nbsp;<%=h forum.last_post.user.username %></span>
+  <% end %>
  </td>
 <% end %><!-- class='forum row' -->

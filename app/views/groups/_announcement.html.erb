@@ -1,10 +1,13 @@
 <% content_tag_for( :tr, announcement, :class => 'row' ) do %>
  <td class='title'>
-  <%= link_to announcement.title, group_announcement_path(announcement.group,announcement) %>
+  <%= link_to announcement.title, 
+    group_announcement_path(announcement.group,announcement) %>
  </td>
  <td class='manage'>
   <% if current_user.may_edit_group_announcements?(announcement.group) %>
-   <%= link_to 'Edit', edit_group_announcement_path(announcement.group,announcement), :class => 'button' %>&nbsp;
+   <%= link_to 'Edit', 
+     edit_group_announcement_path(announcement.group,announcement), 
+       :class => 'button' %>&nbsp;
    <%# destroy_link_to 'Destroy', group_announcement_path(announcement.group,announcement) do %>
     <%#= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
       :id => nil %>
