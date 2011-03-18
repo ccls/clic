@@ -4,21 +4,15 @@ namespace :app do
 	task :setup => :environment do
 		fixtures = []
 #		fixtures.push('pages')
-		fixtures.push('roles')
-		fixtures.push('group_roles')
-		fixtures.push('groups')
-		fixtures.push('forums')
+#		fixtures.push('roles')
+#		fixtures.push('group_roles')
+#		fixtures.push('groups')
+#		fixtures.push('forums')
 #		fixtures.push('photos')
 #		fixtures.push('documents')
-		ENV['FIXTURES'] = fixtures.join(',')
-		puts "Loading fixtures for #{ENV['FIXTURES']}"
-		Rake::Task["db:fixtures:load"].invoke
-#		Rake::Task["app:add_users"].invoke
-#		ENV['uid'] = '859908'
-#		Rake::Task["app:deputize"].invoke
-#		ENV['uid'] = '228181'
-#		Rake::Task["app:deputize"].reenable	#	<- this is stupid!
-#		Rake::Task["app:deputize"].invoke
+#		ENV['FIXTURES'] = fixtures.join(',')
+#		puts "Loading fixtures for #{ENV['FIXTURES']}"
+#		Rake::Task["db:fixtures:load"].invoke
 
 #		%w(
 #			1CLIC_2009timelinefullproposal_033109.pdf
