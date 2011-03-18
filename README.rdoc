@@ -29,7 +29,7 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
-* {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
+* {gravatar}[http://rubygems.org/gems/gravatar] - for user icons (No longer used)
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images

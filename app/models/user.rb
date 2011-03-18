@@ -88,14 +88,14 @@ class User < ActiveRecord::Base
 			:conditions => conditions )
 	end 
 
-	#	FYI.  gravatar can't deal with a nil email
-	gravatar :email, :rating => 'PG'
-
-	#	gravatar.url will include & that are not encoded to &amp;
-	#	which works just fine, but technically is invalid html.
-	def gravatar_url
-		gravatar.url.gsub(/&/,'&amp;')
-	end
+#	#	FYI.  gravatar can't deal with a nil email
+#	gravatar :email, :rating => 'PG'
+#
+#	#	gravatar.url will include & that are not encoded to &amp;
+#	#	which works just fine, but technically is invalid html.
+#	def gravatar_url
+#		gravatar.url.gsub(/&/,'&amp;')
+#	end
 
 	def email_confirmed?
 #	this attribute should probably be protected to avoid user
