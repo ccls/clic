@@ -51,6 +51,22 @@ class User < ActiveRecord::Base
 
 	authorized	#	adds methods include role_names
 
+
+	validates_uniqueness_of :avatar_file_name, :allow_nil => true
+
+	before_validation :nullify_blank_avatar_file_name
+
+	has_attached_file :avatar,
+		YAML::load(ERB.new(IO.read(File.expand_path(
+			File.join(File.dirname(__FILE__),'../..','config/user_avatar.yml')
+		))).result)[Rails.env]
+
+	def nullify_blank_avatar_file_name
+		self.avatar_file_name = nil if avatar_file_name.blank?
+	end
+
+
+
 #	alias_method :may_view_calendar?, :may_read?
 
 	def self.search(options={})
