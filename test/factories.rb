@@ -5,6 +5,14 @@ Factory.define :user do |f|
 	f.password_confirmation 'V@1!dP@55w0rd'
 	f.email_confirmed_at Time.now
 #	f.role_name 'user'
+	f.first_name "First"
+	f.last_name "Last"
+	f.degrees "Degrees"
+	f.title "Title"
+	f.profession "Profession"
+	f.organization "Organization"
+	f.address "Address"
+	f.phone_number "PhoneNumber"
 end
 
 Factory.define :group do |f|

@@ -1,28 +1,45 @@
 <% stylesheets('user') %>
 
-<div id='user'>
- <div>
-  <div class='person'><dl>
-   <% %w( username email ).each do |key| -%>
-    <dt><%= key -%></dt>
-    <dd><%= @user.attributes[key] -%></dd>
-   <% end -%>
-  </dl></div><!-- class='person' -->
-  <div id='roles'>
-   <%#= link_to( image_tag(@user.gravatar_url), "http://gravatar.com", :target => 'new' )%>
+<div class='user'>
+ <div class='user_avatar'>
    <%= image_tag(@user.avatar.url(:medium)) %>
-   <%= user_roles() %>
-  </div><!-- id='roles' -->
- <p>
-  <%= link_to( 'Edit User Info', edit_user_path(current_user), :class => 'button' )%>
-  <a class='button'>Edit Password (coming soon)</a>
- </p>
- </div>
-<hr/>
+ </div><!-- class='user_avatar' -->
+
+  <div class='person'>
+    <h2><%= @user.full_name %>, <%= @user.title %></h2>
+    <p>Profession:&nbsp;<%= @user.profession %></p>
+    <p>Organization:&nbsp;<%= @user.organization %></p>
+    <p>Phone:&nbsp;<%= @user.phone_number %></p>
+    <p>Address:&nbsp;<%= @user.address %></p>
+    <p>Email:&nbsp;<%= @user.email %></p>
+  <p>
+   <%= link_to( 'Edit User Info', edit_user_path(current_user), :class => 'button' )%>
+   <a class='button'>Edit Password (coming soon)</a>
+  </p>
+ </div><!-- class='person' -->
+</div><!-- class='user' -->
+
+<div class='user'>
+ <div class='research_interests'>
+  <h2>Research Interests:</h2>
+  <%= sanitize(textilize(@user.research_interests)) %>
+ </div><!-- class='research_interests' -->
+
+ <div class='selected_publications'>
+  <h2>Selected Publications:</h2>
+  <%= sanitize(textilize(@user.selected_publications)) %>
+ </div><!-- class='selected_publications' -->
+
  <div class='groups'>
-  <h3>Groups:</h3>
+  <h2>Groups:</h2>
   <% @user.memberships.each do |membership| %>
    <p><%= membership.group.name %>&nbsp;(<%= membership.group_role.try(:name) || 'NONE' %>)</p>
   <% end %>
- </div> 
+ </div><!-- class='groups' -->
 </div><!-- id='user' -->
+
+<% if current_user.may_administrate? %>
+  <div id='roles'>
+   <%= user_roles() %>
+  </div><!-- id='roles' -->
+<% end %>

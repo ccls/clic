@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318170253) do
+ActiveRecord::Schema.define(:version => 20110318173057) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -192,15 +192,15 @@ ActiveRecord::Schema.define(:version => 20110318170253) do
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
 
   create_table "users", :force => true do |t|
-    t.string   "username",                           :null => false
-    t.string   "email",                              :null => false
-    t.string   "crypted_password",                   :null => false
-    t.string   "password_salt",                      :null => false
-    t.string   "persistence_token",                  :null => false
-    t.string   "single_access_token",                :null => false
-    t.string   "perishable_token",                   :null => false
-    t.integer  "login_count",         :default => 0, :null => false
-    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.string   "username",                             :null => false
+    t.string   "email",                                :null => false
+    t.string   "crypted_password",                     :null => false
+    t.string   "password_salt",                        :null => false
+    t.string   "persistence_token",                    :null => false
+    t.string   "single_access_token",                  :null => false
+    t.string   "perishable_token",                     :null => false
+    t.integer  "login_count",           :default => 0, :null => false
+    t.integer  "failed_login_count",    :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -210,12 +210,22 @@ ActiveRecord::Schema.define(:version => 20110318170253) do
     t.datetime "updated_at"
     t.string   "old_email"
     t.datetime "email_confirmed_at"
-    t.integer  "topics_count",        :default => 0
-    t.integer  "posts_count",         :default => 0
+    t.integer  "topics_count",          :default => 0
+    t.integer  "posts_count",           :default => 0
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "degrees"
+    t.string   "title"
+    t.string   "profession"
+    t.string   "organization"
+    t.text     "address"
+    t.string   "phone_number"
+    t.text     "research_interests"
+    t.text     "selected_publications"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,10 +1,1 @@
-<h2>User:</h2>
-<% form_for( @user, :html => { 
-	:multipart => true, :class => 'edit_user' } ) do |f| %>
- <%= render :partial => 'form', :locals => { :f => f } %>  
- <p>
-  <%= f.submit "Submit" %>
-  <%= submit_link_to "Submit" %>
- </p>
- <p>If you change your email address, you will be unable to login until the new address is confirmed.</p>
-<% end %>
+<%= render 'form' %>

@@ -1,21 +1,25 @@
-div#user {
+div.user {
+	clear:left;
 	padding: 10px;
 }
-div.person {
+div.user_avatar {
+	padding: 10px;
 	float:left;
-	width: 60%;
 }
-div#roles {
-	margin-left: 60%;
+div.person {
+	padding: 10px;
 }
-div#roles a img {
-	margin-left: 50px;
-}
+
+
 div#roles ul {
 	list-style-position: outside;
 	list-style-type: none;
 	padding: 0;
 }
+
+
+
+
 
 form.edit_user label {
 	float: left;

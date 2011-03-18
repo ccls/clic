@@ -21,7 +21,18 @@ class User < ActiveRecord::Base
 #		find_by_login(login) || find_by_email(login) #|| find_by_id(login)
 #	end
 
+	authorized	#	adds methods include role_names
+
 	default_scope :order => :username
+
+	has_many :memberships
+	has_many :announcements
+	has_many :group_documents
+	has_many :events
+	has_many :topics
+	has_many :posts
+	has_many :groups, :through => :memberships
+	has_many :documents, :as => :owner
 
 #	It seems that authlogic includes a minimum length of 4
 #	validates_length_of :password, :minimum => 8, 
@@ -40,17 +51,14 @@ class User < ActiveRecord::Base
 			'letter, one number and one special character',
 		:if => :password_changed?
 
-	has_many :memberships
-	has_many :announcements
-	has_many :group_documents
-	has_many :events
-	has_many :topics
-	has_many :posts
-	has_many :groups, :through => :memberships
-	has_many :documents, :as => :owner
-
-	authorized	#	adds methods include role_names
-
+	validates_presence_of :title
+	validates_presence_of :profession
+	validates_presence_of :organization
+	validates_presence_of :first_name
+	validates_presence_of :last_name
+	validates_presence_of :degrees
+	validates_presence_of :address
+	validates_presence_of :phone_number
 
 	validates_uniqueness_of :avatar_file_name, :allow_nil => true
 
@@ -107,6 +115,10 @@ class User < ActiveRecord::Base
 		self.email_confirmed_at = Time.now
 		self.save
 		self
+	end
+
+	def full_name
+		[first_name,last_name].join(' ')
 	end
 
 	def group_membership_roles(group)

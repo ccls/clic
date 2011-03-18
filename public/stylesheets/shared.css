@@ -163,3 +163,8 @@ form.edit_group .field_wrapper label {
   list-style: none;
 }
 
+
+.required {
+	color: red;
+	font-weight: bold;
+}

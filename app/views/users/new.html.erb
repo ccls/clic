@@ -1,15 +1,1 @@
-<h2>User:</h2>
-<% form_for( @user, :html => { 
-		:multipart => true, :class => 'edit_user' } ) do |f| %>
- <%= render :partial => 'form', :locals => { :f => f } %>  
- <%= f.wrapped_password_field :password,
-		:label_text => 'Password *' %>
- <%= f.wrapped_password_field :password_confirmation %>
- <p>
-  <%= f.submit "Submit" %>
-  <%= submit_link_to "Submit" %>
- </p>
-<p>
-* Password requires at least one lowercase and one uppercase letter, one number and one special character
-</p>
-<% end %>
+<%= render 'form' %>
