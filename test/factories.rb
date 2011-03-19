@@ -70,7 +70,8 @@ Factory.define :group_event, :parent => :event do |f|
 	f.association :group
 end
 Factory.define :group_document do |f|
+	f.association :post
 	f.association :user
-	f.association :group
+#	f.association :group
 	f.sequence(:title) { |n| "Title#{n}" }
 end

@@ -47,13 +47,37 @@ class PostsControllerTest < ActionController::TestCase
 			assert_difference("Topic.find(#{topic.id}).posts_count",1) {
 			assert_difference("User.find(#{user.id}).posts_count",1) {
 			assert_difference('Post.count',1) {
+			assert_difference('GroupDocument.count',0) {
 				post :create, :topic_id => topic.id, :post => factory_attributes
-			} } } }
+			} } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
 			assert assigns(:post)
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
+		end
+
+		test "should create new post with document and #{cu} login" do
+			login_as user = send(cu)
+			topic = create_topic
+			assert_difference("Forum.find(#{topic.forum.id}).posts_count",1) {
+			assert_difference("Topic.find(#{topic.id}).posts_count",1) {
+			assert_difference("User.find(#{user.id}).posts_count",1) {
+			assert_difference('Post.count',1) {
+			assert_difference('GroupDocument.count',1) {
+				post :create, :topic_id => topic.id, :post => factory_attributes,
+					:group_document => Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			} } } } }
+			assert assigns(:forum)
+			assert assigns(:topic)
+			assert assigns(:post)
+			assert assigns(:group_document)
+			assert_not_nil flash[:notice]
+			assert_redirected_to topic_path(topic)
+#			GroupDocument.last.destroy	#	gotta cleanup ourselves
+			assigns(:group_document).destroy
 		end
 
 		test "should NOT create new post with #{cu} login and invalid topic_id" do
@@ -146,13 +170,39 @@ class PostsControllerTest < ActionController::TestCase
 			assert_difference("Topic.find(#{topic.id}).posts_count",1) {
 			assert_difference("User.find(#{user.id}).posts_count",1) {
 			assert_difference('Post.count',1) {
+			assert_difference('GroupDocument.count',0) {
 				post :create, :topic_id => topic.id, :post => factory_attributes
-			} } } }
+			} } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
 			assert assigns(:post)
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
+		end
+
+		test "should create new group post with document and #{cu} login" do
+			login_as user = send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			assert_difference("Forum.find(#{forum.id}).posts_count",1) {
+			assert_difference("Topic.find(#{topic.id}).posts_count",1) {
+			assert_difference("User.find(#{user.id}).posts_count",1) {
+			assert_difference('Post.count',1) {
+			assert_difference('GroupDocument.count',1) {
+				post :create, :topic_id => topic.id, :post => factory_attributes,
+					:group_document => Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			} } } } }
+			assert assigns(:forum)
+			assert assigns(:topic)
+			assert assigns(:post)
+			assert assigns(:group_document)
+			assert_equal assigns(:group_document).group, @membership.group
+			assert_not_nil flash[:notice]
+			assert_redirected_to topic_path(topic)
+#			GroupDocument.last.destroy	#	gotta cleanup ourselves
+			assigns(:group_document).destroy
 		end
 
 		test "should NOT create new group post with #{cu} login when create fails" do

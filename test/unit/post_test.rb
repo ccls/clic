@@ -6,6 +6,8 @@ class PostTest < ActiveSupport::TestCase
 	assert_should_require(:body)
 	assert_should_initially_belong_to(:user)
 	assert_should_initially_belong_to(:topic)
+#	assert_should_have_one(:group_document)
+	assert_should_have_many(:group_documents)
 
 	test "should create post" do
 		assert_difference('User.count',2) {

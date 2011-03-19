@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318173057) do
+ActiveRecord::Schema.define(:version => 20110318184258) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20110318173057) do
   add_index "forums", ["group_id"], :name => "index_forums_on_group_id"
 
   create_table "group_documents", :force => true do |t|
-    t.integer  "group_id",              :null => false
+    t.integer  "group_id"
     t.integer  "user_id",               :null => false
     t.string   "title"
     t.text     "description"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20110318173057) do
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
+    t.integer  "post_id"
   end
 
   create_table "group_roles", :force => true do |t|

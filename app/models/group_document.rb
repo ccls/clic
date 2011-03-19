@@ -5,9 +5,11 @@ require 'hmac-sha1'
 class GroupDocument < ActiveRecord::Base
 	belongs_to :group
 	belongs_to :user
+	belongs_to :post
 
-	validates_presence_of :group
+#	validates_presence_of :group
 	validates_presence_of :user
+	validates_presence_of :post
 	validates_presence_of :title
 #	validates_presence_of :content
 

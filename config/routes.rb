@@ -37,8 +37,10 @@ ActionController::Routing::Routes.draw do |map|
 			:controller => 'group_announcements'
 
 #	make this go away
-		group.resources :documents, 
-			:controller => 'group_documents'
+#		group.resources :documents, 
+#			:controller => 'group_documents'
+#	poof!  gone!
+
 #	|document|
 #			document.resources :comments,
 #				:controller => 'group_document_comments'
@@ -50,14 +52,13 @@ ActionController::Routing::Routes.draw do |map|
 	end
 
 	map.resources :groups, :shallow => true do |group|
-	group.resources :forums, :only => :show do |forum|
-		forum.resources :topics, :only => [:new,:create,:show] do |topic|
-			topic.resources :posts, :only => [:new, :create ] do |post|
-#				post.resources :documents, :controller => 'group_documents'
+		group.resources :forums, :only => :show do |forum|
+			forum.resources :topics, :only => [:new,:create,:show] do |topic|
+				topic.resources :posts, :only => [:new, :create ]
 			end
 		end
 	end
-	end
+	map.resources :group_documents, :only => :show
 
 	map.confirm_email 'confirm_email/:id', 
 		:controller => 'email_confirmations', :action => 'confirm'

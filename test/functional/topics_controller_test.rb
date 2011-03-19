@@ -56,24 +56,53 @@ class TopicsControllerTest < ActionController::TestCase
 		test "should create new topic with #{cu} login" do
 			login_as user = send(cu)
 			forum = create_forum
-#			assert_difference("Forum.find(#{forum.id}).posts_count",1) {		#	not yet
+			assert_difference("Forum.find(#{forum.id}).posts_count",1) {
 			assert_difference("Forum.find(#{forum.id}).topics_count",1) {
 			assert_difference("User.find(#{user.id}).topics_count",1) {
+			assert_difference('Post.count',1) {
 			assert_difference('Topic.count',1) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			} } }
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } } } } }
 			assert assigns(:topic)
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
 		end
 
+		test "should create new topic with document #{cu} login" do
+			login_as user = send(cu)
+			forum = create_forum
+			assert_difference("Forum.find(#{forum.id}).posts_count",1) {
+			assert_difference("Forum.find(#{forum.id}).topics_count",1) {
+			assert_difference("User.find(#{user.id}).topics_count",1) {
+			assert_difference('Post.count',1) {
+			assert_difference('Topic.count',1) {
+			assert_difference('GroupDocument.count',1) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post),
+					:group_document => Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			} } } } } }
+			assert assigns(:forum)
+			assert assigns(:topic)
+			assert assigns(:post)
+			assert assigns(:group_document)
+			assert_not_nil flash[:notice]
+			assert_redirected_to forum_path(forum)
+#			GroupDocument.last.destroy	#	gotta cleanup ourselves
+			assigns(:group_document).destroy
+		end
+
 		test "should NOT create new topic with #{cu} login and invalid forum_id" do
 			login_as user = send(cu)
 			assert_difference('Topic.count',0) {
-				post :create, :forum_id => 0, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			}
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => 0, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } } 
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 		end
@@ -82,10 +111,12 @@ class TopicsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			forum = create_forum
 			Topic.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('Topic.count',0) do
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			end
+			assert_difference('Topic.count',0) {
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } }
 			assert assigns(:topic)
 			assert_response :success
 			assert_template 'new'
@@ -96,10 +127,12 @@ class TopicsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			forum = create_forum
 			Topic.any_instance.stubs(:valid?).returns(false)
-			assert_difference('Topic.count',0) do
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			end
+			assert_difference('Topic.count',0) {
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } }
 			assert assigns(:topic)
 			assert_response :success
 			assert_template 'new'
@@ -124,10 +157,12 @@ class TopicsControllerTest < ActionController::TestCase
 		test "should NOT create new topic with #{cu} login" do
 			login_as send(cu)
 			forum = create_forum
-			assert_difference('Topic.count',0) do
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			end
+			assert_difference('Topic.count',0) {
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } }
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 		end
@@ -182,26 +217,56 @@ class TopicsControllerTest < ActionController::TestCase
 		test "should create new group topic with #{cu} login" do
 			login_as user = send(cu)
 			forum = create_group_forum(@membership.group)
-#			assert_difference("Forum.find(#{forum.id}).posts_count",1) {		#	not yet
+			assert_difference("Forum.find(#{forum.id}).posts_count",1) {
 			assert_difference("Forum.find(#{forum.id}).topics_count",1) {
 			assert_difference("User.find(#{user.id}).topics_count",1) {
 			assert_difference('Topic.count',1) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			} } }
+			assert_difference('Post.count',1) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } } } } }
 			assert assigns(:topic)
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
+		end
+
+		test "should create new group topic with document and #{cu} login" do
+			login_as user = send(cu)
+			forum = create_group_forum(@membership.group)
+			assert_difference("Forum.find(#{forum.id}).posts_count",1) {
+			assert_difference("Forum.find(#{forum.id}).topics_count",1) {
+			assert_difference("User.find(#{user.id}).topics_count",1) {
+			assert_difference('Topic.count',1) {
+			assert_difference('Post.count',1) {
+			assert_difference('GroupDocument.count',1) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post),
+					:group_document => Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			} } } } } }
+			assert assigns(:forum)
+			assert assigns(:topic)
+			assert assigns(:post)
+			assert assigns(:group_document)
+			assert_equal assigns(:group_document).group, @membership.group
+			assert_not_nil flash[:notice]
+			assert_redirected_to forum_path(forum)
+#			GroupDocument.last.destroy	#	gotta cleanup ourselves
+			assigns(:group_document).destroy
 		end
 
 		test "should NOT create new group topic with #{cu} login when create fails" do
 			login_as send(cu)
 			forum = create_group_forum(@membership.group)
 			Topic.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('Topic.count',0) do
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			end
+			assert_difference('Topic.count',0) {
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } }
 			assert assigns(:topic)
 			assert_response :success
 			assert_template 'new'
@@ -212,10 +277,12 @@ class TopicsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			forum = create_group_forum(@membership.group)
 			Topic.any_instance.stubs(:valid?).returns(false)
-			assert_difference('Topic.count',0) do
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			end
+			assert_difference('Topic.count',0) {
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } }
 			assert assigns(:topic)
 			assert_response :success
 			assert_template 'new'
@@ -239,10 +306,12 @@ class TopicsControllerTest < ActionController::TestCase
 		test "should NOT create new group topic with #{cu} login" do
 			login_as send(cu)
 			forum = create_group_forum(@membership.group)
-			assert_difference('Topic.count',0) do
-				post :create, :forum_id => forum.id, :topic => factory_attributes.merge(
-					:posts_attributes => { "0"=> Factory.attributes_for(:post) })
-			end
+			assert_difference('Topic.count',0) {
+			assert_difference('Post.count',0) {
+			assert_difference('GroupDocument.count',0) {
+				post :create, :forum_id => forum.id, :topic => factory_attributes,
+					:post => Factory.attributes_for(:post)
+			} } }
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 		end

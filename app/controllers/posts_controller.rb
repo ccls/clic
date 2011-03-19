@@ -11,15 +11,29 @@ class PostsController < ApplicationController
 
 	def new
 		@post = @topic.posts.new
+		@group_document = GroupDocument.new
 	end
 
 	def create
 		@post = @topic.posts.new(params[:post])
 		@post.user = current_user
-		@post.save!
+		@group_document = GroupDocument.new(params[:group_document])
+		Post.transaction do
+			@post.save!
+			unless @group_document.document_file_name.blank?
+				@group_document.user = current_user
+				@group_document.post = @post
+				@group_document.group = @forum.group
+				@group_document.save!
+			end
+		end 
 		flash[:notice] = "Success!"
 		redirect_to topic_path(@topic)
-	rescue 
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		#	Rails bug does not reset new_record or id on failed transaction
+		#	they know and don't care
+		@post.instance_variable_set("@new_record", true)
+		@post.id = nil
 		flash.now[:error] = "something bad happened"
 		render :action => 'new'
 	end
@@ -42,6 +56,5 @@ protected
 #			access_denied("Valid post id required")	#,members_only_path)
 #		end
 #	end
-
 
 end

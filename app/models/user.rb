@@ -250,26 +250,35 @@ class User < ActiveRecord::Base
 #
 #	Group Documents
 #
-	#	Only members can new/create a group document
-	def may_create_group_documents?(group)
-		may_administrate? || is_group_reader?(group)				#	change to editor
+
+	def may_read_group_document?(document)
+		if document && document.group
+			may_administrate? || is_group_reader?(document.group)
+		else
+			true
+		end
 	end
 
-	#	Only admins and group moderators can edit/update
-	def may_update_group_documents?(group)
-		may_administrate? || is_group_reader?(group)				#	change to editor
-	end
-	alias_method :may_edit_group_documents?, :may_update_group_documents?
-
-	#	Only admins, group members can edit/update
-	def may_read_group_documents?(group)
-		may_administrate? || is_group_reader?(group)
-	end
-
-	#	Only admins and group moderators can destroy the group documents
-	def may_destroy_group_documents?(group)
-		may_administrate? || is_group_moderator?(group)
-	end
+#	#	Only members can new/create a group document
+#	def may_create_group_documents?(group)
+#		may_administrate? || is_group_reader?(group)				#	change to editor
+#	end
+#
+#	#	Only admins and group moderators can edit/update
+#	def may_update_group_documents?(group)
+#		may_administrate? || is_group_reader?(group)				#	change to editor
+#	end
+#	alias_method :may_edit_group_documents?, :may_update_group_documents?
+#
+#	#	Only admins, group members can edit/update
+#	def may_read_group_documents?(group)
+#		may_administrate? || is_group_reader?(group)
+#	end
+#
+#	#	Only admins and group moderators can destroy the group documents
+#	def may_destroy_group_documents?(group)
+#		may_administrate? || is_group_moderator?(group)
+#	end
 
 
 #

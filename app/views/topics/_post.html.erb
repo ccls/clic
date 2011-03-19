@@ -4,6 +4,9 @@
  </td>
  <td class='body'>
   <%=h post.body %>
+<% unless post.group_documents.empty? %>
+<br/><%= post.group_documents.first.document.path %>
+<% end %>
  </td>
  <td class='created_at'>
   <%= post.created_at %>

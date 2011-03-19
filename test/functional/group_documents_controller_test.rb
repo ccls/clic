@@ -16,409 +16,207 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	def factory_attributes(options={})
 		Factory.attributes_for(:group_document)
 	end
+
 	def create_group_document(options={})
-		Factory(:group_document, options)
+		Factory(:group_document, {
+				:document => File.open(File.dirname(__FILE__) + 
+				'/../assets/edit_save_wireframe.pdf')
+			}.merge(options))
 	end
 
-#	assert_access_with_login({ 
-#		:logins => [:superuser,:admin] })
-#	assert_no_access_with_login({ 
-#		:logins => [:editor,:interviewer,:reader,:active_user] })	#	no interviews here
-#	assert_no_access_without_login
+#	test "should create a group_document" do
+#		assert_difference("GroupDocument.count",1) {
+#			@document = create_group_document
+#		}
+#		document_path = @document.document.path
+#		assert File.exists?(document_path)
+#		@document.destroy
+#		assert !File.exists?(document_path)
+#	end
 
-	setup :create_a_membership
+#
+#	NOT Attached to a Group
+#
+	%w( super_user admin editor reader active_user 
+			group_roleless group_administrator group_moderator group_editor group_reader
+			nonmember_administrator nonmember_moderator nonmember_editor
+			nonmember_reader nonmember_roleless ).each do |cu|
 
-	def create_a_membership
-		@membership = create_membership
-	end
-
-	def create_membership(options={})
-		Factory(:membership,{
-			:group_role => GroupRole['reader']}.merge(options))
-	end
-
-	test "should NOT get new document without login" do
-		get :new, :group_id => @membership.group.id
-		assert_redirected_to_login
-	end
-
-	test "should NOT get new document without valid group" do
-		login_as active_user
-		get :new, :group_id => 0, :document => factory_attributes
-		assert_not_nil flash[:error]
-		assert_redirected_to members_only_path
-	end
-
-	test "should NOT get new document with group and any login" do
-		login_as active_user
-		get :new, :group_id => @membership.group.id
-		assert_redirected_to root_path
-	end
-
-	test "should get new document with group and member login" do
-		login_as @membership.user
-		get :new, :group_id => @membership.group.id
-		assert_response :success
-		assert_template 'new'
-	end
-
-
-	test "should NOT create document without login" do
-		assert_difference('GroupDocument.count',0){
-			post :create, :group_id => @membership.group.id, :document => factory_attributes
-		}
-		assert_redirected_to_login
-	end
-
-	test "should NOT create document without valid group" do
-		login_as active_user
-		assert_difference('GroupDocument.count',0){
-			post :create, :group_id => 0, :document => factory_attributes
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to members_only_path
-	end
-
-	test "should NOT create document with group and any login" do
-		login_as active_user
-		assert_difference('GroupDocument.count',0){
-			post :create, :group_id => @membership.group.id, :document => factory_attributes
-		}
-		assert_redirected_to root_path
-	end
-
-	test "should create document with group and member login" do
-		login_as @membership.user
-		assert_difference('GroupDocument.count',1){
-			post :create, :group_id => @membership.group.id, :document => factory_attributes
-		}
-		assert assigns(:document)
-		assert_equal assigns(:document).user,  @membership.user
-		assert_equal assigns(:document).group, @membership.group
-		assert_redirected_to group_path(@membership.group)
-	end
-
-	test "should NOT create document with admin login when create fails" do
-		GroupDocument.any_instance.stubs(:create_or_update).returns(false)
-		login_as admin
-		assert_difference('GroupDocument.count',0) do
-			post :create, :group_id => @membership.group.id, :document => factory_attributes
+		test "should NOT show groupless group document with #{cu} login and invalid id" do
+			create_a_membership
+			login_as send(cu)
+			get :show, :id => 0		#	without a valid document, not really a group's document
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
-		assert_response :success
-		assert_template 'new'
-		assert_not_nil flash[:error]
-	end
 
-	test "should NOT create document with admin login and invalid document" do
-		GroupDocument.any_instance.stubs(:valid?).returns(false)
-		login_as admin
-		assert_difference('GroupDocument.count',0) do
-			post :create, :group_id => @membership.group.id, :document => factory_attributes
+		test "should show groupless group document with #{cu} login" do
+			load 'group_document.rb'	#	why?  I have to force reloading?
+			#	I don't have to do that for documents?
+			create_a_membership
+			login_as send(cu)
+			document = create_group_document
+			assert_not_nil document.id
+			assert_nil     document.group
+			get :show, :id => document.id
+			assert_not_nil @response.headers['Content-disposition'].match(
+				/attachment;.*pdf/)
+			assigns(:group_document).destroy
 		end
-		assert_response :success
-		assert_template 'new'
-		assert_not_nil flash[:error]
+
+		test "should get redirect to private s3 groupless group document with #{cu} login" do
+			create_a_membership
+			GroupDocument.has_attached_file :document, {
+				:s3_headers => {
+					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
+				:s3_permissions => :private,
+				:storage => :s3,
+				:s3_protocol => 'https',
+				:s3_credentials => "#{Rails.root}/config/s3.yml",
+				:bucket => 'ccls',
+				:path => "group_documents/:id/:filename"
+			}
+	
+			#	Since the REAL S3 credentials are only in production
+			#	Bad credentials make exists? return true????
+			Rails.stubs(:env).returns('production')
+			document = Factory(:group_document, :document_file_name => 'bogus_file_name')
+			assert_not_nil document.id
+			assert_nil     document.group
+			assert !document.document.exists?
+			assert !File.exists?(document.document.path)
+	
+			AWS::S3::S3Object.stubs(:exists?).returns(true)
+	
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_response :redirect
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+
+			assigns(:group_document).destroy
+		end
+
+	end
+
+#	%w( active_user group_roleless
+#			group_administrator group_moderator group_editor group_reader
+#			nonmember_administrator nonmember_moderator nonmember_editor
+#			nonmember_reader nonmember_roleless ).each do |cu|
+#
+#		test "should NOT show groupless group document with #{cu} login" do
+#			create_a_membership
+#			login_as send(cu)
+#			document = create_group_document
+#			assert_not_nil document.id
+#			assert_nil     document.group
+#			get :show, :id => document.id
+#			assert_redirected_to root_path
+#			assigns(:group_document).destroy
+#		end
+#
+#	end
+
+
+#
+#	Attached to a Group
+#
+	%w( super_user admin group_administrator group_moderator
+			group_editor group_reader ).each do |cu|
+
+		test "should NOT show group's group document with #{cu} login and invalid id" do
+			create_a_membership
+			login_as send(cu)
+			get :show, :id => 0		#	without a valid document, not really a group's document
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
+		test "should show group's group document with #{cu} login" do
+			load 'group_document.rb'	#	why?  I have to force reloading?
+			#	I don't have to do that for documents?
+			create_a_membership
+			login_as send(cu)
+			document = create_group_document(:group => @membership.group)
+			assert_not_nil document.id
+			assert_not_nil document.group
+			get :show, :id => document.id
+			assert_not_nil @response.headers['Content-disposition'].match(
+				/attachment;.*pdf/)
+			assigns(:group_document).destroy
+		end
+
+		test "should get redirect to private s3 group's group document with #{cu} login" do
+			create_a_membership
+			GroupDocument.has_attached_file :document, {
+				:s3_headers => {
+					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
+				:s3_permissions => :private,
+				:storage => :s3,
+				:s3_protocol => 'https',
+				:s3_credentials => "#{Rails.root}/config/s3.yml",
+				:bucket => 'ccls',
+				:path => "group_documents/:id/:filename"
+			}
+	
+			#	Since the REAL S3 credentials are only in production
+			#	Bad credentials make exists? return true????
+			Rails.stubs(:env).returns('production')
+			document = Factory(:group_document, :document_file_name => 'bogus_file_name',
+				:group => @membership.group)
+			assert_not_nil document.id
+			assert_not_nil document.group
+			assert !document.document.exists?
+			assert !File.exists?(document.document.path)
+	
+			AWS::S3::S3Object.stubs(:exists?).returns(true)
+	
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_response :redirect
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+
+			assigns(:group_document).destroy
+		end
+
+	end
+
+	%w( editor reader active_user group_roleless
+			nonmember_administrator nonmember_moderator nonmember_editor
+			nonmember_reader nonmember_roleless ).each do |cu|
+
+		test "should NOT show group's group document with #{cu} login" do
+			create_a_membership
+			login_as send(cu)
+			document = create_group_document(:group => @membership.group)
+			assert_not_nil document.id
+			assert_not_nil document.group
+			get :show, :id => document.id
+			assert_redirected_to root_path
+			assigns(:group_document).destroy
+		end
+
 	end
 
 
-	test "should NOT edit document without login" do
-		document = create_group_document(:group => @membership.group)
-		get :edit, :group_id => @membership.group.id, :id => document.id
-		assert_redirected_to_login
-	end
 
-	test "should edit document with self login" do
-		document = create_group_document(:group => @membership.group)
-			login_as @membership.user
-		get :edit, :group_id => @membership.group.id, :id => document.id
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should edit document with other member login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group => @membership.group).user
-		get :edit, :group_id => @membership.group.id, :id => document.id
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT edit document with other group moderator login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group_role => GroupRole['moderator']).user
-		get :edit, :group_id => @membership.group.id, :id => document.id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should edit document with group moderator login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group => @membership.group,
-			:group_role => GroupRole['moderator']).user
-		get :edit, :group_id => @membership.group.id, :id => document.id
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should edit document with system admin login" do
-		document = create_group_document
-		login_as admin
-		get :edit, :group_id => document.group.id, :id => document.id
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT edit document without valid id" do
-		document = create_group_document
-		login_as admin
-		get :edit, :group_id => document.group.id, :id => 0
-		assert_not_nil flash[:error]
-		assert_redirected_to members_only_path
-	end
+#
+#	Add not logged in tests
+#
 
 
-	test "should NOT update document without login" do
-		document = create_group_document(:group => @membership.group)
-		sleep 1
-		deny_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_redirected_to_login
-	end
-
-	test "should update document with self login" do
-		document = create_group_document(:group => @membership.group)
-		sleep 1
-		login_as @membership.user
-		assert_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_redirected_to group_path(@membership.group)
-	end
-
-	test "should update document with other member login" do
-		document = create_group_document(:group => @membership.group)
-		sleep 1
-#		login_as Factory(:membership, 
-		login_as create_membership(
-			:group => @membership.group ).user
-		assert_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_redirected_to group_path(@membership.group)
-	end
-
-	test "should NOT update document with other group moderator login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group_role => GroupRole['moderator']).user
-		deny_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path	#	members_only_path
-	end
-
-	test "should update document with group moderator login" do
-		document = create_group_document(:group => @membership.group)
-		sleep 1
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group => @membership.group,
-			:group_role => GroupRole['moderator']).user
-		assert_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => @membership.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_redirected_to group_path(document.group)
-	end
-
-	test "should update document with system admin login" do
-		document = create_group_document
-		sleep 1
-		login_as admin
-		assert_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => document.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_redirected_to group_path(document.group)
-	end
 
 
-	test "should NOT update document with admin login when update fails" do
-		document = create_group_document
-		GroupDocument.any_instance.stubs(:create_or_update).returns(false)
-		login_as admin
-		deny_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => document.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_response :success
-		assert_template 'edit'
-		assert_not_nil flash[:error]
-	end
-
-	test "should NOT update document with admin login and invalid document" do
-		document = create_group_document
-		GroupDocument.any_instance.stubs(:valid?).returns(false)
-		login_as admin
-		deny_changes("GroupDocument.find(#{document.id}).updated_at") {
-			put :update, :group_id => document.group.id, :id => document.id, :document => factory_attributes
-		}
-		assert_response :success
-		assert_template 'edit'
-		assert_not_nil flash[:error]
-	end
-
-	test "should NOT update document without valid id" do
-		document = create_group_document
-		login_as admin
-		put :update, :group_id => document.group.id, :id => 0, :document => factory_attributes
-		assert_not_nil flash[:error]
-		assert_redirected_to members_only_path
-	end
 
 
-	test "should NOT destroy document without login" do
-		document = create_group_document(:group => @membership.group)
-		assert_difference("GroupDocument.count",0){
-			delete :destroy, :group_id => @membership.group.id, :id => document.id
-		}
-		assert_redirected_to_login
-	end
-
-	test "should NOT destroy document with self login" do
-		document = create_group_document(:group => @membership.group)
-		login_as @membership.user
-		assert_difference("GroupDocument.count",0){
-			delete :destroy, :group_id => @membership.group.id, :id => document.id
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT destroy document with other member login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group => @membership.group).user
-		assert_difference("GroupDocument.count",0){
-			delete :destroy, :group_id => @membership.group.id, :id => document.id
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path	#	members_only_path
-	end
-
-	test "should NOT destroy document with other group moderator login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group_role => GroupRole['moderator']).user
-		assert_difference("GroupDocument.count",0){
-			delete :destroy, :group_id => @membership.group.id, :id => document.id
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path	#	members_only_path
-	end
-
-	test "should destroy document with group moderator login" do
-		document = create_group_document(:group => @membership.group)
-#		login_as Factory(:membership,
-		login_as create_membership(
-			:group => @membership.group,
-			:group_role => GroupRole['moderator']).user
-		assert_difference("GroupDocument.count",-1){
-			delete :destroy, :group_id => @membership.group.id, :id => document.id
-		}
-		assert_redirected_to group_path(document.group)
-	end
-
-	test "should destroy document with system admin login" do
-		document = create_group_document(:group => @membership.group)
-		login_as admin
-		assert_difference("GroupDocument.count",-1){
-			delete :destroy, :group_id => document.group.id, :id => document.id
-		}
-		assert_redirected_to group_path(document.group)
-	end
-
-	test "should NOT destroy document without id" do
-		document = create_group_document
-		login_as admin
-		assert_difference("GroupDocument.count",0){
-			delete :destroy, :group_id => document.group.id, :id => 0
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to members_only_path
-	end
-
-	test "should NOT get all documents without login" do
-		document = create_group_document
-		get :index, :group_id => document.group.id
-		assert_redirected_to_login
-	end
-
-	test "should NOT get all documents with non-member login" do
-		login_as active_user
-		get :index, :group_id => @membership.group.id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should get all documents with non-moderator member login" do
-		login_as @membership.user
-		get :index, :group_id => @membership.group.id
-		assert_response :success
-		assert_template 'index'
-	end
-
-	test "should get all documents with group moderator login" do
-		@membership.update_attributes(:group_role => GroupRole['moderator'])
-		login_as @membership.user
-		get :index, :group_id => @membership.group.id
-		assert_response :success
-		assert_template 'index'
-	end
-
-	test "should get all documents with system admin login" do
-		login_as admin
-		get :index, :group_id => @membership.group.id
-		assert_response :success
-		assert_template 'index'
-	end
 
 
-	test "should NOT show document without login" do
-		document = create_group_document(:group => @membership.group)
-		get :show, :group_id => @membership.group.id, :id => document.id
-		assert_redirected_to_login
-	end
 
-	test "should NOT show document with non-member login" do
-		document = create_group_document(:group => @membership.group)
-		login_as active_user
-		get :show, :group_id => @membership.group.id, :id => document.id
-		assert_redirected_to root_path
-	end
 
-	test "should show document with member login" do
-		document = create_group_document(:group => @membership.group)
-		login_as @membership.user
-		get :show, :group_id => @membership.group.id, :id => document.id
-		assert_response :success
-		assert_template 'show'
-	end
 
-	test "should show document with system admin login" do
-		document = create_group_document(:group => @membership.group)
-		login_as admin
-		get :show, :group_id => @membership.group.id, :id => document.id
-		assert_response :success
-		assert_template 'show'
-	end
+
+
+
+
+
 
 end
