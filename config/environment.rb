@@ -41,7 +41,7 @@ Rails::Initializer.run do |config|
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic'
 	config.gem 'paperclip'
-#	config.gem 'gravatar'
+	config.gem 'gravatar'	#	needed until removed from simply_pages
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
 	config.gem "aws-s3", :lib => "aws/s3"
 	config.gem 'jakewendt-simply_helpful'
