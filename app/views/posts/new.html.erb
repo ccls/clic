@@ -1,4 +1,4 @@
-<h2>Replying to ...</h2>
+<h2>Replying to ... &nbsp;&raquo;&nbsp;<%= link_to @topic.title, @topic %></h2>
 
 <% form_for @post, :url => topic_posts_path(@topic),
 	:html => { :multipart => true } do |f| %>
@@ -8,6 +8,7 @@
 
   <% fields_for @group_document do |d| %>
     <%= d.error_messages %>
+    <p>Optional File Attachment ...</p>
     <%= d.wrapped_text_field :title,
       :label_text => 'Document Title',
       :class => 'autosize' %>
