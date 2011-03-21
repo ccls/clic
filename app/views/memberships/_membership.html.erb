@@ -12,6 +12,8 @@
   <%= (membership.approved?)?'Yes':'No' %>
  </td>
  <td class='manage'>
+  <%= link_to 'Edit', edit_membership_path(membership),
+		:class => 'button' %>
   <% form_link_to 'Approve', membership_path(membership),
 		'method' => 'put' do %>
     <%= submit_link_to('Approve') %>

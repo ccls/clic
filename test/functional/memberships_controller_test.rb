@@ -4,7 +4,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Membership',
-		:actions => [:update,:destroy,:index],
+		:actions => [:edit,:update,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :create_membership
 	}
