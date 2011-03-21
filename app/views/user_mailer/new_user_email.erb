@@ -1,1 +1,14 @@
-<p>A new CLIC user was just created. <%= link_to @user.username, user_path(@user) %></p>
+<p>A new CLIC user, <%= link_to @user.username, user_path(@user) -%>, was just created.</p>
+
+<% if @user.memberships.empty? %>
+<p>This user has not requested any memberships yet.</p>
+<% else %>
+<p>This user has requested memberships to the following groups ...</p>
+<ul>
+<% @user.memberships.each do |membership| %>
+<li><%= membership.group -%> / <%= membership.group_role %></li>
+<% end %>
+</ul>
+<% end %>
+
+<p>Convenience link to <%= link_to 'memberships', memberships_path -%> for approval.</p>
