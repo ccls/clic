@@ -23,6 +23,14 @@ class GroupsControllerTest < ActionController::TestCase
 		:no_redirect_check => true })	#	redirects to new_group_membership_path(@group)
 	assert_no_access_without_login
 
+#	setup :create_a_membership
+#
+#		:logins => [:editor,:interviewer,:reader,:active_user,
+#			:unapproved_group_administrator, :group_administrator,
+#			:group_moderator, :group_editor, :group_reader, :group_roleless,
+#			:unapproved_nonmember_administrator, :nonmember_administrator,
+#			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
+
 	assert_access_with_https
 	assert_no_access_with_http
 

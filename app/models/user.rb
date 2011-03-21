@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
 	default_scope :order => :username
 
 	has_many :memberships
+	has_many :approved_memberships, 
+		:class_name => 'Membership', 
+		:conditions => { :approved => true }
 	has_many :announcements
 	has_many :group_documents
 	has_many :events
@@ -122,7 +125,7 @@ class User < ActiveRecord::Base
 	end
 
 	def group_membership_roles(group)
-		memberships.select{|m| m.group_id == group.id }.collect(&:group_role).compact
+		approved_memberships.select{|m| m.group_id == group.id }.collect(&:group_role).compact
 	end
 
 	def group_membership_role_names(group)

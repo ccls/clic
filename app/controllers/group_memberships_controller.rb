@@ -26,7 +26,11 @@ class GroupMembershipsController < ApplicationController
 
 	def create
 		@membership = @group.memberships.new
-		@membership.group_role = @group_role
+		if( params[:membership] && 
+				params[:membership][:group_role_id] &&
+				GroupRole.exists?(params[:membership][:group_role_id]) )
+			@membership.group_role = GroupRole.find(params[:membership][:group_role_id])
+		end
 		@membership.user = current_user
 		@membership.save!
 		flash[:notice] = "Membership request created."
@@ -43,11 +47,9 @@ class GroupMembershipsController < ApplicationController
 	end
 
 	def update
-#		@membership.group_role_id = params.dig('membership','group_role_id')
 		@membership.group_role = @group_role
 		@membership.save!
 		flash[:notice] = 'Success!'
-#		redirect_to members_only_path
 		redirect_to group_path(@membership.group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the membership"

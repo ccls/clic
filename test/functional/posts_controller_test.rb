@@ -19,11 +19,27 @@ class PostsControllerTest < ActionController::TestCase
 
 	setup :create_a_membership
 
+	roles_that_can_create_groupless_post = %w( super_user admin editor )
+
+	roles_that_cannot_create_groupless_post = %w( 
+		reader active_user group_roleless group_reader
+		group_administrator group_moderator group_editor 
+		nonmember_administrator nonmember_moderator nonmember_editor
+		nonmember_reader nonmember_roleless )
+
+	roles_that_can_create_group_post = %w( 
+		super_user admin group_administrator group_moderator group_editor )
+
+	roles_that_cannot_create_group_post = %w( 
+		editor reader active_user group_roleless group_reader
+		nonmember_administrator nonmember_moderator nonmember_editor
+		nonmember_reader nonmember_roleless )
+
 #
 #	NO Group Forum Topic Post
 #
 
-	%w( super_user admin editor ).each do |cu|
+	roles_that_can_create_groupless_post.each do |cu|
 
 		test "should get new post with #{cu} login" do
 			login_as send(cu)
@@ -121,10 +137,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( reader active_user group_roleless group_reader
-			group_administrator group_moderator group_editor 
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_cannot_create_groupless_post.each do |cu|
 
 		test "should NOT get new post with #{cu} login" do
 			login_as send(cu)
@@ -150,8 +163,7 @@ class PostsControllerTest < ActionController::TestCase
 #	Group Forum Topic Post
 #
 
-	%w( super_user admin group_administrator group_moderator
-			group_editor ).each do |cu|
+	roles_that_can_create_group_post.each do |cu|
 
 		test "should get new group post with #{cu} login" do
 			login_as send(cu)
@@ -239,9 +251,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( editor reader active_user group_roleless group_reader
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_cannot_create_group_post.each do |cu|
 
 		test "should NOT get new group post with #{cu} login" do
 			login_as send(cu)

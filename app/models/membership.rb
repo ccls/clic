@@ -20,8 +20,13 @@ class Membership < ActiveRecord::Base
 
 #	after_create, if not approved, send membership_approval email
 
+	def approved?
+		approved
+	end
 
-
+	def to_s
+		"#{user}/#{group}/#{group_role}"
+	end
 
 #	def is_administrator?
 #		['administrator'].include?(group_role.try(:name))

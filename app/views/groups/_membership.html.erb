@@ -5,6 +5,9 @@
  <td class='group_role'>
   <%=h membership.group_role.try(:name) || 'NONE' %>
  </td>
+ <td class='approved'>
+  <%= (membership.approved?)?'Yes':'No' %>
+ </td>
  <td class='manage'>
   <% if current_user.may_edit_group_membership?(membership) %>
    <%= link_to 'Edit', edit_group_membership_path(membership.group,membership), 

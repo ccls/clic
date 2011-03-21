@@ -1,7 +1,14 @@
 <h1>Request membership</h1>
 
 <% form_for([@group,@membership]) do |f| %>
- <p>Group: <%= @group.name %></p>
+
+
+ <h4>Group</h4>
+ <div class='field_wrapper'><span class='label'><%= @group.name %></span></div>
+ <h4>Role</h4>
+ <%= f.wrapped_collection_select( :group_role_id, GroupRole.all,
+  :id, :name, :include_blank => true) %>
+
  <p>
 <%= f.submit 'Send Request' %>
 <%= submit_link_to 'Send Request' %>

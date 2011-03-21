@@ -116,6 +116,7 @@ If it is the last tag, the float stops the menu background / content border
 	padding: 1px;
 }
 
+form.form_link_to,
 form.destroy_link_to {
 	display:inline;
 }

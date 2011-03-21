@@ -69,7 +69,7 @@
 <h3>Members:</h3>
 <% if @memberships.length > 0 %>
  <table id='memberships'><thead>
- <tr><th>User</th><th>Role</th></tr>
+ <tr><th>User</th><th>Role</th><th>Approved?</th><th>&nbsp;</th></tr>
  </thead><tbody>
  <%= render :partial => 'membership', :collection => @memberships %>
  </tbody></table><!-- id='memberships' -->

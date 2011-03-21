@@ -18,46 +18,77 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	end
 
 	def create_group_document(options={})
-		Factory(:group_document, {
+		document = Factory(:group_document, {
 				:document => File.open(File.dirname(__FILE__) + 
 				'/../assets/edit_save_wireframe.pdf')
 			}.merge(options))
+		assert_not_nil document.id
+		document
 	end
 
-#	test "should create a group_document" do
-#		assert_difference("GroupDocument.count",1) {
-#			@document = create_group_document
-#		}
-#		document_path = @document.document.path
-#		assert File.exists?(document_path)
-#		@document.destroy
-#		assert !File.exists?(document_path)
-#	end
+	#	Simple, quick test to ensure File attachment works.
+	test "should create a group_document" do
+		assert_difference("GroupDocument.count",1) {
+			@document = create_group_document
+		}
+		document_path = @document.document.path
+		assert File.exists?(document_path)
+		@document.destroy
+		assert !File.exists?(document_path)
+	end
+
+	setup :create_a_membership
+
+	roles_that_can_view_groupless = %w( super_user admin editor reader active_user 
+			unapproved_group_administrator unapproved_nonmember_administrator
+			group_roleless group_administrator group_moderator group_editor group_reader
+			nonmember_administrator nonmember_moderator nonmember_editor
+			nonmember_reader nonmember_roleless )
+
+	roles_that_can_view_group = %w( super_user admin group_administrator group_moderator
+			group_editor group_reader )
+
+	roles_that_cannot_view_group = %w( editor reader active_user group_roleless
+			unapproved_group_administrator unapproved_nonmember_administrator
+			nonmember_administrator nonmember_moderator nonmember_editor
+			nonmember_reader nonmember_roleless )
 
 #
 #	NOT Attached to a Group
 #
-	%w( super_user admin editor reader active_user 
-			group_roleless group_administrator group_moderator group_editor group_reader
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_can_view_groupless.each do |cu|
 
 		test "should NOT show groupless group document with #{cu} login and invalid id" do
-			create_a_membership
 			login_as send(cu)
 			get :show, :id => 0		#	without a valid document, not really a group's document
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 		end
 
+		test "should NOT show groupless group document with nil document and #{cu} login" do
+			document = create_group_document(:document => nil)
+			assert document.document.path.blank?
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_redirected_to root_path
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT download document with no document and #{cu} login" do
+			document = Factory(:group_document, :document_file_name => 'bogus_file_name')
+			assert !File.exists?(document.document.path)
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_redirected_to root_path
+			assert_not_nil flash[:error]
+		end
+
 		test "should show groupless group document with #{cu} login" do
 			load 'group_document.rb'	#	why?  I have to force reloading?
 			#	I don't have to do that for documents?
-			create_a_membership
 			login_as send(cu)
 			document = create_group_document
-			assert_not_nil document.id
-			assert_nil     document.group
+			assert_nil document.group
 			get :show, :id => document.id
 			assert_not_nil @response.headers['Content-disposition'].match(
 				/attachment;.*pdf/)
@@ -65,7 +96,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should get redirect to private s3 groupless group document with #{cu} login" do
-			create_a_membership
 			GroupDocument.has_attached_file :document, {
 				:s3_headers => {
 					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
@@ -98,33 +128,14 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
-#	%w( active_user group_roleless
-#			group_administrator group_moderator group_editor group_reader
-#			nonmember_administrator nonmember_moderator nonmember_editor
-#			nonmember_reader nonmember_roleless ).each do |cu|
-#
-#		test "should NOT show groupless group document with #{cu} login" do
-#			create_a_membership
-#			login_as send(cu)
-#			document = create_group_document
-#			assert_not_nil document.id
-#			assert_nil     document.group
-#			get :show, :id => document.id
-#			assert_redirected_to root_path
-#			assigns(:group_document).destroy
-#		end
-#
-#	end
 
 
 #
 #	Attached to a Group
 #
-	%w( super_user admin group_administrator group_moderator
-			group_editor group_reader ).each do |cu|
+	roles_that_can_view_group.each do |cu|
 
 		test "should NOT show group's group document with #{cu} login and invalid id" do
-			create_a_membership
 			login_as send(cu)
 			get :show, :id => 0		#	without a valid document, not really a group's document
 			assert_not_nil flash[:error]
@@ -134,10 +145,8 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		test "should show group's group document with #{cu} login" do
 			load 'group_document.rb'	#	why?  I have to force reloading?
 			#	I don't have to do that for documents?
-			create_a_membership
 			login_as send(cu)
 			document = create_group_document(:group => @membership.group)
-			assert_not_nil document.id
 			assert_not_nil document.group
 			get :show, :id => document.id
 			assert_not_nil @response.headers['Content-disposition'].match(
@@ -146,7 +155,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should get redirect to private s3 group's group document with #{cu} login" do
-			create_a_membership
 			GroupDocument.has_attached_file :document, {
 				:s3_headers => {
 					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
@@ -163,7 +171,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			Rails.stubs(:env).returns('production')
 			document = Factory(:group_document, :document_file_name => 'bogus_file_name',
 				:group => @membership.group)
-			assert_not_nil document.id
 			assert_not_nil document.group
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
@@ -180,15 +187,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( editor reader active_user group_roleless
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_cannot_view_group.each do |cu|
 
 		test "should NOT show group's group document with #{cu} login" do
-			create_a_membership
 			login_as send(cu)
 			document = create_group_document(:group => @membership.group)
-			assert_not_nil document.id
 			assert_not_nil document.group
 			get :show, :id => document.id
 			assert_redirected_to root_path
@@ -198,25 +201,21 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	end
 
 
-
 #
-#	Add not logged in tests
+#	not logged in tests
 #
 
+	test "should NOT download groupless document without login" do
+		document = create_group_document
+		get :show, :id => document.id
+		assert_redirected_to_login
+	end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	test "should NOT download group's document without login" do
+		document = create_group_document(:group => @membership.group)
+		get :show, :id => document.id
+		assert_redirected_to_login
+		document.destroy
+	end
 
 end

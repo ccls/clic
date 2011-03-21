@@ -10,7 +10,7 @@ class GroupDocumentsController < ApplicationController
 	def show
 		if @group_document.document.path.blank?
 			flash[:error] = "Does not contain a document"
-			redirect_to :back #preview_document_path(@document)
+			redirect_to( request.env["HTTP_REFERER"] || root_path )
 		elsif @group_document.document.exists?
 			if @group_document.document.options[:storage] == :filesystem #	&&
 				#	basically development or non-s3 setup
@@ -21,7 +21,7 @@ class GroupDocumentsController < ApplicationController
 			end
 		else
 			flash[:error] = "Document does not exist at the expected location."
-			redirect_to :back	#preview_document_path(@document)
+			redirect_to( request.env["HTTP_REFERER"] || root_path )
 		end
 	end
 

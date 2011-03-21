@@ -15,7 +15,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
 	assert_access_with_login({ 
 		:logins => [:superuser,:admin] })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:interviewer,:reader,:active_user] })
+		:logins => [:editor,:interviewer,:reader,:active_user,
+			:unapproved_group_administrator, :group_administrator,
+			:group_moderator, :group_editor, :group_reader, :group_roleless,
+			:unapproved_nonmember_administrator, :nonmember_administrator,
+			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -33,6 +37,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
 		:show => { :id => 0 },
 		:destroy => { :id => 0 }
 	)
+
+	setup :create_a_membership
 
 %w( superuser admin ).each do |cu|
 

@@ -22,7 +22,11 @@ class DocumentsControllerTest < ActionController::TestCase
 
 	assert_no_access_with_http 
 	assert_no_access_with_login({ 
-		:logins => [:interviewer,:reader,:active_user] })
+		:logins => [:interviewer,:reader,:active_user,
+			:unapproved_group_administrator, :group_administrator,
+			:group_moderator, :group_editor, :group_reader, :group_roleless,
+			:unapproved_nonmember_administrator, :nonmember_administrator,
+			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
 	assert_no_access_without_login
 
 	assert_no_access_with_login(
@@ -36,6 +40,8 @@ class DocumentsControllerTest < ActionController::TestCase
 		:update => { :id => 0 },
 		:destroy => { :id => 0 }
 	)
+
+	setup :create_a_membership
 
 %w( super_user admin editor ).each do |cu|
 

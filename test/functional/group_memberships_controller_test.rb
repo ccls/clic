@@ -19,7 +19,32 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 
 	setup :create_a_membership
 
-	%w( super_user admin group_administrator group_moderator ).each do |cu|
+	roles_that_can_create = %w( super_user admin editor reader active_user 
+		group_roleless
+		nonmember_administrator nonmember_moderator 
+		nonmember_editor nonmember_reader nonmember_roleless )
+
+	roles_that_cannot_create = %w( group_administrator group_moderator 
+		group_editor group_reader )
+
+	roles_that_can_edit = %w( super_user admin group_administrator group_moderator )
+
+	roles_that_cannot_edit = %w( editor reader active_user 
+		group_editor group_reader group_roleless
+		unapproved_group_administrator unapproved_nonmember_administrator
+		nonmember_administrator nonmember_moderator 
+		nonmember_editor nonmember_reader nonmember_roleless )
+
+	roles_that_can_view = %w( super_user admin group_administrator group_moderator
+		group_editor group_reader )
+
+	roles_that_cannot_view = %w( editor reader active_user group_roleless
+		unapproved_group_administrator unapproved_nonmember_administrator
+		nonmember_administrator nonmember_moderator
+		nonmember_editor nonmember_reader nonmember_roleless )
+
+
+	roles_that_can_edit.each do |cu|
 
 		test "should edit membership with #{cu} login" do
 			login_as send(cu)
@@ -115,10 +140,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( editor reader active_user 
-		group_editor group_reader group_roleless
-		nonmember_administrator nonmember_moderator 
-		nonmember_editor nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_cannot_edit.each do |cu|
 
 		test "should NOT edit membership with #{cu} login" do
 			login_as send(cu)
@@ -154,10 +176,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Only non-members should be allowed to create.
 	#
-	%w( super_user admin editor reader active_user 
-		group_roleless
-		nonmember_administrator nonmember_moderator 
-		nonmember_editor nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_can_create.each do |cu|
 
 		test "should NOT get new membership without valid group and #{cu} login" do
 			login_as send(cu)
@@ -166,12 +185,12 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 			assert_redirected_to members_only_path
 		end
 
-			test "should get new membership with group and #{cu} login" do
-				login_as send(cu)
-				get :new, :group_id => @membership.group.id
-				assert_response :success
-				assert_template 'new'
-			end
+		test "should get new membership with group and #{cu} login" do
+			login_as send(cu)
+			get :new, :group_id => @membership.group.id
+			assert_response :success
+			assert_template 'new'
+		end
 	
 		test "should NOT create membership without valid group and #{cu} login" do
 			login_as send(cu)
@@ -187,6 +206,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 			assert_difference('Membership.count',1){
 				post :create, :group_id => @membership.group.id
 			}
+			assert !assigns(:membership).approved?
 			assert_redirected_to members_only_path
 		end
 	
@@ -217,8 +237,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members should NOT be allowed to create a membership.
 	#
-	%w( group_administrator group_moderator 
-		group_editor group_reader ).each do |cu|
+	roles_that_cannot_create.each do |cu|
 
 		test "should NOT get new membership with #{cu} login" do
 			login_as send(cu)
@@ -242,8 +261,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members and site admins should be able to view
 	#
-	%w( super_user admin group_administrator group_moderator
-		group_editor group_reader ).each do |cu|
+	roles_that_can_view.each do |cu|
 
 		test "should show membership with #{cu} login" do
 			login_as send(cu)
@@ -264,9 +282,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Non-members should not be able to view
 	#
-	%w( editor reader active_user group_roleless
-		nonmember_administrator nonmember_moderator
-		nonmember_editor nonmember_reader nonmember_roleless ).each do |cu|
+	roles_that_cannot_view.each do |cu|
 
 		test "should NOT show membership with #{cu} login" do
 			login_as send(cu)

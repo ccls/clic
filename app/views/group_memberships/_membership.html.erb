@@ -5,6 +5,9 @@
  <td class='group_role'>
   <%= membership.group_role.try(:name) %>
  </td>
+ <td class='approved'>
+  <%= (membership.approved?)?'Yes':'No' %>
+ </td>
  <td class='manage'>
   <%= link_to 'Edit', edit_group_membership_path(@group,membership), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
