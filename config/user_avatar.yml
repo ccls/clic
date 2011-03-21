@@ -5,6 +5,7 @@ DEFAULTS: &DEFAULTS
     :small: '250x200>'
     :tiny: '150x100>'
     :xtiny: '50x50>'
+  :default_url: <%= "/user_avatar/missing.jpg" %>
 
 #    :full: '900x900>'
 #    :xlarge: '800x800>'
