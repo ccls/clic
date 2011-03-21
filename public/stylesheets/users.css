@@ -1,6 +1,10 @@
 .avatar {
 	width: 50px;
 }
+.avatar img {
+	height: 50px;
+	width: 50px;
+}
 .gravatar {
 	width: 40px;
 }
@@ -11,9 +15,11 @@
 }
 .username {
 	width: 300px;
+	vertical-align:middle;
 }
 .role_name {
 	text-align:right;
+	vertical-align:middle;
 }
 
 .row:nth-child(2n).administrator   { background-color: #EE8; }

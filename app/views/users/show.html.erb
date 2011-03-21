@@ -32,14 +32,20 @@
 
  <div class='groups'>
   <h2>Groups:</h2>
-  <% @user.memberships.each do |membership| %>
-   <p><%= membership.group.name %>&nbsp;(<%= membership.group_role.try(:name) || 'NONE' %>)</p>
+  <% unless @user.memberships.empty? %>
+   <ul>
+    <% @user.memberships.each do |membership| %>
+     <li><%= link_to membership.group.name, membership.group %>&nbsp;
+       (<%= membership.group_role.try(:name) || 'NONE' %>)</li>
+    <% end %>
+   </ul>
   <% end %>
  </div><!-- class='groups' -->
-</div><!-- id='user' -->
 
 <% if current_user.may_administrate? %>
-  <div id='roles'>
+  <div class='roles'>
+  <h2>Roles:</h2>
    <%= user_roles() %>
   </div><!-- id='roles' -->
 <% end %>
+</div><!-- id='user' -->

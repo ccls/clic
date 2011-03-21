@@ -6,18 +6,17 @@ div.user_avatar {
 	padding: 10px;
 	float:left;
 }
+div.user_avatar img {
+	width: 300px;
+	height: 300px;
+}
 div.person {
 	padding: 10px;
 }
 
-
-div#roles ul {
-	list-style-position: outside;
-	list-style-type: none;
-	padding: 0;
+div.roles {
+	margin-top: 20px;
 }
-
-
 
 
 
