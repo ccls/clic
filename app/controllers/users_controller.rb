@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 		@user = User.new(params[:user])	
 		@user.save!
 		flash[:notice] = "Registration successful. Please check your email to complete."
+		UserMailer.deliver_new_user_email(@user) unless Rails.env == 'development'
 		UserMailer.deliver_confirm_email(@user)
 		redirect_to login_url	
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved

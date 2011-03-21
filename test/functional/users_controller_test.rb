@@ -146,7 +146,8 @@ end
 	end
 
 	test "should create new user without login" do
-		assert_difference('ActionMailer::Base.deliveries.length',1) {
+		#	confirm_email and new_user_email
+		assert_difference('ActionMailer::Base.deliveries.length',2) {
 		assert_difference('User.count',1) {
 			post :create, :user => Factory.attributes_for(:user)
 		} }
