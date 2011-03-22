@@ -1,1 +1,14 @@
-<%= render 'form' %>
+<h2>User:</h2>
+<% form_for( @user, :html => { 
+	:multipart => true, :class => 'edit_user' } ) do |f| %>
+
+<%= render :partial => 'form1', :locals => { :f => f } %>
+<%= render :partial => 'form2', :locals => { :f => f } %>
+
+<% if @user.avatar.exists? %>
+<div class='field_wrapper'>(<%= @user.avatar.url -%>)</div><br />
+<% end %>
+
+<%= render :partial => 'form3', :locals => { :f => f } %>
+
+<% end %>

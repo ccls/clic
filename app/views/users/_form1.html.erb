@@ -1,0 +1,10 @@
+<% stylesheets('user') %>
+
+<%= f.error_messages %>
+<%#= hidden_field_tag( :token, params[:token] ) if( params[:token] ) %>
+<%= f.wrapped_text_field :username,
+	:label_text => "Username <span class='required'>*</span>",
+	:class => 'autosize' %>
+<%= f.wrapped_text_field :email,
+	:label_text => "Email <span class='required'>* ***</span>",
+	:class => 'autosize' %>

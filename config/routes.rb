@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :documents, :member => { :preview => :get }
 
 	map.resources :group_roles
-  map.resources :memberships, :only => [:index,:update,:destroy,:edit]
+	map.resources :memberships, :only => [:index,:update,:destroy,:edit]
 	map.resources :groups do |group|
 		group.resources :memberships,
 			:controller => 'group_memberships'
@@ -76,7 +76,7 @@ ActionController::Routing::Routes.draw do |map|
 #  	user.resources :memberships
 	end
 
-	map.signup   '/signup',  :controller => 'users',		:action => 'new'
+	map.signup   '/signup',  :controller => 'users',         :action => 'new'
 	map.signin   '/signin',  :controller => 'user_sessions', :action => 'new'
 	map.login    '/login',	 :controller => 'user_sessions', :action => 'new'
 	map.logout   '/signout', :controller => 'user_sessions', :action => 'destroy'

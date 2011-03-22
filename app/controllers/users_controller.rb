@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
 	def new	
 		@user = User.new	
+		@groups = Group.joinable
+		@group_roles = GroupRole.all
 	end	
 
 	def create	
@@ -20,6 +22,8 @@ class UsersController < ApplicationController
 		UserMailer.deliver_confirm_email(@user)
 		redirect_to login_url	
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
+		@groups = Group.joinable
+		@group_roles = GroupRole.all
 		flash.now[:error] = 'User creation failed'
 		render :action => 'new'	
 	end	

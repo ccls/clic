@@ -20,7 +20,7 @@ class UserTest < ActiveSupport::TestCase
 	assert_should_have_many(:events)
 	assert_should_have_many(:topics)
 	assert_should_have_many(:posts)
-#	polymorphism causing an issure here I think
+#	polymorphism causing an issue here I think
 #	assert_should_have_many(:documents, :as => :owner)
 	assert_should_have_many(:group_documents)
 
@@ -39,6 +39,10 @@ class UserTest < ActiveSupport::TestCase
 		new_object = create_object
 		object = User[new_object.username.to_sym]
 		assert object.is_a?(User)
+	end
+
+	test "should accept nested attributes for membership" do
+
 	end
 
 end
