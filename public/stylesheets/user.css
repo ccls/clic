@@ -18,12 +18,35 @@ div.roles {
 	margin-top: 20px;
 }
 
-
+form.edit_user div.membership_requests {
+	margin-bottom:10px;
+}
+form.edit_user div.membership_request {
+	margin:0px;
+	padding:0px;
+	padding-left:50px;
+}
+form.edit_user div.membership_request:nth-child(1) {
+	font-weight: bold;
+	border-bottom-color:gray;
+}
+form.edit_user div.membership_requests div.field_wrapper .label,
+form.edit_user div.membership_requests div.field_wrapper label {
+	width:300px;
+}
+form.edit_user div.membership_requests div.field_wrapper select {
+	font-size: 10pt;
+}
+form.edit_user div.membership_requests div.field_wrapper label,
+form.edit_user div.membership_requests div.field_wrapper select {
+	margin: 0px;
+}
 
 form.edit_user label {
 	float: left;
 	width: 200px;
 }
+form.edit_user select,
 form.edit_user input,
 form.edit_user label,
 form.edit_user div,

@@ -1,9 +1,9 @@
 <% content_tag_for( :tr, membership, :class => 'row' ) do %>
  <td class='user'>
-  <%= membership.user.username %>
+  <%= membership.user %>
  </td>
  <td class='group_role'>
-  <%= membership.group_role.try(:name) %>
+  <%= membership.group_role %>
  </td>
  <td class='approved'>
   <%= (membership.approved?)?'Yes':'No' %>

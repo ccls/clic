@@ -11,7 +11,7 @@
     <%= image_tag(user.avatar.url(:xtiny)) %>
    </td>
    <td class='username'>
-    <%= link_to user.username, user_path(user) -%>
+    <%= link_to user, user_path(user) -%>
    </td>
    <td class='role_name'>&nbsp;
     <% user.role_names.each do |role_name| %>

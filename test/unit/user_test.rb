@@ -41,8 +41,60 @@ class UserTest < ActiveSupport::TestCase
 		assert object.is_a?(User)
 	end
 
-	test "should accept nested attributes for membership" do
+	test "should accept attributes for membership requests" do
+		assert_difference("Membership.count", 1){
+		assert_difference("User.count", 1){
+			@new_object = Factory(:user,{
+				:membership_requests => { 
+					Group.joinable.first.id.to_s => {
+						:group_role_id => GroupRole['editor'].id }
+				} 
+			})
+		} }
+	end
 
+	test "should NOT create approved memberships" do
+		assert_difference("Membership.count", 1){
+		assert_difference("User.count", 1){
+			@new_object = Factory(:user,{
+				:membership_requests => { 
+					Group.joinable.first.id.to_s => {
+						:group_role_id => GroupRole['editor'].id,
+						:approved => true }
+				} 
+			})
+		} }
+		assert !@new_object.memberships.first.approved?
+	end
+
+	test "should NOT create duplicate membership for duplicate groups" do
+		#	Primarily because its a hash and the second key overwrites the first
+		assert_difference("Membership.count", 1){
+		assert_difference("User.count", 1){
+			@new_object = Factory(:user,{
+				:membership_requests => { 
+					Group.joinable.first.id.to_s => {
+						:group_role_id => GroupRole['editor'].id },
+					Group.joinable.first.id.to_s => {
+						:group_role_id => GroupRole['reader'].id }
+				} 
+			})
+		} }
+		#	As hashes are not sorted, I don't know how true the following
+		#	actually is.  Always?  Sometimes?  It passes now.
+		assert_equal @new_object.memberships.first.group_role, GroupRole['reader']
+	end
+
+	test "should NOT create memberships for requests without a role" do
+		assert_difference("Membership.count", 0){
+		assert_difference("User.count", 1){
+			@new_object = Factory(:user,{
+				:membership_requests => { 
+					Group.joinable.first.id.to_s => {
+						:group_role_id => '' }
+				} 
+			})
+		} }
 	end
 
 end

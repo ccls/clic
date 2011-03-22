@@ -13,30 +13,28 @@
 
 <%= render :partial => 'form2', :locals => { :f => f } %>
 
-
-
-<%#
-
-	membership[:group_id][:group_role_id] = 1 ... 4
-
-Group.joinable.collect{|g| Membership.new(:group => g) }
-
-"membership"=>{"255552193"=>{"group_role_id"=>""}, "49839441"=>{"group_role_id"=>""}, "103210531"=>{"group_role_id"=>""}, "1018266143"=>{"group_role_id"=>""}, "467750631"=>{"group_role_id"=>""}, "383973226"=>{"group_role_id"=>""}, "1"=>{"group_role_id"=>"1"}, "405694412"=>{"group_role_id"=>""}, "2"=>{"group_role_id"=>"2"}, "833231281"=>{"group_role_id"=>"4"}, "314760547"=>{"group_role_id"=>""}, "422154922"=>{"group_role_id"=>""}, "159216743"=>{"group_role_id"=>"3"}, "146093445"=>{"group_role_id"=>""}, "374441761"=>{"group_role_id"=>""}, "58051802"=>{"group_role_id"=>""}, "635838813"=>{"group_role_id"=>""}}
-
-the below submits the above
-
-%>
-
 <h3>Preparing to allow users to create membership requests at creation.</h3>
+<%#
+	This is by no means conventional, hence the oddities.
+%>
+<div class='membership_requests'>
+<div class='membership_request row'>
+<div class='group_role_id field_wrapper'>
+<span class='label'>Group</span><span>Group Role</span>
+</div><!-- class='group_role_id field_wrapper' -->
+</div><!-- class='membership_request row' -->
+
 <% @groups.joinable.each do |group| %>
-<% fields_for "membership[#{group.id}]" do |m| %>
+<% f.fields_for "membership_requests[#{group.id}]" do |m| -%>
+<div class='membership_request row'>
 <%= m.wrapped_collection_select( :group_role_id, GroupRole.all,
-  :id, :name, :include_blank => true) %>
+  :id, :name, :include_blank => true,
+	:selected => @user.membership_requests[group.id.to_s]['group_role_id'].to_i,
+	:label_text => "#{group}" ) %>
+<% end -%>
+</div><!-- class='membership_request row' -->
 <% end %>
-<% end %>
-
-
-
+</div><!-- class='membership_requests' -->
 
 <%= render :partial => 'form3', :locals => { :f => f } %>
 

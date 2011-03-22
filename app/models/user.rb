@@ -77,8 +77,19 @@ class User < ActiveRecord::Base
 	end
 
 
+	attr_accessor :membership_requests
+	after_create :request_group_memberships
+	def request_group_memberships
+		unless @membership_requests.nil?
+			@membership_requests.reject{|k,v| v[:group_role_id].blank? }.each do |k,v|
+				m = self.memberships.new
+				m.group_id = k
+				m.group_role_id = v[:group_role_id]
+				m.save
+			end 
+		end 
+	end
 
-#	alias_method :may_view_calendar?, :may_read?
 
 	def self.search(options={})
 		conditions = {}

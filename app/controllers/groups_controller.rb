@@ -61,7 +61,7 @@ protected
 
 	def may_read_group_required
 		current_user.may_read_group?(@group) || access_denied(
-			"special read redirect", new_group_membership_path(@group) )
+			"Group Membership required. Request one now?", new_group_membership_path(@group) )
 	end
 
 end

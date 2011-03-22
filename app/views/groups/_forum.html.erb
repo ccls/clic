@@ -11,7 +11,7 @@
  <td class='last_post'>
   <% if forum.last_post %>
   <span><%= forum.last_post.created_at %></span><br/>
-	<span>by&nbsp;<%=h forum.last_post.user.username %></span>
+	<span>by&nbsp;<%=h forum.last_post.user %></span>
   <% end %>
  </td>
 <% end %><!-- class='forum row' -->

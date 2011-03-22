@@ -1,17 +1,17 @@
 <h2>Membership:</h2>
 <p>
   <b>User:</b>
-  <%=h @membership.user.try(:username) %>
+  <%=h @membership.user %>
 </p>
 
 <p>
   <b>Group:</b>
-  <%=h @membership.group.try(:name) %>
+  <%=h @membership.group %>
 </p>
 
 <p>
   <b>Group role:</b>
-  <%=h @membership.group_role.try(:name) %>
+  <%=h @membership.group_role %>
 </p>
 
 <p>

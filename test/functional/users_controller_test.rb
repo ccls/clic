@@ -155,6 +155,15 @@ end
 		assert_redirected_to login_path
 	end
 
+
+	test "should create new user with membership requests" do
+
+
+pending
+
+
+	end
+
 	test "should NOT create new user with login" do
 		login_as active_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
