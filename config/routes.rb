@@ -1,15 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-#	remove password from user edit form?
-#	only on user new
-#	due to requiring confirmation but doesn't check or change if blank?
-#	map.resource :password
-#	:new => initiate reset form gets username or email? (not_logged_in_required)
-#	:create => if user found, sends email with link to show (not_logged_in_required)
-#	:show => confirms username and forwards to password edit (not_logged_in_required)
-#	:edit => password and password_confirmation only (works with password reset or just by choice)
-#	:update => updates password
-
 	map.resources :events
 	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }
@@ -19,36 +9,10 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :groups do |group|
 		group.resources :memberships,
 			:controller => 'group_memberships'
-#
-#	I don't like the duplication of group here, but
-#	I want to separate events from group_events
-#	and announcements from group_announcements
-#	otherwise the controller would get pretty ugly
-#	It would be nice if I could say
-#
-#	group.resources :events, :controller => 'group_events'
-#
-#	but this would cause problems if shallow
-#	so DO NOT USE SHALLOW => TRUE
-#
 		group.resources :events, 
 			:controller => 'group_events'
 		group.resources :announcements, 
 			:controller => 'group_announcements'
-
-#	make this go away
-#		group.resources :documents, 
-#			:controller => 'group_documents'
-#	poof!  gone!
-
-#	|document|
-#			document.resources :comments,
-#				:controller => 'group_document_comments'
-#	this'll get outta hand if comments can have documents
-#		which can have comments
-#		which can have documents ........
-#	end
-
 	end
 
 	map.resources :groups, :shallow => true do |group|
@@ -58,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
 			end
 		end
 	end
+
 	map.resources :group_documents, :only => :show
 
 	map.confirm_email 'confirm_email/:id', 
@@ -73,18 +38,21 @@ ActionController::Routing::Routes.draw do |map|
 #		:shallow => true,
 		:collection => { :menu => :get } do |user|
 		user.resources :roles, :only => [:update,:destroy]
-#  	user.resources :memberships
+		#	separated from user#edit 
+		user.resource  :password, :only => [:edit,:update]
 	end
 
-	map.signup   '/signup',  :controller => 'users',         :action => 'new'
-	map.signin   '/signin',  :controller => 'user_sessions', :action => 'new'
-	map.login    '/login',	 :controller => 'user_sessions', :action => 'new'
-	map.logout   '/signout', :controller => 'user_sessions', :action => 'destroy'
-	map.logout   '/logout',  :controller => 'user_sessions', :action => 'destroy'
-#	map.activate '/activate/:id', :controller => 'accounts', :action => 'show'
-#	map.forgot_password '/forgot_password',    :controller => 'passwords', :action => 'new'
-#	map.reset_password  '/reset_password/:id', :controller => 'passwords', :action => 'edit'
-#	map.change_password '/change_password',    :controller => 'accounts',  :action => 'edit'
+	#	:new => initiate reset form gets username or email? (not_logged_in_required)
+	#	:create => if user found, sends email with link to show (not_logged_in_required)
+	#	:show => confirms reset and shows password edit (not_logged_in_required)
+	#	:update => updates password
+	map.resource :password_reset, :only => [:new,:create,:show,:update]
+
+	map.signup  '/signup',  :controller => 'users',         :action => 'new'
+	map.signin  '/signin',  :controller => 'user_sessions', :action => 'new'
+	map.login   '/login',	  :controller => 'user_sessions', :action => 'new'
+	map.signout '/signout', :controller => 'user_sessions', :action => 'destroy'
+	map.logout  '/logout',  :controller => 'user_sessions', :action => 'destroy'
 
 	map.root :controller => "pages", :action => "show", :path => [""]
 

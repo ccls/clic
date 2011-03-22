@@ -29,7 +29,7 @@
 <div class='membership_request row'>
 <%= m.wrapped_collection_select( :group_role_id, GroupRole.all,
   :id, :name, :include_blank => true,
-	:selected => @user.membership_requests[group.id.to_s]['group_role_id'].to_i,
+	:selected => (@user.membership_requests) ? @user.membership_requests[group.id.to_s]['group_role_id'].to_i : nil,
 	:label_text => "#{group}" ) %>
 <% end -%>
 </div><!-- class='membership_request row' -->
