@@ -52,7 +52,12 @@ class User < ActiveRecord::Base
 			'(?=.*\W)' ), 
 		:message => 'requires at least one lowercase and one uppercase ' <<
 			'letter, one number and one special character',
-		:if => :password_changed?
+		:if => :valid_password_required?
+#		:if => :password_changed?
+#		:unless => :password_blank?
+	def valid_password_required?
+		password_changed? || !password_confirmation.blank?
+	end
 
 	validates_presence_of :title
 	validates_presence_of :profession
@@ -202,6 +207,18 @@ class User < ActiveRecord::Base
 #		).length > 0
 #	end
 #
+
+
+	#	This restriction will probably be lightened,
+	#	otherwise no one will be able to view other user's profiles
+	def may_view_user?(user=nil)
+		self.is_user?(user) || self.may_administrate?
+	end
+
+	def may_edit_user?(user=nil)
+		self.is_user?(user) || self.may_administrate?
+	end
+
 
 	alias_method :may_create?,  :may_edit?
 	alias_method :may_update?,  :may_edit?

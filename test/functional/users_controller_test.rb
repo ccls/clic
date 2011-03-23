@@ -151,6 +151,7 @@ end
 		assert_difference('User.count',1) {
 			post :create, :user => Factory.attributes_for(:user)
 		} }
+		assert_not_logged_in
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
 	end
@@ -427,12 +428,15 @@ pending
 		assert_not_nil flash[:error]
 	end
 
+#
+#	Passwords are now editted in their own controller,
+#	but is still possible.
+#
 	test "should update user without password" do
-		#	again odd.  Having password confirmation ignored.
 		u = user
 		login_as admin
 		put :update, :id => u.id, :user => Factory.attributes_for(:user,
-			:password => nil)
+			:password => nil, :password_confirmation => nil)
 		assert_redirected_to root_path
 	end
 

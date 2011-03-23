@@ -14,7 +14,7 @@
     <p>Email:&nbsp;<%= @user.email %></p>
   <p>
    <%= link_to( 'Edit User Info', edit_user_path(current_user), :class => 'button' )%>
-   <a class='button'>Edit Password (coming soon)</a>
+   <%= link_to( 'Edit Password', edit_password_path(), :class => 'button' )%>
   </p>
  </div><!-- class='person' -->
 </div><!-- class='user' -->

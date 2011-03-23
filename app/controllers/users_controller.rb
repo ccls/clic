@@ -5,7 +5,8 @@ class UsersController < ApplicationController
 
 	before_filter :no_current_user_required, :only => [:new, :create]
 	before_filter :id_required, :only => [:edit, :show, :update ]
-	before_filter :may_view_user_required, :only => [:edit,:update,:show]
+	before_filter :may_edit_user_required,  :only => [:edit,:update]
+	before_filter :may_view_user_required,  :only => [:show]
 	before_filter :may_view_users_required, :only => :index
 
 	def new	

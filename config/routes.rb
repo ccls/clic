@@ -39,8 +39,8 @@ ActionController::Routing::Routes.draw do |map|
 		:collection => { :menu => :get } do |user|
 		user.resources :roles, :only => [:update,:destroy]
 		#	separated from user#edit 
-		user.resource  :password, :only => [:edit,:update]
 	end
+	map.resource :password, :only => [:edit,:update]
 
 	#	:new => initiate reset form gets username or email? (not_logged_in_required)
 	#	:create => if user found, sends email with link to show (not_logged_in_required)
