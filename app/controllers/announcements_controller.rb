@@ -10,7 +10,8 @@ class AnnouncementsController < ApplicationController
 #	before_filter "may_update_membership_required",  :only => [:edit,:update]
 #	before_filter "may_destroy_membership_required", :only => [:destroy]
 
-	before_filter 'may_not_have_group_required', :only => [:edit,:update,:show,:destroy]
+	before_filter 'may_not_have_group_required', 
+		:only => [:edit,:update,:show,:destroy]
 
 	def create
 		@announcement = Announcement.new(params[:announcement])
@@ -33,6 +34,12 @@ protected
 	def may_not_have_group_required
 		@announcement.group_id && access_denied(
 			"This is a restricted group announcement", members_only_path)
+	end
+
+	def may_create_announcements_required
+		current_user.may_create_announcements? || access_denied(
+			"You don't have permission to create announcements.", 
+			members_only_path )
 	end
 
 end

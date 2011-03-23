@@ -10,7 +10,8 @@ class EventsController < ApplicationController
 #	before_filter "may_update_membership_required",  :only => [:edit,:update]
 #	before_filter "may_destroy_membership_required", :only => [:destroy]
 
-	before_filter 'may_not_have_group_required', :only => [:edit,:update,:show,:destroy]
+	before_filter 'may_not_have_group_required', 
+		:only => [:edit,:update,:show,:destroy]
 
 	def create
 		@event = Event.new(params[:event])
@@ -33,6 +34,12 @@ protected
 	def may_not_have_group_required
 		@event.group_id && access_denied(
 			"This is a restricted group event", members_only_path)
+	end
+
+	def may_create_events_required
+		current_user.may_create_events? || access_denied(
+			"You don't have permission to create events.", 
+			members_only_path )
 	end
 
 end

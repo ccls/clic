@@ -225,7 +225,15 @@ class User < ActiveRecord::Base
 	alias_method :may_destroy?, :may_edit?
 #	alias_method :may_view?,    :may_read?
 
-	%w(	announcements events memberships group_roles ).each do |resource|
+	%w(	announcements events ).each do |resource|
+		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
+		alias_method "may_read_#{resource}?".to_sym,    :may_read?
+		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
+		alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
+		alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
+	end
+
+	%w(	memberships group_roles ).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
 		alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
 		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
