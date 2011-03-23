@@ -38,7 +38,9 @@
    <ul>
     <% @user.memberships.each do |membership| %>
      <li><%= link_to membership.group.name, membership.group %>&nbsp;
-       (<%= membership.group_role.try(:name) || 'NONE' %>)</li>
+       (<%= membership.group_role.try(:name) || 'NONE' %>)
+       <%= (membership.approved?) ? '' : "&nbsp;Awaiting approval" %>
+			</li>
     <% end %>
    </ul>
   <% end %>

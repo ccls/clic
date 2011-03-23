@@ -64,4 +64,10 @@ protected
 		end
 	end
 
+	def may_edit_forum_required
+		current_user.may_edit_forum?(@forum) || access_denied(
+			"You don't have permission to edit this forum",
+			forum_path(@forum) )
+	end
+
 end
