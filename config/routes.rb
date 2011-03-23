@@ -48,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
 	#	:update => updates password
 	#	MUST be plural, otherwise no :id param
 	map.resources :password_resets, :only => [:new,:create,:edit,:update]
+	map.resource  :forgot_username, :only => [:new,:create]
 
 	map.signup  '/signup',  :controller => 'users',         :action => 'new'
 	map.signin  '/signin',  :controller => 'user_sessions', :action => 'new'

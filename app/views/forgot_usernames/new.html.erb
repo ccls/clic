@@ -1,0 +1,16 @@
+<% stylesheets('user') %>
+
+<h2>Forget Username:</h2>
+<% form_tag( forgot_username_path,
+	:class => 'edit_user' ) do %>
+
+<div class='field_wrapper'>
+<%= label_tag :email %>
+<%= text_field_tag :email, nil, :class => 'autosize' %>
+</div><!-- class='field_wrapper' -->
+
+<p>
+  <%= submit_tag "Submit" %>
+  <%= submit_link_to "Submit" %>
+</p>
+<% end %>
