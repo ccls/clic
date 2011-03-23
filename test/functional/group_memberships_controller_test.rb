@@ -210,6 +210,17 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 			assert_redirected_to members_only_path
 		end
 	
+		test "should create membership with group, group role and #{cu} login" do
+			login_as send(cu)
+			assert_difference('Membership.count',1){
+				post :create, :group_id => @membership.group.id,
+					:membership => { :group_role_id => GroupRole['editor'].id }
+			}
+			assert_equal assigns(:membership).group_role, GroupRole['editor']
+			assert !assigns(:membership).approved?
+			assert_redirected_to members_only_path
+		end
+	
 		test "should NOT create membership with #{cu} login when create fails" do
 			login_as send(cu)
 			Membership.any_instance.stubs(:create_or_update).returns(false)
