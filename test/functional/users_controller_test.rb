@@ -9,12 +9,12 @@ class UsersControllerTest < ActionController::TestCase
 		assert @response.body.blank?
 	end
 
-	test "should get blank user menu in js with active_user login" do
+	test "should NOT get blank user menu in js with active_user login" do
 		@request.accept = "text/javascript"
 		login_as active_user
 		get :menu
 		assert_response :success
-		assert @response.body.blank?
+		assert !@response.body.blank?
 	end
 
 	test "should get user menu in js with admin login" do

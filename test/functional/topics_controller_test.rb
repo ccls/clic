@@ -185,7 +185,7 @@ class TopicsControllerTest < ActionController::TestCase
 			forum = create_forum
 			get :new, :forum_id => forum.id
 			assert_not_nil flash[:error]
-			assert_redirected_to root_path
+			assert_redirected_to forum_path(forum)
 		end
 
 		test "should NOT create new topic with #{cu} login" do
@@ -198,7 +198,7 @@ class TopicsControllerTest < ActionController::TestCase
 					:post => Factory.attributes_for(:post)
 			} } }
 			assert_not_nil flash[:error]
-			assert_redirected_to root_path
+			assert_redirected_to forum_path(forum)
 		end
 
 	end
@@ -327,7 +327,7 @@ class TopicsControllerTest < ActionController::TestCase
 			forum = create_group_forum(@membership.group)
 			get :new, :forum_id => forum.id
 			assert_not_nil flash[:error]
-			assert_redirected_to root_path
+			assert_redirected_to forum_path(forum)
 		end
 
 		test "should NOT create new group topic with #{cu} login" do
@@ -340,7 +340,7 @@ class TopicsControllerTest < ActionController::TestCase
 					:post => Factory.attributes_for(:post)
 			} } }
 			assert_not_nil flash[:error]
-			assert_redirected_to root_path
+			assert_redirected_to forum_path(forum)
 		end
 
 	end

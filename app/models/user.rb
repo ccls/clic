@@ -227,10 +227,11 @@ class User < ActiveRecord::Base
 
 	%w(	announcements events ).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
-		alias_method "may_read_#{resource}?".to_sym,    :may_read?
+#		alias_method "may_read_#{resource}?".to_sym,    :may_read?
 		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
 		alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
 		alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
+		define_method("may_read_#{resource}?".to_sym) { true }	#	any user
 	end
 
 	%w(	memberships group_roles ).each do |resource|

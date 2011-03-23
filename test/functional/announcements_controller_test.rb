@@ -13,13 +13,36 @@ class AnnouncementsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => [:superuser,:admin],
+		:actions => [:edit,:update,:destroy] })
 	assert_no_access_with_login({ 
 		:logins => [:editor,:interviewer,:reader,:active_user,
 			:unapproved_group_administrator, :group_administrator,
 			:group_moderator, :group_editor, :group_reader, :group_roleless,
 			:unapproved_nonmember_administrator, :nonmember_administrator,
-			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
+			:nonmember_editor, :nonmember_reader, :nonmember_roleless ],
+		:actions => [:edit,:update,:destroy] })
+
+	assert_access_with_login({ 
+		:logins => [:superuser,:admin],
+		:actions => [:new,:create] })
+	assert_no_access_with_login({ 
+		:logins => [:editor,:interviewer,:reader,:active_user,
+			:unapproved_group_administrator, :group_administrator,
+			:group_moderator, :group_editor, :group_reader, :group_roleless,
+			:unapproved_nonmember_administrator, :nonmember_administrator,
+			:nonmember_editor, :nonmember_reader, :nonmember_roleless ],
+		:actions => [:new,:create],
+		:redirect => :members_only_path })
+
+	assert_access_with_login({ 
+		:logins => [:superuser,:admin,:editor,:interviewer,:reader,:active_user,
+			:unapproved_group_administrator, :group_administrator,
+			:group_moderator, :group_editor, :group_reader, :group_roleless,
+			:unapproved_nonmember_administrator, :nonmember_administrator,
+			:nonmember_editor, :nonmember_reader, :nonmember_roleless ],
+		:actions => [:show,:index] })
+
 	assert_no_access_without_login
 
 	assert_access_with_https
