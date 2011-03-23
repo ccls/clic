@@ -156,13 +156,30 @@ end
 		assert_redirected_to login_path
 	end
 
-
 	test "should create new user with membership requests" do
-
-
-pending
-
-
+		#	confirm_email and new_user_email
+		assert_difference('ActionMailer::Base.deliveries.length',2) {
+		assert_difference('Membership.count',3) {
+		assert_difference('User.count',1) {
+			post :create, :user => Factory.attributes_for(:user,{
+				:membership_requests => {
+					Group['Ethics'].id   => { :group_role_id => GroupRole['editor'].id },
+					Group['Methods'].id  => { :group_role_id => GroupRole['editor'].id },
+					Group['Outcomes'].id => { :group_role_id => GroupRole['editor'].id }
+				}})
+		} } }
+		assert assigns(:user)
+		assert_equal 3, assigns(:user).memberships.length
+		assigns(:user).memberships.each do |m|
+			assert_equal m.group_role, GroupRole['editor']
+			assert !m.approved?
+			assert [Group['Ethics'],Group['Methods'],Group['Outcomes']].include?(m.group)
+		end
+		assert_equal assigns(:user).memberships.collect(&:group_id).sort,
+			[Group['Ethics'],Group['Methods'],Group['Outcomes']].collect(&:id).sort
+		assert_not_logged_in
+		assert_not_nil flash[:notice]
+		assert_redirected_to login_path
 	end
 
 	test "should NOT create new user with login" do
