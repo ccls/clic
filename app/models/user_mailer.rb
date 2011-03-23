@@ -17,13 +17,13 @@ class UserMailer < ActionMailer::Base
 		body       :confirm_url => confirm_email_url(user.perishable_token)
 	end
 
-#	def forgot_password(user,sent_at = Time.now)
-#		subject    'CLIC Password Reset'
-#		recipients user.email
-#		from       ''
-#		sent_on    sent_at
-#		body       :greeting => 'Hi,'
-##		body       :reset_url => reset_password_url(user.perishable_token)
-#	end
+	def forgot_password(user,sent_at = Time.now)
+		subject    'CLIC Password Reset'
+		recipients user.email
+		from       ''
+		sent_on    sent_at
+		body       :greeting => 'Hi,'
+		body       :reset_url => edit_password_reset_url(user.perishable_token)
+	end
 
 end

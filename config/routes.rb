@@ -46,7 +46,8 @@ ActionController::Routing::Routes.draw do |map|
 	#	:create => if user found, sends email with link to show (not_logged_in_required)
 	#	:show => confirms reset and shows password edit (not_logged_in_required)
 	#	:update => updates password
-	map.resource :password_reset, :only => [:new,:create,:show,:update]
+	#	MUST be plural, otherwise no :id param
+	map.resources :password_resets, :only => [:new,:create,:edit,:update]
 
 	map.signup  '/signup',  :controller => 'users',         :action => 'new'
 	map.signin  '/signin',  :controller => 'user_sessions', :action => 'new'

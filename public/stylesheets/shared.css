@@ -170,10 +170,3 @@ form.edit_group .field_wrapper label {
 	font-weight: bold;
 }
 
-
-.flash.warn,
-.flash#warn {
-	border: 2px solid #FF6600;
-	background-color: #FFCC99;
-}
-

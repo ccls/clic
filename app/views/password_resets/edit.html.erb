@@ -1,0 +1,21 @@
+<% stylesheets('user') %>
+
+<h2>Edit Password:</h2>
+<% form_for( @user, :url => password_reset_path(@user.perishable_token),
+	:method => :put,
+	:class => 'edit_user' ) do |f| %>
+
+ <%= f.error_messages %>
+ <%= f.wrapped_password_field :password,
+		:label_text => "Password <span class='required'>*</span>",
+    :class => 'autosize' %>
+ <%= f.wrapped_password_field :password_confirmation,
+		:label_text => "Password Confirmation <span class='required'>*</span>",
+    :class => 'autosize' %>
+
+<p>
+  <%= f.submit "Submit" %>
+  <%= submit_link_to "Submit" %>
+</p>
+<p><span class='required'>*</span>&nbsp;-&nbsp;Password requires at least one lowercase and one uppercase letter, one number and one special character </p>
+<% end %>
