@@ -13,8 +13,10 @@
     <p>Address:&nbsp;<%= @user.address %></p>
     <p>Email:&nbsp;<%= @user.email %></p>
   <p>
+<% if current_user.may_edit_user?(@user) %>
    <%= link_to( 'Edit User Info', edit_user_path(current_user), :class => 'button' )%>
    <%= link_to( 'Edit Password', edit_password_path(), :class => 'button' )%>
+<% end %>
   </p>
  </div><!-- class='person' -->
 </div><!-- class='user' -->
