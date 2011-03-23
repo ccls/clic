@@ -7,7 +7,7 @@ module ApplicationHelper
 			"<li>" << link_to( page.menu(session[:locale]), 
 				ActionController::Base.relative_url_root.to_s + page.path,
 				:id => "menu_#{dom_id(page)}",
-				:class => ((page == @page.try(:root))?'current':nil)) << "</li>\n"
+				:class => ((page == @page.try(:root)) ? 'current' : nil)) << "</li>\n"
 		end.join()
 		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
 		out << "</ul><!-- id='GlobalNav' -->\n"
@@ -18,21 +18,21 @@ module ApplicationHelper
 	def application_user_menu
 		if logged_in?
 			menu = "<ul id=\"PrivateNav\">" 
-			menu << if ( current_user.may_edit? )
+			menu << (( current_user.may_edit? ) ? "" <<
 				"<li>#{link_to( "Pages", pages_path )}</li>" << 
 				"<li>#{link_to( "Photos", photos_path )}</li>" << 
 				"<li>#{link_to( "Users", users_path )}</li>" << 
-				"<li>#{link_to( "Documents", documents_path )}</li>"
-			end
-			menu << if ( current_user.may_administrate? )
+				"<li>#{link_to( "Documents", documents_path )}</li>" : '' )
+			menu << (( current_user.may_administrate? ) ? "" <<
 				"<li>#{link_to( "Memberships", memberships_path )}</li>" << 
 				"<li>#{link_to( "Groups (temp)", groups_path )}</li>" << 
-				"<li>#{link_to( "Group Roles (temp)", group_roles_path )}</li>"
-			end
+				"<li>#{link_to( "Group Roles (temp)", group_roles_path )}</li>" : '')
 			menu << "<li>#{link_to( "My Account", user_path(current_user) )}</li>" <<
 				"<li>#{link_to( "Logout", logout_path )}</li>" <<
 				"</ul><!-- id=PrivateNav -->"
 			menu
+		else
+			''
 		end
 	end
 
