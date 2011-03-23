@@ -4,6 +4,8 @@ class PasswordsController < ApplicationController
 #	to be no need of other filters.  This edits the
 #	current_user's password, so no id needed.
 
+	before_filter :validate_current_password, :only => :update
+
 	def update
 		if params[:user] && 
 				params[:user][:password].blank? &&
@@ -25,6 +27,13 @@ class PasswordsController < ApplicationController
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "Password update failed."
 		render :action => 'edit'
+	end
+
+protected
+
+	def validate_current_password
+		access_denied("Old password is not valid",edit_password_path) unless
+			current_user.valid_password?(params[:user].delete('current_password'))
 	end
 
 end
