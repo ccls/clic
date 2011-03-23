@@ -369,7 +369,8 @@ end
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 			put :update, :id => u.id, :user => Factory.attributes_for(:user)
 		}
-		assert_redirected_to root_path
+		assert_equal u, assigns(:user)
+		assert_redirected_to user_path(assigns(:user))
 		assert_not_nil flash[:notice]
 	end
 
@@ -380,7 +381,8 @@ end
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 			put :update, :id => u.id, :user => Factory.attributes_for(:user)
 		}
-		assert_redirected_to root_path
+		assert_equal u, assigns(:user)
+		assert_redirected_to user_path(assigns(:user))
 		assert_not_nil flash[:notice]
 	end
 
@@ -420,7 +422,8 @@ end
 		u = user
 		login_as admin
 		put :update, :id => u.id
-		assert_redirected_to root_path
+		assert_equal u, assigns(:user)
+		assert_redirected_to user_path(assigns(:user))
 		assert_not_nil flash[:notice]
 	end
 
@@ -454,7 +457,9 @@ end
 		login_as admin
 		put :update, :id => u.id, :user => Factory.attributes_for(:user,
 			:password => nil, :password_confirmation => nil)
-		assert_redirected_to root_path
+		assert_equal u, assigns(:user)
+		assert_redirected_to user_path(assigns(:user))
+		assert_not_nil flash[:notice]
 	end
 
 	test "should NOT update user without complex password" do

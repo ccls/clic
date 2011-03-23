@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 			UserMailer.deliver_confirm_email(@user)
 		end
 		flash[:notice] = flash_notice
-		redirect_to root_url	
+		redirect_to user_path(@user)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Update failed"
 		render :action => 'edit'	
