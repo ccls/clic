@@ -54,12 +54,22 @@ class GroupsControllerTest < ActionController::TestCase
 
 	group_creators.each do |cu|
 
-		test "should get new with #{cu} login" do
-pending
+		test "should get new group with #{cu} login" do
+			login_as send(cu)
+			get :new
+			assert assigns(:group)
+			assert_response :success
+			assert_template 'new'
 		end
 	
-		test "should create with #{cu} login" do
-pending
+		test "should create group with #{cu} login" do
+			login_as send(cu)
+			assert_difference('Group.count',1) do
+				post :create, :group => factory_attributes
+			end
+			assert assigns(:group)
+			assert_redirected_to group_path(assigns(:group))
+			assert_not_nil flash[:notice]
 		end
 	
 		test "should NOT create new group with #{cu} login when create fails" do
@@ -90,28 +100,45 @@ pending
 
 	( ALL_TEST_ROLES - group_creators ).each do |cu|
 
-		test "should NOT get new with #{cu}" do
-pending
+		test "should NOT get new group with #{cu} login" do
+			login_as send(cu)
+			get :new
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
-
-		test "should NOT create with #{cu} login" do
-pending
+	
+		test "should NOT create group with #{cu} login" do
+			login_as send(cu)
+			assert_difference('Group.count',0) do
+				post :create, :group => factory_attributes
+			end
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 	end
 
 	group_editors.each do |cu|
 
-		test "should get edit with #{cu} login" do
-pending
+		test "should edit group with #{cu} login" do
+			login_as send(cu)
+			get :edit, :id => @membership.group.id
+			assert_response :success
+			assert_template 'edit'
 		end
 
-		test "should update with #{cu} login" do
-pending
+		test "should update group with #{cu} login" do
+			login_as send(cu)
+			assert_changes("Group.find(#{@membership.group.id}).updated_at") {
+				sleep 1	#	gotta pause so that updated_at is actually different
+				put :update, :id => @membership.group.id, 
+					:group => factory_attributes
+			}
+			assert_not_nil flash[:notice]
+			assert_redirected_to groups_path
 		end
 	
 		test "should NOT update group with #{cu} login when update fails" do
-#			group = create_group(:updated_at => Chronic.parse('yesterday'))
 			group = @membership.group
 			Group.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
@@ -126,7 +153,6 @@ pending
 		end
 	
 		test "should NOT update group with #{cu} login and invalid group" do
-#			group = create_group(:updated_at => Chronic.parse('yesterday'))
 			group = @membership.group
 			Group.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
@@ -143,27 +169,50 @@ pending
 	end
 	( ALL_TEST_ROLES - group_editors ).each do |cu|
 
-		test "should NOT get edit with #{cu} login" do
-pending
+		test "should NOT edit group with #{cu} login" do
+			login_as send(cu)
+			get :edit, :id => @membership.group.id
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
-		test "should NOT update with #{cu} login" do
-pending
+		test "should NOT update group with #{cu} login" do
+			login_as send(cu)
+			deny_changes("Group.find(#{@membership.group.id}).updated_at") {
+				put :update, :id => @membership.group.id, 
+					:group => factory_attributes
+			}
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
-
+	
 	end
 
 	group_readers.each do |cu|
 
 		test "should read with #{cu} login" do
-pending
+			login_as send(cu)
+			get :show, :id => @membership.group.id
+			assert assigns(:group)
+			assert_response :success
+			assert_template 'show'
+		end
+
+		test "should NOT read with #{cu} login and invalid id" do
+			login_as send(cu)
+			get :show, :id => 0
+			assert !assigns(:group)
+			assert_redirected_to groups_path
 		end
 
 	end
 	( ALL_TEST_ROLES - group_readers ).each do |cu|
 
 		test "should NOT read with #{cu} login" do
-pending
+			login_as send(cu)
+			get :show, :id => @membership.group.id
+			assert assigns(:group)
+			assert_redirected_to new_group_membership_path(assigns(:group))
 		end
 
 	end
@@ -171,14 +220,20 @@ pending
 	group_browsers.each do |cu|
 
 		test "should get index with #{cu} login" do
-pending
+			login_as send(cu)
+			get :index
+			assert_response :success
+			assert_template 'index'
 		end
 
 	end
 	( ALL_TEST_ROLES - group_browsers ).each do |cu|
 
 		test "should NOT get index with #{cu} login" do
-pending
+			login_as send(cu)
+			get :index
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 	end
@@ -186,14 +241,33 @@ pending
 	group_destroyers.each do |cu|
 
 		test "should destroy with #{cu} login" do
-pending
+			login_as send(cu)
+			assert_difference("Group.count", -1) {
+				delete :destroy, :id => @membership.group.id
+			}
+			assert assigns(:group)
+			assert_redirected_to groups_path
+		end
+
+		test "should NOT destroy with #{cu} login and invalid id" do
+			login_as send(cu)
+			assert_difference("Group.count", 0) {
+				delete :destroy, :id => 0
+			}
+			assert !assigns(:group)
+			assert_redirected_to groups_path
 		end
 
 	end
 	( ALL_TEST_ROLES - group_destroyers ).each do |cu|
 
 		test "should NOT destroy with #{cu} login" do
-pending
+			login_as send(cu)
+			assert_difference("Group.count", 0) {
+				delete :destroy, :id => @membership.group.id
+			}
+			assert assigns(:group)
+			assert_redirected_to root_path
 		end
 
 	end
