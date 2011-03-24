@@ -49,6 +49,7 @@ protected	#	private #	(does it matter which or if neither?)
 	#	version of the before_filter's name.
 	def redirections
 		@redirections ||= HashWithIndifferentAccess.new({
+#	this is used in the roles_controller in simply_authorized
 			:not_be_user => {
 				:redirect_to => user_path(current_user)
 			}

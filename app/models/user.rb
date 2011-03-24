@@ -140,40 +140,40 @@ class User < ActiveRecord::Base
 		[first_name,last_name].join(' ')
 	end
 
-	def group_membership_roles(group)
-		approved_memberships.select{|m| m.group_id == group.id }.collect(&:group_role).compact
-	end
-
-	def group_membership_role_names(group)
-		group_membership_roles(group).collect(&:name)
-	end
-
-	def is_group_moderator?(group)
-#		memberships.find(:all,:conditions => [
-#			'memberships.group_id = ? AND group_roles.name IN (?)', group.id, 
-#			['administrator','moderator'] ],
-#			:joins => 'LEFT JOIN group_roles on memberships.group_role_id = group_roles.id'
-#			).length > 0
-		( group_membership_role_names(group) & ['administrator','moderator'] ).length > 0
-	end
-
-	def is_group_editor?(group)
-		( group_membership_role_names(group) & [
-			'administrator','moderator','editor'] ).length > 0
-	end
-
-	def is_group_reader?(group)
-		( group_membership_role_names(group) & [
-			'administrator','moderator','editor','reader'] ).length > 0
-	end
-
-	def is_group_member?(group)
-#		memberships.find(:all,:conditions => [
-#			'memberships.group_id = ? AND memberships.group_role_id IS NOT NULL', group.id]
-#			).length > 0
-#	effectively the same as is_group_reader?
-		group_membership_role_names(group).length > 0
-	end
+#	def group_membership_roles(group)
+#		approved_memberships.select{|m| m.group_id == group.id }.collect(&:group_role).compact
+#	end
+#
+#	def group_membership_role_names(group)
+#		group_membership_roles(group).collect(&:name)
+#	end
+#
+#	def is_group_moderator?(group)
+##		memberships.find(:all,:conditions => [
+##			'memberships.group_id = ? AND group_roles.name IN (?)', group.id, 
+##			['administrator','moderator'] ],
+##			:joins => 'LEFT JOIN group_roles on memberships.group_role_id = group_roles.id'
+##			).length > 0
+#		( group_membership_role_names(group) & ['administrator','moderator'] ).length > 0
+#	end
+#
+#	def is_group_editor?(group)
+#		( group_membership_role_names(group) & [
+#			'administrator','moderator','editor'] ).length > 0
+#	end
+#
+#	def is_group_reader?(group)
+#		( group_membership_role_names(group) & [
+#			'administrator','moderator','editor','reader'] ).length > 0
+#	end
+#
+#	def is_group_member?(group)
+##		memberships.find(:all,:conditions => [
+##			'memberships.group_id = ? AND memberships.group_role_id IS NOT NULL', group.id]
+##			).length > 0
+##	effectively the same as is_group_reader?
+#		group_membership_role_names(group).length > 0
+#	end
 
 	def to_s
 		username
@@ -188,6 +188,10 @@ class User < ActiveRecord::Base
 	end
 
 
+	load 'group_permissions.rb' unless defined?(GroupPermissions);
+	include GroupPermissions;
+	load 'user_permissions.rb' unless defined?(UserPermissions);
+	include UserPermissions;
 
 #	defined in plugin/engine ...
 #
@@ -211,19 +215,19 @@ class User < ActiveRecord::Base
 
 	#	This restriction will probably be lightened,
 	#	otherwise no one will be able to view other user's profiles
-	def may_view_user?(user=nil)
-		self.is_user?(user) || self.may_administrate?
-	end
+#	def may_view_user?(user=nil)
+#		self.is_user?(user) || self.may_administrate?
+#	end
+#
+#	def may_edit_user?(user=nil)
+#		self.is_user?(user) || self.may_administrate?
+#	end
 
-	def may_edit_user?(user=nil)
-		self.is_user?(user) || self.may_administrate?
-	end
 
-
-	alias_method :may_create?,  :may_edit?
-	alias_method :may_update?,  :may_edit?
-	alias_method :may_destroy?, :may_edit?
-#	alias_method :may_view?,    :may_read?
+#	alias_method :may_create?,  :may_edit?
+#	alias_method :may_update?,  :may_edit?
+#	alias_method :may_destroy?, :may_edit?
+##	alias_method :may_view?,    :may_read?
 
 	%w(	announcements events ).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
