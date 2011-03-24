@@ -191,6 +191,10 @@ class ActionController::TestCase
 		@site_editors ||= %w( superuser administrator editor )
 	end
 
+	def self.site_readers
+		@site_editors ||= %w( superuser administrator editor interviewer reader )
+	end
+
 end
 
 ALL_TEST_ROLES = %w( superuser administrator editor
