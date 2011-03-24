@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 		@user = User.new(params[:user])	
 		@user.save!
 		flash[:notice] = "Registration successful. Please check your email to complete."
+		@user.reset_perishable_token!
 		UserMailer.deliver_new_user_email(@user) unless Rails.env == 'development'
 		UserMailer.deliver_confirm_email(@user)
 		redirect_to login_url	
