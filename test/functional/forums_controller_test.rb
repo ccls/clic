@@ -21,21 +21,24 @@ class ForumsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:forum,options)
 	end
 
+	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor,:interviewer,:reader,:active_user,
-			:unapproved_group_administrator, :group_administrator,
-			:group_moderator, :group_editor, :group_reader, :group_roleless,
-			:unapproved_nonmember_administrator, :nonmember_administrator,
-			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
+		:logins => ALL_TEST_ROLES })
+
 	assert_no_access_without_login
 
 	assert_access_with_https
 	assert_no_access_with_http
 
-	%w( super_user admin group_administrator group_moderator
-			group_editor group_reader ).each do |cu|
+	def self.group_readers
+		@group_readers ||= %w( 
+			superuser administrator group_administrator group_moderator
+			group_editor group_reader )
+	end
+
+	group_readers.each do |cu|
 
 		test "should NOT show group forum with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -59,10 +62,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( editor reader active_user group_roleless
-			unapproved_group_administrator unapproved_nonmember_administrator
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless ).each do |cu|
+	( ALL_TEST_ROLES - group_readers ).each do |cu|
 
 		test "should NOT show group forum with #{cu} login" do
 			login_as send(cu)

@@ -47,10 +47,15 @@ class UsersControllerTest < ActionController::TestCase
 		Factory(:user)
 	end
 
+	#	a @membership is required so that those group roles will work
+	setup :create_a_membership
+
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => site_administrators })
+
 	assert_no_access_with_login({ 
-		:logins => [:interviewer, :editor,:active_user] })
+		:logins => ( ALL_TEST_ROLES - site_administrators ) })
+
 	assert_no_access_without_login
 	assert_access_without_login({ 
 		:actions => [:new, :create] })
@@ -58,63 +63,61 @@ class UsersControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
-#	These NEED to be that actual role names and not aliases
-#	as the strings are compared
-%w( superuser administrator ).each do |cu|
-
-	test "should filter users index by role with #{cu} login" do
-		some_other_user = send(cu)	#admin	#	active_user
-		login_as send(cu)
-		get :index, :role_name => cu	#'administrator'
-		assert assigns(:users).length >= 2
-		assigns(:users).each do |u|
-			assert u.role_names.include?(cu)	#('administrator')
+	#	These NEED to be that actual role names and not aliases
+	#	as the strings are compared
+	site_administrators.each do |cu|
+	
+		test "should filter users index by role with #{cu} login" do
+			some_other_user = send(cu)	#admin	#	active_user
+			login_as send(cu)
+			get :index, :role_name => cu	#'administrator'
+			assert assigns(:users).length >= 2
+			assigns(:users).each do |u|
+				assert u.role_names.include?(cu)	#('administrator')
+			end
+			assert_nil flash[:error]
+			assert_response :success
 		end
-		assert_nil flash[:error]
-		assert_response :success
+	
+		test "should ignore empty role_name with #{cu} login" do
+			some_other_user = admin	#	active_user
+			login_as send(cu)
+			get :index, :role_name => ''
+			assert assigns(:users).length >= 2
+			assert_nil flash[:error]
+			assert_response :success
+		end
+	
+		test "should ignore invalid role with #{cu} login" do
+			login_as send(cu)
+			get :index, :role_name => 'suffocator'
+			assert_response :success
+		end
+	
+	end
+	
+	ALL_TEST_ROLES.each do |cu|
+	
+		test "should NOT get user info with invalid id with #{cu} login" do
+			login_as send(cu)
+			get :show, :id => 0
+			assert_not_nil flash[:error]
+			assert_redirected_to users_path
+		end
+	
+		test "should get #{cu} info with self login" do
+			u = send(cu)
+			login_as u
+			get :show, :id => u.id
+			assert_response :success
+			assert_not_nil assigns(:user)
+			assert_equal u, assigns(:user)
+		end
+	
 	end
 
-	test "should ignore empty role_name with #{cu} login" do
-		some_other_user = admin	#	active_user
-		login_as send(cu)
-		get :index, :role_name => ''
-		assert assigns(:users).length >= 2
-		assert_nil flash[:error]
-		assert_response :success
-	end
 
-	test "should ignore invalid role with #{cu} login" do
-		login_as send(cu)
-		get :index, :role_name => 'suffocator'
-#		assert_not_nil flash[:error]
-		assert_response :success
-	end
-
-end
-
-#%w( admin moderator employee editor active_user ).each do |cu|
-%w( super_user admin editor interviewer active_user ).each do |cu|
-
-	test "should NOT get user info with invalid id with #{cu} login" do
-		login_as send(cu)
-		get :show, :id => 0
-		assert_not_nil flash[:error]
-		assert_redirected_to users_path
-	end
-
-	test "should get #{cu} info with self login" do
-		u = send(cu)
-		login_as u
-		get :show, :id => u.id
-		assert_response :success
-		assert_not_nil assigns(:user)
-		assert_equal u, assigns(:user)
-	end
-
-end
-
-
-#	#	not really a controller test
+	#	not really a controller test
 	test "should NOT automatically log in new user with my helper" do
 		assert_difference('User.count',1) do
 			active_user
@@ -151,6 +154,8 @@ end
 		assert_difference('User.count',1) {
 			post :create, :user => Factory.attributes_for(:user)
 		} }
+		assert_match /#{assigns(:user).reload.perishable_token}/,
+			ActionMailer::Base.deliveries.last.to_s
 		assert_not_logged_in
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
@@ -177,6 +182,8 @@ end
 		end
 		assert_equal assigns(:user).memberships.collect(&:group_id).sort,
 			[Group['Ethics'],Group['Methods'],Group['Outcomes']].collect(&:id).sort
+		assert_match /#{assigns(:user).reload.perishable_token}/,
+			ActionMailer::Base.deliveries.last.to_s
 		assert_not_logged_in
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
@@ -365,7 +372,7 @@ end
 	test "should update user with self login" do
 		u = user
 		login_as u
-#	email address will change here
+		#	email address will change here triggering email confirmation email
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 			put :update, :id => u.id, :user => Factory.attributes_for(:user)
 		}
@@ -377,7 +384,7 @@ end
 	test "should update user with admin login" do
 		u = user
 		login_as admin
-#	email address will change here
+		#	email address will change here triggering email confirmation email
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 			put :update, :id => u.id, :user => Factory.attributes_for(:user)
 		}

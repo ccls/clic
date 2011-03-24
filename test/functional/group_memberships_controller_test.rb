@@ -17,34 +17,30 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:membership)
 	end
 
+	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	roles_that_can_create = %w( super_user admin editor reader active_user 
-		group_roleless
-		nonmember_administrator nonmember_moderator 
-		nonmember_editor nonmember_reader nonmember_roleless )
+	def self.creators
+		@creators ||= site_editors + %w( 
+			interviewer reader active_user group_roleless
+			unapproved_group_administrator unapproved_nonmember_administrator
+			nonmember_administrator nonmember_moderator 
+			nonmember_editor nonmember_reader nonmember_roleless )
+	end
 
-	roles_that_cannot_create = %w( group_administrator group_moderator 
-		group_editor group_reader )
+	def self.editors
+		@editors ||= site_administrators + %w( 
+			group_administrator group_moderator )
+	end
 
-	roles_that_can_edit = %w( super_user admin group_administrator group_moderator )
-
-	roles_that_cannot_edit = %w( editor reader active_user 
-		group_editor group_reader group_roleless
-		unapproved_group_administrator unapproved_nonmember_administrator
-		nonmember_administrator nonmember_moderator 
-		nonmember_editor nonmember_reader nonmember_roleless )
-
-	roles_that_can_view = %w( super_user admin group_administrator group_moderator
-		group_editor group_reader )
-
-	roles_that_cannot_view = %w( editor reader active_user group_roleless
-		unapproved_group_administrator unapproved_nonmember_administrator
-		nonmember_administrator nonmember_moderator
-		nonmember_editor nonmember_reader nonmember_roleless )
+	def self.readers
+		@readers ||= site_administrators + %w( 
+			group_administrator group_moderator
+			group_editor group_reader )
+	end
 
 
-	roles_that_can_edit.each do |cu|
+	editors.each do |cu|
 
 		test "should edit membership with #{cu} login" do
 			login_as send(cu)
@@ -140,7 +136,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_edit.each do |cu|
+	( ALL_TEST_ROLES - editors ).each do |cu|
 
 		test "should NOT edit membership with #{cu} login" do
 			login_as send(cu)
@@ -176,7 +172,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Only non-members should be allowed to create.
 	#
-	roles_that_can_create.each do |cu|
+	creators.each do |cu|
 
 		test "should NOT get new membership without valid group and #{cu} login" do
 			login_as send(cu)
@@ -248,7 +244,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members should NOT be allowed to create a membership.
 	#
-	roles_that_cannot_create.each do |cu|
+	( ALL_TEST_ROLES - creators ).each do |cu|
 
 		test "should NOT get new membership with #{cu} login" do
 			login_as send(cu)
@@ -272,7 +268,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members and site admins should be able to view
 	#
-	roles_that_can_view.each do |cu|
+	readers.each do |cu|
 
 		test "should show membership with #{cu} login" do
 			login_as send(cu)
@@ -293,7 +289,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Non-members should not be able to view
 	#
-	roles_that_cannot_view.each do |cu|
+	( ALL_TEST_ROLES - readers ).each do |cu|
 
 		test "should NOT show membership with #{cu} login" do
 			login_as send(cu)

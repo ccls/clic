@@ -16,28 +16,28 @@ Factory.define :user do |f|
 end
 
 Factory.define :group do |f|
-	f.sequence(:name) { |n| "Name#{n}" }
+	f.sequence(:name) { |n| "Group #{n}" }
 end
 
 Factory.define :forum do |f|
 #	f.association :group
-	f.sequence(:name) { |n| "Name#{n}" }
+	f.sequence(:name) { |n| "Forum #{n}" }
 end
 
 Factory.define :topic do |f|
 	f.association :forum
 	f.association :user
-	f.sequence(:title) { |n| "Title#{n}" }
+	f.sequence(:title) { |n| "Topic Title #{n}" }
 end
 
 Factory.define :post do |f|
 	f.association :topic
 	f.association :user
-	f.sequence(:body) { |n| "Body #{n}" }
+	f.sequence(:body) { |n| "Post Body #{n}" }
 end
 
 Factory.define :group_role do |f|
-	f.sequence(:name) { |n| "name#{n}" }
+	f.sequence(:name) { |n| "Group Role #{n}" }
 end
 
 Factory.define :membership do |f|
@@ -48,13 +48,13 @@ Factory.define :membership do |f|
 end
 
 Factory.define :document do |f|
-	f.sequence(:title) { |n| "Title#{n}" }
+	f.sequence(:title) { |n| "Document Title #{n}" }
 #	f.sequence(:document_file_name) { |n| "document_file_name#{n}" }
 end
 
 Factory.define :announcement do |f|
 	f.association :user
-	f.sequence(:title) { |n| "Title#{n}" }
+	f.sequence(:title) { |n| "Announcement Title #{n}" }
 	f.content "Some announcement content"
 end
 Factory.define :group_announcement, :parent => :announcement do |f|
@@ -62,7 +62,7 @@ Factory.define :group_announcement, :parent => :announcement do |f|
 end
 Factory.define :event do |f|
 	f.association :user
-	f.sequence(:title) { |n| "Title#{n}" }
+	f.sequence(:title) { |n| "Event Title #{n}" }
 	f.content "Some event content"
 	f.begins_on Chronic.parse('tomorrow')
 end
@@ -73,5 +73,5 @@ Factory.define :group_document do |f|
 	f.association :post
 	f.association :user
 #	f.association :group
-	f.sequence(:title) { |n| "Title#{n}" }
+	f.sequence(:title) { |n| "Group Document Title #{n}" }
 end

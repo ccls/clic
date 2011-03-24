@@ -24,56 +24,31 @@ class TopicsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor,:interviewer,:reader,:active_user,
-			:unapproved_group_administrator, :group_administrator,
-			:group_moderator, :group_editor, :group_reader, :group_roleless,
-			:unapproved_nonmember_administrator, :nonmember_administrator,
-			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
+		:logins => ALL_TEST_ROLES })
+
 	assert_no_access_without_login
 
 	assert_access_with_https
 	assert_no_access_with_http
 
+	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	roles_that_can_create_groupless_topic = %w( super_user admin editor )
+	def self.group_creators
+		@group_creators ||= site_administrators + %w( 
+			group_administrator group_moderator group_editor )
+	end
 
-	roles_that_cannot_create_groupless_topic = %w( 
-		reader active_user group_roleless group_reader
-		group_administrator group_moderator group_editor 
-		nonmember_administrator nonmember_moderator nonmember_editor
-		nonmember_reader nonmember_roleless )
+	def self.group_readers
+		@group_readers ||= group_creators + %w( group_reader )
+	end
 
-	roles_that_can_view_groupless_topic = %w( 
-		super_user admin editor reader active_user 
-		group_administrator group_moderator
-		group_editor group_reader group_roleless 
-		nonmember_administrator nonmember_moderator nonmember_editor
-		nonmember_reader nonmember_roleless )
-
-	roles_that_can_create_group_topic = %w( 
-		super_user admin group_administrator group_moderator
-		group_editor )
-
-	roles_that_cannot_create_group_topic = %w( 
-		editor reader active_user group_roleless group_reader
-		nonmember_administrator nonmember_moderator nonmember_editor
-		nonmember_reader nonmember_roleless )
-
-	roles_that_can_view_group_topic = %w( 
-		super_user admin group_administrator group_moderator
-		group_editor group_reader )
-
-	roles_that_cannot_view_group_topic = %w( 
-		editor reader active_user group_roleless
-		nonmember_administrator nonmember_moderator nonmember_editor
-		nonmember_reader nonmember_roleless )
 
 #
 #	NO Group Forum Topic
 #
 
-	roles_that_can_create_groupless_topic.each do |cu|
+	site_editors.each do |cu|
 
 		test "should get new topic with #{cu} login" do
 			login_as send(cu)
@@ -128,8 +103,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert assigns(:group_document)
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
-#			GroupDocument.last.destroy	#	gotta cleanup ourselves
-			assigns(:group_document).destroy
+			assigns(:group_document).destroy	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new topic with #{cu} login and invalid forum_id" do
@@ -178,7 +152,7 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_create_groupless_topic.each do |cu|
+	( ALL_TEST_ROLES - site_editors ).each do |cu|
 
 		test "should NOT get new topic with #{cu} login" do
 			login_as send(cu)
@@ -207,7 +181,7 @@ class TopicsControllerTest < ActionController::TestCase
 #		Show (any logged in user can view)
 #
 
-	roles_that_can_view_groupless_topic.each do |cu|
+	ALL_TEST_ROLES.each do |cu|
 
 		test "should NOT show topic with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -233,7 +207,7 @@ class TopicsControllerTest < ActionController::TestCase
 #	Group Forum Topic
 #
 
-	roles_that_can_create_group_topic.each do |cu|
+	group_creators.each do |cu|
 
 		test "should get new group topic with #{cu} login" do
 			login_as send(cu)
@@ -282,8 +256,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_equal assigns(:group_document).group, @membership.group
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
-#			GroupDocument.last.destroy	#	gotta cleanup ourselves
-			assigns(:group_document).destroy
+			assigns(:group_document).destroy	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new group topic with #{cu} login when create fails" do
@@ -320,7 +293,7 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_create_group_topic.each do |cu|
+	( ALL_TEST_ROLES - group_creators ).each do |cu|
 
 		test "should NOT get new group topic with #{cu} login" do
 			login_as send(cu)
@@ -349,7 +322,7 @@ class TopicsControllerTest < ActionController::TestCase
 #		Show
 #
 
-	roles_that_can_view_group_topic.each do |cu|
+	group_readers.each do |cu|
 
 		test "should NOT show group topic with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -371,7 +344,7 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_view_group_topic.each do |cu|
+	( ALL_TEST_ROLES - group_readers ).each do |cu|
 
 		test "should NOT show group topic with #{cu} login" do
 			login_as send(cu)

@@ -12,25 +12,21 @@ class MembershipsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:membership,options)
 	end
 
-#	setup :create_a_membership
-#
-#		:logins => [:superuser,:admin,
-#		  :editor,:interviewer,:reader,:active_user,
-#			:unapproved_group_administrator, :group_administrator,
-#			:group_moderator, :group_editor, :group_reader, :group_roleless,
-#			:unapproved_nonmember_administrator, :nonmember_administrator,
-#			:nonmember_editor, :nonmember_reader, :nonmember_roleless ] })
+	# a @membership is required so that those group roles will work
+	setup :create_a_membership
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => site_administrators })
+
 	assert_no_access_with_login({ 
-		:logins => [:editor,:interviewer,:reader,:active_user] })
+		:logins => ( ALL_TEST_ROLES - site_administrators )})
+
 	assert_no_access_without_login
 
 	assert_access_with_https
 	assert_no_access_with_http
 
-	%w( superuser admin ).each do |cu|
+	site_administrators.each do |cu|
 	
 		test "should NOT edit membership with invalid id and #{cu} login" do
 			login_as send(cu)

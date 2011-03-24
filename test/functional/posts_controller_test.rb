@@ -17,29 +17,19 @@ class PostsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:post,options)
 	end
 
+	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	roles_that_can_create_groupless_post = %w( super_user admin editor )
-
-	roles_that_cannot_create_groupless_post = %w( 
-		reader active_user group_roleless group_reader
-		group_administrator group_moderator group_editor 
-		nonmember_administrator nonmember_moderator nonmember_editor
-		nonmember_reader nonmember_roleless )
-
-	roles_that_can_create_group_post = %w( 
-		super_user admin group_administrator group_moderator group_editor )
-
-	roles_that_cannot_create_group_post = %w( 
-		editor reader active_user group_roleless group_reader
-		nonmember_administrator nonmember_moderator nonmember_editor
-		nonmember_reader nonmember_roleless )
+	def self.group_creators
+		@group_creators ||= site_administrators + %w( 
+			group_administrator group_moderator group_editor )
+	end
 
 #
 #	NO Group Forum Topic Post
 #
 
-	roles_that_can_create_groupless_post.each do |cu|
+	site_editors.each do |cu|
 
 		test "should get new post with #{cu} login" do
 			login_as send(cu)
@@ -92,8 +82,7 @@ class PostsControllerTest < ActionController::TestCase
 			assert assigns(:group_document)
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
-#			GroupDocument.last.destroy	#	gotta cleanup ourselves
-			assigns(:group_document).destroy
+			assigns(:group_document).destroy	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new post with #{cu} login and invalid topic_id" do
@@ -137,7 +126,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_create_groupless_post.each do |cu|
+	( ALL_TEST_ROLES - site_editors ).each do |cu|
 
 		test "should NOT get new post with #{cu} login" do
 			login_as send(cu)
@@ -162,8 +151,7 @@ class PostsControllerTest < ActionController::TestCase
 #
 #	Group Forum Topic Post
 #
-
-	roles_that_can_create_group_post.each do |cu|
+	group_creators.each do |cu|
 
 		test "should get new group post with #{cu} login" do
 			login_as send(cu)
@@ -213,8 +201,7 @@ class PostsControllerTest < ActionController::TestCase
 			assert_equal assigns(:group_document).group, @membership.group
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
-#			GroupDocument.last.destroy	#	gotta cleanup ourselves
-			assigns(:group_document).destroy
+			assigns(:group_document).destroy	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new group post with #{cu} login when create fails" do
@@ -251,7 +238,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_create_group_post.each do |cu|
+	( ALL_TEST_ROLES - group_creators ).each do |cu|
 
 		test "should NOT get new group post with #{cu} login" do
 			login_as send(cu)
@@ -274,7 +261,6 @@ class PostsControllerTest < ActionController::TestCase
 		end
 
 	end
-
 
 protected
 

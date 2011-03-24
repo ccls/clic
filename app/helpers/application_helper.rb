@@ -31,8 +31,9 @@ module ApplicationHelper
 				"<li>#{link_to( "Logout", logout_path )}</li>" <<
 				"</ul><!-- id=PrivateNav -->"
 			menu
-		else
-			''
+#	This isn't ever called if not logged in
+#		else
+#			''
 		end
 	end
 

@@ -23,6 +23,7 @@ module ClassMethods
 
 		options[:attributes_key] ||= options[:model].underscore
 
+		# a @membership is required so that those group roles will work
 		setup :create_a_membership
 
 		#	no group_id
@@ -36,13 +37,22 @@ module ClassMethods
 		assert_no_route(:put, :update)
 		assert_no_route(:delete, :destroy)
 
+		def self.group_asset_readers
+			@group_asset_readers ||= (group_asset_editors + %w(group_reader))
+		end
+		def self.group_asset_editors
+			@group_asset_editors ||= (group_asset_destroyers + %w(group_editor))
+		end
+		def self.group_asset_destroyers
+			@group_asset_destroyers ||= %w( superuser administrator group_administrator group_moderator )
+		end
 
 		############################################################
 
 		#
 		#	Full (destroy) access roles
 		#
-		%w( super_user admin group_administrator group_moderator ).each do |cu|
+		group_asset_destroyers.each do |cu|
 
 			test "should destroy #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)
@@ -88,10 +98,7 @@ module ClassMethods
 		#
 		#	No destroy access roles
 		#
-		%w( editor interviewer active_user 
-				group_roleless group_reader group_editor
-				nonmember_administrator nonmember_moderator nonmember_editor
-				nonmember_reader nonmember_roleless ).each do |cu|
+		( ALL_TEST_ROLES - group_asset_destroyers ).each do |cu|
 
 			test "should NOT destroy #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)
@@ -113,8 +120,7 @@ module ClassMethods
 		#
 		#	Edit access roles
 		#
-		%w( super_user admin group_administrator 
-				group_moderator group_editor ).each do |cu|
+		group_asset_editors.each do |cu|
 
 			test "should get new #{options[:attributes_key]} with #{cu} login" do
 				login_as send(cu)
@@ -345,10 +351,7 @@ module ClassMethods
 		#
 		#	No edit access roles
 		#
-		%w( editor interviewer active_user 
-				group_roleless group_reader
-				nonmember_administrator nonmember_moderator nonmember_editor
-				nonmember_reader nonmember_roleless ).each do |cu|
+		( ALL_TEST_ROLES - group_asset_editors ).each do |cu|
 
 			test "should NOT get new #{options[:attributes_key]} with #{cu} login" do
 				login_as send(cu)
@@ -393,8 +396,7 @@ module ClassMethods
 		#
 		#	Read access roles
 		#
-		%w( super_user admin group_administrator 
-				group_moderator group_editor group_reader ).each do |cu|
+		group_asset_readers.each do |cu|
 
 			test "should show #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)
@@ -417,9 +419,7 @@ module ClassMethods
 		#
 		#	No access roles ( No read access roles )
 		#
-		%w( editor interviewer active_user group_roleless
-				nonmember_administrator nonmember_moderator nonmember_editor
-				nonmember_reader nonmember_roleless ).each do |cu|
+		( ALL_TEST_ROLES - group_asset_readers ).each do |cu|
 
 			test "should NOT show #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)
@@ -446,7 +446,6 @@ module ClassMethods
 		#
 		#	No login
 		#
-
 		test "should NOT get new #{options[:attributes_key]} without login" do
 			get :new, 
 				:group_id => @membership.group.id

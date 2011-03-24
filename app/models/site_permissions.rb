@@ -1,7 +1,7 @@
 #
 #	Created primarily for clarity
 #
-module UserPermissions
+module SitePermissions
 
 	def self.included(base)
 		base.send(:include, InstanceMethods)

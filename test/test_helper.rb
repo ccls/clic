@@ -13,6 +13,8 @@ class ActiveSupport::TestCase
 			assert_not_logged_in
 			UserSession.create(User.find(user_id))
 			assert_logged_in
+		else
+			assert_not_logged_in
 		end
 	end
 	alias :login  :login_as
@@ -177,4 +179,24 @@ class ActionController::TestCase
 		@membership.user
 	end
 
+	def no_login
+		nil
+	end
+
+	def self.site_administrators
+		@site_administrators ||= %w( superuser administrator )
+	end
+
+	def self.site_editors
+		@site_editors ||= %w( superuser administrator editor )
+	end
+
 end
+
+ALL_TEST_ROLES = %w( superuser administrator editor
+	interviewer reader active_user
+ 	unapproved_group_administrator group_administrator
+ 	group_moderator group_editor group_reader group_roleless
+ 	unapproved_nonmember_administrator nonmember_administrator
+ 	nonmember_editor nonmember_reader nonmember_roleless )
+

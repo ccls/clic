@@ -37,26 +37,19 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		assert !File.exists?(document_path)
 	end
 
+	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	roles_that_can_view_groupless = %w( super_user admin editor reader active_user 
-			unapproved_group_administrator unapproved_nonmember_administrator
-			group_roleless group_administrator group_moderator group_editor group_reader
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless )
-
-	roles_that_can_view_group = %w( super_user admin group_administrator group_moderator
+	def self.readers
+		@readers ||= site_administrators + %w( 
+			group_administrator group_moderator
 			group_editor group_reader )
+	end
 
-	roles_that_cannot_view_group = %w( editor reader active_user group_roleless
-			unapproved_group_administrator unapproved_nonmember_administrator
-			nonmember_administrator nonmember_moderator nonmember_editor
-			nonmember_reader nonmember_roleless )
-
-#
-#	NOT Attached to a Group
-#
-	roles_that_can_view_groupless.each do |cu|
+	#
+	#	NOT Attached to a Group
+	#
+	ALL_TEST_ROLES.each do |cu|
 
 		test "should NOT show groupless group document with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -130,10 +123,10 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 
 
-#
-#	Attached to a Group
-#
-	roles_that_can_view_group.each do |cu|
+	#
+	#	Attached to a Group
+	#
+	readers.each do |cu|
 
 		test "should NOT show group's group document with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -187,7 +180,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
-	roles_that_cannot_view_group.each do |cu|
+	( ALL_TEST_ROLES - readers ).each do |cu|
 
 		test "should NOT show group's group document with #{cu} login" do
 			login_as send(cu)
@@ -201,9 +194,9 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	end
 
 
-#
-#	not logged in tests
-#
+	#
+	#	not logged in tests
+	#
 
 	test "should NOT download groupless document without login" do
 		document = create_group_document

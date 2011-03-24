@@ -26,7 +26,8 @@ module GroupPermissions
 		end
 
 		def is_group_moderator?(group)
-			( group_membership_role_names(group) & ['administrator','moderator'] ).length > 0
+			( group_membership_role_names(group) & [
+				'administrator','moderator'] ).length > 0
 		end
 
 		def is_group_editor?(group)
