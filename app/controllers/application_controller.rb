@@ -40,20 +40,10 @@ class ApplicationController < ActionController::Base
 
 protected	#	private #	(does it matter which or if neither?)
 
-	#	This is a method that returns a hash containing
-	#	permissions used in the before_filters as keys
-	#	containing another hash with redirect_to and 
-	#	message keys for special redirection.  By default,
-	#	it will redirect to root_path on failure
-	#	and the flash error will be a humanized
-	#	version of the before_filter's name.
-	def redirections
-		@redirections ||= HashWithIndifferentAccess.new({
-#	this is used in the roles_controller in simply_authorized
-			:not_be_user => {
-				:redirect_to => user_path(current_user)
-			}
-		})
+	#	used in roles_controller
+	def may_not_be_user_required
+		current_user.may_not_be_user?(@user) || access_denied(
+			"You may not be this user to do this", user_path(current_user))
 	end
 
 	def logged_in?

@@ -14,14 +14,23 @@ class GroupsControllerTest < ActionController::TestCase
 
 	assert_access_with_login({ 
 		:logins => [:superuser,:admin] })
+
 	assert_no_access_with_login({ 
 		:actions => [:new,:create,:edit,:update,:destroy,:index],
 		:logins => [:editor,:interviewer,:reader,:active_user] })
+
 	assert_no_access_with_login({ 
 		:actions => [:show],
 		:logins => [:editor,:interviewer,:reader,:active_user],
-		:no_redirect_check => true })	#	redirects to new_group_membership_path(@group)
+		:redirect => :new_group_membership_path_group
+#		:redirect => Proc.new{ new_group_membership_path(assigns(:group)) }
+	})
+
 	assert_no_access_without_login
+
+	def new_group_membership_path_group
+		new_group_membership_path(assigns(:group))
+	end
 
 #	setup :create_a_membership
 #

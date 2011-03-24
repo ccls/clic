@@ -11,12 +11,34 @@ module UserPermissions
 			alias_method :may_create?,  :may_edit?
 			alias_method :may_update?,  :may_edit?
 			alias_method :may_destroy?, :may_edit?
-		#	alias_method :may_view?,    :may_read?
+
+			%w(	announcements events ).each do |resource|
+				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
+				alias_method "may_read_#{resource}?".to_sym,    :may?
+				alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
+				alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
+				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
+			end
+		
+			%w(	memberships group_roles ).each do |resource|
+				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
+				alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
+				alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
+				alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
+				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
+			end
+		
 		end
 	end
 
 	module InstanceMethods
-#
+
+		#	Always true, used primarily as aliases for other meaninfully named permissions
+		def may?
+			true
+		end
+
+		#	from SimplyAuthorized::UserModel::InstanceMethods
 #
 #		def role_names
 #			roles.collect(&:name).uniq
@@ -52,7 +74,13 @@ module UserPermissions
 #			!user.nil? && self == user
 #		end
 #		alias_method :may_be_user?, :is_user?
-#
+
+		def is_not_user?(user=nil)
+			!is_user?(user)
+		end
+		alias_method :may_not_be_user?, :is_not_user?
+
+
 #		def may_administrate?(*args)
 #			(self.role_names & ['superuser','administrator']).length > 0
 #		end
@@ -98,30 +126,6 @@ module UserPermissions
 #			document
 #		end
 #
-#		
-#		#	defined in plugin/engine ...
-#		#
-#		#	def may_administrate?(*args)
-#		#		(self.role_names & ['superuser','administrator']).length > 0
-#		#	end
-#		#
-#		#	def may_read?(*args)
-#		#		(self.role_names & 
-#		#			['superuser','administrator','editor','interviewer','reader']
-#		#		).length > 0
-#		#	end
-#		#
-#		#	def may_edit?(*args)
-#		#		(self.role_names & 
-#		#			['superuser','administrator','editor']
-#		#		).length > 0
-#		#	end
-#		#
-#		
-#		alias_method :may_create?,  :may_edit?
-#		alias_method :may_update?,  :may_edit?
-#		alias_method :may_destroy?, :may_edit?
-#	#	alias_method :may_view?,    :may_read?
 
 		#	This restriction will probably be lightened,
 		#	otherwise no one will be able to view other user's profiles
@@ -133,41 +137,21 @@ module UserPermissions
 			self.is_user?(user) || self.may_administrate?
 		end
 
-#		
-#		
-#		
-#			%w(	announcements events ).each do |resource|
-#				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
-#		#		alias_method "may_read_#{resource}?".to_sym,    :may_read?
-#				alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
-#				alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
-#				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
-#				define_method("may_read_#{resource}?".to_sym) { true }	#	any user
-#			end
-#		
-#			%w(	memberships group_roles ).each do |resource|
-#				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
-#				alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
-#				alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
-#				alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
-#				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
-#			end
-#		
-#			def may_read_forum?(forum)
-#				if forum && forum.group
-#					may_administrate? || is_group_reader?(forum.group)
-#				else
-#					true
-#				end
-#			end
-#		
-#			def may_edit_forum?(forum)
-#				if forum && forum.group
-#					may_administrate? || is_group_editor?(forum.group)
-#				else
-#					may_edit?
-#				end
-#			end
-#		
+		def may_read_forum?(forum)
+			if forum && forum.group
+				may_administrate? || is_group_reader?(forum.group)
+			else
+				true
+			end
+		end
+
+		def may_edit_forum?(forum)
+			if forum && forum.group
+				may_administrate? || is_group_editor?(forum.group)
+			else
+				may_edit?
+			end
+		end
+
 	end	#	module InstanceMethods
 end
