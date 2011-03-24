@@ -192,7 +192,7 @@ class ActionController::TestCase
 	end
 
 	def self.site_readers
-		@site_editors ||= %w( superuser administrator editor interviewer reader )
+		@site_readers ||= %w( superuser administrator editor interviewer reader )
 	end
 
 end
