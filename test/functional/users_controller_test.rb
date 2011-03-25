@@ -149,19 +149,21 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should create new user without login" do
+		ActionMailer::Base.deliveries.clear	#	remove existing emails
 		#	confirm_email and new_user_email
 		assert_difference('ActionMailer::Base.deliveries.length',2) {
 		assert_difference('User.count',1) {
 			post :create, :user => Factory.attributes_for(:user)
 		} }
 		assert_match /#{assigns(:user).reload.perishable_token}/,
-			ActionMailer::Base.deliveries.last.to_s
+			ActionMailer::Base.deliveries.detect{|m| m.subject =~ /CLIC Email Confirmation/ }.to_s
 		assert_not_logged_in
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
 	end
 
 	test "should create new user with membership requests" do
+		ActionMailer::Base.deliveries.clear	#	remove existing emails
 		#	confirm_email and new_user_email
 		assert_difference('ActionMailer::Base.deliveries.length',2) {
 		assert_difference('Membership.count',3) {
@@ -183,7 +185,7 @@ class UsersControllerTest < ActionController::TestCase
 		assert_equal assigns(:user).memberships.collect(&:group_id).sort,
 			[Group['Ethics'],Group['Methods'],Group['Outcomes']].collect(&:id).sort
 		assert_match /#{assigns(:user).reload.perishable_token}/,
-			ActionMailer::Base.deliveries.last.to_s
+			ActionMailer::Base.deliveries.detect{|m| m.subject =~ /CLIC Email Confirmation/ }.to_s
 		assert_not_logged_in
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
