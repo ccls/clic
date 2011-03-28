@@ -5,7 +5,11 @@
 
 <p>
   <b>Content:</b>
-  <%=h @announcement.content %>
+  <% if( @announcement.textilize ) %>
+    <%= sanitize(textilize(@announcement.content)) %>
+  <% else %>
+    <%=h @announcement.content %>
+  <% end %>
 </p>
 
 <p>

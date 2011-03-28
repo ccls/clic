@@ -210,3 +210,7 @@ tr.forum td,
 tr.topic td {
 	vertical-align:middle;
 }
+.field_wrapper.textilize label {
+	width: auto;
+	padding-right: 10px;
+}

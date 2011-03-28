@@ -9,15 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318184258) do
+ActiveRecord::Schema.define(:version => 20110328224116) do
 
   create_table "announcements", :force => true do |t|
-    t.string   "title",      :null => false
-    t.text     "content",    :null => false
-    t.integer  "user_id",    :null => false
+    t.string   "title",                         :null => false
+    t.text     "content",                       :null => false
+    t.integer  "user_id",                       :null => false
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "textilize",  :default => false
   end
 
   create_table "bdrb_job_queues", :force => true do |t|
