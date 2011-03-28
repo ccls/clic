@@ -28,7 +28,7 @@ class GroupEventsController < ApplicationController
 		flash[:notice] = "Event created."
 		redirect_to group_path(@event.group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash[:error] = "Something bad happened"
+		flash.now[:error] = "Something bad happened"
 		render :action => 'new'
 	end
 

@@ -20,7 +20,7 @@ class EventsController < ApplicationController
 		flash[:notice] = "Event created."
 		redirect_to members_only_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash[:error] = "Something bad happened"
+		flash.now[:error] = "Something bad happened"
 		render :action => 'new'
 	end
 

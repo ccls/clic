@@ -28,7 +28,7 @@ class GroupAnnouncementsController < ApplicationController
 		flash[:notice] = "Announcement created."
 		redirect_to group_path(@announcement.group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash[:error] = "Something bad happened"
+		flash.now[:error] = "Something bad happened"
 		render :action => 'new'
 	end
 
