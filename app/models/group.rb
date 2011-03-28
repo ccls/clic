@@ -35,6 +35,10 @@ class Group < ActiveRecord::Base
 		name
 	end
 
+	def to_html_tag
+		@html_tag ||= name.gsub(/\s+/,'').underscore
+	end
+
 #	class NotFound < StandardError; end
 
 	#	Treats the class a bit like a Hash and

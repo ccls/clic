@@ -43,15 +43,17 @@ module ApplicationHelper
 		out << "<li>#{link_to( "Home", root_path )}</li>\n"
 		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
 		out << Group.roots.collect do |group|
-			root = "<li>#{link_to_unless(group.groups_count>0,group.name,group)}</li>\n"
-			root << if group.groups_count > 0
-				children = "<li><ul>"
+			if group.groups_count > 0
+#				children = "<li>#{link_to(group.name,group)}</li>\n"
+				children = "<li><a class='submenu_toggle'>#{group.name}</a></li>\n"
+#				children << "<li><ul id='#{group.to_html_tag}_children'>"
+				children << "<li class='submenu'><ul>\n"
 				children << group.children.collect do |child|
 					"<li>#{link_to(child.name,child)}</li>\n"
 				end.join()
 				children << "</ul></li>"
 			else
-				''
+				"<li>#{link_to(group.name,group)}</li>\n"
 			end
 		end.join()
 		out << "<li>Inventory</li>\n"

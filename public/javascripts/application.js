@@ -1,14 +1,7 @@
 jQuery(function(){
 
 	var root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
-/*
-	jQuery.getScript(root + '/pages/translate.js' )
-*/
-/*
-		'/pages/translate.js?caller=' +
-		location.pathname.replace(new RegExp('^' + root),'') );
 
-*/
 	jQuery.getScript(root + '/users/menu.js');
 
 /*
@@ -40,4 +33,9 @@ http://www.google.com/cse/docs/cref.html
 		jQuery('form#cse-search-box input[name=siteurl]').remove();
 	});
 
+
+	jQuery('a.submenu_toggle').click(function(){
+		jQuery(this).parent().next().toggle(500);
+		return false;
+	});
 });

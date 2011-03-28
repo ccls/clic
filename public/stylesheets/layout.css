@@ -214,3 +214,7 @@ tr.topic td {
 	width: auto;
 	padding-right: 10px;
 }
+
+li.submenu {
+	display:none;
+}
