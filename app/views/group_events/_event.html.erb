@@ -2,6 +2,9 @@
  <td class='title'>
   <%= link_to event.title, group_event_path(@group,event) %>
  </td>
+ <td class='time'>
+  <%= event.time %>
+ </td>
  <td class='manage'>
   <%= link_to 'Edit', edit_group_event_path(@group,event), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', group_event_path(@group,event) do %>

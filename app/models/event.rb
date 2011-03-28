@@ -19,4 +19,20 @@ class Event < ActiveRecord::Base
 		title
 	end
 
+	def begins
+		( begins_on.nil? ) ? '' : begins_on.strftime("%m/%d/%Y")
+	end
+
+	def ends
+		( ends_on.nil? ) ? '' : ends_on.strftime("%m/%d/%Y")
+	end
+
+	def time
+		time = begins
+		unless ends.blank?
+			time << " - #{ends}"
+		end
+		time
+	end
+
 end

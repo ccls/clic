@@ -2,7 +2,7 @@
 
 <% if @events.length > 0 %>
  <table id='events'><thead>
- <tr><th>Title</th></tr></thead><tbody>
+ <tr><th>Title</th><th>Time</th><th>&nbsp;</th></tr></thead><tbody>
  <%= render :partial => 'event', :collection => @events %>
  </tbody></table><!-- id='events' -->
 <% else %>
