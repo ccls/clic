@@ -64,6 +64,25 @@ class EventsControllerTest < ActionController::TestCase
 
 	creators.each do |cu|
 
+		test "should create new event with #{cu} login and begin and end times" do
+			login_as send(cu)
+			assert_difference('Event.count',1) do
+				post :create, :event => factory_attributes.merge({
+					:begins_on => 'May 12, 2000',
+					:ends_on => 'December 5, 2000',
+					:begins_at_hour => "12",
+					:begins_at_minute => "35",
+					:begins_at_meridiem => 'pm',
+					:ends_at_hour => "5",
+					:ends_at_minute => "0",
+					:ends_at_meridiem => 'pm' })
+			end
+			assert assigns(:event)
+			assert_equal '5/12/2000 ( 12:35 PM ) - 12/5/2000 ( 5:00 PM )', assigns(:event).time
+			assert_redirected_to members_only_path
+			assert_not_nil flash[:notice]
+		end
+
 		test "should NOT create new event with #{cu} login when create fails" do
 			Event.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)

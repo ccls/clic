@@ -9,15 +9,15 @@ class Event < ActiveRecord::Base
 	validates_presence_of :begins_on
 	validates_complete_date_for :begins_on
 
-	validates_inclusion_of :begins_at_hour, :in => 1..12,
+	validates_inclusion_of :begins_at_hour, :in => (1..12),
 		:allow_blank => true
-	validates_inclusion_of :begins_at_minute, :in => 0..59,
+	validates_inclusion_of :begins_at_minute, :in => (0..59),
 		:allow_blank => true
 	validates_format_of :begins_at_meridiem, :with => /\A(AM|PM)\z/i,
 		:allow_blank => true
-	validates_inclusion_of :ends_at_hour, :in => 1..12,
+	validates_inclusion_of :ends_at_hour, :in => (1..12),
 		:allow_blank => true
-	validates_inclusion_of :ends_at_minute, :in => 0..59,
+	validates_inclusion_of :ends_at_minute, :in => (0..59),
 		:allow_blank => true
 	validates_format_of :ends_at_meridiem, :with => /\A(AM|PM)\z/i,
 		:allow_blank => true
