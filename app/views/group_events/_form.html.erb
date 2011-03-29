@@ -4,10 +4,16 @@
 <%= f.wrapped_text_field :title,
 	:label_text => "Title <span class='required'>*</span>",
 	:class => 'autosize' %>
+ <%= f.wrapped_text_field :location,
+	:class => 'autosize' %>
 <%= f.wrapped_text_area :content,
 	:label_text => "Content <span class='required'>*</span>",
 	:class => 'autosize' %>
 <%= f.wrapped_date_text_field :begins_on,
 	:label_text => "Begins On <span class='required'>*</span>" %>
+<%= f.wrapped_text_field :begin_time,
+	:label_text => "At (HH:MM xM)" %>
 <%= f.wrapped_date_text_field :ends_on %>
+<%= f.wrapped_text_field :end_time,
+	:label_text => "At (HH:MM xM)" %>
 <p class='required'>*&nbsp;-&nbsp;Required</p>
