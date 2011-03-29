@@ -166,6 +166,7 @@ form.edit_group .field_wrapper label {
 
 
 .required {
+	font-size: 12pt;
 	color: red;
 	font-weight: bold;
 }
