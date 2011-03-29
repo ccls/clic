@@ -4,6 +4,11 @@
 </p>
 
 <p>
+  <b>Location:</b>
+  <%=h @event.location %>
+</p>
+
+<p>
   <b>Content:</b>
   <%=h @event.content %>
 </p>
@@ -19,12 +24,22 @@
 </p>
 
 <p>
+  <b>Begins At:</b>
+  <%=h @event.begins_at %>
+</p>
+
+<p>
   <b>Ends On:</b>
   <%=mdy @event.ends_on %>
 </p>
 
 <p>
-<%= link_to 'Edit', edit_group_event_path(@group,@event),:class => 'button' %>
+  <b>Ends At:</b>
+  <%=h @event.ends_at %>
+</p>
+
+<p>
+<%= link_to 'Edit Group Event', edit_group_event_path(@group,@event),:class => 'button' %>
 &nbsp;
-<%= link_to 'Back', group_events_path(@group),:class => 'button' %>
+<%= link_to "Show Group's Events", group_events_path(@group),:class => 'button' %>
 </p>

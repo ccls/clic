@@ -5,8 +5,8 @@
  <%= render :partial => 'form', :locals => { :f => f } %>
  <p>
   <%= f.submit( 'Create' ) %>
-  <%= submit_link_to( 'Create' ) %>
+  <%= submit_link_to( 'Create Group Event' ) %>
 &nbsp;
-  <%= link_to 'Back', group_events_path(@group),:class => 'button' %>
+  <%= link_to "Cancel and Show Group's Events", group_events_path(@group),:class => 'button' %>
  </p>
 <% end %>

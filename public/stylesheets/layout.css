@@ -221,3 +221,21 @@ li.submenu {
 li a.submenu_toggle {
 	float:left;
 }
+form div.field_wrapper.begins_at_hour,
+form div.field_wrapper.ends_at_hour,
+form div.field_wrapper.begins_at_minute,
+form div.field_wrapper.ends_at_minute,
+form div.field_wrapper.begins_at_meridiem,
+form div.field_wrapper.ends_at_meridiem {
+	clear:none;
+}
+form div.field_wrapper.begins_at_hour label,
+form div.field_wrapper.ends_at_hour label {
+	width: 2em;
+}
+form div.field_wrapper.begins_at_minute label,
+form div.field_wrapper.ends_at_minute label,
+form div.field_wrapper.begins_at_meridiem label,
+form div.field_wrapper.ends_at_meridiem label {
+	width: 1em;
+}

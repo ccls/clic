@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110329002009) do
+ActiveRecord::Schema.define(:version => 20110329172753) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",                         :null => false
@@ -60,17 +60,21 @@ ActiveRecord::Schema.define(:version => 20110329002009) do
   add_index "documents", ["owner_id", "owner_type"], :name => "index_documents_on_owner_id_and_owner_type"
 
   create_table "events", :force => true do |t|
-    t.string   "title",      :null => false
-    t.text     "content",    :null => false
-    t.integer  "user_id",    :null => false
+    t.string   "title",              :null => false
+    t.text     "content",            :null => false
+    t.integer  "user_id",            :null => false
     t.integer  "group_id"
-    t.date     "begins_on",  :null => false
+    t.date     "begins_on",          :null => false
     t.date     "ends_on"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "location"
-    t.string   "begin_time"
-    t.string   "end_time"
+    t.integer  "begins_at_hour"
+    t.integer  "begins_at_minute"
+    t.string   "begins_at_meridiem"
+    t.integer  "ends_at_hour"
+    t.integer  "ends_at_minute"
+    t.string   "ends_at_meridiem"
   end
 
   create_table "forums", :force => true do |t|
