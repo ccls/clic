@@ -32,6 +32,68 @@ class EventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return formatted begin date" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_object(:begins_on => 'May 12, 2000')
+			assert_equal '5/12/2000', object.begins
+		end
+	end
+
+	test "should return formatted begin date with time" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_event_with_times(:begins_on => 'May 12, 2000')
+			assert_equal '5/12/2000 ( 12:35 PM )', object.begins
+		end
+	end
+
+	test "should return formatted end date" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_object(:ends_on => 'May 12, 2000')
+			assert_equal '5/12/2000', object.ends
+		end
+	end
+
+	test "should return formatted end date with time" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_event_with_times(:ends_on => 'May 12, 2000')
+			assert_equal '5/12/2000 ( 5:00 PM )', object.ends
+		end
+	end
+
+	test "should return event time with begins_on" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_object(:begins_on => 'May 12, 2000')
+			assert_equal '5/12/2000', object.time
+		end
+	end
+
+	test "should return event time with begins_on and ends_on" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_object(:begins_on => 'May 12, 2000',
+				:ends_on => 'December 5, 2000' )
+			assert_equal '5/12/2000 - 12/5/2000', object.time
+		end
+	end
+
+	test "should return event time with begins_on, begins_at and ends_on" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_event_with_times(:begins_on => 'May 12, 2000',
+				:ends_on => 'December 5, 2000',
+				:ends_at_hour => nil,
+				:ends_at_minute => nil,
+				:ends_at_meridiem => nil )
+			assert_equal '5/12/2000 ( 12:35 PM ) - 12/5/2000', object.time
+		end
+	end
+
+	test "should return event time with begins_on, begins_at, ends_on and ends_at" do
+		assert_difference( "Event.count", 1 ) do
+			object = create_event_with_times(:begins_on => 'May 12, 2000',
+				:ends_on => 'December 5, 2000' )
+			assert_equal '5/12/2000 ( 12:35 PM ) - 12/5/2000 ( 5:00 PM )', object.time
+		end
+	end
+
 	test "should return begins_at from begins_at_ fields" do
 		assert_difference( "Event.count", 1 ) do
 			object = create_event_with_times

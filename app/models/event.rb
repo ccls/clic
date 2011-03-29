@@ -33,7 +33,9 @@ class Event < ActiveRecord::Base
 	end
 
 	def begins
-		begins = ( begins_on.nil? ) ? '' : begins_on.strftime("%m/%d/%Y")
+#		begins = ( begins_on.nil? ) ? '' : begins_on.strftime("%m/%d/%Y").gsub(/^0/,'')
+#	NO leading zeros
+		begins = ( begins_on.nil? ) ? '' : "#{begins_on.month}/#{begins_on.day}/#{begins_on.year}"
 		unless( ( at = begins_at ).blank? )
 			begins << " ( #{at} )"
 		end
@@ -41,7 +43,9 @@ class Event < ActiveRecord::Base
 	end
 
 	def ends
-		ends = ( ends_on.nil? ) ? '' : ends_on.strftime("%m/%d/%Y")
+#		ends = ( ends_on.nil? ) ? '' : ends_on.strftime("%m/%d/%Y").gsub(/^0/,'')
+#	NO leading zeros
+		ends = ( ends_on.nil? ) ? '' : "#{ends_on.month}/#{ends_on.day}/#{ends_on.year}"
 		unless( ( at = ends_at ).blank? )
 			ends << " ( #{at} )"
 		end
