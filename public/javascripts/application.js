@@ -36,6 +36,8 @@ http://www.google.com/cse/docs/cref.html
 
 	jQuery('a.submenu_toggle').click(function(){
 		jQuery(this).parent().next().toggle(500);
+		jQuery(this).next().toggleClass('ui-icon-triangle-1-e');
+		jQuery(this).next().toggleClass('ui-icon-triangle-1-s');
 		return false;
 	});
 });

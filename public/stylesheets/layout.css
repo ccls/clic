@@ -218,3 +218,6 @@ tr.topic td {
 li.submenu {
 	display:none;
 }
+li a.submenu_toggle {
+	float:left;
+}

@@ -45,7 +45,8 @@ module ApplicationHelper
 		out << Group.roots.collect do |group|
 			if group.groups_count > 0
 #				children = "<li>#{link_to(group.name,group)}</li>\n"
-				children = "<li><a class='submenu_toggle'>#{group.name}</a></li>\n"
+				children = "<li><a class='submenu_toggle'>#{group.name}</a>" <<
+					"<span class='ui-icon ui-icon-triangle-1-e'/></li>\n"
 #				children << "<li><ul id='#{group.to_html_tag}_children'>"
 				children << "<li class='submenu'><ul>\n"
 				children << group.children.collect do |child|
