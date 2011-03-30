@@ -7,8 +7,10 @@
   <%= f.submit( 'Update' ) %>
   <%= submit_link_to( 'Update' ) %>
 &nbsp;
-  <%= link_to 'Show', group_announcement_path(@group,@announcement),:class => 'button' %>
+  <%= link_to 'Cancel and Show Group Announcement', 
+		group_announcement_path(@group,@announcement),:class => 'button' %>
 &nbsp;
-  <%= link_to 'Back', group_announcements_path(@group),:class => 'button' %>
+  <%= link_to "Cancel and Show Group's Announcements", 
+		group_announcements_path(@group),:class => 'button' %>
  </p>
 <% end %>
