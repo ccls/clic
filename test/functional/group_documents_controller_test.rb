@@ -49,7 +49,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	#
 	#	NOT Attached to a Group
 	#
-	ALL_TEST_ROLES.each do |cu|
+	( ALL_TEST_ROLES - unapproved_users ).each do |cu|
 
 		test "should NOT show groupless group document with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -121,6 +121,21 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
+	unapproved_users.each do |cu|
+
+		test "should NOT show groupless group document with #{cu} login" do
+			login_as send(cu)
+			document = create_group_document
+			assert_nil document.group
+			get :show, :id => document.id
+#			assert_not_nil @response.headers['Content-disposition'].match(
+#				/attachment;.*pdf/)
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+			assigns(:group_document).destroy
+		end
+
+	end
 
 
 	#

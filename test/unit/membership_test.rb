@@ -15,10 +15,13 @@ class MembershipTest < ActiveSupport::TestCase
 	test "should approve membership with approve!" do
 		object = create_object
 		assert !object.approved?
-		assert_changes("Membership.find(#{object.id}).approved") do
+		assert !object.user.approved?
+		assert_changes("User.find(#{object.user.id}).approved") {
+		assert_changes("Membership.find(#{object.id}).approved") {
 			object.approve!
-		end
+		} }
 		assert  object.approved?
+		assert  object.user.approved?
 	end
 
 end

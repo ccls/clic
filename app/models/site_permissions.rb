@@ -35,8 +35,8 @@ module SitePermissions
 
 		#	Always true, used primarily as aliases for other meaningfully named permissions
 		def may?
-#			may_read? || approved?
-			true
+			may_read? || approved?
+#			true
 		end
 
 		#	from SimplyAuthorized::UserModel::InstanceMethods
@@ -131,11 +131,13 @@ module SitePermissions
 		#	This restriction will probably be lightened,
 		#	otherwise no one will be able to view other user's profiles
 		def may_view_user?(user=nil)
+#			self.is_user?(user) || self.may_administrate?
 			self.is_user?(user) || self.may_administrate?
 		end
 
 		def may_edit_user?(user=nil)
-			self.is_user?(user) || self.may_administrate?
+#			self.is_user?(user) || self.may_administrate?
+			is_user?(user) || may_administrate?
 		end
 
 	end	#	module InstanceMethods

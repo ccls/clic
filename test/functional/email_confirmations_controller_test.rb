@@ -15,7 +15,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT confirm email with valid perishable_token and login" do
-		u = active_user
+		u = unapproved_user
 		login_as u
 		get :confirm, :id => u.perishable_token
 		assert_not_nil flash[:error]
@@ -23,7 +23,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should confirm email with valid perishable_token and no login" do
-		u = active_user
+		u = unapproved_user
 		get :confirm, :id => u.perishable_token
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
@@ -46,7 +46,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT resend confirm email with valid perishable_token and login" do
-		u = active_user
+		u = unapproved_user
 		login_as u
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 			get :resend, :id => u.perishable_token
@@ -56,7 +56,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should resend confirm email with valid perishable_token and no login" do
-		u = active_user
+		u = unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 			get :resend, :id => u.perishable_token
 		}

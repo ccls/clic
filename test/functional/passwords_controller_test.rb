@@ -3,14 +3,14 @@ require 'test_helper'
 class PasswordsControllerTest < ActionController::TestCase
 
 	test "should edit password with self login" do
-		login_as user = active_user
+		login_as user = unapproved_user
 		get :edit
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should update password with self login" do
-		login_as user = active_user
+		login_as user = unapproved_user
 		put :update, :user => password_attributes
 		assert_logged_in
 		assert_not_nil flash[:notice]
@@ -18,21 +18,21 @@ class PasswordsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user without current password" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :user => password_attributes(:current_password => nil)
 		assert_not_nil flash[:error]
 		assert_redirected_to edit_password_path
 	end
 
 	test "should NOT update user without valid current password" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :user => password_attributes(:current_password => 'iforgot')
 		assert_not_nil flash[:error]
 		assert_redirected_to edit_password_path
 	end
 
 	test "should NOT update user without password" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :user => password_attributes(:password => nil)
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -40,7 +40,7 @@ class PasswordsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user without password confirmation" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :user => password_attributes(:password_confirmation => nil)
 		assert_response :success
 		assert_template 'edit'
@@ -48,7 +48,7 @@ class PasswordsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user without password and password confirmation" do
-		login_as user = active_user
+		login_as user = unapproved_user
 		put :update, :user => password_attributes(
 			:password => nil, 
 			:password_confirmation => nil )
@@ -57,7 +57,7 @@ class PasswordsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user without complex password" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :user => password_attributes(
 			:password              => 'mybigbadpassword',
 			:password_confirmation => 'mybigbadpassword' )
@@ -67,7 +67,7 @@ class PasswordsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user without matching password and confirmation" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :user => password_attributes(
 			:password_confirmation => 'betaV@1!d' )
 		assert_response :success

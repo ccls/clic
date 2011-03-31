@@ -11,7 +11,7 @@ class ForgotUsernamesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get forgot username reset with login" do
-		login_as active_user
+		login_as unapproved_user
 		get :new
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -21,7 +21,7 @@ class ForgotUsernamesControllerTest < ActionController::TestCase
 	#	email submission to send password reset email
 
 	test "should create forgot username with valid email" do
-		user = active_user
+		user = unapproved_user
 		assert_not_logged_in
 		post :create, :email => user.email
 		assert_response :success
@@ -39,7 +39,7 @@ class ForgotUsernamesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create forgot username with login" do
-		login_as active_user
+		login_as unapproved_user
 		post :create, :email => 'someunimportantstring@email.com'
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path

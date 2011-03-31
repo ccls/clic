@@ -38,7 +38,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
 		:redirect => :members_only_path })
 
 	assert_access_with_login({ 
-		:logins => ALL_TEST_ROLES,
+		:logins => ( ALL_TEST_ROLES - unapproved_users ),
+		:actions => [:show,:index] })
+
+	assert_no_access_with_login({ 
+		:logins => unapproved_users,
 		:actions => [:show,:index] })
 
 	assert_no_access_without_login

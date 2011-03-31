@@ -11,7 +11,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get new password reset with login" do
-		login_as active_user
+		login_as unapproved_user
 		get :new
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -21,7 +21,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	#	email submission to send password reset email
 
 	test "should create password reset with valid email" do
-		user = active_user
+		user = unapproved_user
 		assert_not_logged_in
 		assert_changes("User.find(#{user.id}).perishable_token") {
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
@@ -43,7 +43,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create password reset with login" do
-		login_as active_user
+		login_as unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 			post :create, :email => 'someunimportantstring@email.com'
 		}
@@ -55,7 +55,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	#	perishable_token sent to password reset presents edit password
 
 	test "should edit password reset with valid perishable token" do
-		user = active_user
+		user = unapproved_user
 		assert_not_logged_in
 		get :edit, :id => user.perishable_token
 		assert_response :success
@@ -71,7 +71,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT edit password reset with login" do
-		login_as active_user
+		login_as unapproved_user
 		get :edit, :id => "sometokenthatwontbecheckedanyway"
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
@@ -82,7 +82,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	#	use perishable token as :id
 	#	be sure to test that failed attempt doesn't change user's perishable token
 	test "should update password with valid perishable token" do
-		user = active_user
+		user = unapproved_user
 		assert_changes("User.find(#{user.id}).crypted_password") {
 		assert_changes("User.find(#{user.id}).perishable_token") {
 			put :update, :id => user.perishable_token,
@@ -105,7 +105,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update password with login" do
-		login_as active_user
+		login_as unapproved_user
 		put :update, :id => "sometokenthatwontbecheckedanyway",
 			:user => { }
 		assert_redirected_to root_path
@@ -113,7 +113,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update when create_or_update fails" do
-		user = active_user
+		user = unapproved_user
 		User.any_instance.stubs(:create_or_update).returns(false)
 		deny_changes("User.find(#{user.id}).perishable_token") {
 			put :update, :id => user.perishable_token,
@@ -128,7 +128,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update with invalid user" do
-		user = active_user
+		user = unapproved_user
 		User.any_instance.stubs(:valid?).returns(false)
 		deny_changes("User.find(#{user.id}).perishable_token") {
 			put :update, :id => user.perishable_token,
@@ -143,7 +143,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update with invalid password format" do
-		user = active_user
+		user = unapproved_user
 		deny_changes("User.find(#{user.id}).perishable_token") {
 			put :update, :id => user.perishable_token,
 				:user => { 
@@ -157,7 +157,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without password" do
-		user = active_user
+		user = unapproved_user
 		deny_changes("User.find(#{user.id}).perishable_token") {
 			put :update, :id => user.perishable_token,
 				:user => { 
@@ -170,7 +170,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without password confirmation" do
-		user = active_user
+		user = unapproved_user
 		deny_changes("User.find(#{user.id}).perishable_token") {
 			put :update, :id => user.perishable_token,
 				:user => { 

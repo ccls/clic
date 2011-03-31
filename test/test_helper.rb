@@ -62,16 +62,22 @@ class ActionController::TestCase
 	end
 
 	def create_membership(options={})
-#		m = Factory(:membership,{
-		Factory(:membership,{
+		m = Factory(:membership,{
 			:approved   => true,
 			:group_role => GroupRole['reader']}.merge(options))
-#		if m.approved?
-#			u = m.user
-#			u.approved = m.approved?
-#			u.save!
-#		end
-#		m
+		m.reload
+		if options.has_key?(:approved) && !options[:approved]
+			assert !m.approved? 
+		else
+			assert m.approved? 
+		end
+		m.user.reload
+		if m.approved?
+			assert m.user.approved?
+		else
+			assert !m.user.approved?
+		end
+		m
 	end
 
 	def group_roleless
@@ -81,6 +87,7 @@ class ActionController::TestCase
 		assert_equal @membership.group, m.group
 		assert_nil m.group_role_id
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -90,6 +97,7 @@ class ActionController::TestCase
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -100,6 +108,7 @@ class ActionController::TestCase
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -110,6 +119,7 @@ class ActionController::TestCase
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -120,6 +130,7 @@ class ActionController::TestCase
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -131,6 +142,7 @@ class ActionController::TestCase
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
 		assert !m.approved?
+		assert !m.user.approved?
 		m.user
 	end
 
@@ -141,6 +153,7 @@ class ActionController::TestCase
 			:group_role => nil )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -148,6 +161,7 @@ class ActionController::TestCase
 		m = create_membership()
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -156,6 +170,7 @@ class ActionController::TestCase
 			:group_role => GroupRole['editor'] )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -164,6 +179,7 @@ class ActionController::TestCase
 			:group_role => GroupRole['moderator'] )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -172,6 +188,7 @@ class ActionController::TestCase
 			:group_role => GroupRole['administrator'] )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
+		assert m.user.approved?
 		m.user
 	end
 
@@ -181,6 +198,7 @@ class ActionController::TestCase
 			:group_role => GroupRole['administrator'] )
 		assert_not_equal @membership.group, m.group
 		assert !m.approved?
+		assert !m.user.approved?
 		m.user
 	end
 
@@ -188,11 +206,20 @@ class ActionController::TestCase
 		@membership.user
 	end
 
-#	def approved_user(options={})		#	no site or group role, but approved member
-#		u = active_user(options)
-#		u.approve!
-#		u
-#	end
+#	an active_user has no roles and has not been approved
+#	so should NOT be allowed to do some things that an
+#	approved_user can
+	def approved_user(options={})		#	no site or group role, but approved member
+		u = active_user(options)
+		u.approve!
+		u
+	end
+
+	def unapproved_user(options={})
+		u = active_user(options)
+		assert !u.approved?
+		u
+	end
 
 	def no_login
 		nil
@@ -210,10 +237,17 @@ class ActionController::TestCase
 		@site_readers ||= %w( superuser administrator editor interviewer reader )
 	end
 
+	def self.unapproved_users
+		@unapproved_users ||= %w( 
+			unapproved_group_administrator 
+			unapproved_nonmember_administrator
+			unapproved_user )
+	end
+
 end
 
 ALL_TEST_ROLES = %w( superuser administrator editor
-	interviewer reader active_user
+	interviewer reader approved_user unapproved_user
  	unapproved_group_administrator group_administrator
  	group_moderator group_editor group_reader group_roleless
  	unapproved_nonmember_administrator nonmember_administrator

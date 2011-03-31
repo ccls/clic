@@ -2,6 +2,8 @@
 
 UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
+Childhood Leukemia International Consortium
+
 
 == Requirements
 
@@ -147,14 +149,15 @@ then we continue ...
  rake app:setup
 
  script/server
- script/backgroundrb start
+
+ #	We don't use backgroundrb at this point
+ #	script/backgroundrb start
 
  #	login to your app
  #	The first administrator/deputy must be created via the command line.
  #	Others can be created via the command line or web app.
  #
- rake app:deputize uid=<Your CalNet UID>
-
+ rake app:deputize username=<Your Username>
 
 
 == Production Installation

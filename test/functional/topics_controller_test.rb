@@ -24,7 +24,10 @@ class TopicsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => ALL_TEST_ROLES })
+		:logins => ( ALL_TEST_ROLES - unapproved_users ) })
+
+	assert_no_access_with_login({ 
+		:logins => unapproved_users })
 
 	assert_no_access_without_login
 
@@ -181,7 +184,7 @@ class TopicsControllerTest < ActionController::TestCase
 #		Show (any logged in user can view)
 #
 
-	ALL_TEST_ROLES.each do |cu|
+	( ALL_TEST_ROLES - unapproved_users ).each do |cu|
 
 		test "should NOT show topic with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -199,6 +202,19 @@ class TopicsControllerTest < ActionController::TestCase
 			get :show, :id => topic.id
 			assert_response :success
 			assert_template 'show'
+		end
+
+	end
+
+	unapproved_users.each do |cu|
+
+		test "should NOT show topic with #{cu} login" do
+			login_as send(cu)
+			forum = create_forum
+			topic = create_forum_topic(forum)
+			get :show, :id => topic.id
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 	end

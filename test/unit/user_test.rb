@@ -23,6 +23,7 @@ class UserTest < ActiveSupport::TestCase
 #	polymorphism causing an issue here I think
 #	assert_should_have_many(:documents, :as => :owner)
 	assert_should_have_many(:group_documents)
+	assert_should_protect(:approved)
 
 	test "should return username as to_s" do
 		object = create_object
@@ -95,6 +96,40 @@ class UserTest < ActiveSupport::TestCase
 				} 
 			})
 		} }
+	end
+
+	test "should be unapproved after create" do
+		assert_difference("User.count",1) do
+			@user = Factory(:user)
+		end
+		assert !@user.reload.approved?
+	end
+
+	test "should be approved after assigned role" do
+		assert_difference("User.count",1) do
+			@user = Factory(:user)
+		end
+		assert !@user.reload.approved?
+		assert_difference("User.find(#{@user.id}).roles.length",1) do
+			@user.roles << Role.find_or_create_by_name('editor')
+		end
+		assert @user.reload.approved?
+	end
+
+	test "should be approved after membership approved" do
+		assert_difference("User.count",1) do
+			@user = Factory(:user)
+		end
+		assert !@user.reload.approved?
+		assert_difference("User.find(#{@user.id}).memberships.length",1) {
+		assert_difference("Membership.count",1) {
+			@m = Factory(:membership, :user => @user)
+		} }
+		assert_equal @user, @m.user
+		assert !@m.reload.approved?
+		@m.approve!
+		assert @m.reload.approved?
+		assert @user.reload.approved?
 	end
 
 end

@@ -191,7 +191,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
 end
 
-#%w( interviewer reader active_user ).each do |cu|
+#%w( interviewer reader unapproved_user ).each do |cu|
 #
 #	test "should NOT preview document with #{cu} login" do
 #		document = Factory(:document)
@@ -235,7 +235,7 @@ end
 #SimplyDocuments::DocumentsControllerTest.class_eval do
 #	tests DocumentsController
 #
-#%w( interviewer reader active_user no_login ).each do |cu|
+#%w( interviewer reader unapproved_user no_login ).each do |cu|
 
 	( ALL_TEST_ROLES - editors + ['no_login'] ).each do |cu|
 

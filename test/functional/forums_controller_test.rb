@@ -25,7 +25,11 @@ class ForumsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	assert_access_with_login({ 
-		:logins => ALL_TEST_ROLES })
+		:logins => ( ALL_TEST_ROLES - unapproved_users ) })
+#		:logins => ALL_TEST_ROLES })
+
+	assert_no_access_with_login({ 
+		:logins => unapproved_users })
 
 	assert_no_access_without_login
 

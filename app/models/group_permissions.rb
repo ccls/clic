@@ -81,8 +81,8 @@ module GroupPermissions
 			if document && document.group
 				may_administrate? || is_group_reader?(document.group)
 			else
-#				may_read? || approved?
-				true
+				may_read? || approved?
+#				true
 			end
 		end
 	
@@ -153,8 +153,8 @@ module GroupPermissions
 			if forum && forum.group
 				may_administrate? || is_group_reader?(forum.group)
 			else
-#				may_read? || approved?
-				true
+				may_read? || approved?
+#				true
 			end
 		end
 

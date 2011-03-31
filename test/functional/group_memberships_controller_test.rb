@@ -22,7 +22,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 
 	def self.creators
 		@creators ||= site_editors + %w( 
-			interviewer reader active_user group_roleless
+			interviewer reader approved_user unapproved_user group_roleless
 			unapproved_group_administrator unapproved_nonmember_administrator
 			nonmember_administrator nonmember_moderator 
 			nonmember_editor nonmember_reader nonmember_roleless )

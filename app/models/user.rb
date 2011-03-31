@@ -37,6 +37,11 @@ class User < ActiveRecord::Base
 	has_many :groups, :through => :memberships
 	has_many :documents, :as => :owner
 
+	#	triggered from simply_authorized habtm :after_add
+	def after_add_role(role)
+		approve! unless approved?
+	end
+
 #	It seems that authlogic includes a minimum length of 4
 #	validates_length_of :password, :minimum => 8, 
 #		:if => :password_changed?
@@ -135,6 +140,7 @@ class User < ActiveRecord::Base
 		username
 	end
 
+	attr_protected :approved
 	def approve!
 		self.approved = true
 		save!

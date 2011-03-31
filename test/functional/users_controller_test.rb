@@ -9,9 +9,9 @@ class UsersControllerTest < ActionController::TestCase
 		assert @response.body.blank?
 	end
 
-	test "should NOT get blank user menu in js with active_user login" do
+	test "should NOT get blank user menu in js with unapproved_user login" do
 		@request.accept = "text/javascript"
-		login_as active_user
+		login_as unapproved_user
 		get :menu
 		assert_response :success
 		assert !@response.body.blank?
@@ -68,7 +68,7 @@ class UsersControllerTest < ActionController::TestCase
 	site_administrators.each do |cu|
 	
 		test "should filter users index by role with #{cu} login" do
-			some_other_user = send(cu)	#admin	#	active_user
+			some_other_user = send(cu)	#admin	#	unapproved_user
 			login_as send(cu)
 			get :index, :role_name => cu	#'administrator'
 			assert assigns(:users).length >= 2
@@ -80,7 +80,7 @@ class UsersControllerTest < ActionController::TestCase
 		end
 	
 		test "should ignore empty role_name with #{cu} login" do
-			some_other_user = admin	#	active_user
+			some_other_user = admin	#	unapproved_user
 			login_as send(cu)
 			get :index, :role_name => ''
 			assert assigns(:users).length >= 2
@@ -120,7 +120,7 @@ class UsersControllerTest < ActionController::TestCase
 	#	not really a controller test
 	test "should NOT automatically log in new user with my helper" do
 		assert_difference('User.count',1) do
-			active_user
+			unapproved_user
 		end
 		assert_equal Hash.new, session
 		assert_nil UserSession.find
@@ -142,7 +142,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get new user with login" do
-		login_as active_user
+		login_as unapproved_user
 		get :new
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -192,7 +192,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user with login" do
-		login_as active_user
+		login_as unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user)
@@ -212,7 +212,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without unique username" do
-		u = active_user
+		u = unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user, :username => u.username)
@@ -289,7 +289,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without unique email" do
-		u = active_user
+		u = unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
