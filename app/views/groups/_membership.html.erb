@@ -10,13 +10,17 @@
  </td>
  <td class='manage'>
   <% if current_user.may_edit_group_membership?(membership) %>
-   <%= link_to 'Edit', edit_group_membership_path(membership.group,membership), 
+   <% form_link_to 'Approve', approve_group_membership_path(@group,membership), 
+     'method' => 'put' do %>
+     <%= submit_link_to('Approve') %>
+   <% end unless membership.approved? %>
+   <%= link_to 'Edit', edit_group_membership_path(@group,membership), 
      :class => 'button' %>&nbsp;
-   <%# destroy_link_to 'Destroy', group_path(group) do %>
-    <%#= hidden_field_tag 'confirm', "Destroy group '#{group}'?", 
-     :id => nil %>
-<%#= submit_link_to('Destroy') %>
-   <%# end %>
+   <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
+     <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?",
+       :id => nil %>
+     <%= submit_link_to('Destroy') %>
+   <% end %>
   <% end %>
  </td>
 <% end %><!-- class='membership row' -->

@@ -81,6 +81,7 @@ module GroupPermissions
 			if document && document.group
 				may_administrate? || is_group_reader?(document.group)
 			else
+#				may_read? || approved?
 				true
 			end
 		end
@@ -145,6 +146,24 @@ module GroupPermissions
 		#	Only admins can destroy a given group
 		def may_destroy_group?(group)
 			may_administrate?
+		end
+
+
+		def may_read_forum?(forum)
+			if forum && forum.group
+				may_administrate? || is_group_reader?(forum.group)
+			else
+#				may_read? || approved?
+				true
+			end
+		end
+
+		def may_edit_forum?(forum)
+			if forum && forum.group
+				may_administrate? || is_group_editor?(forum.group)
+			else
+				may_edit?
+			end
 		end
 
 	end	#	module InstanceMethods

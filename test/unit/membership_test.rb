@@ -12,4 +12,13 @@ class MembershipTest < ActiveSupport::TestCase
 	assert_should_protect( :group_role_id )
 	assert_should_protect( :approved )
 
+	test "should approve membership with approve!" do
+		object = create_object
+		assert !object.approved?
+		assert_changes("Membership.find(#{object.id}).approved") do
+			object.approve!
+		end
+		assert  object.approved?
+	end
+
 end

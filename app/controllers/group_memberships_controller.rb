@@ -8,12 +8,12 @@ class GroupMembershipsController < ApplicationController
 	before_filter :group_role_required,
 		:only => [:update]
 	before_filter :membership_required,
-		:only => [:edit,:update,:show,:destroy]
+		:only => [:edit,:update,:approve,:show,:destroy]
 
 	before_filter "may_create_group_memberships_required", :only => [:new,:create]
 	before_filter "may_read_group_memberships_required",   :only => [:index]
 	before_filter "may_read_group_membership_required",    :only => [:show]
-	before_filter "may_update_group_membership_required",  :only => [:edit,:update]
+	before_filter "may_update_group_membership_required",  :only => [:edit,:update,:approve]
 	before_filter "may_destroy_group_membership_required", :only => [:destroy]
 
 	def index
@@ -34,7 +34,7 @@ class GroupMembershipsController < ApplicationController
 		@membership.user = current_user
 		@membership.save!
 		flash[:notice] = "Membership request created."
-		redirect_to members_only_path
+		redirect_to group_path(@group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Something bad happened"
 		render :action => 'new'
@@ -44,6 +44,14 @@ class GroupMembershipsController < ApplicationController
 	end
 
 	def edit
+	end
+
+	def approve
+		@membership.approve!
+	rescue ActiveRecord::RecordNotSaved
+		flash[:error] = "Membership approval failed"
+	ensure
+		redirect_to group_memberships_path
 	end
 
 	def update
@@ -58,7 +66,7 @@ class GroupMembershipsController < ApplicationController
 
 	def destroy
 		@membership.destroy
-		redirect_to members_only_path
+		redirect_to group_path(@group)
 	end
 
 protected

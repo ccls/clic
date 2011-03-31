@@ -12,12 +12,12 @@
   <%= (membership.approved?)?'Yes':'No' %>
  </td>
  <td class='manage'>
-  <%= link_to 'Edit', edit_membership_path(membership),
-		:class => 'button' %>
-  <% form_link_to 'Approve', membership_path(membership),
+  <% form_link_to 'Approve', approve_membership_path(membership),
 		'method' => 'put' do %>
     <%= submit_link_to('Approve') %>
-  <% end %>
+  <% end unless membership.approved? %>
+  <%= link_to 'Edit', edit_membership_path(membership),
+		:class => 'button' %>
   <% destroy_link_to 'Destroy', membership_path(membership) do %>
    <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?", 
      :id => nil %>

@@ -11,7 +11,7 @@ class ActiveSupport::TestCase
 		user_id = ( user.is_a?(User) ) ? user.id : user
 		if !user_id.blank?
 			assert_not_logged_in
-			UserSession.create(User.find(user_id))
+			s = UserSession.create(User.find(user_id))
 			assert_logged_in
 		else
 			assert_not_logged_in
@@ -62,9 +62,16 @@ class ActionController::TestCase
 	end
 
 	def create_membership(options={})
+#		m = Factory(:membership,{
 		Factory(:membership,{
 			:approved   => true,
 			:group_role => GroupRole['reader']}.merge(options))
+#		if m.approved?
+#			u = m.user
+#			u.approved = m.approved?
+#			u.save!
+#		end
+#		m
 	end
 
 	def group_roleless
@@ -127,6 +134,8 @@ class ActionController::TestCase
 		m.user
 	end
 
+#	the following "nonmembers" mean that they are "not members of @membership.group"
+
 	def nonmember_roleless
 		m = create_membership(
 			:group_role => nil )
@@ -178,6 +187,12 @@ class ActionController::TestCase
 	def membership_user
 		@membership.user
 	end
+
+#	def approved_user(options={})		#	no site or group role, but approved member
+#		u = active_user(options)
+#		u.approve!
+#		u
+#	end
 
 	def no_login
 		nil

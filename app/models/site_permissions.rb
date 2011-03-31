@@ -33,8 +33,9 @@ module SitePermissions
 
 	module InstanceMethods
 
-		#	Always true, used primarily as aliases for other meaninfully named permissions
+		#	Always true, used primarily as aliases for other meaningfully named permissions
 		def may?
+#			may_read? || approved?
 			true
 		end
 
@@ -137,21 +138,6 @@ module SitePermissions
 			self.is_user?(user) || self.may_administrate?
 		end
 
-		def may_read_forum?(forum)
-			if forum && forum.group
-				may_administrate? || is_group_reader?(forum.group)
-			else
-				true
-			end
-		end
-
-		def may_edit_forum?(forum)
-			if forum && forum.group
-				may_administrate? || is_group_editor?(forum.group)
-			else
-				may_edit?
-			end
-		end
-
 	end	#	module InstanceMethods
+
 end

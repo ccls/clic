@@ -109,12 +109,40 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	
 		test "should NOT update membership without valid group_role_id with #{cu} login" do
 			login_as send(cu)
-			put :update, 
-				:group_id => @membership.group.id, 
-				:id => @membership.id, 
-				:membership => { :group_role_id => 0 }
+			deny_changes("Membership.find(#{@membership.id}).group_role_id") do
+				put :update, 
+					:group_id => @membership.group.id, 
+					:id => @membership.id, 
+					:membership => { :group_role_id => 0 }
+			end
 			assert_not_nil flash[:error]
 			assert_redirected_to members_only_path
+		end
+
+		test "should approve membership with #{cu} login and no params" do
+			@membership.approved = false
+			@membership.save!
+			login_as send(cu)
+			assert !@membership.approved?
+			assert_changes("Membership.find(#{@membership.id}).approved") do
+				put :approve, :id => @membership.id, :group_id => @membership.group.id
+			end
+			assert  @membership.reload.approved?
+			assert_redirected_to group_memberships_path
+		end
+
+		test "should NOT approve membership with #{cu} login and update fails" do
+			@membership.approved = false
+			@membership.save!
+			login_as send(cu)
+			Membership.any_instance.stubs(:create_or_update).returns(false)
+			assert !@membership.approved?
+			deny_changes("Membership.find(#{@membership.id}).approved") do
+				put :approve, :id => @membership.id, :group_id => @membership.group.id
+			end
+			assert !@membership.reload.approved?
+			assert_not_nil flash[:error]
+			assert_redirected_to group_memberships_path
 		end
 
 		test "should destroy membership with #{cu} login" do
@@ -122,7 +150,8 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 			assert_difference("Membership.count",-1){
 				delete :destroy, :group_id => @membership.group.id, :id => @membership.id
 			}
-			assert_redirected_to members_only_path
+			assert_equal assigns(:group), @membership.group
+			assert_redirected_to group_path(assigns(:group))
 		end
 
 		test "should NOT destroy membership without id with #{cu} login" do
@@ -155,6 +184,19 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 			}
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path	#	members_only_path
+		end
+
+		test "should NOT approve membership with #{cu} login" do
+			@membership.approved = false
+			@membership.save!
+			login_as send(cu)
+			assert !@membership.approved?
+			deny_changes("Membership.find(#{@membership.id}).approved") do
+				put :approve, :id => @membership.id, :group_id => @membership.group.id
+			end
+			assert !@membership.reload.approved?
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 		test "should NOT destroy membership with #{cu} login" do
@@ -203,7 +245,8 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 				post :create, :group_id => @membership.group.id
 			}
 			assert !assigns(:membership).approved?
-			assert_redirected_to members_only_path
+			assert_equal assigns(:group), @membership.group
+			assert_redirected_to group_path(assigns(:group))
 		end
 	
 		test "should create membership with group, group role and #{cu} login" do
@@ -214,7 +257,8 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 			}
 			assert_equal assigns(:membership).group_role, GroupRole['editor']
 			assert !assigns(:membership).approved?
-			assert_redirected_to members_only_path
+			assert_equal assigns(:group), @membership.group
+			assert_redirected_to group_path(assigns(:group))
 		end
 	
 		test "should NOT create membership with #{cu} login when create fails" do
@@ -339,6 +383,10 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path	#	members_only_path
 	end
 
+	test "should NOT approve membership with self login" do
+pending
+	end
+
 	test "should NOT update membership with self login" do
 		login_as @membership.user
 		deny_changes("Membership.find(#{@membership.id}).group_role_id") {
@@ -391,6 +439,18 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
+	test "should NOT approve membership without login" do
+		@membership.approved = false
+		@membership.save!
+		deny_changes("Membership.find(#{@membership.id}).approved") {
+			put :update, 
+				:group_id => @membership.group.id, 
+				:id => @membership.id, 
+				:membership => { :group_role_id => GroupRole[:editor].id }
+		}
+		assert_redirected_to_login
+	end
+
 	test "should NOT destroy membership without login" do
 		assert_difference("Membership.count",0){
 			delete :destroy, :group_id => @membership.group.id, :id => @membership.id
@@ -407,6 +467,5 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 		get :show, :group_id => @membership.group.id, :id => @membership.id
 		assert_redirected_to_login
 	end
-
 
 end

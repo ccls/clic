@@ -20,6 +20,15 @@ class Membership < ActiveRecord::Base
 
 #	after_create, if not approved, send membership_approval email
 
+	def approve!
+		self.approved = true
+		save!
+#
+#	self.user.approve! unless self.user.approved?
+#
+		self
+	end
+
 	def approved?
 		approved
 	end

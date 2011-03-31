@@ -135,6 +135,16 @@ class User < ActiveRecord::Base
 		username
 	end
 
+	def approve!
+		self.approved = true
+		save!
+		self
+	end
+
+	def approved?
+		approved
+	end
+
 #	class NotFound < StandardError; end
 
 	#	Treats the class a bit like a Hash and

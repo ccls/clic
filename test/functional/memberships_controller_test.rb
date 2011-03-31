@@ -9,7 +9,8 @@ class MembershipsControllerTest < ActionController::TestCase
 		:method_for_create => :create_membership
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:membership,options)
+		Factory.attributes_for(:membership, {
+			:group_role_id => GroupRole['editor'] }.merge(options))
 	end
 
 	# a @membership is required so that those group roles will work
@@ -46,18 +47,61 @@ class MembershipsControllerTest < ActionController::TestCase
 			membership = create_membership(:approved => false)
 			login_as send(cu)
 			assert !membership.approved?
-			put :update, :id => membership.id
+			assert_changes("Membership.find(#{membership.id}).approved") do
+				put :approve, :id => membership.id
+			end
 			assert  membership.reload.approved?
 			assert_redirected_to memberships_path
 		end
 	
+		test "should NOT approve membership with #{cu} login and update fails" do
+			membership = create_membership(:approved => false)
+			Membership.any_instance.stubs(:create_or_update).returns(false)
+			login_as send(cu)
+			assert !membership.approved?
+			deny_changes("Membership.find(#{membership.id}).approved") do
+				put :approve, :id => membership.id
+			end
+			assert !membership.reload.approved?
+			assert_not_nil flash[:error]
+			assert_redirected_to memberships_path
+		end
+
 		test "should update membership group role with #{cu} login and new role" do
 			create_a_membership
 			login_as send(cu)
 			assert_equal @membership.group_role, GroupRole['reader']
-			put :update, :id => @membership.id, :membership => { 
-				:group_role_id => GroupRole['editor'] }
+			assert_changes("Membership.find(#{@membership.id}).group_role_id") do
+				put :update, :id => @membership.id, :membership => { 
+					:group_role_id => GroupRole['editor'] }
+			end
 			assert_equal @membership.reload.group_role, GroupRole['editor']
+			assert_redirected_to memberships_path
+		end
+
+		test "should NOT update membership group role with #{cu} login and update fails" do
+			create_a_membership
+			login_as send(cu)
+			Membership.any_instance.stubs(:create_or_update).returns(false)
+			assert_equal @membership.group_role, GroupRole['reader']
+			deny_changes("Membership.find(#{@membership.id}).group_role_id") do
+				put :update, :id => @membership.id, :membership => { 
+					:group_role_id => GroupRole['editor'] }
+			end
+			assert_not_nil flash[:error]
+			assert_redirected_to memberships_path
+		end
+
+		test "should NOT update membership group role with #{cu} login and invalid group_role_id" do
+			create_a_membership
+			login_as send(cu)
+			Membership.any_instance.stubs(:create_or_update).returns(false)
+			assert_equal @membership.group_role, GroupRole['reader']
+			deny_changes("Membership.find(#{@membership.id}).group_role_id") do
+				put :update, :id => @membership.id, :membership => { 
+					:group_role_id => 0 }
+			end
+			assert_not_nil flash[:error]
 			assert_redirected_to memberships_path
 		end
 	
