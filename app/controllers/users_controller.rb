@@ -4,10 +4,11 @@ class UsersController < ApplicationController
 		:only => [:new, :create, :menu]
 
 	before_filter :no_current_user_required, :only => [:new, :create]
-	before_filter :id_required, :only => [:edit, :show, :update ]
+	before_filter :id_required, :only => [:edit, :show, :update, :approve ]
 	before_filter :may_edit_user_required,  :only => [:edit,:update]
 	before_filter :may_view_user_required,  :only => [:show]
 	before_filter :may_view_users_required, :only => :index
+	before_filter :may_administrate_required, :only => :approve
 
 	def new	
 		@user = User.new	
@@ -51,6 +52,14 @@ class UsersController < ApplicationController
 		flash.now[:error] = "Update failed"
 		render :action => 'edit'	
 	end 
+
+	def approve
+		@user.approve!
+	rescue ActiveRecord::RecordNotSaved
+		flash[:error] = "User approval failed"
+	ensure
+		redirect_to users_path
+	end
 
 	def show
 		@roles = Role.all

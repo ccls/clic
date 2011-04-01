@@ -93,8 +93,50 @@ class UsersControllerTest < ActionController::TestCase
 			get :index, :role_name => 'suffocator'
 			assert_response :success
 		end
+
+		test "should approve user with #{cu} login" do
+			u = unapproved_user
+			assert !u.approved?
+			login_as send(cu)
+			assert_changes("User.find(#{u.id}).approved") do
+				put :approve, :id => u.id
+			end
+			assert  u.reload.approved?
+			assert_redirected_to users_path
+		end
+	
+		test "should NOT approve user with #{cu} login and update fails" do
+			u = unapproved_user
+			assert !u.approved?
+			login_as send(cu)
+			User.any_instance.stubs(:create_or_update).returns(false)
+			deny_changes("User.find(#{u.id}).approved") do
+				put :approve, :id => u.id
+			end
+			assert !u.reload.approved?
+			assert_not_nil flash[:error]
+			assert_redirected_to users_path
+		end
 	
 	end
+
+
+	( ALL_TEST_ROLES - site_administrators ).each do |cu|
+
+		test "should NOT approve user with #{cu} login" do
+			u = unapproved_user
+			assert !u.approved?
+			login_as send(cu)
+			deny_changes("User.find(#{u.id}).approved") do
+				put :approve, :id => u.id
+			end
+			assert !u.approved?
+			assert_redirected_to root_path
+		end
+
+	end
+
+
 	
 	ALL_TEST_ROLES.each do |cu|
 	

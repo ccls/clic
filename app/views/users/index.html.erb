@@ -1,34 +1,11 @@
 <% stylesheets('users') %>
 <h2>Users:</h2>
 <% unless @users.empty? %>
- <table id='users'><thead>
-  <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
- </thead><tbody>
- <% @users.each do |user| %>
-  <tr class='<%=user.role_names.join(' ')-%> user row'>
-   <td class='avatar'>
-    <%#= link_to( image_tag(user.gravatar_url), "http://gravatar.com", :target => 'new' )%>
-    <%= image_tag(user.avatar.url(:xtiny)) %>
-   </td>
-   <td class='username'>
-    <%= link_to user, user_path(user) -%>
-   </td>
-   <td class='role_name'>&nbsp;
-    <% user.role_names.each do |role_name| %>
-     <%= link_to role_name, users_path( :role_name => role_name ) -%>
-    <% end %>
-   </td>
-   <td class='manage'>
-<%#
-	No destroy action yet
-%> 
-    <%# destroy_link_to( 'Destroy', user_path(user) ) do %>
-<%#= submit_link_to('Destroy') %>
-    <%# end %>
-   </td>
-  </tr>
- <% end %>
-</tbody></table><!-- id='users' -->
+  <table id='users'><thead>
+    <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
+  </thead><tbody>
+  <%= render :partial => 'user', :collection => @users %>
+  </tbody></table><!-- id='users' -->
 <% else %>
- <p>Sorry, no users yet.</p>
+  <p>Sorry, no users yet.</p>
 <% end %>

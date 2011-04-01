@@ -1,0 +1,19 @@
+<% content_tag_for( :tr, user, :class => "#{user.role_names.join(' ')} user row" ) do %>
+  <td class='avatar'>
+    <%= image_tag(user.avatar.url(:xtiny)) %>
+  </td>
+  <td class='username'>
+    <%= link_to user, user_path(user) -%>
+  </td>
+  <td class='role_name'>&nbsp;
+    <% user.role_names.each do |role_name| %>
+      <%= link_to role_name, users_path( :role_name => role_name ) -%>
+    <% end %>
+  </td>
+  <td class='manage'>
+    <% form_link_to 'Approve', approve_user_path(user),
+      'method' => 'put' do %>
+      <%= submit_link_to('Approve') %>
+    <% end unless user.approved? %>
+  </td>
+<% end %>
