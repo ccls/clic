@@ -82,7 +82,6 @@ module GroupPermissions
 				may_administrate? || is_group_reader?(document.group)
 			else
 				may_read? || approved?
-#				true
 			end
 		end
 	
@@ -154,7 +153,6 @@ module GroupPermissions
 				may_administrate? || is_group_reader?(forum.group)
 			else
 				may_read? || approved?
-#				true
 			end
 		end
 

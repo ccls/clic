@@ -33,10 +33,8 @@ module SitePermissions
 
 	module InstanceMethods
 
-		#	Always true, used primarily as aliases for other meaningfully named permissions
 		def may?
 			may_read? || approved?
-#			true
 		end
 
 		#	from SimplyAuthorized::UserModel::InstanceMethods
