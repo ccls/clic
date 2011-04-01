@@ -66,6 +66,15 @@ module ApplicationHelper
 	end
 
 
+#	Move the following to simply_helpful once proven
+
+	def hour_select(object_name, method, 
+			options={}, html_options={})
+		select(object_name, method,
+			(1..12),
+			{:include_blank => 'Hour'}.merge(options), html_options)
+	end
+
 	def minute_select(object_name, method, 
 			options={}, html_options={})
 		minutes = (0..59).to_a.collect{|m|[sprintf("%02d",m),m]}
@@ -74,13 +83,34 @@ module ApplicationHelper
 			{:include_blank => 'Minute'}.merge(options), html_options)
 	end
 
+	def meridiem_select(object_name, method, 
+			options={}, html_options={})
+		select(object_name, method,
+			['AM','PM'], 
+			{:include_blank => 'Meridiem'}.merge(options), html_options)
+	end
+
 end
 
 
 ActionView::Helpers::FormBuilder.class_eval do
 
+	def hour_select(method,options={},html_options={})
+		@template.hour_select(
+			@object_name, method, 
+				objectify_options(options),
+				html_options)
+	end
+
 	def minute_select(method,options={},html_options={})
 		@template.minute_select(
+			@object_name, method, 
+				objectify_options(options),
+				html_options)
+	end
+
+	def meridiem_select(method,options={},html_options={})
+		@template.meridiem_select(
 			@object_name, method, 
 				objectify_options(options),
 				html_options)

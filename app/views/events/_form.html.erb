@@ -12,19 +12,19 @@
 	:class => 'autosize' %>
  <% f.wrapped_date_text_field :begins_on,
 	:label_text => "Begins On <span class='required'>*</span>" do %>
-  <%= f.wrapped_select(:begins_at_hour, (1..12), :include_blank => 'Hour',
+  <%= f.wrapped_hour_select(:begins_at_hour,
 		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
   <%= f.wrapped_minute_select(:begins_at_minute,
 		:label_text => '&nbsp;:&nbsp;') %>
-  <%= f.wrapped_select(:begins_at_meridiem, ['AM','PM'], :include_blank => 'Meridiem',
+  <%= f.wrapped_meridiem_select(:begins_at_meridiem,
 		:label_text => '&nbsp;&nbsp;') %>
  <% end %>
  <% f.wrapped_date_text_field :ends_on do %>
-  <%= f.wrapped_select(:ends_at_hour, (1..12), :include_blank => 'Hour',
+  <%= f.wrapped_hour_select(:ends_at_hour,
 		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
   <%= f.wrapped_minute_select(:ends_at_minute,
 		:label_text => '&nbsp;:&nbsp;') %>
-  <%= f.wrapped_select(:ends_at_meridiem, ['AM','PM'], :include_blank => 'Meridiem',
+  <%= f.wrapped_meridiem_select(:ends_at_meridiem,
 		:label_text => '&nbsp;&nbsp;') %>
  <% end %>
  <p><span class='required'>*&nbsp;-&nbsp;Required</span> (times are optional)</p>
