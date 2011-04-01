@@ -65,4 +65,25 @@ module ApplicationHelper
 		out << "</ul><!-- id='GlobalNav' -->\n"
 	end
 
+
+	def minute_select(object_name, method, 
+			options={}, html_options={})
+		minutes = (0..59).to_a.collect{|m|[sprintf("%02d",m),m]}
+		select(object_name, method,
+			minutes,
+			{:include_blank => 'Minute'}.merge(options), html_options)
+	end
+
+end
+
+
+ActionView::Helpers::FormBuilder.class_eval do
+
+	def minute_select(method,options={},html_options={})
+		@template.minute_select(
+			@object_name, method, 
+				objectify_options(options),
+				html_options)
+	end
+
 end

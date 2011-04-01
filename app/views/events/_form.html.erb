@@ -1,5 +1,3 @@
-<%# in layout/_head now %>
-<%# stylesheets('base/jquery.ui.all.css') %>
 <h1>Editing event</h1>
 
 <% form_for(@event) do |f| %>
@@ -16,7 +14,7 @@
 	:label_text => "Begins On <span class='required'>*</span>" do %>
   <%= f.wrapped_select(:begins_at_hour, (1..12), :include_blank => 'Hour',
 		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
-  <%= f.wrapped_select(:begins_at_minute, (0..59), :include_blank => 'Minute',
+  <%= f.wrapped_minute_select(:begins_at_minute,
 		:label_text => '&nbsp;:&nbsp;') %>
   <%= f.wrapped_select(:begins_at_meridiem, ['AM','PM'], :include_blank => 'Meridiem',
 		:label_text => '&nbsp;&nbsp;') %>
@@ -24,7 +22,7 @@
  <% f.wrapped_date_text_field :ends_on do %>
   <%= f.wrapped_select(:ends_at_hour, (1..12), :include_blank => 'Hour',
 		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
-  <%= f.wrapped_select(:ends_at_minute, (0..59), :include_blank => 'Minute',
+  <%= f.wrapped_minute_select(:ends_at_minute,
 		:label_text => '&nbsp;:&nbsp;') %>
   <%= f.wrapped_select(:ends_at_meridiem, ['AM','PM'], :include_blank => 'Meridiem',
 		:label_text => '&nbsp;&nbsp;') %>
