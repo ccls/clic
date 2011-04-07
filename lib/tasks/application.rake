@@ -2,7 +2,7 @@ namespace :app do
 
 	desc "Load some fixtures to database for application"
 	task :setup => :environment do
-		fixtures = []
+#		fixtures = []
 #		fixtures.push('pages')
 #		fixtures.push('roles')
 #		fixtures.push('group_roles')
