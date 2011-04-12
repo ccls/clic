@@ -14,9 +14,6 @@ body {
 #logo {
 	float: left;
 	width: 130px;
-/*
-	margin-bottom: 15px;
-*/
 	margin-bottom: 5px;
 }
 
@@ -65,16 +62,9 @@ body {
 
 
 #menu {
-	float: left;
-/*
-	width: 145px;
-*/
 	width: 175px;
 	clear: left;
 	background:#99CCFF;
-}
-#content_wrapper {
-	float:right;
 }
 #content {
 	padding-left: 15px;
@@ -83,9 +73,6 @@ body {
 	min-height: 300px;
 	font: 0.8em Arial, Helvetica, sans-serif;
 	color: #000;
-/*
-	width: 640px;
-*/
 	width: 710px;
 }
 
@@ -119,27 +106,23 @@ body {
 	border-bottom: 0;
 }
 
-
-.members_only > .section {
-	width: 49%;
+.members_only {
+	display:table-row;
 }
-
+.members_only > .section {
+	display:table-cell;
+	width: 350px;
+}
+.members_only > .section:nth-child(1) {
+	padding-right: 5px;
+}
 .members_only > .section h2:nth-child(1) {
 	text-align: center;
-}
-
-.members_only > .announcement_section {
-	float:left;
-}
-
-.members_only > .calendar_section {
-	float:right;
 }
 
 
 #footer {
 	margin-top: 5px;
-	margin-left: 15px;
 	border-top: 1px solid #999;
 	padding-top: 15px;
 	font: 0.7em Arial, Helvetica, sans-serif;
@@ -149,12 +132,10 @@ body {
 	text-align: center;
 	clear: both;
 }
-
 #footer a {
 	color: #666;
 	text-decoration: none;
 }
-
 #footer a:hover {
 	color: #666;
 	text-decoration: underline;
@@ -193,7 +174,6 @@ h1, h2, h3, h4, p {
 ol {
 	list-style: decimal inside;
 }
-
 
 
 .style1 {

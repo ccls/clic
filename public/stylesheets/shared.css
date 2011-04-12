@@ -52,16 +52,6 @@ div.pagination {
 }
 
 
-/* http://www.positioniseverything.net/articles/onetruelayout/equalheight */
-.equal_height_column_wrapper {
-	overflow:hidden;
-}
-.equal_height_column {
-	padding-bottom: 32767px;
-	margin-bottom: -32767px;
-}
-
-
 .columns {
 	clear:both;
 	/* this holds the div open to the size of the contents */
@@ -77,24 +67,6 @@ div.pagination {
 th {
 	text-align: left;
 }
-
-/*
-
-Not sure if this is needed. 
-If it is the last tag, the float stops the menu background / content border
-	from going all the way to the bottom.
-#content > form:nth-of-type(1) {
-	float:left;
-}
-*/
-
-/* 
-	added this to force error explanations and forms to be full width 
-	but we'll see if it messes other stuff up
-#content > form {
-	width: 100%;
-}
-*/
 
 
 
