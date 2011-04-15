@@ -61,3 +61,10 @@ form div.field_wrapper.ends_at_meridiem label {
 	width: 1em;
 }
 
+form#new_event div.field_wrapper.content label,
+form.edit_event div.field_wrapper.content label,
+form#new_announcement div.field_wrapper.content label,
+form.edit_announcement div.field_wrapper.content label {
+	float:none;
+	display:block;
+}

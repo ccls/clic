@@ -24,6 +24,21 @@ class AnnouncementsController < ApplicationController
 		render :action => 'new'
 	end
 
+	def update
+#		@announcement.update_attributes!(params[:announcement])
+		@announcement.update_attributes(params[:announcement])
+		#	due to some upgrades, it is possible for older announcements
+		#	to not have a user so set it here.
+		@announcement.user = current_user if @announcement.user.nil?
+		@announcement.save!
+		flash[:notice] = 'Success!'
+		redirect_to announcements_path
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "There was a problem updating the announcement"
+		render :action => "edit"
+	end
+
+
 protected
 
 	def get_all

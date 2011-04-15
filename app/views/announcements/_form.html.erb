@@ -10,7 +10,7 @@
  <%= link_to 'What is textile?', 'http://redcloth.org', :target => 'new' %>
 <% end %>
  <%= f.wrapped_text_area :content,
-	:class => 'autosize' %>
+	:class => 'autosize tinymce' %>
  <p>
   <%= f.submit( (@announcement.new_record?)?'Create':'Update' ) %>
   <%= submit_link_to( (@announcement.new_record?)?'Create':'Update' ) %>

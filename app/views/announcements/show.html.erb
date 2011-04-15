@@ -8,7 +8,7 @@
   <% if( @announcement.textilize ) %>
     <%= sanitize(textilize(@announcement.content)) %>
   <% else %>
-    <%=h @announcement.content %>
+    <%= sanitize(@announcement.content) %>
   <% end %>
 </p>
 

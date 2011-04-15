@@ -10,7 +10,7 @@
 
 <p>
   <b>Content:</b>
-  <%=h @event.content %>
+  <%= sanitize(@event.content) %>
 </p>
 
 <p>

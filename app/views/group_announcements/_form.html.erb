@@ -1,5 +1,6 @@
+<% javascripts('tiny_mce/jquery.tinymce.js') %>
 <%= f.error_messages %>
 <%= f.wrapped_text_field :title,
 	:class => 'autosize' %>
 <%= f.wrapped_text_area :content,
-	:class => 'autosize' %>
+	:class => 'autosize tinymce' %>

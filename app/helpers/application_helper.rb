@@ -65,4 +65,10 @@ module ApplicationHelper
 		out << "</ul><!-- id='GlobalNav' -->\n"
 	end
 
+	#	Just a simple method to wrap the passed text in a span
+	#	with class='required'
+	def required(text)
+		"<span class='required'>#{text}</span>"
+	end
+
 end

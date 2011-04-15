@@ -62,6 +62,7 @@ http://www.google.com/cse/docs/cref.html
 			// Example content CSS (should be your site CSS)
 			content_css : root + "/stylesheets/layout.css",
 	
+			width: '100%'
 		});
 	}
 

@@ -39,7 +39,12 @@ class GroupAnnouncementsController < ApplicationController
 	end
 
 	def update
-		@announcement.update_attributes!(params[:announcement])
+#		@announcement.update_attributes!(params[:announcement])
+		@announcement.update_attributes(params[:announcement])
+		#	due to some upgrades, it is possible for older announcements
+		#	to not have a user so set it here.
+		@announcement.user = current_user if @announcement.user.nil?
+		@announcement.save!
 		flash[:notice] = 'Success!'
 		redirect_to group_path(@announcement.group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid

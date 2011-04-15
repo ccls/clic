@@ -1,17 +1,18 @@
+<% javascripts('tiny_mce/jquery.tinymce.js') %>
 <h1>Editing event</h1>
 
 <% form_for(@event) do |f| %>
  <%= f.error_messages %>
  <%= f.wrapped_text_field :title,
-	:label_text => "Title <span class='required'>*</span>",
+	:label_text => "Title #{required('*')}",
 	:class => 'autosize' %>
  <%= f.wrapped_text_field :location,
 	:class => 'autosize' %>
  <%= f.wrapped_text_area :content,
-	:label_text => "Content <span class='required'>*</span>",
-	:class => 'autosize' %>
+	:label_text => "Content #{required('*')}",
+	:class => 'autosize tinymce' %>
  <% f.wrapped_date_text_field :begins_on,
-	:label_text => "Begins On <span class='required'>*</span>" do %>
+	:label_text => "Begins On #{required('*')}" do %>
   <%= f.wrapped_hour_select(:begins_at_hour,
 		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
   <%= f.wrapped_minute_select(:begins_at_minute,
@@ -27,7 +28,7 @@
   <%= f.wrapped_meridiem_select(:ends_at_meridiem,
 		:label_text => '&nbsp;&nbsp;') %>
  <% end %>
- <p><span class='required'>*&nbsp;-&nbsp;Required</span> (times are optional)</p>
+ <p><%= required('*&nbsp;-&nbsp;Required') -%> (times are optional)</p>
  <p>
   <%= f.submit( (@event.new_record?)?'Create':'Update' ) %>
   <%= submit_link_to( (@event.new_record?)?'Create':'Update' ) %>

@@ -39,7 +39,12 @@ class GroupEventsController < ApplicationController
 	end
 
 	def update
-		@event.update_attributes!(params[:event])
+#		@event.update_attributes!(params[:event])
+		@event.update_attributes(params[:event])
+		#	due to some upgrades, it is possible for older events
+		#	to not have a user so set it here.
+		@event.user = current_user if @event.user.nil?
+		@event.save!
 		flash[:notice] = 'Success!'
 		redirect_to group_path(@event.group)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid

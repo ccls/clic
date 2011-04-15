@@ -24,6 +24,21 @@ class EventsController < ApplicationController
 		render :action => 'new'
 	end
 
+	def update
+#		@event.update_attributes!(params[:event])
+		@event.update_attributes(params[:event])
+		#	due to some upgrades, it is possible for older events
+		#	to not have a user so set it here.
+		@event.user = current_user if @event.user.nil?
+		@event.save!
+		flash[:notice] = 'Success!'
+		redirect_to events_path
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "There was a problem updating the event"
+		render :action => "edit"
+	end
+
+
 protected
 
 	def get_all

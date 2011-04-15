@@ -7,15 +7,15 @@
 
  <%= f.error_messages %>
  <%= f.wrapped_password_field :password,
-		:label_text => "Password <span class='required'>*</span>",
+		:label_text => "Password #{required('*')}",
     :class => 'autosize' %>
  <%= f.wrapped_password_field :password_confirmation,
-		:label_text => "Password Confirmation <span class='required'>*</span>",
+		:label_text => "Password Confirmation #{required('*')}",
     :class => 'autosize' %>
 
 <p>
   <%= f.submit "Submit" %>
   <%= submit_link_to "Submit" %>
 </p>
-<p><span class='required'>*</span>&nbsp;-&nbsp;Password requires at least one lowercase and one uppercase letter, one number and one special character </p>
+<p><%=required('*')-%>&nbsp;-&nbsp;Password requires at least one lowercase and one uppercase letter, one number and one special character </p>
 <% end %>

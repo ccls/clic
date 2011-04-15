@@ -1,26 +1,26 @@
 <%= f.wrapped_text_field :title,
-	:label_text => "Title <span class='required'>*</span>",
+	:label_text => "Title #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :first_name,
-	:label_text => "First Name <span class='required'>*</span>",
+	:label_text => "First Name #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :last_name,
-	:label_text => "Last Name <span class='required'>*</span>",
+	:label_text => "Last Name #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :degrees,
-	:label_text => "Degrees <span class='required'>*</span>",
+	:label_text => "Degrees #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :profession,
-	:label_text => "Profession <span class='required'>*</span>",
+	:label_text => "Profession #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :organization,
-	:label_text => "Organization <span class='required'>*</span>",
+	:label_text => "Organization #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :phone_number,
-	:label_text => "Phone Number <span class='required'>*</span>",
+	:label_text => "Phone Number #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_area :address, :rows => 3,
-	:label_text => "Address <span class='required'>*</span>",
+	:label_text => "Address #{required('*')}",
 	:class => 'autosize' %>
 <%= f.wrapped_text_area :research_interests,
 	:class => 'autosize' %>

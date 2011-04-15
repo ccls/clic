@@ -5,7 +5,7 @@
 
 <p>
   <b>Content:</b>
-  <%=h @announcement.content %>
+  <%= sanitize(@announcement.content) %>
 </p>
 
 <p>
