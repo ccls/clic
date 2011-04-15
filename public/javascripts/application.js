@@ -59,10 +59,10 @@ http://www.google.com/cse/docs/cref.html
 			theme_advanced_toolbar_align : "left",
 //			theme_advanced_resizing : true,
 	
-			// Example content CSS (should be your site CSS)
-			content_css : root + "/stylesheets/layout.css",
+//			width: '710px'
 
-			width: '710px'
+			// Example content CSS (should be your site CSS)
+			content_css : root + "/stylesheets/layout.css"
 		});
 	}
 
