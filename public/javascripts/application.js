@@ -59,7 +59,7 @@ http://www.google.com/cse/docs/cref.html
 			theme_advanced_toolbar_align : "left",
 //			theme_advanced_resizing : true,
 	
-//			width: '710px'
+			width: '100%',
 
 			// Example content CSS (should be your site CSS)
 			content_css : root + "/stylesheets/layout.css"

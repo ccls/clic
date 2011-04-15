@@ -29,6 +29,7 @@ English:<%= f.text_field :menu_en %>
 
 <p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org', :target => 'new' %>)</p>
 English:<%= f.text_area :body_en, :class => 'tinymce', :rows => 30 %>
+<%#= f.text_area :body_en, :class => 'tinymce', :rows => 30, :value => textilize(f.object.body) %>
 </div><!-- fields -->
 
 <p class='note'>
