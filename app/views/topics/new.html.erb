@@ -15,6 +15,7 @@
 
   <% fields_for @group_document do |d| %>
     <%= d.error_messages %>
+    <p>Optional File Attachment ...</p>
     <%= d.wrapped_text_field :title,
       :label_text => 'Document Title',
       :class => 'autosize' %>
