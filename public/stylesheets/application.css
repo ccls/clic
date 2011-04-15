@@ -68,3 +68,12 @@ form.edit_announcement div.field_wrapper.content label {
 	float:none;
 	display:block;
 }
+
+table.mceLayout tr td.mceToolbar,
+table.mceLayout tr td.mceIframeContainer {
+/*
+	unfortunately, 100% does not work here 
+	so we must specify a fixed size
+*/
+	width: 710px;
+}
