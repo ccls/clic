@@ -30,8 +30,7 @@
  <% end %>
  <p><%= required('*&nbsp;-&nbsp;Required') -%> (times are optional)</p>
  <p>
-  <%= f.submit( (@event.new_record?)?'Create':'Update' ) %>
-  <%= submit_link_to( (@event.new_record?)?'Create':'Update' ) %>
+  <%= f.submit_link_to( ((@event.new_record?)?'Create':'Update')<<' Event' ) %>
 &nbsp;
   <%= link_to 'Cancel and Show Event', @event, :class => 'button' %>
 &nbsp;

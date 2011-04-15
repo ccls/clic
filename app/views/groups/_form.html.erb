@@ -10,7 +10,6 @@
  <%= f.wrapped_text_area  :description,
 	:class => 'autosize' %>
  <p>
-  <%= f.submit( (@group.new_record?)?'Create':'Update' ) %>
-  <%= submit_link_to( (@group.new_record?)?'Create':'Update' ) %>
+  <%= f.submit_link_to( (@group.new_record?)?'Create':'Update' ) %>
  </p>
 <% end %>

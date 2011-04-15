@@ -5,7 +5,6 @@
  <%= f.wrapped_text_field :name,
 	:class => 'autosize' %>
  <p>
-  <%= f.submit( (@group_role.new_record?)?'Create':'Update' ) %>
-  <%= submit_link_to( (@group_role.new_record?)?'Create':'Update' ) %>
+  <%= f.submit_link_to( (@group_role.new_record?)?'Create':'Update' ) %>
  </p>
 <% end %>

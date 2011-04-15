@@ -4,8 +4,7 @@
 	:url => group_documents_path(@group) ) do |f| %>
  <%= render :partial => 'form', :locals => { :f => f } %>
  <p>
-  <%= f.submit( 'Create' ) %>
-  <%= submit_link_to( 'Create' ) %>
+  <%= f.submit_link_to( 'Create' ) %>
 &nbsp;
   <%= link_to 'Back', group_documents_path(@group),:class => 'button' %>
  </p>

@@ -12,8 +12,7 @@
  <%= f.wrapped_text_area :content,
 	:class => 'autosize tinymce' %>
  <p>
-  <%= f.submit( (@announcement.new_record?)?'Create':'Update' ) %>
-  <%= submit_link_to( (@announcement.new_record?)?'Create':'Update' ) %>
+  <%= f.submit_link_to( ((@announcement.new_record?)?'Create':'Update')<<" Announcement" ) %>
   <% unless( @announcement.new_record? ) %>
     <%= link_to 'Cancel and Show Announcement', @announcement, :class => 'button' %>
   <% end %>

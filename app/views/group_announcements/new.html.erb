@@ -4,8 +4,7 @@
 	:url => group_announcements_path(@group) ) do |f| %>
  <%= render :partial => 'form', :locals => { :f => f } %>
  <p>
-  <%= f.submit( 'Create' ) %>
-  <%= submit_link_to( 'Create' ) %>
+  <%= f.submit_link_to( 'Create' ) %>
 &nbsp;
   <%= link_to "Cancel and Show Group's Announcements", 
 		group_announcements_path(@group),:class => 'button' %>
