@@ -73,11 +73,26 @@ form.edit_announcement div.field_wrapper.content label {
 	display:block;
 }
 
-table.mceLayout tr td.mceToolbar,
-table.mceLayout tr td.mceIframeContainer {
 /*
 	unfortunately, 100% does not work here 
 	so we must specify a fixed size
 */
+table.mceLayout tr {
+	display: table-row;
+/* 
+	without this, the body row of the editor gets
+	hung at the edge of the first row in Chrome and Safari ?
+	I don't understand it, but I assume that my styling
+	somewhere causes this.
+*/
+	clear:left;
+}
+table.mceLayout tr td.mceToolbar,
+table.mceLayout tr td.mceIframeContainer {
 	width: 710px;
 }
+/*
+textarea.tinymce {
+	width: 710px;
+}
+*/

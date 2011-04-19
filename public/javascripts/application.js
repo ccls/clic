@@ -2,7 +2,11 @@ jQuery(function(){
 
 	var root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
 
-	jQuery.getScript(root + '/users/menu.js');
+	jQuery.getScript(root + '/users/menu.js',
+		function(data,textStatus){
+			add_clic_prefix_to_links('#PrivateNav');
+		}
+	);
 
 /*
 http://www.google.com/cse/docs/cref.html
@@ -59,11 +63,43 @@ http://www.google.com/cse/docs/cref.html
 			theme_advanced_toolbar_align : "left",
 //			theme_advanced_resizing : true,
 	
-			width: '100%',
+//			width: '710px',
+//			width : '710',
+//			width : '100%',
+
+//		stops any url modification
+			convert_urls : false,
+
+/*
+	This doesn't work as advertised
+			relative_urls : false,
+			remove_script_host : true,
+			document_base_url : "http://ccls.berkeley.edu/path1/",
+*/
+
 
 			// Example content CSS (should be your site CSS)
 			content_css : root + "/stylesheets/layout.css"
 		});
 	}
 
+	add_clic_prefix_to_links();
 });
+
+/*
+
+	Eventually, I hope, we will not be using paths.
+	Until then, ensure that the links contain the /clic/ prefix
+
+*/
+function add_clic_prefix_to_links(container) {
+	if(location.host == 'ccls.berkeley.edu') {
+		a_tags = ( typeof(container) == 'undefined' ) ? 'a' : container + ' a';
+		jQuery(a_tags).each(function(){
+			var href = jQuery(this).attr('href');
+			if( (/^\//).test(href) && !(new RegExp('^'+root)).test(href) ){
+				jQuery(this).attr('href',root+href);
+			}
+		});
+	}
+}
