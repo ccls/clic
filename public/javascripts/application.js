@@ -65,7 +65,7 @@ http://www.google.com/cse/docs/cref.html
 	
 //			width: '710px',
 //			width : '710',
-//			width : '100%',
+			width : '100%',
 
 //		stops any url modification
 			convert_urls : false,
