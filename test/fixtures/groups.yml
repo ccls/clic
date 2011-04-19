@@ -127,7 +127,7 @@ occupation:
   position: 8
   name: Occupational Exposures
   description: not a clue
-occupation:
+outcomes:
   parent_id: 7
   position: 9
   name: Outcomes
