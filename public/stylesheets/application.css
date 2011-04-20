@@ -61,6 +61,14 @@ form div.field_wrapper.ends_at_meridiem label {
 	width: 1em;
 }
 
+form#new_document div.field_wrapper.abstract label,
+form.edit_document div.field_wrapper.abstract label,
+form#new_topic div.field_wrapper.body label,
+form.edit_topic div.field_wrapper.body label,
+form#new_topic div.field_wrapper.body label,
+form.edit_topic div.field_wrapper.body label,
+form#new_group div.field_wrapper.description label,
+form.edit_group div.field_wrapper.description label,
 form#new_user div.field_wrapper.selected_publications label,
 form.edit_user div.field_wrapper.selected_publications label,
 form#new_user div.field_wrapper.research_interests label,
@@ -77,22 +85,33 @@ form.edit_announcement div.field_wrapper.content label {
 	unfortunately, 100% does not work here 
 	so we must specify a fixed size
 */
+/*
 table.mceLayout tr {
 	display: table-row;
+*/
 /* 
 	without this, the body row of the editor gets
 	hung at the edge of the first row in Chrome and Safari ?
 	I don't understand it, but I assume that my styling
 	somewhere causes this.
 */
-	clear:left;
+/*
+	clear:both;
 }
+*/
+/*
 table.mceLayout tr td.mceToolbar,
 table.mceLayout tr td.mceIframeContainer {
 	width: 710px;
 }
-/*
 textarea.tinymce {
 	width: 710px;
 }
 */
+/*
+	All floats must die!  They really muck up the TinyMCE Editor
+*/
+.field_wrapper .mceEditor *,
+.field_wrapper .mceEditor {
+	float:none;
+}

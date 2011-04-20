@@ -1,3 +1,4 @@
+<% javascripts('tiny_mce/jquery.tinymce.js') %>
 <h2>Creating new discussion topic</h2>
 
 <% form_for( @topic, :url => forum_topics_path(@forum),
@@ -10,7 +11,7 @@
   <% fields_for @post do |p| %>
     <%= p.error_messages %>
     <%= p.wrapped_text_area :body,
-      :class => 'autosize' %>
+      :class => 'tinymce' %>
   <% end %>
 
   <% fields_for @group_document do |d| %>
@@ -24,6 +25,7 @@
 
   <p>
     <%= f.submit_link_to 'Create' %>&nbsp;
-    <%= link_to 'Cancel and return to Forum', forum_path(@forum) %>
+    <%= link_to 'Cancel and return to Forum', forum_path(@forum),
+			:class => 'button' %>
   </p>
 <% end %>

@@ -5,7 +5,8 @@
  <%= f.error_messages %>
  <%= render 'form',:f => f %>
  <p>
-  <%= f.submit_link_to( "Create new Document" )%>
-  <%= link_to 'Back to Documents', documents_path, :class => 'button' %>
+  <%= f.submit_link_to( "Create new Document" )%>&nbsp;
+  <%= link_to 'Back to Documents', documents_path, 
+		:class => 'button' %>
  </p>
 <% end %>
