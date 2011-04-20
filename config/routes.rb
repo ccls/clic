@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+	map.resources :editor_images, :only => :index
+	map.resources :editor_links,  :only => :index
 	map.resources :events
 	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }

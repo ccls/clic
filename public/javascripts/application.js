@@ -55,8 +55,8 @@ http://www.google.com/cse/docs/cref.html
 			theme : "advanced",
 	
 			// Theme options
-			theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,hr,link",
-			theme_advanced_buttons2 : '',	// otherwise will use defaults
+			theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor",
+			theme_advanced_buttons2 : 'link,unlink,|,image,hr',	// otherwise will use defaults
 			theme_advanced_buttons3 : '',	// otherwise will use defaults
 			theme_advanced_statusbar_location : "bottom",
 			theme_advanced_toolbar_location : "top",
@@ -76,6 +76,9 @@ http://www.google.com/cse/docs/cref.html
 			remove_script_host : true,
 			document_base_url : "http://ccls.berkeley.edu/path1/",
 */
+
+			external_link_list_url :  root + "/editor_links.js",
+			external_image_list_url : root + "/editor_images.js",
 
 
 			// Example content CSS (should be your site CSS)
