@@ -1,6 +1,8 @@
+var root = '';	// kinda global
+
 jQuery(function(){
 
-	var root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
+	root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
 
 	jQuery.getScript(root + '/users/menu.js',
 		function(data,textStatus){

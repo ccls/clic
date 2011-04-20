@@ -115,3 +115,6 @@ textarea.tinymce {
 .field_wrapper .mceEditor {
 	float:none;
 }
+#page img {
+	width: 100%;
+}

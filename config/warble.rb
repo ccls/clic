@@ -26,6 +26,8 @@ Warbler::Config.new do |config|
 	# config.excludes = FileList["lib/tasks/*"]
 	config.excludes = FileList[*%w(
 		db/*.sqlite3
+		development
+		development/**/*
 		versions
 		versions/**/*
 		.DS_Store
@@ -97,6 +99,10 @@ Warbler::Config.new do |config|
 		public/columns.html 
 		public/index.html.orig 
 		public/layout1.html
+		public/development
+		public/development/**/*
+		public/tinymce
+		public/tinymce/**/*
 		public/system
 		public/system/**/*
 		public/doc
