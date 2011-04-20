@@ -5,8 +5,7 @@
 <%# if current_user.may_edit_group?(@group) %>
 <p>
  <%= link_to "Edit Group", edit_group_path(@group),
-  :class => 'button' %>
-&nbsp;
+  :class => 'button' %>&nbsp;
  <%= link_to "Request Membership", new_group_membership_path(@group),
   :class => 'button' %>
 </p>
