@@ -14,21 +14,21 @@ jQuery(function(){
 http://www.google.com/cse/docs/cref.html
 */
 
+	if( ! jQuery.browser.msie ){
+/* 
+	IE will always complain as this is http and not https
+	I could do this server-side, but isn't really worth it
+	Its just some style and a background image.
+*/
 	(function(){
-/*		IE 8 DOES NOT LIKE THIS
 		var ga = document.createElement('script'); 
 		ga.type = 'text/javascript';
 		ga.async = true;
 		ga.src = "http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en";
 		var s = document.getElementsByTagName('script')[0]; 
 		s.parentNode.insertBefore(ga, s);
-*/
-		/*
-			This script adds the google watermark to the search box,
-			as well as adding a 'siteurl' field to the form.
-		$('#cse-search-box input[name=siteurl]').remove();
-		*/
 	})();
+	}
 
 /*
 	If a user make many multiple searches, the siteurl will
