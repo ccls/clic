@@ -44,10 +44,10 @@ module ApplicationHelper
 		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
 		out << Group.roots.collect do |group|
 			if group.groups_count > 0
-#				children = "<li>#{link_to(group.name,group)}</li>\n"
 				children = "<li><a class='submenu_toggle'>#{group.name}</a>" <<
-					"<span class='ui-icon ui-icon-triangle-1-e'/></li>\n"
-#				children << "<li><ul id='#{group.to_html_tag}_children'>"
+					"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span></li>\n"
+#	IE8 does not like single tagged spans
+#					"<span class='ui-icon ui-icon-triangle-1-e'/></li>\n"
 				children << "<li class='submenu'><ul>\n"
 				children << group.children.collect do |child|
 					"<li>#{link_to(child.name,child)}</li>\n"

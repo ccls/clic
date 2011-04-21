@@ -15,12 +15,14 @@ http://www.google.com/cse/docs/cref.html
 */
 
 	(function(){
+/*		IE 8 DOES NOT LIKE THIS
 		var ga = document.createElement('script'); 
-		ga.type = 'text/javascript'; 
+		ga.type = 'text/javascript';
 		ga.async = true;
 		ga.src = "http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en";
 		var s = document.getElementsByTagName('script')[0]; 
 		s.parentNode.insertBefore(ga, s);
+*/
 		/*
 			This script adds the google watermark to the search box,
 			as well as adding a 'siteurl' field to the form.
