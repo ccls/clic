@@ -55,10 +55,11 @@ http://www.google.com/cse/docs/cref.html
 	
 			// General options
 			theme : "advanced",
+			plugins : "spellchecker",
 	
 			// Theme options
-			theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor",
-			theme_advanced_buttons2 : 'link,unlink,|,image,hr',	// otherwise will use defaults
+			theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor",
+			theme_advanced_buttons2 : 'bullist,numlist,|,outdent,indent,|,undo,redo,|,sub,sup,|,link,unlink,|,image,hr,|,charmap,spellchecker',	// otherwise will use defaults
 			theme_advanced_buttons3 : '',	// otherwise will use defaults
 			theme_advanced_statusbar_location : "bottom",
 			theme_advanced_toolbar_location : "top",
