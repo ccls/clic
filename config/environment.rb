@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
 	end
 
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
-	config.gem 'authlogic'
+	config.gem 'authlogic', :version => '~> 2'
 	config.gem 'paperclip'
 	config.gem 'gravatar'	#	needed until removed from simply_pages
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
