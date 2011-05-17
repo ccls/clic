@@ -1,0 +1,51 @@
+01:
+  position: 1
+  name: Child and Maternal Diet
+02:
+  position: 2
+  name: "Child's Allergies, Infections, and Vaccinations"
+03:
+  position: 3
+  name: Cytogenetic Classicification
+04:
+  position: 4
+  name: Environmental Chemical Exposures
+05:
+  position: 5
+  name: Genetic Epidemiology
+06:
+  position: 6
+  name: Ionizing/Non-ionizing Radiation
+07:
+  position: 7
+  name: Maternal Illness
+08:
+  position: 8
+  name: Maternal Reproductive Characteristics
+09:
+  position: 9
+  name: Methods
+10:
+  position: 10
+  name: Methylation
+11:
+  position: 11
+  name: Parental Occupation
+12:
+  position: 12
+  name: Proteomic Analysis
+13:
+  position: 13
+  name: Review
+14:
+  position: 14
+  name: Socioeconomic Status
+15:
+  position: 15
+  name: Spatial Distribution
+16:
+  position: 16
+  name: Tobacco Smoke
+17:
+  position: 17
+  name: Tumor Biology and Translocations
