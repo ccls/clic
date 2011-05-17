@@ -87,3 +87,9 @@ Factory.define :doc_form do |f|
 	f.sequence(:title) { |n| "Title #{n}" }
 	f.sequence(:abstract) { |n| "Abstract #{n}" }
 end
+Factory.define :publication do |f|
+	f.sequence(:title) { |n| "Title #{n}" }
+	f.sequence(:journal) { |n| "Journal #{n}" }
+	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
+	f.sequence(:author_last_name) { |n| "Author Last Name #{n}" }
+end
