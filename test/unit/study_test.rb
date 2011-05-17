@@ -6,7 +6,7 @@ class StudyTest < ActiveSupport::TestCase
 	assert_should_require(:name)
 	assert_should_require_unique(:name)
 	assert_should_act_as_list
-	assert_should_belong_to(:publication)
+	assert_should_have_many(:publications)
 
 	test "should return name as to_s" do
 		object = create_object

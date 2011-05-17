@@ -1,6 +1,7 @@
 class PublicationSubject < ActiveRecord::Base
+	acts_as_list
 
-	belongs_to :publication
+	has_many :publications
 
 	validates_presence_of :name
 	validates_uniqueness_of :name

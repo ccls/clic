@@ -8,8 +8,8 @@ class PublicationTest < ActiveSupport::TestCase
 	assert_should_require(:publication_year)
 	assert_should_require(:author_last_name)
 
-	assert_should_have_many(:publication_subjects)
-	assert_should_have_many(:studies)
+	assert_should_belong_to(:publication_subject)
+	assert_should_belong_to(:study)
 
 	test "should return title as to_s" do
 		object = create_object
