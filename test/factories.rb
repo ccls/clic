@@ -75,3 +75,8 @@ Factory.define :group_document do |f|
 #	f.association :group
 	f.sequence(:title) { |n| "Group Document Title #{n}" }
 end
+
+
+Factory.define :study do |f|
+	f.sequence(:name) { |n| "Study Name #{n}" }
+end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420162620) do
+ActiveRecord::Schema.define(:version => 20110517190515) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(:version => 20110420162620) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "annual_meetings", :force => true do |t|
+    t.string   "meeting"
+    t.text     "abstract"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "annual_meetings", ["meeting"], :name => "index_annual_meetings_on_meeting"
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"
@@ -171,6 +180,30 @@ ActiveRecord::Schema.define(:version => 20110420162620) do
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
+  create_table "publication_subjects", :force => true do |t|
+    t.integer  "position"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "publication_subjects", ["name"], :name => "index_publication_subjects_on_name"
+
+  create_table "publications", :force => true do |t|
+    t.integer  "publication_subject_id"
+    t.integer  "study_id"
+    t.string   "author_last_name"
+    t.string   "publication_year"
+    t.string   "journal"
+    t.string   "title"
+    t.string   "other_publication_subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "publications", ["publication_subject_id"], :name => "index_publications_on_publication_subject_id"
+  add_index "publications", ["study_id"], :name => "index_publications_on_study_id"
+
   create_table "roles", :force => true do |t|
     t.integer  "position"
     t.string   "name"
@@ -187,6 +220,15 @@ ActiveRecord::Schema.define(:version => 20110420162620) do
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
+
+  create_table "studies", :force => true do |t|
+    t.integer  "position"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "studies", ["name"], :name => "index_studies_on_name"
 
   create_table "topics", :force => true do |t|
     t.integer  "user_id",                    :null => false
