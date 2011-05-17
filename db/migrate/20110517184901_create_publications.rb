@@ -7,6 +7,7 @@ class CreatePublications < ActiveRecord::Migration
 			t.string :publication_year
 			t.string :journal
 			t.string :title
+			t.string :other_publication_subject
 			t.timestamps
 		end
 		add_index :publications, :publication_subject_id
