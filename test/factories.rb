@@ -93,3 +93,7 @@ Factory.define :publication do |f|
 	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
 	f.sequence(:author_last_name) { |n| "Author Last Name #{n}" }
 end
+Factory.define :annual_meeting do |f|
+	f.sequence(:meeting) { |n| "Meeting #{n}" }
+	f.sequence(:abstract) { |n| "Abstract #{n}" }
+end
