@@ -77,6 +77,9 @@ Factory.define :group_document do |f|
 end
 
 
+Factory.define :publication_subject do |f|
+	f.sequence(:name) { |n| "Name #{n}" }
+end
 Factory.define :study do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
 end
