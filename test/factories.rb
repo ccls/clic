@@ -78,5 +78,9 @@ end
 
 
 Factory.define :study do |f|
-	f.sequence(:name) { |n| "Study Name #{n}" }
+	f.sequence(:name) { |n| "Name #{n}" }
+end
+Factory.define :doc_form do |f|
+	f.sequence(:title) { |n| "Title #{n}" }
+	f.sequence(:abstract) { |n| "Abstract #{n}" }
 end
