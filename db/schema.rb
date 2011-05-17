@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517190515) do
+ActiveRecord::Schema.define(:version => 20110517191317) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(:version => 20110517190515) do
     t.string   "worker_key"
     t.datetime "scheduled_at"
   end
+
+  create_table "doc_forms", :force => true do |t|
+    t.string   "title"
+    t.text     "abstract"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "doc_forms", ["title"], :name => "index_doc_forms_on_title"
 
   create_table "documents", :force => true do |t|
     t.integer  "owner_id"
