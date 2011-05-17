@@ -1,6 +1,7 @@
 class Publication < ActiveRecord::Base
 
 	has_many :publication_subjects
+	has_many :studies
 
 	validates_presence_of :title
 	validates_presence_of :journal
