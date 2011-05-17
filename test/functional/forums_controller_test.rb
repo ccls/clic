@@ -25,8 +25,7 @@ class ForumsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	assert_access_with_login({ 
-		:logins => ( ALL_TEST_ROLES - unapproved_users ) })
-#		:logins => ALL_TEST_ROLES })
+		:logins => ( all_test_roles - unapproved_users ) })
 
 	assert_no_access_with_login({ 
 		:logins => unapproved_users })
@@ -66,7 +65,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - group_readers ).each do |cu|
+	( all_test_roles - group_readers ).each do |cu|
 
 		test "should NOT show group forum with #{cu} login" do
 			login_as send(cu)

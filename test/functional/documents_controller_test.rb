@@ -16,17 +16,13 @@ class DocumentsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:document)
 	end
 
-	def self.editors
-		@editors ||= site_editors
-	end
-
 	assert_access_with_https
 	assert_access_with_login({
-		:logins => editors })
+		:logins => site_editors })
 
 	assert_no_access_with_http 
 	assert_no_access_with_login({ 
-		:logins => (ALL_TEST_ROLES - editors) })
+		:logins => non_site_editors })
 
 	assert_no_access_without_login
 
@@ -45,7 +41,7 @@ class DocumentsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	editors.each do |cu|
+	site_editors.each do |cu|
 
 
 ##	still only privacy filter is based on "may_maintain_pages"
@@ -237,7 +233,7 @@ end
 #
 #%w( interviewer reader unapproved_user no_login ).each do |cu|
 
-	( ALL_TEST_ROLES - editors + ['no_login'] ).each do |cu|
+	( non_site_editors + ['no_login'] ).each do |cu|
 
 		test "should get redirect to private s3 document with #{cu} login" do
 			Document.has_attached_file :document, {

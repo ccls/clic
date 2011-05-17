@@ -12,33 +12,25 @@ class AnnouncementsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:announcement,options)
 	end
 
-	def self.creators
-		@creators ||= site_administrators
-	end
-
-	def self.editors
-		@editors ||= creators
-	end
-
 	assert_access_with_login({ 
-		:logins => editors,
+		:logins => site_administrators,
 		:actions => [:edit,:update,:destroy] })
 
 	assert_no_access_with_login({ 
-		:logins => (ALL_TEST_ROLES - editors),
+		:logins => non_site_administrators,
 		:actions => [:edit,:update,:destroy] })
 
 	assert_access_with_login({ 
-		:logins => creators,
+		:logins => site_administrators,
 		:actions => [:new,:create] })
 
 	assert_no_access_with_login({ 
-		:logins => (ALL_TEST_ROLES - creators),
+		:logins => non_site_administrators,
 		:actions => [:new,:create],
 		:redirect => :members_only_path })
 
 	assert_access_with_login({ 
-		:logins => ( ALL_TEST_ROLES - unapproved_users ),
+		:logins => ( all_test_roles - unapproved_users ),
 		:actions => [:show,:index] })
 
 	assert_no_access_with_login({ 
@@ -66,7 +58,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	creators.each do |cu|
+	site_administrators.each do |cu|
 
 		test "should NOT create new announcement with #{cu} login when create fails" do
 			Announcement.any_instance.stubs(:create_or_update).returns(false)

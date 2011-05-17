@@ -98,7 +98,7 @@ class GroupsControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - group_creators ).each do |cu|
+	( all_test_roles - group_creators ).each do |cu|
 
 		test "should NOT get new group with #{cu} login" do
 			login_as send(cu)
@@ -167,7 +167,7 @@ class GroupsControllerTest < ActionController::TestCase
 		end
 	
 	end
-	( ALL_TEST_ROLES - group_editors ).each do |cu|
+	( all_test_roles - group_editors ).each do |cu|
 
 		test "should NOT edit group with #{cu} login" do
 			login_as send(cu)
@@ -206,7 +206,7 @@ class GroupsControllerTest < ActionController::TestCase
 		end
 
 	end
-	( ALL_TEST_ROLES - group_readers ).each do |cu|
+	( all_test_roles - group_readers ).each do |cu|
 
 		test "should NOT read with #{cu} login" do
 			login_as send(cu)
@@ -227,7 +227,7 @@ class GroupsControllerTest < ActionController::TestCase
 		end
 
 	end
-	( ALL_TEST_ROLES - group_browsers ).each do |cu|
+	( all_test_roles - group_browsers ).each do |cu|
 
 		test "should NOT get index with #{cu} login" do
 			login_as send(cu)
@@ -259,7 +259,7 @@ class GroupsControllerTest < ActionController::TestCase
 		end
 
 	end
-	( ALL_TEST_ROLES - group_destroyers ).each do |cu|
+	( all_test_roles - group_destroyers ).each do |cu|
 
 		test "should NOT destroy with #{cu} login" do
 			login_as send(cu)

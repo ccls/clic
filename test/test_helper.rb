@@ -229,12 +229,24 @@ class ActionController::TestCase
 		@site_administrators ||= %w( superuser administrator )
 	end
 
+	def self.non_site_administrators
+		@non_site_administrators ||= ( all_test_roles - site_administrators )
+	end
+
 	def self.site_editors
 		@site_editors ||= %w( superuser administrator editor )
 	end
 
+	def self.non_site_editors
+		@non_site_editors ||= ( all_test_roles - site_editors )
+	end
+
 	def self.site_readers
 		@site_readers ||= %w( superuser administrator editor interviewer reader )
+	end
+
+	def self.non_site_readers
+		@non_site_readers ||= ( all_test_roles - site_readers )
 	end
 
 	def self.unapproved_users
@@ -244,12 +256,13 @@ class ActionController::TestCase
 			unapproved_user )
 	end
 
+	def self.all_test_roles
+		@all_test_roles ||= %w( superuser administrator editor
+			interviewer reader approved_user unapproved_user
+ 			unapproved_group_administrator group_administrator
+ 			group_moderator group_editor group_reader group_roleless
+ 			unapproved_nonmember_administrator nonmember_administrator
+ 			nonmember_editor nonmember_reader nonmember_roleless )
+	end
+
 end
-
-ALL_TEST_ROLES = %w( superuser administrator editor
-	interviewer reader approved_user unapproved_user
- 	unapproved_group_administrator group_administrator
- 	group_moderator group_editor group_reader group_roleless
- 	unapproved_nonmember_administrator nonmember_administrator
- 	nonmember_editor nonmember_reader nonmember_roleless )
-

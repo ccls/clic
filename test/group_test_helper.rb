@@ -98,7 +98,7 @@ module ClassMethods
 		#
 		#	No destroy access roles
 		#
-		( ALL_TEST_ROLES - group_asset_destroyers ).each do |cu|
+		( all_test_roles - group_asset_destroyers ).each do |cu|
 
 			test "should NOT destroy #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)
@@ -351,7 +351,7 @@ module ClassMethods
 		#
 		#	No edit access roles
 		#
-		( ALL_TEST_ROLES - group_asset_editors ).each do |cu|
+		( all_test_roles - group_asset_editors ).each do |cu|
 
 			test "should NOT get new #{options[:attributes_key]} with #{cu} login" do
 				login_as send(cu)
@@ -419,7 +419,7 @@ module ClassMethods
 		#
 		#	No access roles ( No read access roles )
 		#
-		( ALL_TEST_ROLES - group_asset_readers ).each do |cu|
+		( all_test_roles - group_asset_readers ).each do |cu|
 
 			test "should NOT show #{options[:attributes_key]} with #{cu} login" do
 				object = send(options[:create_method],:group => @membership.group)

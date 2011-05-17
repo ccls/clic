@@ -15,7 +15,7 @@ class EditorImagesControllerTest < ActionController::TestCase
 
 	setup :create_a_membership
 
-	ALL_TEST_ROLES.each do |cu|
+	all_test_roles.each do |cu|
 	
  	 test "should return index.js with #{cu} login" do
 			login_as send(cu)

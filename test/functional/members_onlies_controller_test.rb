@@ -6,7 +6,7 @@ class MembersOnliesControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	assert_access_with_login(:show, { 
-		:logins => ALL_TEST_ROLES })
+		:logins => all_test_roles })
 
 	assert_no_access_without_login :show
 

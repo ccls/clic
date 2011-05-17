@@ -15,33 +15,25 @@ class EventsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	def self.creators
-		@creators ||= site_administrators
-	end
-
-	def self.editors
-		@editors ||= creators
-	end
-
 	assert_access_with_login({ 
-		:logins => editors,
+		:logins => site_administrators,
 		:actions => [:edit,:update,:destroy] })
 
 	assert_no_access_with_login({ 
-		:logins => (ALL_TEST_ROLES - creators),
+		:logins => non_site_administrators,
 		:actions => [:edit,:update,:destroy] })
 
 	assert_access_with_login({ 
-		:logins => creators,
+		:logins => site_administrators,
 		:actions => [:new,:create] })
 
 	assert_no_access_with_login({ 
-		:logins => (ALL_TEST_ROLES - creators),
+		:logins => non_site_administrators,
 		:actions => [:new,:create],
 		:redirect => :members_only_path })
 
 	assert_access_with_login({ 
-		:logins => ( ALL_TEST_ROLES - unapproved_users ),
+		:logins => ( all_test_roles - unapproved_users ),
 		:actions => [:show,:index] })
 
 	assert_no_access_with_login({ 
@@ -66,7 +58,7 @@ class EventsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
-	creators.each do |cu|
+	site_administrators.each do |cu|
 
 		test "should create new event with #{cu} login and begin and end times" do
 			login_as send(cu)

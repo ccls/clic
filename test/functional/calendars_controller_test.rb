@@ -9,7 +9,7 @@ class CalendarsControllerTest < ActionController::TestCase
 		:logins => site_readers })
 
 	assert_no_access_with_login( :show, { 
-		:logins => ( ALL_TEST_ROLES - site_readers ) })
+		:logins => non_site_readers })
 
 	assert_no_access_without_login :show
 

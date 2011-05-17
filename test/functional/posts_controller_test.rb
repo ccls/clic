@@ -126,7 +126,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - site_editors ).each do |cu|
+	( all_test_roles - site_editors ).each do |cu|
 
 		test "should NOT get new post with #{cu} login" do
 			login_as send(cu)
@@ -238,7 +238,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - group_creators ).each do |cu|
+	( all_test_roles - group_creators ).each do |cu|
 
 		test "should NOT get new group post with #{cu} login" do
 			login_as send(cu)

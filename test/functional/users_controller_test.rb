@@ -54,7 +54,7 @@ class UsersControllerTest < ActionController::TestCase
 		:logins => site_administrators })
 
 	assert_no_access_with_login({ 
-		:logins => ( ALL_TEST_ROLES - site_administrators ) })
+		:logins => non_site_administrators })
 
 	assert_no_access_without_login
 	assert_access_without_login({ 
@@ -121,7 +121,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 
-	( ALL_TEST_ROLES - site_administrators ).each do |cu|
+	non_site_administrators.each do |cu|
 
 		test "should NOT approve user with #{cu} login" do
 			u = unapproved_user
@@ -138,7 +138,7 @@ class UsersControllerTest < ActionController::TestCase
 
 
 	
-	ALL_TEST_ROLES.each do |cu|
+	all_test_roles.each do |cu|
 	
 		test "should NOT get user info with invalid id with #{cu} login" do
 			login_as send(cu)

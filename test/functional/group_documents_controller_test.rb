@@ -49,7 +49,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	#
 	#	NOT Attached to a Group
 	#
-	( ALL_TEST_ROLES - unapproved_users ).each do |cu|
+	( all_test_roles - unapproved_users ).each do |cu|
 
 		test "should NOT show groupless group document with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -195,7 +195,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - readers ).each do |cu|
+	( all_test_roles - readers ).each do |cu|
 
 		test "should NOT show group's group document with #{cu} login" do
 			login_as send(cu)

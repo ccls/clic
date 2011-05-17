@@ -19,7 +19,7 @@ class GroupRolesControllerTest < ActionController::TestCase
 		:logins => site_administrators })
 
 	assert_no_access_with_login({ 
-		:logins => ( ALL_TEST_ROLES - site_administrators ) })
+		:logins => non_site_administrators })
 
 	assert_no_access_without_login
 

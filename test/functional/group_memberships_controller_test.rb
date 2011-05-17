@@ -165,7 +165,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - editors ).each do |cu|
+	( all_test_roles - editors ).each do |cu|
 
 		test "should NOT edit membership with #{cu} login" do
 			login_as send(cu)
@@ -288,7 +288,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members should NOT be allowed to create a membership.
 	#
-	( ALL_TEST_ROLES - creators ).each do |cu|
+	( all_test_roles - creators ).each do |cu|
 
 		test "should NOT get new membership with #{cu} login" do
 			login_as send(cu)
@@ -333,7 +333,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Non-members should not be able to view
 	#
-	( ALL_TEST_ROLES - readers ).each do |cu|
+	( all_test_roles - readers ).each do |cu|
 
 		test "should NOT show membership with #{cu} login" do
 			login_as send(cu)
