@@ -7,6 +7,7 @@ class ForumTest < ActiveSupport::TestCase
 	assert_should_require_unique(:name, :scope => :group_id)
 	assert_should_belong_to(:group)
 	assert_should_have_many(:topics)
+	assert_should_require_attribute_length( :name,  :maximum => 250 )
 
 	test "should return name as to_s" do
 		object = create_object

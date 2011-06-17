@@ -17,6 +17,8 @@ class EventTest < ActiveSupport::TestCase
 	assert_requires_complete_date( :begins_on )
 	assert_should_protect(:group_id)
 	assert_should_protect(:user_id)
+	assert_should_require_attribute_length( :title,   :maximum => 250 )
+	assert_should_require_attribute_length( :content, :maximum => 65000 )
 
 	test "should return title as to_s" do
 		object = create_object

@@ -7,6 +7,7 @@ class TopicTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:user)
 	assert_should_initially_belong_to(:forum)
 	assert_should_have_many(:posts)
+	assert_should_require_attribute_length( :title, :maximum => 250 )
 
 	test "should create topic" do
 		assert_difference('User.count') {

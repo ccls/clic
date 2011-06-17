@@ -5,9 +5,8 @@ class Post < ActiveRecord::Base
 	belongs_to :user,  :counter_cache => true
 	has_many   :group_documents, :dependent => :destroy
 
-	validates_presence_of :topic
-	validates_presence_of :user
-	validates_presence_of :body
+	validates_presence_of :topic, :user, :body
+	validates_length_of   :body, :maximum => 65000
 
 	after_create :increment_forum_posts_count
 	def increment_forum_posts_count

@@ -3,27 +3,20 @@ class Event < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :group
 
-	validates_presence_of :user
-	validates_presence_of :title
-	validates_presence_of :content
+	validates_presence_of :user, :title, :content
+	validates_length_of :title,   :maximum => 250
+	validates_length_of :content, :maximum => 65000
 	validates_presence_of :begins_on
 	validates_complete_date_for :begins_on
 
-	validates_inclusion_of :begins_at_hour, :in => (1..12),
-		:allow_blank => true
-	validates_inclusion_of :begins_at_minute, :in => (0..59),
-		:allow_blank => true
-	validates_format_of :begins_at_meridiem, :with => /\A(AM|PM)\z/i,
-		:allow_blank => true
-	validates_inclusion_of :ends_at_hour, :in => (1..12),
-		:allow_blank => true
-	validates_inclusion_of :ends_at_minute, :in => (0..59),
-		:allow_blank => true
-	validates_format_of :ends_at_meridiem, :with => /\A(AM|PM)\z/i,
-		:allow_blank => true
+	validates_inclusion_of :begins_at_hour,     :ends_at_hour, 
+		:in => (1..12), :allow_blank => true
+	validates_inclusion_of :begins_at_minute,   :ends_at_minute,
+		:in => (0..59), :allow_blank => true
+	validates_format_of    :begins_at_meridiem, :ends_at_meridiem,
+		:with => /\A(AM|PM)\z/i, :allow_blank => true
 
-	attr_protected :group_id
-	attr_protected :user_id
+	attr_protected :group_id, :user_id
 
 	named_scope :groupless, :conditions => {
 		:group_id => nil }

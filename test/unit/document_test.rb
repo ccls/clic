@@ -4,7 +4,7 @@ class DocumentTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_require(:title)
-	assert_should_require_attribute_length(:title, :minimum => 4)
+	assert_should_require_attribute_length(:title, :in => 4..250)
 	assert_should_belong_to(:owner,:class_name => 'User')
 
 	test "should return title as to_s" do

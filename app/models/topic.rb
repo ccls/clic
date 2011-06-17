@@ -6,6 +6,7 @@ class Topic < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
 	validates_presence_of :title
 #	validates_uniqueness_of :title
+	validates_length_of :title, :maximum => 250
 
 #	accepts_nested_attributes_for :posts	#	really just for create
 

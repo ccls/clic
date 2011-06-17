@@ -7,11 +7,9 @@ class GroupDocument < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :post
 
-#	validates_presence_of :group
-	validates_presence_of :user
-	validates_presence_of :post
-	validates_presence_of :title
-#	validates_presence_of :content
+	validates_presence_of :user, :post, :title
+	validates_length_of :title,       :maximum => 250
+	validates_length_of :description, :maximum => 65000, :allow_blank => true
 
 #	WHY? (blank creates an error, nil does not)
 	before_validation :nullify_blank_document_file_name

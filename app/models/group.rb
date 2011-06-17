@@ -28,8 +28,9 @@ class Group < ActiveRecord::Base
 #	has_many :documents, :as => :owner
 
 	has_many :forums
-	validates_presence_of :name
+	validates_presence_of   :name
 	validates_uniqueness_of :name
+	validates_length_of     :name, :maximum => 250
 
 	def to_s
 		name

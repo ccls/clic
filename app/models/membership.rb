@@ -2,8 +2,7 @@ class Membership < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :group
 	belongs_to :group_role
-	validates_presence_of :user
-	validates_presence_of :group
+	validates_presence_of :user, :group
 
 #	Is this really needed????
 #	Let's see!
@@ -13,10 +12,7 @@ class Membership < ActiveRecord::Base
 #		self.group_role_id = nil if group_role_id.blank?
 #	end
 
-	attr_protected :approved
-	attr_protected :group_id
-	attr_protected :user_id
-	attr_protected :group_role_id
+	attr_protected :approved, :group_id, :user_id, :group_role_id
 
 #	after_create, if not approved, send membership_approval email
 

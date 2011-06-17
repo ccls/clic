@@ -8,8 +8,7 @@ class Document < ActiveRecord::Base
 	belongs_to :owner, :polymorphic => true
 
 	validates_presence_of :title
-	validates_length_of :title, :minimum => 4
-
+	validates_length_of   :title, :in => 4..250
 
 #	WHY?
 	validates_uniqueness_of :document_file_name, :allow_nil => true
