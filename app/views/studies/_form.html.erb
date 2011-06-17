@@ -1,0 +1,12 @@
+<% form_for(@study) do |f| %>
+ <%= f.error_messages %>
+ <%= f.wrapped_text_field :name, :class => 'autosize' %>
+
+ <p>
+  <%= f.submit_link_to( ((@study.new_record?)?'Create':'Update')<<" Study" ) %>
+  <% unless( @study.new_record? ) %>
+    <%= link_to 'Cancel and Show Study', @study, :class => 'button' %>
+  <% end %>
+  <%= link_to 'Cancel and Show Studies', studies_path, :class => 'button' %>
+ </p>
+<% end %>

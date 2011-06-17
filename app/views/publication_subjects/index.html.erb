@@ -1,0 +1,16 @@
+<h2>Publication Subjects:</h2>
+<% unless @publication_subjects.empty? %>
+  <table id='publication_subjects'><thead>
+
+
+
+    <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
+
+
+
+  </thead><tbody>
+  <%= render :partial => 'publication_subject', :collection => @publication_subjects %>
+  </tbody></table><!-- id='publication_subjects' -->
+<% else %>
+  <p>Sorry, no publication_subjects yet.</p>
+<% end %>

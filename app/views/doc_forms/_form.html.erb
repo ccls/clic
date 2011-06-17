@@ -1,0 +1,18 @@
+<% form_for(@doc_form) do |f| %>
+ <%= f.error_messages %>
+ <%= f.wrapped_text_field :title,    :class => 'autosize' %>
+ <%= f.wrapped_text_area  :abstract, :class => 'autosize' %>
+
+
+Attachments
+
+
+
+ <p>
+  <%= f.submit_link_to( ((@doc_form.new_record?)?'Create':'Update')<<" Doc Form" ) %>
+  <% unless( @doc_form.new_record? ) %>
+    <%= link_to 'Cancel and Show Doc Form', @doc_form, :class => 'button' %>
+  <% end %>
+  <%= link_to 'Cancel and Show Doc Forms', doc_forms_path, :class => 'button' %>
+ </p>
+<% end %>

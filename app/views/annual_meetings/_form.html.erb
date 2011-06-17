@@ -1,0 +1,18 @@
+<% form_for(@annual_meeting) do |f| %>
+ <%= f.error_messages %>
+ <%= f.wrapped_text_field :meeting, :class => 'autosize' %>
+ <%= f.wrapped_text_area :abstract, :class => 'autosize' %>
+
+
+Attachments
+
+
+
+ <p>
+  <%= f.submit_link_to( ((@annual_meeting.new_record?)?'Create':'Update')<<" Annual Meeting" ) %>
+  <% unless( @annual_meeting.new_record? ) %>
+    <%= link_to 'Cancel and Show Annual Meeting', @annual_meeting, :class => 'button' %>
+  <% end %>
+  <%= link_to 'Cancel and Show Annual Meetings', annual_meetings_path, :class => 'button' %>
+ </p>
+<% end %>

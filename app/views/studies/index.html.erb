@@ -1,0 +1,16 @@
+<h2>Studies:</h2>
+<% unless @studies.empty? %>
+  <table id='studies'><thead>
+
+
+
+    <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
+
+
+
+  </thead><tbody>
+  <%= render :partial => 'study', :collection => @studies %>
+  </tbody></table><!-- id='studies' -->
+<% else %>
+  <p>Sorry, no studies yet.</p>
+<% end %>
