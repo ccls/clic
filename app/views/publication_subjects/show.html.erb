@@ -1,9 +1,21 @@
-name:string
+<p>
+  <b>Name:</b>
+  <%=h @publication_subject.name %>
+</p>
 
-required
+<div class='manage'>
+  <%= link_to 'Edit', edit_publication_subject_path(@publication_subject), 
+   :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', publication_subject_path(@publication_subject) do %>
+   <%= hidden_field_tag 'confirm', "Destroy publication subject '#{h(@publication_subject)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+</div>
 
 Add "other" to list
 
 Add "other_publication_subject" string field to Publication model, required if "other" is selected.
+
 
 

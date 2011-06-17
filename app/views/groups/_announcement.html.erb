@@ -9,9 +9,9 @@
      edit_group_announcement_path(announcement.group,announcement), 
        :class => 'button' %>&nbsp;
    <%# destroy_link_to 'Destroy', group_announcement_path(announcement.group,announcement) do %>
-    <%#= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
+    <%#= hidden_field_tag 'confirm', "Destroy announcement '#{h(announcement)}'?", 
       :id => nil %>
-<%#= submit_link_to('Destroy') %>
+    <%#= submit_link_to('Destroy') %>
    <%# end %>
   <% end %>
  </td>

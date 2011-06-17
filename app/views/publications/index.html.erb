@@ -1,13 +1,7 @@
 <h2>Publications:</h2>
 <% unless @publications.empty? %>
   <table id='publications'><thead>
-
-
-
-    <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
-
-
-
+    <tr><th>Title</th><th>Journal</th><th>Author</th><th>PubYear</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'publication', :collection => @publications %>
   </tbody></table><!-- id='publications' -->

@@ -1,12 +1,43 @@
+<p>
+  <b>Title:</b>
+  <%=h @publication.title %>
+</p>
 
-publication_subject_id:integer
-study_id:integer
-author_last_name:string
-publication_year:string
-journal:string
-title:string
+<p>
+  <b>Journal:</b>
+  <%=h @publication.journal %>
+</p>
 
-all are required
+<p>
+  <b>Author:</b>
+  <%=h @publication.author_last_name %>
+</p>
+
+<p>
+  <b>Publication Year:</b>
+  <%=h @publication.publication_year %>
+</p>
+
+<p>
+  <b>Publication Subject:</b>
+  <%=h @publication.publication_subject %>
+</p>
+
+<p>
+  <b>Study:</b>
+  <%=h @publication.study %>
+</p>
+
+
+<div class='manage'>
+  <%= link_to 'Edit', edit_publication_path(@publication), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', publication_path(@publication) do %>
+   <%= hidden_field_tag 'confirm', "Destroy publication '#{h(@publication)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+</div>
+
 
 publication year needs to be between 1900 and current year
 

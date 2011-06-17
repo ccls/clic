@@ -6,9 +6,9 @@
   <% if current_user.may_edit_announcements? %>
    <%= link_to 'Edit', edit_announcement_path(announcement), :class => 'button' %>&nbsp;
    <%# destroy_link_to 'Destroy', announcement_path(announcement) do %>
-    <%#= hidden_field_tag 'confirm', "Destroy announcement '#{announcement}'?", 
+    <%#= hidden_field_tag 'confirm', "Destroy announcement '#{h(announcement)}'?", 
      :id => nil %>
-<%#= submit_link_to('Destroy') %>
+    <%#= submit_link_to('Destroy') %>
    <%# end %>
   <% end %>
  </td>

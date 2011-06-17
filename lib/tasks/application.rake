@@ -10,6 +10,8 @@ namespace :app do
 #		fixtures.push('forums')
 #		fixtures.push('photos')
 #		fixtures.push('documents')
+#		fixtures.push('publication_subjects')
+#		fixtures.push('studies')
 #		ENV['FIXTURES'] = fixtures.join(',')
 #		puts "Loading fixtures for #{ENV['FIXTURES']}"
 #		Rake::Task["db:fixtures:load"].invoke

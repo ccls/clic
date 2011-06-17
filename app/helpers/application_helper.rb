@@ -1,7 +1,8 @@
 module ApplicationHelper
 
 	def application_root_menu
-		load 'page.rb' if Rails.env == 'development'
+#		load 'page.rb' if Rails.env == 'development'
+		load 'page.rb' unless defined?(Page);
 		out = "<ul id='GlobalNav'>\n"
 		out << Page.roots.collect do |page|
 			"<li>" << link_to( page.menu(session[:locale]), 
@@ -25,6 +26,11 @@ module ApplicationHelper
 				"<li>#{link_to( "Documents", documents_path )}</li>" : '' )
 			menu << (( current_user.may_administrate? ) ? "" <<
 				"<li>#{link_to( "Memberships", memberships_path )}</li>" << 
+				"<li>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
+				"<li>#{link_to( "Publications (temp)", publications_path )}</li>" << 
+				"<li>#{link_to( "Doc Forms (temp)", doc_forms_path )}</li>" << 
+				"<li>#{link_to( "Annual Meetings (temp)", annual_meetings_path )}</li>" << 
+				"<li>#{link_to( "Studies (temp)", studies_path )}</li>" << 
 				"<li>#{link_to( "Groups (temp)", groups_path )}</li>" << 
 				"<li>#{link_to( "Group Roles (temp)", group_roles_path )}</li>" : '')
 			menu << "<li>#{link_to( "My Account", user_path(current_user) )}</li>" <<
@@ -38,7 +44,8 @@ module ApplicationHelper
 	end
 
 	def members_only_menu
-		load 'group.rb' if Rails.env == 'development'
+#		load 'group.rb' if Rails.env == 'development'
+		load 'group.rb' unless defined?(Group);
 		out = "<ul id='GlobalNav'>\n"
 		out << "<li>#{link_to( "Home", root_path )}</li>\n"
 		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"

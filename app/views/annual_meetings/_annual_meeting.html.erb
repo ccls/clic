@@ -1,3 +1,11 @@
 <% content_tag_for( :tr, annual_meeting, :class => "annual_meeting row" ) do %>
-  <td>Placeholder</td>
+ <td class='meeting'><%= link_to annual_meeting, annual_meeting %></td>
+ <td class='manage'>
+  <%= link_to 'Edit', edit_annual_meeting_path(annual_meeting), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', annual_meeting_path(annual_meeting) do %>
+   <%= hidden_field_tag 'confirm', "Destroy annual meeting '#{h(annual_meeting)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+ </td>
 <% end %>

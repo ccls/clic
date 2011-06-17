@@ -1,3 +1,11 @@
 <% content_tag_for( :tr, study, :class => "study row" ) do %>
-  <td>Placeholder</td>
+ <td class='name'><%= link_to study, study %></td>
+ <td class='manage'>
+  <%= link_to 'Edit', edit_study_path(study), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', study_path(study) do %>
+   <%= hidden_field_tag 'confirm', "Destroy study '#{h(study)}'?",
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+ </td>
 <% end %>

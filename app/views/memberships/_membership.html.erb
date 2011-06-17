@@ -19,7 +19,7 @@
   <%= link_to 'Edit', edit_membership_path(membership),
 		:class => 'button' %>
   <% destroy_link_to 'Destroy', membership_path(membership) do %>
-   <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?", 
+   <%= hidden_field_tag 'confirm', "Destroy membership '#{h(membership)}'?", 
      :id => nil %>
    <%= submit_link_to('Deny/Destroy') %>
   <% end %>

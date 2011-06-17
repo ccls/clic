@@ -5,9 +5,9 @@
  <td class='manage'>
   <%= link_to 'Edit', edit_document_path(document), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', document_path(document) do %>
-   <%= hidden_field_tag 'confirm', "Destroy document '#{document}'?", 
+   <%= hidden_field_tag 'confirm', "Destroy document '#{h(document)}'?", 
     :id => nil %>
-<%= submit_link_to('Destroy') %>
+   <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %><!-- class='document row' -->

@@ -1,7 +1,22 @@
+<p>
+  <b>Meeting:</b>
+  <%=h @annual_meeting.meeting %>
+</p>
 
+<p>
+  <b>Abstract:</b>
+  <%= sanitize(@annual_meeting.abstract) %>
+</p>
 
+<div class='manage'>
+  <%= link_to 'Edit', edit_annual_meeting_path(@annual_meeting), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', annual_meeting_path(@annual_meeting) do %>
+   <%= hidden_field_tag 'confirm', "Destroy annual meeting '#{h(@annual_meeting)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+</div>
 
-abstract:text
-meeting:string
 
 attachments
+

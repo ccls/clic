@@ -5,9 +5,9 @@
  <td class='manage'>
   <%= link_to 'Edit', edit_group_role_path(group_role), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', group_role_path(group_role) do %>
-   <%= hidden_field_tag 'confirm', "Destroy group_role '#{group_role}'?", 
+   <%= hidden_field_tag 'confirm', "Destroy group_role '#{h(group_role)}'?", 
      :id => nil %>
-<%= submit_link_to('Destroy') %>
+   <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %><!-- class='group_role row' -->

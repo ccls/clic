@@ -1,9 +1,23 @@
+<p>
+  <b>Title:</b>
+  <%=h @doc_form.title %>
+</p>
+
+<p>
+  <b>Abstract:</b>
+  <%= sanitize(@doc_form.abstract) %>
+</p>
 
 
-title:string
-abstract:text
 
-both required
+<div class='manage'>
+  <%= link_to 'Edit', edit_doc_form_path(@doc_form), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', doc_form_path(@doc_form) do %>
+   <%= hidden_field_tag 'confirm', "Destroy doc form '#{h(@doc_form)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+</div>
 
 multiple attachments
 

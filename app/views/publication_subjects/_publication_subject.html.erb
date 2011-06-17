@@ -1,3 +1,12 @@
 <% content_tag_for( :tr, publication_subject, :class => "publication_subject row" ) do %>
-  <td>Placeholder</td>
+ <td class='name'><%= link_to publication_subject, publication_subject %></td>
+ <td class='manage'>
+  <%= link_to 'Edit', edit_publication_subject_path(publication_subject), 
+   :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', publication_subject_path(publication_subject) do %>
+   <%= hidden_field_tag 'confirm', "Destroy publication subject '#{h(publication_subject)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+ </td>
 <% end %>

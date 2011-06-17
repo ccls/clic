@@ -1,13 +1,7 @@
 <h2>Doc Forms:</h2>
 <% unless @doc_forms.empty? %>
   <table id='doc_forms'><thead>
-
-
-
-    <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
-
-
-
+    <tr><th>Title</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'doc_form', :collection => @doc_forms %>
   </tbody></table><!-- id='doc_forms' -->

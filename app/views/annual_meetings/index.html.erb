@@ -1,11 +1,7 @@
 <h2>Annual Meetings:</h2>
 <% unless @annual_meetings.empty? %>
   <table id='annual_meetings'><thead>
-
-
-    <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>&nbsp;</th></tr>
-
-
+    <tr><th>Meeting</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'annual_meeting', :collection => @annual_meetings %>
   </tbody></table><!-- id='annual_meetings' -->

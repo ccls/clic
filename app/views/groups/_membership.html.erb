@@ -17,7 +17,7 @@
    <%= link_to 'Edit', edit_group_membership_path(@group,membership), 
      :class => 'button' %>&nbsp;
    <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
-     <%= hidden_field_tag 'confirm', "Destroy membership '#{membership}'?",
+     <%= hidden_field_tag 'confirm', "Destroy membership '#{h(membership)}'?",
        :id => nil %>
      <%= submit_link_to('Destroy') %>
    <% end %>
