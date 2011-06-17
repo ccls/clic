@@ -20,7 +20,8 @@ module SitePermissions
 				alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
 			end
 		
-			%w(	memberships group_roles ).each do |resource|
+			%w(	memberships group_roles annual_meetings doc_forms
+					publications publication_subjects studies ).each do |resource|
 				alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
 				alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
 				alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?

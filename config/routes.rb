@@ -6,6 +6,12 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }
 
+	map.resources :doc_forms
+	map.resources :studies
+	map.resources :publication_subjects
+	map.resources :annual_meetings
+	map.resources :publications
+
 	map.resources :group_roles
 	map.resources :memberships, :only => [:index,:update,:destroy,:edit],
 		:member => { :approve => :put }
