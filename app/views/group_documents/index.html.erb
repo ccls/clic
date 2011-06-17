@@ -1,19 +1,10 @@
 <h2>Group Documents:</h2>
 
-<% if @documents.length > 0 %>
+<% unless @documents.empty? %>
  <table id='documents'><thead>
- <tr><th>Title</th></tr></thead><tbody>
+ <tr><th>Group</th><th>Title</th></tr></thead><tbody>
  <%= render :partial => 'document', :collection => @documents %>
  </tbody></table><!-- id='documents' -->
 <% else %>
- <p>Sorry, but no documents yet.</p>
+ <p>Sorry, but no group documents yet.</p>
 <% end %>
-
-<p>
- <%= link_to 'Group', 
-   group_path(@group), 
-	:class => 'button' %>&nbsp;
- <%= link_to 'Create New Group Document', 
-   new_group_document_path(@group), 
-	:class => 'button' %>
-</p>

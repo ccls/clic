@@ -3,7 +3,6 @@ require 'test_helper'
 class GroupDocumentsControllerTest < ActionController::TestCase
 
 	#	no group_id
-	assert_no_route(:get,:index)
 	assert_no_route(:get,:new)
 	assert_no_route(:post,:create)
 
@@ -45,6 +44,30 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			group_administrator group_moderator
 			group_editor group_reader )
 	end
+
+	site_administrators.each do |cu|
+
+		test "should get index with #{cu} login" do
+			login_as send(cu)
+			get :index
+			assert_response :success
+			assert_template 'index'
+			assert assigns(:documents)
+		end
+
+	end
+
+	( all_test_roles - site_administrators ).each do |cu|
+
+		test "should NOT get index with #{cu} login" do
+			login_as send(cu)
+			get :index
+			assert_redirected_to root_path
+			assert_not_nil flash[:error]
+		end
+
+	end
+
 
 	#
 	#	NOT Attached to a Group
@@ -224,6 +247,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		get :show, :id => document.id
 		assert_redirected_to_login
 		document.destroy
+	end
+
+	test "should NOT get index without login" do
+		get :index
+		assert_redirected_to_login
 	end
 
 end

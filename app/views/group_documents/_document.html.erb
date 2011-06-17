@@ -1,14 +1,21 @@
 <% content_tag_for( :tr, document, :class => 'row' ) do %>
+<%# TODO link to group and whatever the document might be attached to %>
+ <td class='group'>
+  <%= ( document.group.nil? ) ? nil : link_to( document.group, group_path(document.group) ) %>
+ </td>
  <td class='title'>
-  <%= link_to document.title, group_document_path(@group,document) %>
+  <%= link_to document.title, group_document_path(document) %>
  </td>
  <td class='manage'>
-  <%= link_to 'Edit', edit_group_document_path(@group,document), 
+<%# TODO no edit yet %>
+  <%#= link_to 'Edit', edit_group_document_path([document.group,document].compact), 
     :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', group_document_path(@group,document) do %>
-   <%= hidden_field_tag 'confirm', "Destroy document '#{h(document)}'?", 
+  <%# destroy_link_to 'Destroy', group_document_path([document.group,document].compact) do %>
+<%# TODO no destroy yet %>
+  <%# destroy_link_to 'Destroy', group_document_path(document) do %>
+   <%#= hidden_field_tag 'confirm', "Destroy document '#{h(document)}'?", 
      :id => nil %>
-   <%= submit_link_to('Destroy') %>
-  <% end %>
+   <%#= submit_link_to('Destroy') %>
+  <%# end %>
  </td>
 <% end %><!-- class='document row' -->

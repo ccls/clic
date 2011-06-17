@@ -17,7 +17,7 @@
 <div class='members_only'>
  <div class='announcement_section section'>
   <h3>Announcements</h3>
-  <% if @announcements.length > 0 %>
+  <% unless @announcements.empty? %>
    <table id='announcements'><tbody>
    <%= render :partial => 'announcement', :collection => @announcements %>
    </tbody></table><!-- id='announcements' -->

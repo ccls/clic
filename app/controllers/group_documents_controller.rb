@@ -5,7 +5,8 @@ class GroupDocumentsController < ApplicationController
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:show,:destroy]
 
-	before_filter :may_read_group_document_required, :only => :show
+	before_filter :may_read_group_document_required,  :only => :show
+	before_filter :may_read_group_documents_required, :only => :index
 
 	def show
 		if @group_document.document.path.blank?
@@ -23,6 +24,10 @@ class GroupDocumentsController < ApplicationController
 			flash[:error] = "Document does not exist at the expected location."
 			redirect_to( request.env["HTTP_REFERER"] || root_path )
 		end
+	end
+
+	def index
+		@documents = GroupDocument.all		#	TODO should paginate this
 	end
 
 protected

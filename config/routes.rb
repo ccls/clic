@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
 		end
 	end
 
-	map.resources :group_documents, :only => :show
+	map.resources :group_documents, :only => [:show,:index]
 
 	map.confirm_email 'confirm_email/:id', 
 		:controller => 'email_confirmations', :action => 'confirm'
