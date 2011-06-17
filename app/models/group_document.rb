@@ -3,9 +3,9 @@ require 'hmac-sha1'
 #	http://amazon.rubyforge.org/
 #
 class GroupDocument < ActiveRecord::Base
-	belongs_to :group
+	belongs_to :group	#	sometimes
 	belongs_to :user
-	belongs_to :post
+	belongs_to :post	#	TODO gonna need to polymorphicize this
 
 	validates_presence_of :user, :post, :title
 	validates_length_of :title,       :maximum => 250
