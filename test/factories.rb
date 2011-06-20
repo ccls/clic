@@ -42,7 +42,8 @@ Factory.define :group do |f|
 end
 
 Factory.define :group_document do |f|
-	f.association :post
+#	f.association :post
+	f.association :attachable, :factory => :post
 	f.association :user
 #	f.association :group
 	f.sequence(:title) { |n| "Group Document Title #{n}" }

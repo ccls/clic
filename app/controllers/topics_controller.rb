@@ -30,7 +30,8 @@ class TopicsController < ApplicationController
 			unless @group_document.document_file_name.blank?
 				@group_document.user = current_user
 				@group_document.group = @forum.group
-				@group_document.post = @post
+#				@group_document.post = @post
+				@group_document.attachable = @post
 				@group_document.save! 
 			end
 		end

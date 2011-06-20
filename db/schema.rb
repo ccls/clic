@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517191317) do
+ActiveRecord::Schema.define(:version => 20110620161956) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(:version => 20110517191317) do
 
   create_table "group_documents", :force => true do |t|
     t.integer  "group_id"
-    t.integer  "user_id",               :null => false
+    t.integer  "user_id",                                   :null => false
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
@@ -118,7 +118,8 @@ ActiveRecord::Schema.define(:version => 20110517191317) do
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
-    t.integer  "post_id"
+    t.integer  "attachable_id"
+    t.string   "attachable_type",       :default => "Post"
   end
 
   create_table "group_roles", :force => true do |t|

@@ -22,7 +22,8 @@ class PostsController < ApplicationController
 			@post.save!
 			unless @group_document.document_file_name.blank?
 				@group_document.user = current_user
-				@group_document.post = @post
+#				@group_document.post = @post
+				@group_document.attachable = @post
 				@group_document.group = @forum.group
 				@group_document.save!
 			end

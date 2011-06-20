@@ -5,9 +5,10 @@ require 'hmac-sha1'
 class GroupDocument < ActiveRecord::Base
 	belongs_to :group	#	sometimes
 	belongs_to :user
-	belongs_to :post	#	TODO gonna need to polymorphicize this
+#	belongs_to :post	#	TODO gonna need to polymorphicize this
+	belongs_to :attachable, :polymorphic => true
 
-	validates_presence_of :user, :post, :title
+	validates_presence_of :user, :title
 	validates_length_of :title,       :maximum => 250
 	validates_length_of :description, :maximum => 65000, :allow_blank => true
 
