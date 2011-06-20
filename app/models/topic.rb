@@ -8,14 +8,23 @@ class Topic < ActiveRecord::Base
 #	validates_uniqueness_of :title
 	validates_length_of :title, :maximum => 250
 
-#	why didn't I implement?
-#	TODO accepts_nested_attributes_for :posts	#	really just for create
+	accepts_nested_attributes_for :posts
 
 	has_one :last_post, :class_name => 'Post', 
 		:order => "created_at DESC"
 
+	before_validation_on_create :set_post_attributes
+
 	def to_s
 		title
+	end
+
+protected
+
+	def set_post_attributes
+		posts.each do |p|
+			p.user  = user
+		end
 	end
 
 end

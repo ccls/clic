@@ -24,4 +24,77 @@ class TopicTest < ActiveSupport::TestCase
 		assert_equal object.title, "#{object}"
 	end
 
+	test "should create topic with nested attributes for posts" do
+		user = Factory(:user)
+		assert_difference('Topic.count',1) {
+		assert_difference('User.count',0) {
+		assert_difference('Post.count',1) {
+			object = Factory(:topic, {
+				:user => user,
+				:posts_attributes => [ Factory.attributes_for(:post) ]
+			})
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal user, object.user
+			assert_equal user, object.posts.first.user
+		} } }
+	end
+
+	test "should create topic with nested attributes for posts and " <<
+			"nested attributes for group_documents" do
+		user = Factory(:user)
+		assert_difference('Topic.count',1) {
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',1) {
+		assert_difference('Post.count',1) {
+			object = Factory(:topic, {
+				:user => user,
+				:posts_attributes => [Factory.attributes_for(:post,
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf'))
+					])
+			]})
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal user, object.user
+			assert_equal user, object.posts.first.user
+			assert_equal user, object.posts.first.group_documents.first.user
+		} } } }
+		GroupDocument.destroy_all
+	end
+
+	test "should create topic with nested attributes for posts and " <<
+			"nested attributes for group_documents with group" do
+		group = Factory(:group)
+		forum = Factory(:forum, :group => group)
+		assert_not_nil forum.group
+		user = Factory(:user)
+		assert_difference('Topic.count',1) {
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',1) {
+		assert_difference('Post.count',1) {
+			object = Factory(:topic, {
+				:forum => forum,
+				:user => user,
+				:posts_attributes => [Factory.attributes_for(:post,
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf'))
+					])
+			]})
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal forum, object.forum
+			assert_equal group, object.forum.group
+			assert_equal user,  object.user
+			assert_equal user,  object.posts.first.user
+			assert_equal user,  object.posts.first.group_documents.first.user
+			assert_equal group, object.posts.first.group_documents.first.group
+		} } } }
+		GroupDocument.destroy_all
+	end
+
 end

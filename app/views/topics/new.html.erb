@@ -2,30 +2,29 @@
 <h2>Creating new discussion topic</h2>
 
 <% form_for( @topic, :url => forum_topics_path(@forum),
-	:html => { :multipart => true } ) do |f| %>
+  :html => { :multipart => true } ) do |f| %>
   <%= f.error_messages %>
   <%= f.wrapped_text_field :title,
     :label_text => 'Topic Title',
     :class => 'autosize' %>
 
-  <% fields_for @post do |p| %>
-    <%= p.error_messages %>
+  <% @topic.posts.build if @topic.posts.empty? %>
+  <% f.fields_for :posts do |p| %>
     <%= p.wrapped_text_area :body,
       :class => 'tinymce' %>
-  <% end %>
-
-  <% fields_for @group_document do |d| %>
-    <%= d.error_messages %>
-    <p>Optional File Attachment ...</p>
-    <%= d.wrapped_text_field :title,
-      :label_text => 'Document Title',
-      :class => 'autosize' %>
-    <%= d.wrapped_file_field :document %>
+    <% p.object.group_documents.build if p.object.group_documents.empty? %>
+    <% p.fields_for :group_documents do |d| %>
+      <p>Optional File Attachment ...</p>
+      <%= d.wrapped_text_field :title,
+        :label_text => 'Document Title',
+        :class => 'autosize' %>
+      <%= d.wrapped_file_field :document %>
+    <% end %>
   <% end %>
 
   <p>
     <%= f.submit_link_to 'Create' %>&nbsp;
     <%= link_to 'Cancel and return to Forum', forum_path(@forum),
-			:class => 'button' %>
+      :class => 'button' %>
   </p>
 <% end %>

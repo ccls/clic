@@ -77,8 +77,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Post.count',1) {
 			assert_difference('Topic.count',1) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } } } } }
 			assert assigns(:topic)
 			assert_not_nil flash[:notice]
@@ -94,19 +93,19 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Post.count',1) {
 			assert_difference('Topic.count',1) {
 			assert_difference('GroupDocument.count',1) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post),
-					:group_document => Factory.attributes_for(:group_document,
+				post :create, :forum_id => forum.id, :topic => factory_attributes(
+					:posts_attributes => [Factory.attributes_for(:post,
+					:group_documents_attributes => [Factory.attributes_for(:group_document,
 						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+							'/../assets/edit_save_wireframe.pdf'))])])
 			} } } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
-			assert assigns(:post)
-			assert assigns(:group_document)
+			assert !assigns(:topic).posts.empty?
+			assert !assigns(:topic).posts.first.group_documents.empty?
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
-			assigns(:group_document).destroy	#	gotta cleanup ourselves
+			GroupDocument.destroy_all	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new topic with #{cu} login and invalid forum_id" do
@@ -114,8 +113,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => 0, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(0)
 			} } } 
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
@@ -128,8 +126,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } }
 			assert assigns(:topic)
 			assert_response :success
@@ -144,8 +141,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } }
 			assert assigns(:topic)
 			assert_response :success
@@ -171,8 +167,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } }
 			assert_not_nil flash[:error]
 			assert_redirected_to forum_path(forum)
@@ -242,8 +237,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',1) {
 			assert_difference('Post.count',1) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } } } } }
 			assert assigns(:topic)
 			assert_not_nil flash[:notice]
@@ -259,20 +253,20 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',1) {
 			assert_difference('Post.count',1) {
 			assert_difference('GroupDocument.count',1) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post),
-					:group_document => Factory.attributes_for(:group_document,
+				post :create, :forum_id => forum.id, :topic => factory_attributes(
+					:posts_attributes => [Factory.attributes_for(:post,
+						:group_documents_attributes => [Factory.attributes_for(:group_document,
 						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+							'/../assets/edit_save_wireframe.pdf'))])])
 			} } } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
-			assert assigns(:post)
-			assert assigns(:group_document)
-			assert_equal assigns(:group_document).group, @membership.group
+			assert !assigns(:topic).posts.empty?
+			assert !assigns(:topic).posts.first.group_documents.empty?
+			assert_equal assigns(:topic).posts.first.group_documents.first.group, @membership.group
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
-			assigns(:group_document).destroy	#	gotta cleanup ourselves
+			GroupDocument.destroy_all	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new group topic with #{cu} login when create fails" do
@@ -282,8 +276,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } }
 			assert assigns(:topic)
 			assert_response :success
@@ -298,8 +291,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } }
 			assert assigns(:topic)
 			assert_response :success
@@ -325,8 +317,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',0) {
 			assert_difference('Post.count',0) {
 			assert_difference('GroupDocument.count',0) {
-				post :create, :forum_id => forum.id, :topic => factory_attributes,
-					:post => Factory.attributes_for(:post)
+				post_create(forum.id)
 			} } }
 			assert_not_nil flash[:error]
 			assert_redirected_to forum_path(forum)
@@ -387,6 +378,11 @@ protected
 		assert_not_nil topic.forum
 		assert_not_nil topic.user
 		topic
+	end
+
+	def post_create(forum_id)
+		post :create, :forum_id => forum_id, :topic => factory_attributes(
+			:posts_attributes => [Factory.attributes_for(:post)])
 	end
 
 end

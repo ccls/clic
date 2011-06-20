@@ -71,18 +71,23 @@ class PostsControllerTest < ActionController::TestCase
 			assert_difference("User.find(#{user.id}).posts_count",1) {
 			assert_difference('Post.count',1) {
 			assert_difference('GroupDocument.count',1) {
-				post :create, :topic_id => topic.id, :post => factory_attributes,
-					:group_document => Factory.attributes_for(:group_document,
+				post :create, :topic_id => topic.id, :post => factory_attributes(
+					:group_documents_attributes => [Factory.attributes_for(:group_document,
 						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+							'/../assets/edit_save_wireframe.pdf'))])
 			} } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
 			assert assigns(:post)
-			assert assigns(:group_document)
+			assert_equal assigns(:post).user,  user
+			assert !assigns(:post).group_documents.empty?
+			assigns(:post).group_documents.each do |gd|
+				assert_equal gd.user, user
+				assert_nil   gd.group
+			end	
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
-			assigns(:group_document).destroy	#	gotta cleanup ourselves
+			GroupDocument.destroy_all	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new post with #{cu} login and invalid topic_id" do
@@ -189,19 +194,23 @@ class PostsControllerTest < ActionController::TestCase
 			assert_difference("User.find(#{user.id}).posts_count",1) {
 			assert_difference('Post.count',1) {
 			assert_difference('GroupDocument.count',1) {
-				post :create, :topic_id => topic.id, :post => factory_attributes,
-					:group_document => Factory.attributes_for(:group_document,
+				post :create, :topic_id => topic.id, :post => factory_attributes(
+					:group_documents_attributes => [Factory.attributes_for(:group_document,
 						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+							'/../assets/edit_save_wireframe.pdf'))])
 			} } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
 			assert assigns(:post)
-			assert assigns(:group_document)
-			assert_equal assigns(:group_document).group, @membership.group
+			assert_equal assigns(:post).user,  user
+			assert !assigns(:post).group_documents.empty?
+			assigns(:post).group_documents.each do |gd|
+				assert_equal gd.user,  user
+				assert_equal gd.group, @membership.group
+			end
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
-			assigns(:group_document).destroy	#	gotta cleanup ourselves
+			GroupDocument.destroy_all	#	gotta cleanup ourselves
 		end
 
 		test "should NOT create new group post with #{cu} login when create fails" do

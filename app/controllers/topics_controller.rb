@@ -13,35 +13,15 @@ class TopicsController < ApplicationController
 
 	def new
 		@topic = Topic.new
-		@post  = @topic.posts.build
-		@group_document = GroupDocument.new
 	end
 
 	def create
 		@topic = @forum.topics.new(params[:topic])
 		@topic.user = current_user
-		@post = Post.new(params[:post])
-		@post.user = current_user
-		@group_document = GroupDocument.new(params[:group_document])
-		Topic.transaction do
-			@topic.save!
-			@post.topic = @topic
-			@post.save!
-			unless @group_document.document_file_name.blank?
-				@group_document.user = current_user
-				@group_document.group = @forum.group
-#				@group_document.post = @post
-				@group_document.attachable = @post
-				@group_document.save! 
-			end
-		end
+		@topic.save!
 		flash[:notice] = "Success!"
 		redirect_to forum_path(@forum)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		#	Rails bug does not reset new_record or id on failed transaction
-		#	they know and don't care
-		@topic.instance_variable_set("@new_record", true)
-		@topic.id = nil
 		flash.now[:error] = "something bad happened"
 		render :action => 'new'
 	end

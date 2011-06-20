@@ -25,4 +25,25 @@ class PostTest < ActiveSupport::TestCase
 		assert_equal object.body[0..9], "#{object}"
 	end
 
+	test "should create post with nested attributes for group_documents" do
+		topic = Factory(:topic)
+		assert_difference('Topic.count',0) {
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',1) {
+		assert_difference('Post.count',1) {
+			object = Factory(:post, {
+				:topic => topic, :user => topic.user,
+				:group_documents_attributes => [
+					Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			]})
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal topic.user, object.user
+			assert_equal topic.user, object.group_documents.first.user
+		} } } }
+		GroupDocument.destroy_all
+	end
+
 end

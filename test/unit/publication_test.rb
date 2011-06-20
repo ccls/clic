@@ -21,4 +21,22 @@ class PublicationTest < ActiveSupport::TestCase
 		assert_equal object.title, "#{object}"
 	end
 
+	test "should create publication with nested attributes for group_documents" do
+		user = Factory(:user)
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',1) {
+		assert_difference('Publication.count',1) {
+			object = Factory(:publication,
+				:group_documents_attributes => [
+					Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'),
+						:user => user)
+			])
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+		} } }
+		GroupDocument.destroy_all
+	end
+
 end
