@@ -22,8 +22,6 @@ RAILS_APP_NAME = 'clic'
 
 Rails::Initializer.run do |config|
 
-#	config.gem 'RedCloth', :version => '!= 4.2.6', :lib => 'redcloth'
-
 	if RUBY_PLATFORM =~ /java/
 		config.gem 'activerecord-jdbcsqlite3-adapter',
 			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
@@ -48,8 +46,6 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_authorized'
 	config.gem 'jakewendt-simply_pages'
 	config.gem 'jakewendt-simply_photos'
-#	documents will become too complex so importing and then cutting the cord
-#	config.gem 'jakewendt-simply_documents'
 	config.gem 'jakewendt-ruby_extension'
 	config.gem 'jakewendt-rails_extension'
 
@@ -68,10 +64,6 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
-#	I don't know why I need to do this here, but nowhere else
-#PagesController.class_eval { unloadable }
-#PhotosController.class_eval { unloadable }
-#DocumentsController.class_eval { unloadable }
 
 if RUBY_PLATFORM =~ /java/i
 	require 'file_utils_extension'
