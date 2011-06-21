@@ -28,6 +28,12 @@
   <%=h @publication.study %>
 </p>
 
+<% unless @publication.group_documents.empty? %>
+<p><b>Attachment(s):</b></p>
+  <% @publication.group_documents.each do |document| %>
+    <p><%= link_to document.title, group_document_path(document) %></p>
+  <% end %>
+<% end %>
 
 <div class='manage'>
   <%= link_to 'Edit', edit_publication_path(@publication), :class => 'button' %>&nbsp;
@@ -37,10 +43,3 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
-
-
-publication year needs to be between 1900 and current year
-
-
-
-attachments

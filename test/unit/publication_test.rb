@@ -27,11 +27,11 @@ class PublicationTest < ActiveSupport::TestCase
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('Publication.count',1) {
 			object = Factory(:publication,
+				:current_user => user,
 				:group_documents_attributes => [
 					Factory.attributes_for(:group_document,
 						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'),
-						:user => user)
+							'/../assets/edit_save_wireframe.pdf') )
 			])
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
