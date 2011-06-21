@@ -7,6 +7,7 @@ class Publication < ActiveRecord::Base
 	accepts_nested_attributes_for :group_documents, 
 		:reject_if => proc{|attributes| attributes['document'].blank? }
 
+	validates_presence_of :publication_subject, :study
 	validates_presence_of :title, :journal, :publication_year, :author_last_name
 
 	validates_length_of :title, :journal,

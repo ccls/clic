@@ -67,6 +67,8 @@ Factory.define :post do |f|
 end
 
 Factory.define :publication do |f|
+	f.association :study
+	f.association :publication_subject
 	f.sequence(:title) { |n| "Title #{n}" }
 	f.sequence(:journal) { |n| "Journal #{n}" }
 	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
