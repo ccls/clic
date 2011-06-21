@@ -12,8 +12,11 @@ class PublicationsControllerTest < ActionController::TestCase
 	def factory_create
 		Factory(:publication)
 	end
-	def factory_attributes
-		Factory.attributes_for(:publication)
+	def factory_attributes(options={})
+		Factory.attributes_for(:publication,{
+			:study_id               => Study.first.id,
+			:publication_subject_id => PublicationSubject.first.id
+		}.merge(options))
 	end
 
 	assert_access_with_https
