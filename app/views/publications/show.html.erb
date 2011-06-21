@@ -22,12 +22,12 @@
 
 <p>
   <b>Publication Subject:</b>
-  <%=h @publication.publication_subject %>
+  <%= link_to @publication.publication_subject, @publication.publication_subject %>
 </p>
 
 <p>
   <b>Study:</b>
-  <%=h @publication.study %>
+  <%= link_to @publication.study, @publication.study %>
 </p>
 
 <% unless @publication.group_documents.empty? %>
