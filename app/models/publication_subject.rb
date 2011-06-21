@@ -1,4 +1,5 @@
 class PublicationSubject < ActiveRecord::Base
+	default_scope :order => :position
 	acts_as_list
 
 	has_many :publications
@@ -9,6 +10,10 @@ class PublicationSubject < ActiveRecord::Base
 
 	def to_s
 		name
+	end
+
+	def is_other?
+		name == 'Other'
 	end
 
 end

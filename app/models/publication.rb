@@ -17,6 +17,8 @@ class Publication < ActiveRecord::Base
 
 	validate :publication_year_is_between_1900_and_this_year
 
+	validates_presence_of :other_publication_subject, :if => :publication_subject_is_other?
+
 	attr_accessor :current_user
 
 	before_validation_on_create  :set_group_documents_user
@@ -41,6 +43,11 @@ protected
 #	TODO publication year needs to be between 1900 and current year
 
 
+	end
+
+	#	publication_subject is not yet required, so use try
+	def publication_subject_is_other?
+		publication_subject.try(:is_other?)
 	end
 
 end

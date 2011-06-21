@@ -14,4 +14,18 @@ class PublicationSubjectTest < ActiveSupport::TestCase
 		assert_equal object.name, "#{object}"
 	end
 
+	test "should be 'other' for publication subject 'other'" do
+		ps = PublicationSubject.find(:all, :conditions =>  { :name => 'Other' })
+		assert_equal 1, ps.length
+		assert ps.first.is_other?
+	end
+
+	test "should NOT be 'other' for publication subject NOT 'other'" do
+		pss = PublicationSubject.find(:all, :conditions =>  "name !=  'Other'" )
+		assert pss.length > 1
+		pss.each do |ps|
+			assert !ps.is_other?
+		end
+	end
+
 end

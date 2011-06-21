@@ -61,6 +61,8 @@ form div.field_wrapper.ends_at_meridiem label {
 	width: 1em;
 }
 
+form#new_publication div.field_wrapper.other_publication_subject label,
+form.edit_publication div.field_wrapper.other_publication_subject label,
 form#new_document div.field_wrapper.abstract label,
 form.edit_document div.field_wrapper.abstract label,
 form#new_topic div.field_wrapper.body label,
@@ -79,6 +81,10 @@ form#new_announcement div.field_wrapper.content label,
 form.edit_announcement div.field_wrapper.content label {
 	float:none;
 	display:block;
+}
+form#new_publication div.field_wrapper.other_publication_subject label,
+form.edit_publication div.field_wrapper.other_publication_subject label {
+	width: auto;
 }
 
 /*

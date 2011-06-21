@@ -41,4 +41,14 @@ class PublicationTest < ActiveSupport::TestCase
 
 #	TODO test trying to create without user
 
+	test "should require other_publication_subject if publication_subject is other" do
+		assert_difference('Publication.count',0) {
+			object = create_object(:publication_subject_id => PublicationSubject.find(:first,
+				:conditions => { :name => 'Other' }).id)
+			assert object.errors.on_attr_and_type(:other_publication_subject, :blank)
+		}
+	end
+
+#	TODO test should require publication year between 1900 and this year
+
 end
