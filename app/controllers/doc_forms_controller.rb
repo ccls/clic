@@ -1,5 +1,7 @@
 class DocFormsController < ApplicationController
 
+	layout 'members_onlies'
+
 	resourceful
 
 	def create

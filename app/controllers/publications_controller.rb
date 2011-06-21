@@ -1,5 +1,7 @@
 class PublicationsController < ApplicationController
 
+	layout 'members_onlies'
+
 	resourceful
 
 	def create

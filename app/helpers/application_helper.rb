@@ -27,8 +27,6 @@ module ApplicationHelper
 			menu << (( current_user.may_administrate? ) ? "" <<
 				"<li>#{link_to( "Memberships", memberships_path )}</li>" << 
 				"<li>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
-				"<li>#{link_to( "Publications (temp)", publications_path )}</li>" << 
-				"<li>#{link_to( "Doc Forms (temp)", doc_forms_path )}</li>" << 
 				"<li>#{link_to( "Annual Meetings (temp)", annual_meetings_path )}</li>" << 
 				"<li>#{link_to( "Studies (temp)", studies_path )}</li>" << 
 				"<li>#{link_to( "Groups (temp)", groups_path )}</li>" << 
@@ -65,8 +63,8 @@ module ApplicationHelper
 			end
 		end.join()
 		out << "<li>Inventory</li>\n"
-		out << "<li>Documents and Forms</li>\n"
-		out << "<li>Publications</li>\n"
+		out << "<li>#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
+		out << "<li>#{link_to( "Publications", publications_path )}</li>\n"
 		out << "<li>Member Directory</li>\n"
 		out << "<li>Study Contact Info</li>\n"
 		out << "</ul><!-- id='GlobalNav' -->\n"
