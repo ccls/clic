@@ -12,7 +12,7 @@ Childhood Leukemia International Consortium
 * rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
-* curl - for the installation of rvm
+* curl - for the installation of rvm (which isn't really a requirement)
 
 
 == Required Gem Sources
@@ -22,9 +22,9 @@ Childhood Leukemia International Consortium
 
 == Required Gems
 
-* {RedCloth}[http://redcloth.org] - textile parser.
+* {RedCloth}[http://redcloth.org] - textile parser. (moving away from this using TinyMCE instead)
 * {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
-* {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
+* {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb (not using anymore)
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
 * {rcov}[http://github.com/relevance/rcov] - testing
 * {mocha}[http://github.com/floehopper/mocha] - testing
@@ -43,12 +43,12 @@ Childhood Leukemia International Consortium
 * {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
 * {jakewendt-html_test}[http://github.com/jakewendt/html_test] - html testing and validation
 * {jakewendt-rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
-* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
+* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods, but may use the jrails.js.)
 
 
 == Required and included plugins
 
-* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb)
+* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb) (not used anymore)
 
 
 == Installation 
@@ -115,7 +115,7 @@ Everybody join hands together now to install some gems ...
  sudo gem install hpricot
  sudo gem install rake
  sudo gem install rdoc -v '~> 2'
- sudo gem install rails -v 2.3.11
+ sudo gem install rails -v 2.3.12
  #
  # The rest should actually install with ...
  #
@@ -169,7 +169,7 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
 
  ( warble from a jruby environment to get the jruby specific gems )
 
- [jakewendt@dev : ucb_ccls_clic ]>
+ [jakewendt@dev : clic ]>
  bash
  rvm use jruby
  warble
@@ -201,13 +201,13 @@ Inline documentation is sparse and incomplete, but I'm working on it.
 
 == Testing
 
-An HTML validator like {Validator S.A.C.}[http://habilis.net/validator-sac/] should be installed locally for local HTML page validations.  This can be done over the internet, but can be slow and sometimes timeout.  The <tt>test/test_helper.rb</tt> file can be modified to accomodate this simpley by commenting out the <tt>Html::Test::Validator.w3c_url</tt> line.  See the {html_test documentation}[http://github.com/peter/html_test] for further guidance on this.  
+An HTML validator like {Validator S.A.C.}[http://habilis.net/validator-sac/] should be installed locally for local HTML page validations.  This can be done over the internet, but can be slow and sometimes timeout. 
 
 If Validator is not installed or Web Sharing is not enabled, testing will produce many ...
 
  Errno::ECONNREFUSED: Connection refused - connect(2)
 
-I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_test_extension] to check if a local version is running so this should never happen.
+I've made some mods in {html_test}[http://github.com/jakewendt/html_test] to check if a local version is running so this should never happen.
 
  sudo rake RAILS_ENV=test gems:install
  rake test
