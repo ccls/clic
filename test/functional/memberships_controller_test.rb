@@ -10,7 +10,7 @@ class MembershipsControllerTest < ActionController::TestCase
 	}
 	def factory_attributes(options={})
 		Factory.attributes_for(:membership, {
-			:group_role_id => GroupRole['editor'] }.merge(options))
+			:group_role_id => GroupRole['editor'].id }.merge(options))
 	end
 
 	# a @membership is required so that those group roles will work
