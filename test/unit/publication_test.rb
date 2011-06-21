@@ -39,4 +39,6 @@ class PublicationTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
+#	TODO test trying to create without user
+
 end

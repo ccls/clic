@@ -20,16 +20,18 @@ class DocFormTest < ActiveSupport::TestCase
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('DocForm.count',1) {
 			object = Factory(:doc_form,
+				:current_user => user,
 				:group_documents_attributes => [
 					Factory.attributes_for(:group_document,
 						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'),
-					:user => user)
+							'/../assets/edit_save_wireframe.pdf'))
 			])
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		} } }
 		GroupDocument.destroy_all
 	end
+
+#	TODO test trying to create without user
 
 end

@@ -37,4 +37,6 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 #		:destroy => { :id => 0 }
 #	)
 
+#	TODO add tests with attachments
+
 end

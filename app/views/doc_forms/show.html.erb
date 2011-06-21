@@ -9,6 +9,13 @@
 </p>
 
 
+<% unless @doc_form.group_documents.empty? %>
+<p><b>Attachment(s):</b></p>
+  <% @doc_form.group_documents.each do |document| %>
+    <p><%= link_to document.title, group_document_path(document) %></p>
+  <% end %>
+<% end %>
+
 
 <div class='manage'>
   <%= link_to 'Edit', edit_doc_form_path(@doc_form), :class => 'button' %>&nbsp;
@@ -18,8 +25,3 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
-
-multiple attachments
-
-
-

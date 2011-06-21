@@ -1,12 +1,17 @@
-<% form_for(@doc_form) do |f| %>
+<% form_for(@doc_form, :html => { :multipart => true }) do |f| %>
  <%= f.error_messages %>
  <%= f.wrapped_text_field :title,    :class => 'autosize' %>
  <%= f.wrapped_text_area  :abstract, :class => 'autosize' %>
 
 
-Attachments
-
-
+  <% @doc_form.group_documents.build if @doc_form.group_documents.empty? %>
+  <% f.fields_for :group_documents do |d| %>
+    <p>Optional File Attachment ...</p>
+    <%= d.wrapped_text_field :title,
+      :label_text => 'Document Title',
+      :class => 'autosize' %>
+    <%= d.wrapped_file_field :document %>
+  <% end %>
 
  <p>
   <%= f.submit_link_to( ((@doc_form.new_record?)?'Create':'Update')<<" Doc Form" ) %>
