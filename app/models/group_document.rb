@@ -9,6 +9,8 @@ class GroupDocument < ActiveRecord::Base
 
 #	TODO protect user_id and add attr_accessor current_user 
 
+	attr_protected :user_id, :group_id
+
 	validates_presence_of :user, :title
 	validates_length_of :title,       :maximum => 250
 	validates_length_of :description, :maximum => 65000, :allow_blank => true

@@ -9,6 +9,8 @@ class PostTest < ActiveSupport::TestCase
 	assert_should_have_many(:group_documents, :as => :attachable)
 	assert_should_require_attribute_length( :body,  :maximum => 65000 )
 
+	assert_should_protect(:user_id, :topic_id)
+
 	test "should create post" do
 		assert_difference('User.count',2) {
 		assert_difference('Forum.count') {
@@ -42,6 +44,7 @@ class PostTest < ActiveSupport::TestCase
 				"#{object.errors.full_messages.to_sentence}"
 			assert_equal topic.user, object.user
 			assert_equal topic.user, object.group_documents.first.user
+			assert_equal          1, object.group_documents.length
 		} } } }
 		GroupDocument.destroy_all
 	end

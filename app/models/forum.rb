@@ -13,6 +13,8 @@ class Forum < ActiveRecord::Base
 	has_one :last_post, :class_name => 'Post',
 		:through => :topics, :order => 'created_at DESC'
 
+	attr_protected :group_id
+
 	def to_s
 		name
 	end

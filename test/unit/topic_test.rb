@@ -8,6 +8,7 @@ class TopicTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:forum)
 	assert_should_have_many(:posts)
 	assert_should_require_attribute_length( :title, :maximum => 250 )
+	assert_should_protect(:user_id, :forum_id)
 
 	test "should create topic" do
 		assert_difference('User.count') {
@@ -37,6 +38,7 @@ class TopicTest < ActiveSupport::TestCase
 				"#{object.errors.full_messages.to_sentence}"
 			assert_equal user, object.user
 			assert_equal user, object.posts.first.user
+			assert_equal    1, object.posts.length
 		} } }
 	end
 
@@ -60,7 +62,9 @@ class TopicTest < ActiveSupport::TestCase
 				"#{object.errors.full_messages.to_sentence}"
 			assert_equal user, object.user
 			assert_equal user, object.posts.first.user
+			assert_equal    1, object.posts.length
 			assert_equal user, object.posts.first.group_documents.first.user
+			assert_equal    1, object.posts.first.group_documents.length
 		} } } }
 		GroupDocument.destroy_all
 	end
@@ -89,10 +93,12 @@ class TopicTest < ActiveSupport::TestCase
 				"#{object.errors.full_messages.to_sentence}"
 			assert_equal forum, object.forum
 			assert_equal group, object.forum.group
-			assert_equal user,  object.user
-			assert_equal user,  object.posts.first.user
-			assert_equal user,  object.posts.first.group_documents.first.user
+			assert_equal  user,  object.user
+			assert_equal  user,  object.posts.first.user
+			assert_equal     1,  object.posts.length
+			assert_equal  user,  object.posts.first.group_documents.first.user
 			assert_equal group, object.posts.first.group_documents.first.group
+			assert_equal     1, object.posts.first.group_documents.length
 		} } } }
 		GroupDocument.destroy_all
 	end

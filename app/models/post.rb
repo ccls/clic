@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
 	validates_presence_of :user, :body
 	validates_length_of   :body, :maximum => 65000
 
+	attr_protected :user_id, :topic_id
+
 	accepts_nested_attributes_for :group_documents, 
 		:reject_if => proc{|attributes| attributes['document'].blank? }
 

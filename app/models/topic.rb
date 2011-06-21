@@ -13,6 +13,8 @@ class Topic < ActiveRecord::Base
 	has_one :last_post, :class_name => 'Post', 
 		:order => "created_at DESC"
 
+	attr_protected :user_id, :forum_id
+
 	before_validation_on_create :set_post_attributes
 
 	def to_s

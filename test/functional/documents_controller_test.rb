@@ -43,7 +43,6 @@ class DocumentsControllerTest < ActionController::TestCase
 
 	site_editors.each do |cu|
 
-
 ##	still only privacy filter is based on "may_maintain_pages"
 ##	which isn't really gonna work
 #	test "should get redirect to public s3 document with #{cu} login" do
@@ -75,163 +74,112 @@ class DocumentsControllerTest < ActionController::TestCase
 #		assert_redirected_to document.document.url
 #	end
 
-	test "should get redirect to private s3 document with #{cu} login" do
-		Document.has_attached_file :document, {
-			:s3_headers => {
-				'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
-			:s3_permissions => :private,
-			:storage => :s3,
-			:s3_protocol => 'https',
-			:s3_credentials => "#{Rails.root}/config/s3.yml",
-			:bucket => 'ccls',
-			:path => "documents/:id/:filename"
-		}
+		test "should get redirect to private s3 document with #{cu} login" do
+			Document.has_attached_file :document, {
+				:s3_headers => {
+					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
+				:s3_permissions => :private,
+				:storage => :s3,
+				:s3_protocol => 'https',
+				:s3_credentials => "#{Rails.root}/config/s3.yml",
+				:bucket => 'ccls',
+				:path => "documents/:id/:filename"
+			}
 
-		#	Since the REAL S3 credentials are only in production
-		#	Bad credentials make exists? return true????
-		Rails.stubs(:env).returns('production')
-		document = Factory(:document, :document_file_name => 'bogus_file_name')
-		assert !document.document.exists?
-		assert !File.exists?(document.document.path)
+			#	Since the REAL S3 credentials are only in production
+			#	Bad credentials make exists? return true????
+			Rails.stubs(:env).returns('production')
+			document = Factory(:document, :document_file_name => 'bogus_file_name')
+			assert !document.document.exists?
+			assert !File.exists?(document.document.path)
 
-		AWS::S3::S3Object.stubs(:exists?).returns(true)
+			AWS::S3::S3Object.stubs(:exists?).returns(true)
 
-		login_as send(cu)
-		get :show, :id => document.id
-		assert_response :redirect
-		assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-	end
-
-
-
-
-
-
-	test "should NOT download document with nil document and #{cu} login" do
-		document = Factory(:document)
-		assert document.document.path.blank?
-		login_as send(cu)
-		get :show, :id => document.id
-		assert_redirected_to preview_document_path(document)
-		assert_not_nil flash[:error]
-	end
-
-	test "should NOT download document with no document and #{cu} login" do
-		document = Factory(:document, :document_file_name => 'bogus_file_name')
-		assert !File.exists?(document.document.path)
-		login_as send(cu)
-		get :show, :id => document.id
-		assert_redirected_to preview_document_path(document)
-		assert_not_nil flash[:error]
-	end
-
-	test "should NOT download nonexistant document with #{cu} login" do
-		assert !File.exists?('some_fake_file_name.doc')
-		login_as send(cu)
-		get :show, :id => 'some_fake_file_name',:format => 'doc'
-		assert_redirected_to documents_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should preview document with document and #{cu} login" do
-		document = Factory(:document)
-		login_as send(cu)
-		get :preview, :id => document.id
-		assert_response :success
-		assert_nil flash[:error]
-	end
-
-	test "should download document by id with document and #{cu} login" do
-		document = Document.create!(Factory.attributes_for(:document, 
-			:document => File.open(File.dirname(__FILE__) + 
-				'/../assets/edit_save_wireframe.pdf')))
-		login_as send(cu)
-		get :show, :id => document.reload.id
-		assert_nil flash[:error]
-		assert_not_nil @response.headers['Content-disposition'].match(
-			/attachment;.*pdf/)
-		document.destroy
-	end
-
-	test "should download document by name with document and #{cu} login" do
-		document = Document.create!(Factory.attributes_for(:document, 
-			:document => File.open(File.dirname(__FILE__) + 
-				'/../assets/edit_save_wireframe.pdf')))
-		login_as send(cu)
-		get :show, :id => 'edit_save_wireframe',
-			:format => 'pdf'
-		assert_nil flash[:error]
-		assert_not_nil @response.headers['Content-disposition'].match(
-			/attachment;.*pdf/)
-		document.destroy
-	end
-
-	test "should NOT create invalid document with #{cu} login" do
-		login_as send(cu)
-		assert_no_difference('Document.count') do
-			post :create, :document => {}
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_response :redirect
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
 		end
-		assert_not_nil flash[:error]
-		assert_template 'new'
-		assert_response :success
+
+		test "should NOT download document with nil document and #{cu} login" do
+			document = Factory(:document)
+			assert document.document.path.blank?
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_redirected_to preview_document_path(document)
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT download document with no document and #{cu} login" do
+			document = Factory(:document, :document_file_name => 'bogus_file_name')
+			assert !File.exists?(document.document.path)
+			login_as send(cu)
+			get :show, :id => document.id
+			assert_redirected_to preview_document_path(document)
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT download nonexistant document with #{cu} login" do
+			assert !File.exists?('some_fake_file_name.doc')
+			login_as send(cu)
+			get :show, :id => 'some_fake_file_name',:format => 'doc'
+			assert_redirected_to documents_path
+			assert_not_nil flash[:error]
+		end
+
+		test "should preview document with document and #{cu} login" do
+			document = Factory(:document)
+			login_as send(cu)
+			get :preview, :id => document.id
+			assert_response :success
+			assert_nil flash[:error]
+		end
+
+		test "should download document by id with document and #{cu} login" do
+			document = Document.create!(Factory.attributes_for(:document, 
+				:document => File.open(File.dirname(__FILE__) + 
+					'/../assets/edit_save_wireframe.pdf')))
+			login_as send(cu)
+			get :show, :id => document.reload.id
+			assert_nil flash[:error]
+			assert_not_nil @response.headers['Content-disposition'].match(
+				/attachment;.*pdf/)
+			document.destroy
+		end
+
+		test "should download document by name with document and #{cu} login" do
+			document = Document.create!(Factory.attributes_for(:document, 
+				:document => File.open(File.dirname(__FILE__) + 
+					'/../assets/edit_save_wireframe.pdf')))
+			login_as send(cu)
+			get :show, :id => 'edit_save_wireframe',
+				:format => 'pdf'
+			assert_nil flash[:error]
+			assert_not_nil @response.headers['Content-disposition'].match(
+				/attachment;.*pdf/)
+			document.destroy
+		end
+
+		test "should NOT create invalid document with #{cu} login" do
+			login_as send(cu)
+			assert_no_difference('Document.count') do
+				post :create, :document => {}
+			end
+			assert_not_nil flash[:error]
+			assert_template 'new'
+			assert_response :success
+		end
+
+		test "should NOT update invalid document with #{cu} login" do
+			login_as send(cu)
+			put :update, :id => Factory(:document).id, 
+				:document => { :title => "a" }
+			assert_not_nil flash[:error]
+			assert_template 'edit'
+			assert_response :success
+		end
+
 	end
-
-	test "should NOT update invalid document with #{cu} login" do
-		login_as send(cu)
-		put :update, :id => Factory(:document).id, 
-			:document => { :title => "a" }
-		assert_not_nil flash[:error]
-		assert_template 'edit'
-		assert_response :success
-	end
-
-end
-
-#%w( interviewer reader unapproved_user ).each do |cu|
-#
-#	test "should NOT preview document with #{cu} login" do
-#		document = Factory(:document)
-#		login_as send(cu)
-#		get :preview, :id => document.id
-#		assert_redirected_to root_path
-#		assert_not_nil flash[:error]
-#	end
-#
-#	test "should NOT download document with #{cu} login" do
-#		document = Factory(:document)
-#		login_as send(cu)
-#		get :show, :id => document.id
-#		assert_redirected_to root_path
-#		assert_not_nil flash[:error]
-#	end
-#
-#end
-
-#	test "should NOT preview document without login" do
-#		document = Factory(:document)
-#		get :preview, :id => document.id
-#		assert_redirected_to_login
-#	end
-#
-#	test "should NOT download document without login" do
-#		document = Factory(:document)
-#		get :show, :id => document.id
-#		assert_redirected_to_login
-#	end
-
-#end
-#require 'test_helper'
-#
-#if( g = Gem.source_index.find_name('jakewendt-simply_documents').last ) && 
-#	!defined?(SimplyDocuments::DocumentsControllerTest)
-#	require 'simply_documents'
-#	require g.full_gem_path + '/test/functional/documents/documents_controller_test'
-#end
-#
-#SimplyDocuments::DocumentsControllerTest.class_eval do
-#	tests DocumentsController
-#
-#%w( interviewer reader unapproved_user no_login ).each do |cu|
 
 	( non_site_editors + ['no_login'] ).each do |cu|
 
@@ -246,22 +194,22 @@ end
 				:bucket => 'ccls',
 				:path => "documents/:id/:filename"
 			}
-	
+
 			#	Since the REAL S3 credentials are only in production
 			#	Bad credentials make exists? return true????
 			Rails.stubs(:env).returns('production')
 			document = Factory(:document, :document_file_name => 'bogus_file_name')
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
-	
+
 			AWS::S3::S3Object.stubs(:exists?).returns(true)
-	
+
 			login_as send(cu) #unless cu == 'NOLOGIN'
 			get :show, :id => document.id
 			assert_response :redirect
 			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
 		end
-	
+
 		test "should NOT download document with nil document and #{cu} login" do
 			document = Factory(:document)
 			assert document.document.path.blank?
@@ -270,7 +218,7 @@ end
 			assert_redirected_to preview_document_path(document)
 			assert_not_nil flash[:error]
 		end
-	
+
 		test "should NOT download document with no document and #{cu} login" do
 			document = Factory(:document, :document_file_name => 'bogus_file_name')
 			assert !File.exists?(document.document.path)
@@ -279,7 +227,7 @@ end
 			assert_redirected_to preview_document_path(document)
 			assert_not_nil flash[:error]
 		end
-	
+
 		test "should NOT download nonexistant document with #{cu} login" do
 			assert !File.exists?('some_fake_file_name.doc')
 			login_as send(cu) #unless cu == 'NOLOGIN'
@@ -287,7 +235,7 @@ end
 			assert_redirected_to documents_path
 			assert_not_nil flash[:error]
 		end
-	
+
 		test "should preview document with document and #{cu} login" do
 			document = Factory(:document)
 			login_as send(cu) #unless cu == 'NOLOGIN'
@@ -295,7 +243,7 @@ end
 			assert_response :success
 			assert_nil flash[:error]
 		end
-	
+
 		test "should download document by id with document and #{cu} login" do
 			document = Document.create!(Factory.attributes_for(:document, 
 				:document => File.open(File.dirname(__FILE__) + 
@@ -307,7 +255,7 @@ end
 				/attachment;.*pdf/)
 			document.destroy
 		end
-	
+
 		test "should download document by name with document and #{cu} login" do
 			document = Document.create!(Factory.attributes_for(:document, 
 				:document => File.open(File.dirname(__FILE__) + 
@@ -320,7 +268,7 @@ end
 				/attachment;.*pdf/)
 			document.destroy
 		end
-	
+
 	end
 
 end
