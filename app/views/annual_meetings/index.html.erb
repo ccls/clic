@@ -8,3 +8,6 @@
 <% else %>
   <p>Sorry, no annual_meetings yet.</p>
 <% end %>
+
+<p><%= link_to "Add Annual Meeting", new_annual_meeting_path,
+	:class => 'button' %></p>

@@ -8,6 +8,14 @@
   <%= sanitize(@annual_meeting.abstract) %>
 </p>
 
+<% unless @annual_meeting.group_documents.empty? %>
+<p><b>Attachment(s):</b></p>
+  <% @annual_meeting.group_documents.each do |document| %>
+    <p><%= link_to document.title, group_document_path(document) %></p>
+  <% end %>
+<% end %>
+
+
 <div class='manage'>
   <%= link_to 'Edit', edit_annual_meeting_path(@annual_meeting), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', annual_meeting_path(@annual_meeting) do %>
@@ -16,7 +24,3 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
-
-
-attachments
-
