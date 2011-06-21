@@ -1,3 +1,4 @@
+<h2>Study:</h2>
 <p>
   <b>Name:</b>
   <%=h @study.name %>
@@ -11,3 +12,6 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
+
+<%= render :partial => 'publications/index',
+	:locals => { :publications => @study.publications } %>

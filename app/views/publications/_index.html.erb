@@ -1,0 +1,10 @@
+<h2>Publications:</h2>
+<% unless publications.empty? %>
+  <table id='publications'><thead>
+    <tr><th>Title</th><th>Journal</th><th>Author</th><th>PubYear</th><th>&nbsp;</th></tr>
+  </thead><tbody>
+  <%= render :partial => 'publications/publication', :collection => publications %>
+  </tbody></table><!-- id='publications' -->
+<% else %>
+  <p>Sorry, no publications yet.</p>
+<% end %>

@@ -1,13 +1,4 @@
-<h2>Publications:</h2>
-<% unless @publications.empty? %>
-  <table id='publications'><thead>
-    <tr><th>Title</th><th>Journal</th><th>Author</th><th>PubYear</th><th>&nbsp;</th></tr>
-  </thead><tbody>
-  <%= render :partial => 'publication', :collection => @publications %>
-  </tbody></table><!-- id='publications' -->
-<% else %>
-  <p>Sorry, no publications yet.</p>
-<% end %>
+<%= render 'index', :locals => { :publications => @publications } %>
 
 <p><%= link_to "Add Publication", new_publication_path,
 	:class => 'button' %></p>
