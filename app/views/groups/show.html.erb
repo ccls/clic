@@ -64,6 +64,8 @@
 <% else %>
  <p>Sorry, but no forums yet.</p>
 <% end %>
+<p><%= link_to( "Add New Forum", new_group_forum_path(@group), :class => 'button' 
+	) if current_user.may_create_forum_for_group?(@group) %></p>
 
 <hr/>
 

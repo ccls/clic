@@ -25,8 +25,11 @@ ActionController::Routing::Routes.draw do |map|
 			:controller => 'group_announcements'
 	end
 
+#	may want to create a group_forums controller to clarify things
+
+	map.resources :forums, :only => [:new,:create]
 	map.resources :groups, :shallow => true do |group|
-		group.resources :forums, :only => :show do |forum|
+		group.resources :forums, :only => [:new,:create,:show] do |forum|
 			forum.resources :topics, :only => [:new,:create,:show] do |topic|
 				topic.resources :posts, :only => [:new, :create ]
 			end

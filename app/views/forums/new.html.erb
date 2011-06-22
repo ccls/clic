@@ -1,0 +1,17 @@
+<h2>New Forum:</h2>
+
+<% url = ( @group ) ? group_forums_path(@group) : forums_path %>
+
+<% form_for(@forum, :url => url ) do |f| %>
+ <%= f.error_messages %>
+
+ <p>Name MUST be unique</p>
+ <%= f.wrapped_text_field :name,
+	:class => 'autosize' %>
+
+ <p>
+  <%= f.submit_link_to( 'Create' ) %>&nbsp;
+  <%= link_to "Cancel", members_only_path, :class => 'button' %>
+ </p>
+<% end %>
+

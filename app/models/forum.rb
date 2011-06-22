@@ -5,7 +5,8 @@ class Forum < ActiveRecord::Base
 	has_many :topics, :dependent => :destroy
 	validates_presence_of   :name
 	validates_uniqueness_of :name, :scope => :group_id
-	validates_length_of     :name, :maximum => 250
+	#	using allow_blank => true removes the "too long" error when it is blank
+	validates_length_of     :name, :maximum => 250, :allow_blank => true
 
 	named_scope :groupless, :conditions => {
 		:group_id => nil }
