@@ -39,4 +39,32 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 
 #	TODO add tests with attachments
 
+	site_administrators.each do |cu|
+
+		test "should NOT create annual_meeting with #{cu} login " <<
+				"with invalid annual_meeting" do
+			login_as send(cu)
+			AnnualMeeting.any_instance.stubs(:valid?).returns(false)
+			assert_difference('AnnualMeeting.count',0) {
+				post :create, :annual_meeting => Factory.attributes_for(:annual_meeting)
+			}
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should NOT create annual_meeting with #{cu} login " <<
+				"when forum save fails" do
+			login_as send(cu)
+			AnnualMeeting.any_instance.stubs(:create_or_update).returns(false)
+			assert_difference('AnnualMeeting.count',0) {
+				post :create, :annual_meeting => Factory.attributes_for(:annual_meeting)
+			}
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+	end
+
 end

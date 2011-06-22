@@ -37,4 +37,32 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 #		:destroy => { :id => 0 }
 #	)
 
+	site_administrators.each do |cu|
+
+		test "should NOT create publication_subject with #{cu} login " <<
+				"with invalid publication_subject" do
+			login_as send(cu)
+			PublicationSubject.any_instance.stubs(:valid?).returns(false)
+			assert_difference('PublicationSubject.count',0) {
+				post :create, :publication_subject => Factory.attributes_for(:publication_subject)
+			}
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should NOT create publication_subject with #{cu} login " <<
+				"when forum save fails" do
+			login_as send(cu)
+			PublicationSubject.any_instance.stubs(:create_or_update).returns(false)
+			assert_difference('PublicationSubject.count',0) {
+				post :create, :publication_subject => Factory.attributes_for(:publication_subject)
+			}
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+	end
+
 end
