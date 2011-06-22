@@ -4,6 +4,9 @@
   <%= d.wrapped_text_field :title,
     :label_text => 'Document Title',
     :class => 'autosize' %>
-  <%= d.wrapped_file_field :document %>
+  <% d.wrapped_file_field :document do %>
+    <span>&nbsp;<%= d.object.document_file_name unless d.object.new_record? %></span>
+	<% end %>
+<hr/>
 <% end %>
 </div><!-- id='group_documents' -->
