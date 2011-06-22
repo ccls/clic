@@ -91,9 +91,14 @@ http://www.google.com/cse/docs/cref.html
 		});
 	}
 
-/*
->>> $("input[name^='doc_form[group_documents_attributes]['][name$='][document]']").attr('name')
-*/
+	jQuery('a#add_attachment').click(function(){
+		name = jQuery("input[name*='[group_documents_attributes]['][name$='][document]']").last().attr('name')
+		resource = name.match(/^(\w+)\[/)[1];	// annual_meeting, doc_form, ...
+		count = name.match(/\[(\d+)\]/)[1];	// '0', '1', ...
+		next = parseInt(count) + 1;  // 1, 2, ...
+		jQuery('div#group_documents').append( "<div class='title text_field field_wrapper'><label for='"+resource+"_group_documents_attributes_"+next+"_title'>Document Title</label><input class='autosize' id='"+resource+"_group_documents_attributes_"+next+"_title' name='"+resource+"[group_documents_attributes]["+next+"][title]' size='30' type='text' /></div><!-- class='title text_field' --><div class='document file_field field_wrapper'><label for='"+resource+"_group_documents_attributes_"+next+"_document'>Document</label><input id='"+resource+"_group_documents_attributes_"+next+"_document' name='"+resource+"[group_documents_attributes]["+next+"][document]' size='30' type='file' /></div><!-- class='document file_field' -->"
+);
+	});
 
 	add_clic_prefix_to_links();
 });
