@@ -19,6 +19,9 @@
 <div class='fields'>
 
 <p><b>Path:</b> (this is the path in the url. ie. /help/login )</p>
+<p>Do NOT use a path used by the system, otherwise it will be inaccessible.  
+For example, /publications is a route used by the system, so using 
+/publications for a page's path would be a bad choice.</p>
 <%= f.text_field :path %>
 
 <p><b>Title</b> (this is the text on the top of the browser)</p>
