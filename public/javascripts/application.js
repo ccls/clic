@@ -91,6 +91,10 @@ http://www.google.com/cse/docs/cref.html
 		});
 	}
 
+/*
+>>> $("input[name^='doc_form[group_documents_attributes]['][name$='][document]']").attr('name')
+*/
+
 	add_clic_prefix_to_links();
 });
 

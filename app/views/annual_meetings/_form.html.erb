@@ -3,17 +3,9 @@
  <%= f.wrapped_text_field :meeting, :class => 'autosize' %>
  <%= f.wrapped_text_area :abstract, :class => 'autosize' %>
 
-
-  <% @annual_meeting.group_documents.build if @annual_meeting.group_documents.empty? %>
-  <% f.fields_for :group_documents do |d| %>
-    <p>Optional File Attachment ...</p>
-    <%= d.wrapped_text_field :title,
-      :label_text => 'Document Title',
-      :class => 'autosize' %>
-    <%= d.wrapped_file_field :document %>
-  <% end %>
-
-
+ <% @annual_meeting.group_documents.build if @annual_meeting.group_documents.empty? %>
+ <%= render :partial => 'group_documents/group_documents',
+   :locals => { :f => f } %>
 
  <p>
   <%= f.submit_link_to( ((@annual_meeting.new_record?)?'Create':'Update')<<" Annual Meeting" ) %>
