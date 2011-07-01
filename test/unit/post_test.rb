@@ -33,7 +33,7 @@ class PostTest < ActiveSupport::TestCase
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('Post.count',1) {
-			object = Factory(:post, {
+			object = create_post( {
 				:topic => topic, :user => topic.user,
 				:group_documents_attributes => [
 					Factory.attributes_for(:group_document,
@@ -48,5 +48,47 @@ class PostTest < ActiveSupport::TestCase
 		} } } }
 		GroupDocument.destroy_all
 	end
+
+	test "should NOT create post with nested attributes for group_documents" <<
+			" without user" do
+		topic = Factory(:topic)
+		assert_difference('Topic.count',0) {
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',0) {
+		assert_difference('Post.count',0) {
+			object = create_post( {
+				:topic => topic, 
+				:user => nil,		#	needs to be explicitly nil otherwise factory will add one
+				:group_documents_attributes => [
+					Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			]})
+			assert object.errors.on_attr_and_type('group_documents.user',:blank)
+		} } } }
+		GroupDocument.destroy_all
+	end
+
+#	before_create fails, but not using validation for topic
+#
+#	test "should NOT create post with nested attributes for group_documents" <<
+#			" without topic" do
+#		topic = Factory(:topic)
+#		assert_difference('Topic.count',0) {
+#		assert_difference('User.count',0) {
+#		assert_difference('GroupDocument.count',0) {
+#		assert_difference('Post.count',0) {
+#			object = create_post( {
+#				:topic => nil, 		#	needs to be explicitly nil otherwise factory will add one
+#				:user => topic.user,
+#				:group_documents_attributes => [
+#					Factory.attributes_for(:group_document,
+#						:document => File.open(File.dirname(__FILE__) + 
+#							'/../assets/edit_save_wireframe.pdf'))
+#			]})
+#			puts object.errors.inspect
+#		} } } }
+#		GroupDocument.destroy_all
+#	end
 
 end

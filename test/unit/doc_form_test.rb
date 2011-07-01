@@ -19,7 +19,7 @@ class DocFormTest < ActiveSupport::TestCase
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('DocForm.count',1) {
-			object = Factory(:doc_form,
+			object = create_doc_form(
 				:current_user => user,
 				:group_documents_attributes => [
 					Factory.attributes_for(:group_document,
@@ -32,6 +32,21 @@ class DocFormTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
-#	TODO test trying to create without user
+	test "should NOT create doc_form with nested attributes for group_documents" <<
+			" without user" do
+		user = Factory(:user)
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',0) {
+		assert_difference('DocForm.count',0) {
+			object = create_doc_form(
+				:group_documents_attributes => [
+					Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			])
+			assert object.errors.on_attr_and_type('group_documents.user',:blank)
+		} } }
+		GroupDocument.destroy_all
+	end
 
 end

@@ -28,7 +28,7 @@ class PublicationTest < ActiveSupport::TestCase
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('Publication.count',1) {
-			object = Factory(:publication,
+			object = create_publication(
 				:current_user => user,
 				:group_documents_attributes => [
 					Factory.attributes_for(:group_document,
@@ -41,7 +41,22 @@ class PublicationTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
-#	TODO test trying to create without user
+	test "should NOT create publication with nested attributes for group_documents" <<
+			" without user" do
+		user = Factory(:user)
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',0) {
+		assert_difference('Publication.count',0) {
+			object = create_publication(
+				:group_documents_attributes => [
+					Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf') )
+			])
+			assert object.errors.on_attr_and_type('group_documents.user',:blank)
+		} } }
+		GroupDocument.destroy_all
+	end
 
 	test "should require other_publication_subject if publication_subject is other" do
 		assert_difference('Publication.count',0) {
@@ -52,5 +67,9 @@ class PublicationTest < ActiveSupport::TestCase
 	end
 
 #	TODO test should require publication year between 1900 and this year
+
+	test "should require publication_year between 1900 and this year" do
+pending
+	end
 
 end

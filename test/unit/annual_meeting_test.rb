@@ -18,7 +18,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('AnnualMeeting.count',1) {
-			object = Factory(:annual_meeting,
+			object = create_annual_meeting(
 				:current_user => user,
 				:group_documents_attributes => [
 					Factory.attributes_for(:group_document,
@@ -31,6 +31,21 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
-#	TODO test trying to create without user
+	test "should NOT create annual_meeting with nested attributes for group_documents" <<
+			"without user" do
+		user = Factory(:user)
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',0) {
+		assert_difference('AnnualMeeting.count',0) {
+			object = create_annual_meeting(
+				:group_documents_attributes => [
+					Factory.attributes_for(:group_document,
+						:document => File.open(File.dirname(__FILE__) + 
+							'/../assets/edit_save_wireframe.pdf'))
+			])
+			assert object.errors.on_attr_and_type('group_documents.user', :blank)
+		} } }
+		GroupDocument.destroy_all
+	end
 
 end
