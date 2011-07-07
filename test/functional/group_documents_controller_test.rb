@@ -137,8 +137,10 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-
+#	I think that newer versions of paperclip don't include the file name "." without extension
+#	upgrade from paperclip 2.3.11 to 2.3.13 caused this change
+#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
 			assigns(:group_document).destroy
 		end
 
@@ -211,7 +213,10 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+#	I think that newer versions of paperclip don't include the file name "." without extension
+#	upgrade from paperclip 2.3.11 to 2.3.13 caused this change
+#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
 
 			assigns(:group_document).destroy
 		end
