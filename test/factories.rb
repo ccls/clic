@@ -71,7 +71,10 @@ Factory.define :publication do |f|
 	f.association :publication_subject
 	f.sequence(:title) { |n| "Title #{n}" }
 	f.sequence(:journal) { |n| "Journal #{n}" }
-	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
+
+#	TODO publication_year will now be an integer
+#	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
+	f.publication_year Time.now.year
 	f.sequence(:author_last_name) { |n| "Author Last Name #{n}" }
 end
 

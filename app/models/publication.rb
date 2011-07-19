@@ -8,15 +8,14 @@ class Publication < ActiveRecord::Base
 		:reject_if => proc{|attributes| attributes['document'].blank? }
 
 	validates_presence_of :publication_subject, :study
+
 	validates_presence_of :title, :journal, :publication_year, :author_last_name
 
-	validates_length_of :title, :journal,
-		:publication_year, :author_last_name,
-			:maximum => 250
-	validates_length_of :other_publication_subject,  
-			:maximum => 250, :allow_blank => true
+	validates_length_of :title, :journal, :author_last_name, :maximum => 250
+	validates_length_of :other_publication_subject, :maximum => 250, :allow_blank => true
 
-	validate :publication_year_is_between_1900_and_this_year
+	validates_inclusion_of :publication_year, :in => 1900..Time.now.year,
+		:message => "should be between 1900 and #{Time.now.year}"
 
 	validates_presence_of :other_publication_subject, :if => :publication_subject_is_other?
 
@@ -36,14 +35,6 @@ protected
 #			gd.group = topic.forum.group
 			gd.user  = current_user
 		end
-	end
-
-	def publication_year_is_between_1900_and_this_year
-
-
-#	TODO publication year needs to be between 1900 and current year
-
-
 	end
 
 	#	publication_subject is not yet required, so use try

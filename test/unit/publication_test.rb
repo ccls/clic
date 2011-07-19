@@ -14,8 +14,9 @@ class PublicationTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:publication_subject)
 	assert_should_initially_belong_to(:study)
 	assert_should_have_many(:group_documents, :as => :attachable)
+
 	assert_should_require_attribute_length( :title, :journal,
-		:publication_year, :author_last_name, :other_publication_subject,  
+		:author_last_name, :other_publication_subject,  
 			:maximum => 250 )
 
 	test "should return title as to_s" do
@@ -66,10 +67,30 @@ class PublicationTest < ActiveSupport::TestCase
 		}
 	end
 
-#	TODO test should require publication year between 1900 and this year
+	test "should require publication_year after 1899" do
+		assert_difference('Publication.count',0) {
+			object = create_object(:publication_year => 1899)
+			assert object.errors.on_attr_and_type(:publication_year, :inclusion)
+		}
+	end
 
-	test "should require publication_year between 1900 and this year" do
-pending
+	test "should allow publication_year of 1900" do
+		assert_difference('Publication.count',1) {
+			object = create_object(:publication_year => 1900)
+		}
+	end
+
+	test "should require publication_year before #{Chronic.parse('next year').year}" do
+		assert_difference('Publication.count',0) {
+			object = create_object(:publication_year => Chronic.parse('next year').year)
+			assert object.errors.on_attr_and_type(:publication_year, :inclusion)
+		}
+	end
+
+	test "should allow publication_year of #{Time.now.year}" do
+		assert_difference('Publication.count',1) {
+			object = create_object(:publication_year => Time.now.year)
+		}
 	end
 
 end

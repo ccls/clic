@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620161956) do
+ActiveRecord::Schema.define(:version => 20110714232436) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(:version => 20110620161956) do
     t.integer  "publication_subject_id"
     t.integer  "study_id"
     t.string   "author_last_name"
-    t.string   "publication_year"
+    t.integer  "publication_year",          :limit => 255
     t.string   "journal"
     t.string   "title"
     t.string   "other_publication_subject"
