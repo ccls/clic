@@ -1,5 +1,6 @@
 <p>You have submitted an application to be a member of the CLIC restricted access website. Please confirm your username by clicking on the link below or copy and paste the link into a browser.</p>
 
-<%= link_to @confirm_url, @confirm_url %>
+<%= link_to confirm_email_url(@user.perishable_token), 
+	confirm_email_url(@user.perishable_token) %>
 
 <p>If you have not requested membership or if this email was sent to you in error, please contact us at clic_centraloffice@berkeley.edu.</p>

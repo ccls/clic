@@ -1,4 +1,4 @@
-<p>A new CLIC user, <%= link_to @user, user_path(@user) -%>, was just created.</p>
+<p>A new CLIC user, <%= link_to @user, user_url(@user) -%>, was just created.</p>
 
 <% if @user.memberships.empty? %>
 <p>This user has not requested any memberships yet.</p>
@@ -11,4 +11,4 @@
 </ul>
 <% end %>
 
-<p>Convenience link to <%= link_to 'memberships', memberships_path -%> for approval.</p>
+<p>Convenience link to <%= link_to 'memberships', memberships_url -%> for approval.</p>

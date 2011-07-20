@@ -1,11 +1,15 @@
 class UserMailer < ActionMailer::Base
 
+#	Multiple calls to #body will overwrite the previous ones.
+#	The #body method takes a hash that will be transformed
+#	into instance variables for use in mail template.
+
 	def new_user_email(user,sent_at = Time.now)
 		subject    'New CLIC User'
 		recipients 'clic_centraloffice@berkeley.edu'
 		from       ''
 		sent_on    sent_at
-		body       :user => user
+		body       ({ :user => user })
 	end
 
 	def confirm_email(user,sent_at = Time.now)
@@ -13,8 +17,7 @@ class UserMailer < ActionMailer::Base
 		recipients user.email
 		from       ''
 		sent_on    sent_at
-		body       :greeting => 'Hi,'
-		body       :confirm_url => confirm_email_url(user.perishable_token)
+		body       ({ :user => user })
 	end
 
 	def forgot_password(user,sent_at = Time.now)
@@ -22,8 +25,7 @@ class UserMailer < ActionMailer::Base
 		recipients user.email
 		from       ''
 		sent_on    sent_at
-		body       :greeting => 'Hi,'
-		body       :reset_url => edit_password_reset_url(user.perishable_token)
+		body       ({ :user => user })
 	end
 
 end
