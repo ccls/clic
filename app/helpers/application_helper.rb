@@ -3,7 +3,7 @@ module ApplicationHelper
 	def application_root_menu
 #		load 'page.rb' if Rails.env == 'development'
 		load 'page.rb' unless defined?(Page);
-		out = "<ul id='GlobalNav'>\n"
+		out = "<ul id='GlobalNav' class='nav'>\n"
 		out << Page.roots.collect do |page|
 			"<li>" << link_to( page.menu(session[:locale]), 
 				ActionController::Base.relative_url_root.to_s + page.path,
@@ -18,7 +18,7 @@ module ApplicationHelper
 	#	This output is passed through javascript
 	def application_user_menu
 		if logged_in?
-			menu = "<ul id=\"PrivateNav\">" 
+			menu = "<ul id=\"PrivateNav\" class=\"nav\">" 
 			menu << (( current_user.may_edit? ) ? "" <<
 				"<li>#{link_to( "Pages", pages_path )}</li>" << 
 				"<li>#{link_to( "Photos", photos_path )}</li>" << 
@@ -44,9 +44,9 @@ module ApplicationHelper
 	def members_only_menu
 #		load 'group.rb' if Rails.env == 'development'
 		load 'group.rb' unless defined?(Group);
-		out = "<ul id='GlobalNav'>\n"
-		out << "<li>#{link_to( "Home", root_path )}</li>\n"
-		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
+		out = "<ul id='MembersNav' class='nav'>\n"
+#		out << "<li>#{link_to( "Home", root_path )}</li>\n"
+#		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
 		out << Group.roots.collect do |group|
 			if group.groups_count > 0
 				children = "<li><a class='submenu_toggle'>#{group.name}</a>" <<
@@ -67,7 +67,7 @@ module ApplicationHelper
 		out << "<li>#{link_to( "Publications", publications_path )}</li>\n"
 		out << "<li>Member Directory</li>\n"
 		out << "<li>Study Contact Info</li>\n"
-		out << "</ul><!-- id='GlobalNav' -->\n"
+		out << "</ul><!-- id='MembersNav' -->\n"
 	end
 
 	#	Just a simple method to wrap the passed text in a span

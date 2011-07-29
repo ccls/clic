@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-	layout 'members_onlies'
+#	layout 'members_onlies'
 
 	before_filter :valid_topic_id_required,
 		:only => [:new,:create,:index]

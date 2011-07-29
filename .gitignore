@@ -37,3 +37,4 @@ db/test_*_schema.rb
 packages_updated.*
 development/
 test/documents/
+*.swp

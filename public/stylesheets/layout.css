@@ -88,28 +88,28 @@
 }
 
 
-#PrivateNav li,
-#GlobalNav li {
+ul.nav li {
 	padding: 5px;
 	border-bottom: 1px solid #99CCFF;
 	font: 0.8em Arial, Helvetica, sans-serif;
 	color: #fff;
 }
-#PrivateNav li {
-	background: #CC6699;
-}
 #GlobalNav li {
-	background: #6699CC;
+	background: #369;
+}
+#MembersNav li {
+	background: #693;
+}
+#PrivateNav li {
+	background: #936;
 }
 
-#PrivateNav a,
-#GlobalNav a {
+ul.nav a {
 	color: #fff;
 	text-decoration: none;
 }
 
-#PrivateNav a:hover,
-#GlobalNav a:hover {
+ul.nav a:hover {
 	text-decoration: underline;
 }
 

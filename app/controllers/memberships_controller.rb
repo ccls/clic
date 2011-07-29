@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
 
-	layout 'members_onlies'
+#	layout 'members_onlies'
 	
 	before_filter :membership_required,
 		:only => [:edit,:update,:approve,:destroy]

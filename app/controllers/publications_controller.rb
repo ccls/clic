@@ -1,6 +1,6 @@
 class PublicationsController < ApplicationController
 
-	layout 'members_onlies'
+#	layout 'members_onlies'
 
 	resourceful
 

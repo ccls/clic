@@ -2,7 +2,7 @@ class AnnouncementsController < ApplicationController
 
 	resourceful
 
-	layout 'members_onlies'
+#	layout 'members_onlies'
 
 #	before_filter "may_create_memberships_required", :only => [:new,:create]
 #	before_filter "may_read_memberships_required",   :only => [:index]
