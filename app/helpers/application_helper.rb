@@ -62,11 +62,11 @@ module ApplicationHelper
 				"<li>#{link_to(group.name,group)}</li>\n"
 			end
 		end.join()
-		out << "<li>Inventory</li>\n"
+		out << "<li>#{link_to( "Inventory", inventory_path )}</li>\n"
 		out << "<li>#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
 		out << "<li>#{link_to( "Publications", publications_path )}</li>\n"
-		out << "<li>Member Directory</li>\n"
-		out << "<li>Study Contact Info</li>\n"
+		out << "<li>Member Directory TODO</li>\n"
+		out << "<li>Study Contact Info TODO</li>\n"
 		out << "</ul><!-- id='MembersNav' -->\n"
 	end
 
