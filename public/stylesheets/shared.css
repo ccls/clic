@@ -54,6 +54,7 @@ div.pagination {
 
 #columns_wrapper {
 	display:table;
+	width:100%;
 }
 .columns {
 	clear:both;
