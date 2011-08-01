@@ -58,6 +58,8 @@ Rails::Initializer.run do |config|
 	config.gem 'fastercsv'
 	config.gem 'hpricot'
 
+	config.gem "sunspot_rails"
+
 	config.frameworks -= [ :active_resource ]
 
 	# Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
