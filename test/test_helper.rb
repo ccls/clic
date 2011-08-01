@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'group_test_helper'
+require 'test_sunspot'
 
 class ActiveSupport::TestCase
 
