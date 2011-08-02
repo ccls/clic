@@ -72,8 +72,8 @@
 	clear: left;
 */
 }
-#content {
-	padding-left: 15px;
+#content{
+	padding-left: 10px;
 	/* makes room for shifted footer */
 	/* don't think this is necessary anymore */
 /*

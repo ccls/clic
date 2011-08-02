@@ -109,3 +109,5 @@ Factory.define :user do |f|
 	f.phone_number "PhoneNumber"
 end
 
+Factory.define :subject do |f|
+end

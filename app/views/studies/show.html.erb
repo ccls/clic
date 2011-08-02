@@ -14,5 +14,43 @@
   <% end %>
 </div>
 
+<p>
+  <b>World region:</b>
+  <%=h @study.world_region %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%=h @study.country %>
+</p>
+
+<p>
+  <b>Design:</b>
+  <%=h @study.design %>
+</p>
+
+<p>
+  <b>Target Age group:</b>
+  <%=h @study.target_age_group %>
+</p>
+
+<p>
+  <b>Recruitment:</b>
+  <%=h @study.recruitment %>
+</p>
+
+<p>
+  <b>Principal Investigators:</b>
+  <%=h @study.principal_investigators.join(', ') %>
+</p>
+
+<p>
+  <b>Overview:</b>
+</p>
+<pre style='white-space:pre-wrap'>
+  <%=h @study.overview %>
+</pre>
+
 <%= render :partial => 'publications/index',
 	:locals => { :publications => @study.publications } %>
+

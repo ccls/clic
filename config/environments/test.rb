@@ -29,6 +29,9 @@ config.action_mailer.delivery_method = :test
 
 config.gem "rcov"
 
+# need this here or will try to use built in test/unit
+#config.gem "test-unit", :lib => 'test/unit', :version => '~>2'
+
 #	Without the :lib => false, the 'rake test' actually fails?
 config.gem "mocha", :lib => false
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110714232436) do
+ActiveRecord::Schema.define(:version => 20110802215633) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -236,9 +236,28 @@ ActiveRecord::Schema.define(:version => 20110714232436) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "world_region"
+    t.string   "country"
+    t.string   "design"
+    t.string   "recruitment"
+    t.string   "target_age_group"
+    t.text     "principal_investigators"
+    t.text     "overview"
   end
 
   add_index "studies", ["name"], :name => "index_studies_on_name"
+
+  create_table "subjects", :force => true do |t|
+    t.integer  "study_id"
+    t.integer  "subid"
+    t.string   "case_status"
+    t.string   "subtype"
+    t.string   "sex"
+    t.string   "race"
+    t.text     "biospecimens"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "topics", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -261,7 +280,6 @@ ActiveRecord::Schema.define(:version => 20110714232436) do
     t.string   "perishable_token",                         :null => false
     t.integer  "login_count",           :default => 0,     :null => false
     t.integer  "failed_login_count",    :default => 0,     :null => false
-    t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"

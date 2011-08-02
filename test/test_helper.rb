@@ -1,8 +1,19 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+
+#gem 'test-unit', :lib => 'test/unit', :version => '~>2'
+#require 'test/unit'
+#require 'test/unit/priority'
+#require 'test/unit/autorunner'
+#require 'test/unit/testcase'
+
 require 'test_help'
 require 'group_test_helper'
+require 'test_startup_shutdown'
 require 'test_sunspot'
+TestSunspot.setup
+#	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x
+#	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
 
 class ActiveSupport::TestCase
 
@@ -47,6 +58,17 @@ class ActiveSupport::TestCase
 				assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 			end
+		end
+	end
+
+	def self.assert_should_be_searchable
+		#	This does NOT test searching, it just allows testing while searchable
+		test "should be searchable" do
+			assert model_name.constantize.respond_to?(:search)
+			search = model_name.constantize.search
+			assert search.facets.empty?
+			assert search.hits.empty?
+			assert search.results.empty?
 		end
 	end
 

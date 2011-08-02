@@ -4,14 +4,22 @@ module TestSunspot
     attr_accessor :pid, :original_session, :stub_session, :server
      
     def setup
+#	NOT the test_case setup.  Should probably be renamed to something like "prepare"
+#puts "TestSunspot setup"
       TestSunspot.original_session = Sunspot.session
       Sunspot.session = TestSunspot.stub_session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
     end
  
   end
   def self.included(klass)
+#puts "TestSunspot included #{klass}"
     klass.instance_eval do
+#	startup and shutdown callbacks require test-unit 2.x
+#	which seems to be incompatible with either ruby 1.8 or rails 2.3.12
+#	added some hacking to sort of fake startup before first test
+#		and teardown after last test.
       def startup
+#puts "TestSunspot startup"
         Sunspot.session = TestSunspot.original_session
         rd, wr = IO.pipe
         pid = fork do
@@ -34,6 +42,7 @@ module TestSunspot
       end
  
       def shutdown
+#puts "TestSunspot shutdown"
         Sunspot.remove_all!
         Process.kill("HUP",TestSunspot.pid)
         Process.wait
@@ -41,6 +50,7 @@ module TestSunspot
       end
     end
     def teardown
+#puts "TestSunspot teardown"
       Sunspot.remove_all!
     end
   end

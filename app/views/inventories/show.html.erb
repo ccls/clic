@@ -1,2 +1,92 @@
+<% stylesheets('inventory') %>
+<div id='results_table'>
+<div id='results_row'>
+ <div id='facets'>
+  <% form_tag( inventory_path, :method => :get ) do %>
+   <%= submit_tag "Search", :name => nil %>
+   <p>
+    <%#= text_field_tag :q, params[:q] %> 
+   </p>
+   <% @search.facets.each do |facet| -%>
+    <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
+    <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+    <%= facet_for(facet,
+        :multiselector => [:biospecimens,:genotypings].include?(facet.name),
+        :facet_counts  => true ) %>
+   <% end -%>
 
-solr search sample size show
+   <%= submit_tag "Search", :name => nil %>
+  <% end -%>
+ </div><!-- id='facets' -->
+
+ <div id='results'>
+  <div id='filters'>
+   <h3>Filters : found 
+     <%=pluralize(@search.total,'subject')-%> and 
+     <%=pluralize(@search.facet(:study_id).rows.length,'study')-%> matching ...</h3>
+   <% params.each do |k,v| %>
+    <% next if %w(action controller page).include?(k) %>
+    <% next if k =~ /_op$/ %><%# don't show the operators %>
+    <p><%= link_to "#{k}:#{v.join(' '<<(params[k+'_op']||'OR')<<' ')}&nbsp;[X]", 
+           params.merge(k => nil) %></p>
+   <% end %>
+  </div><!-- id='filters' -->
+
+  <div id='tabs'>
+   <ul>
+    <li class='studies'><a href='javascript:void()' class='current'>Studies</a></li>
+    <li class='subjects'><a href='javascript:void()'>Subjects</a></li>
+<!--
+    <li class='questions'><a href='javascript:void()'>Questions</a></li>
+    <li class='pubmed'><a href='javascript:void()'>PubMed</a></li>
+-->
+   </ul>
+  </div><!-- id='tabs' -->
+
+  <div id='studies' class='tab_contents'>
+   <% unless @search.facet(:study_id).rows.empty? %>
+    <ul class='results'>
+     <% @search.facet(:study_id).rows.each do |row| %>
+      <li class='result'>
+       <span class='study'><%= link_to row.instance.study_name, study_path(row.value) %></span>
+       <span class='count'>&nbsp;(&nbsp;<%= row.count %>&nbsp;)</span>
+      </li>
+     <% end %>
+    </ul>
+   <% end %>
+  </div><!-- id='studies' -->
+
+  <div id='subjects' class='tab_contents'>
+   <% unless @search.results.empty? %>
+    <ul class='results'>
+     <% @search.results.each do |result| %>
+      <li class='result'>
+       <span class='subject'><%= link_to result.to_s, result %></span>
+       <span class='study'><%= link_to result.study_name, study_path(result.study_id) %></span>
+      </li>
+     <% end %>
+    </ul>
+   <% end %>
+   <p><%= will_paginate(@search.hits) %></p>
+   <p class='page_info'>Displaying page <%=@search.hits.current_page%> of <%=@search.hits.total_pages%> out of <%=@search.total%> results</p>
+  </div><!-- id='subjects' -->
+
+<!--
+  <div id='questions' class='tab_contents'>
+   <h1>Pending</h1>
+   <h2>Still need to parse the questions spreadsheet(s)</h2>
+  </div>
+-->
+<!-- id='questions' -->
+
+<!--
+  <div id='pubmed' class='tab_contents'>
+   <h1>Pending</h1>
+   <h2>Don't know what to put here yet.</h2>
+  </div>
+-->
+<!-- id='pubmed' -->
+
+ </div><!-- id='results' -->
+</div><!-- id='results_row' -->
+</div><!-- id='results_table' -->
