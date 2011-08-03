@@ -32,9 +32,9 @@
  <p>
   <%= f.submit_link_to( ((@event.new_record?)?'Create':'Update')<<' Event' ) %>&nbsp;
   <% unless( @event.new_record? ) %>
-    <%= link_to 'Cancel and Show Event', @event, :class => 'button' %>&nbsp;
+    <%= link_to 'Cancel and Show This Event', @event, :class => 'button' %>&nbsp;
   <% end %>
-  <%= link_to 'Cancel and Show Events', events_path, :class => 'button' %>
+  <%= link_to 'Cancel and Show All Events', events_path, :class => 'button' %>
  </p>
 <% end %>
 

@@ -2,7 +2,7 @@
 <div class='members_only'>
 
  <div class='announcement_section section'>
-  <h2>Announcement Section</h2>
+  <h2>Announcement</h2>
   <% if @announcements.length > 0 %>
    <table id='announcements'><tbody>
    <%= render :partial => 'announcement', :collection => @announcements %>
@@ -13,7 +13,7 @@
  </div><!-- class='announcement_section section' -->
 
  <div class='calendar_section section'>
-  <h2>Calendar Section</h2>
+  <h2>Calendar</h2>
   <% if @events.length > 0 %>
    <table id='events'><tbody>
    <%= render :partial => 'event', :collection => @events %>

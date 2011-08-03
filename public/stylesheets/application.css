@@ -61,6 +61,10 @@ form div.field_wrapper.ends_at_meridiem label {
 	width: 1em;
 }
 
+form#new_publication div.field_wrapper label,
+form.edit_publication div.field_wrapper label {
+	width: 12em;
+}
 form#new_publication div.field_wrapper.other_publication_subject label,
 form.edit_publication div.field_wrapper.other_publication_subject label,
 form#new_document div.field_wrapper.abstract label,
@@ -123,4 +127,9 @@ textarea.tinymce {
 }
 #page img {
 	width: 100%;
+}
+
+div#group_documents {
+	border: 1px solid silver;
+	padding: 0 10px;
 }

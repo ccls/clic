@@ -10,9 +10,9 @@
  <p>
   <%= f.submit_link_to( ((@announcement.new_record?)?'Create':'Update')<<" Announcement" ) %>
   <% unless( @announcement.new_record? ) %>
-    <%= link_to 'Cancel and Show Announcement', @announcement, :class => 'button' %>
+    <%= link_to 'Cancel and Show This Announcement', @announcement, :class => 'button' %>
   <% end %>
-  <%= link_to 'Cancel and Show Announcements', announcements_path, :class => 'button' %>
+  <%= link_to 'Cancel and Show All Announcements', announcements_path, :class => 'button' %>
  </p>
 <% end %>
 
