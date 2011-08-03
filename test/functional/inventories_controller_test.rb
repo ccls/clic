@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class InventoriesControllerTest < ActionController::TestCase
-include TestStartupShutdown
-include TestSunspot
+#	include TestStartupShutdown
+#	include TestSunspot
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership

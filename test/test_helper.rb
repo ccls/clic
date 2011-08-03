@@ -9,9 +9,9 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 require 'test_help'
 require 'group_test_helper'
-require 'test_startup_shutdown'
-require 'test_sunspot'
-TestSunspot.setup
+#require 'test_startup_shutdown'
+#require 'test_sunspot'
+#TestSunspot.setup
 #	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x
 #	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
 
