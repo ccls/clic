@@ -9,11 +9,17 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 require 'test_help'
 require 'group_test_helper'
-#require 'test_startup_shutdown'
+require 'test_startup_shutdown'
 #require 'test_sunspot'
 #TestSunspot.setup
 #	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x
 #	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
+
+begin
+	Sunspot::Rails::Server.new.start
+rescue Sunspot::Server::AlreadyRunningError
+end
+
 
 class ActiveSupport::TestCase
 
@@ -64,6 +70,8 @@ class ActiveSupport::TestCase
 	def self.assert_should_be_searchable
 		#	This does NOT test searching, it just allows testing while searchable
 		test "should be searchable" do
+#			Sunspot.index!
+			Sunspot.remove_all!
 			assert model_name.constantize.respond_to?(:search)
 			search = model_name.constantize.search
 			assert search.facets.empty?

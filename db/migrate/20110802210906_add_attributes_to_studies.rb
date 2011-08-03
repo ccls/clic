@@ -20,5 +20,6 @@ class AddAttributesToStudies < ActiveRecord::Migration
 			t.remove :target_age_group
 			t.remove :principal_investigators
 			t.remove :overview
+		end
 	end
 end
