@@ -2,18 +2,18 @@ require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
 
-	def setup
-		@controller = TestController.new
-		@request  = @controller.request
-	end
-
-	test "should respond_to application_root_menu" do
-		assert respond_to?(:application_root_menu)
-	end
-	
-	test "should respond_to application_user_menu" do
-		assert respond_to?(:application_user_menu)
-	end
+#	def setup
+#		@controller = TestController.new
+#		@request  = @controller.request
+#	end
+#
+#	test "should respond_to application_root_menu" do
+#		assert respond_to?(:application_root_menu)
+#	end
+#	
+#	test "should respond_to application_user_menu" do
+#		assert respond_to?(:application_user_menu)
+#	end
 
 #	moved this all into users controller test as TestController
 #	does not include app specific stuff from ApplicationController

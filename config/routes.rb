@@ -50,8 +50,9 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :users, :except => :destroy,
 #	will cause role route test failure
 #		:shallow => true,
-		:member => { :approve => :put },
-		:collection => { :menu => :get } do |user|
+#		:member => { :approve => :put },
+#		:collection => { :menu => :get } do |user|
+		:member => { :approve => :put }  do |user|
 		user.resources :roles, :only => [:update,:destroy]
 		#	separated from user#edit 
 	end

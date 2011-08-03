@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
 	skip_before_filter :login_required, 
-		:only => [:new, :create, :menu]
+		:only => [:new, :create]
+#		:only => [:new, :create, :menu]
 
 	before_filter :no_current_user_required, :only => [:new, :create]
 	before_filter :id_required, :only => [:edit, :show, :update, :approve ]
@@ -69,13 +70,13 @@ class UsersController < ApplicationController
 		@users = User.search(params)
 	end
 
-	ssl_allowed :menu
-
-	def menu
-		respond_to do |format|
-			format.js {}
-		end
-	end
+#	ssl_allowed :menu
+#
+#	def menu
+#		respond_to do |format|
+#			format.js {}
+#		end
+#	end
 
 protected
 

@@ -1,73 +1,69 @@
 module ApplicationHelper
 
-	def application_root_menu
-#		load 'page.rb' if Rails.env == 'development'
+	def application_menu
 		load 'page.rb' unless defined?(Page);
-		out = "<ul id='GlobalNav' class='nav'>\n"
-		out << Page.roots.collect do |page|
-			"<li>" << link_to( page.menu(session[:locale]), 
-				ActionController::Base.relative_url_root.to_s + page.path,
-				:id => "menu_#{dom_id(page)}",
-				:class => ((page == @page.try(:root)) ? 'current' : nil)) << "</li>\n"
-		end.join()
-		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
-		out << "</ul><!-- id='GlobalNav' -->\n"
-	end
-
-	#	NO SINGLE QUOTES OR CARRIAGE RETURNS(\n)
-	#	This output is passed through javascript
-	def application_user_menu
+		out = "<ul id='application_menu'>\n"
 		if logged_in?
-			menu = "<ul id=\"PrivateNav\" class=\"nav\">" 
-			menu << (( current_user.may_edit? ) ? "" <<
-				"<li>#{link_to( "Pages", pages_path )}</li>" << 
-				"<li>#{link_to( "Photos", photos_path )}</li>" << 
-				"<li>#{link_to( "Users", users_path )}</li>" << 
-				"<li>#{link_to( "Documents", documents_path )}</li>" : '' )
-			menu << (( current_user.may_administrate? ) ? "" <<
-				"<li>#{link_to( "Memberships", memberships_path )}</li>" << 
-				"<li>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
-				"<li>#{link_to( "Annual Meetings (temp)", annual_meetings_path )}</li>" << 
-				"<li>#{link_to( "Studies (temp)", studies_path )}</li>" << 
-				"<li>#{link_to( "Groups (temp)", groups_path )}</li>" << 
-				"<li>#{link_to( "Group Roles (temp)", group_roles_path )}</li>" : '')
-			menu << "<li>#{link_to( "My Account", user_path(current_user) )}</li>" <<
-				"<li>#{link_to( "Logout", logout_path )}</li>" <<
-				"</ul><!-- id=PrivateNav -->"
-			menu
-#	This isn't ever called if not logged in
-#		else
-#			''
-		end
-	end
+			out << "<li><a class='submenu_toggle'>Public</a>" <<
+				"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span></li>\n"
+			out << "<li class='submenu'><ul>\n"
+			out << Page.roots.collect do |page|
+				"<li>" << link_to( page.menu(session[:locale]), 
+					ActionController::Base.relative_url_root.to_s + page.path,
+					:id => "menu_#{dom_id(page)}",
+					:class => ((page == @page.try(:root)) ? 'current' : nil)) << "</li>\n"
+			end.join()
+			out << "</ul></li>"
 
-	def members_only_menu
-#		load 'group.rb' if Rails.env == 'development'
-		load 'group.rb' unless defined?(Group);
-		out = "<ul id='MembersNav' class='nav'>\n"
-#		out << "<li>#{link_to( "Home", root_path )}</li>\n"
-#		out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
-		out << Group.roots.collect do |group|
-			if group.groups_count > 0
-				children = "<li><a class='submenu_toggle'>#{group.name}</a>" <<
-					"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span></li>\n"
-#	IE8 does not like single tagged spans
-#					"<span class='ui-icon ui-icon-triangle-1-e'/></li>\n"
-				children << "<li class='submenu'><ul>\n"
-				children << group.children.collect do |child|
-					"<li>#{link_to(child.name,child)}</li>\n"
-				end.join()
-				children << "</ul></li>"
-			else
-				"<li>#{link_to(group.name,group)}</li>\n"
-			end
-		end.join()
-		out << "<li>#{link_to( "Inventory", inventory_path )}</li>\n"
-		out << "<li>#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
-		out << "<li>#{link_to( "Publications", publications_path )}</li>\n"
-		out << "<li>Member Directory TODO</li>\n"
-		out << "<li>Study Contact Info TODO</li>\n"
-		out << "</ul><!-- id='MembersNav' -->\n"
+			out << "<li class='members'>#{link_to( "Members Only", members_only_path )}</li>\n"
+			load 'group.rb' unless defined?(Group);
+			out << Group.roots.collect do |group|
+				if group.groups_count > 0
+					children = "<li class='members'><a class='submenu_toggle'>#{group.name}</a>" <<
+						"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span></li>\n"
+						#	IE8 does not like single tagged spans
+						#	"<span class='ui-icon ui-icon-triangle-1-e'/></li>\n"
+					children << "<li class='members submenu'><ul>\n"
+					children << group.children.collect do |child|
+						"<li class='members'>#{link_to(child.name,child)}</li>\n"
+					end.join()
+					children << "</ul></li>"
+				else
+					"<li class='members'>#{link_to(group.name,group)}</li>\n"
+				end
+			end.join()
+			out << "<li class='members'>#{link_to( "Inventory", inventory_path )}</li>\n"
+			out << "<li class='members'>#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
+			out << "<li class='members'>#{link_to( "Publications", publications_path )}</li>\n"
+			out << "<li class='members'>Member Directory TODO</li>\n"
+			out << "<li class='members'>Study Contact Info TODO</li>\n"
+
+			out << (( current_user.may_edit? ) ? "" <<
+				"<li class='user'>#{link_to( "Pages", pages_path )}</li>" << 
+				"<li class='user'>#{link_to( "Photos", photos_path )}</li>" << 
+				"<li class='user'>#{link_to( "Users", users_path )}</li>" << 
+				"<li class='user'>#{link_to( "Documents", documents_path )}</li>" : '' )
+
+			out << (( current_user.may_administrate? ) ? "" <<
+				"<li class='user'>#{link_to( "Memberships", memberships_path )}</li>" << 
+				"<li class='user'>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
+				"<li class='user'>#{link_to( "Annual Meetings (temp)", annual_meetings_path )}</li>" << 
+				"<li class='user'>#{link_to( "Studies (temp)", studies_path )}</li>" << 
+				"<li class='user'>#{link_to( "Groups (temp)", groups_path )}</li>" << 
+				"<li class='user'>#{link_to( "Group Roles (temp)", group_roles_path )}</li>" : '')
+
+			out << "<li class='user'>#{link_to( "My Account", user_path(current_user) )}</li>"
+			out << "<li class='user'>#{link_to( "Logout", logout_path )}</li>"
+		else
+			out << Page.roots.collect do |page|
+				"<li>" << link_to( page.menu(session[:locale]), 
+					ActionController::Base.relative_url_root.to_s + page.path,
+					:id => "menu_#{dom_id(page)}",
+					:class => ((page == @page.try(:root)) ? 'current' : nil)) << "</li>\n"
+			end.join()
+			out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
+		end
+		out << "</ul><!-- id='application_menu' -->\n"
 	end
 
 	#	Just a simple method to wrap the passed text in a span

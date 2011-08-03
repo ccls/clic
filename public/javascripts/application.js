@@ -3,12 +3,13 @@ var root = '';	// kinda global
 jQuery(function(){
 
 	root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
-
+/*
 	jQuery.getScript(root + '/users/menu.js',
 		function(data,textStatus){
 			add_clic_prefix_to_links('#PrivateNav');
 		}
 	);
+*/
 
 /*
 http://www.google.com/cse/docs/cref.html
@@ -98,6 +99,7 @@ http://www.google.com/cse/docs/cref.html
 		next = parseInt(count) + 1;  // 1, 2, ...
 		jQuery('div#group_documents').append( "<hr/><div class='title text_field field_wrapper'><label for='"+resource+"_group_documents_attributes_"+next+"_title'>Document Title</label><input class='autosize' id='"+resource+"_group_documents_attributes_"+next+"_title' name='"+resource+"[group_documents_attributes]["+next+"][title]' size='30' type='text' /></div><!-- class='title text_field' --><div class='document file_field field_wrapper'><label for='"+resource+"_group_documents_attributes_"+next+"_document'>Document</label><input id='"+resource+"_group_documents_attributes_"+next+"_document' name='"+resource+"[group_documents_attributes]["+next+"][document]' size='30' type='file' /></div><!-- class='document file_field' -->"
 );
+		resize_text_areas();
 	});
 
 	jQuery('#tabs li a').click(function(){

@@ -7,10 +7,7 @@
   <%= render 'layouts/header' %>
   <div id='columns_wrapper'>
   <div id='columns' class='columns'>
-   <div id='menu'>
-    <%= render 'layouts/application_root_menu' %>
-<%= render 'layouts/members_only_menu' if logged_in? %>
-   </div><!-- id='menu' -->
+   <div id='menu'><%= application_menu() %></div><!-- id='menu' -->
    <div id='content'>
     <%= flasher() %>
     <%= yield %>

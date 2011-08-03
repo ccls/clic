@@ -88,6 +88,34 @@
 }
 
 
+
+ul#application_menu {
+}
+ul#application_menu li {
+	padding: 5px;
+	border-bottom: 1px solid #99CCFF;
+	font: 0.8em Arial, Helvetica, sans-serif;
+	color: #fff;
+	background: #369;
+}
+ul#application_menu li.members {
+	background: #693;
+}
+ul#application_menu li.user {
+	background: #936;
+}
+ul#application_menu li a {
+	color: #fff;
+	text-decoration: none;
+}
+ul#application_menu li a:hover {
+	text-decoration: underline;
+}
+ul#application_menu li ul li:last-child {
+	border-bottom: 0;
+}
+
+/*
 ul.nav li {
 	padding: 5px;
 	border-bottom: 1px solid #99CCFF;
@@ -116,6 +144,10 @@ ul.nav a:hover {
 #GlobalNav li ul li:last-child {
 	border-bottom: 0;
 }
+*/
+
+
+
 
 #footer {
 	margin-top: 5px;

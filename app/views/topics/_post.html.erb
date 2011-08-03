@@ -3,7 +3,7 @@
 	<span>by&nbsp;<%=h post.user %></span>
  </td>
  <td class='body'>
-  <%=h post.body %>
+  <%=h Hpricot(post.body).to_plain_text %>
   <% unless post.group_documents.empty? %>
     <% post.group_documents.each do |document| %>
       <br/>
