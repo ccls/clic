@@ -101,7 +101,9 @@
 }
 ul.results {
 	list-style: none;
+/*
 	padding-left: 10px;
+*/
 }
 ul.results li {
 	border:1px solid silver;

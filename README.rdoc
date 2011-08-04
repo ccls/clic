@@ -261,3 +261,18 @@ User icons from {Gravatar}[http://gravatar.com]
 
 {Background image gradients}[http://gradients.glrzad.com/]
 
+
+
+
+== Other
+
+For now, use
+
+ rake "sunspot:reindex[,Subject]"
+
+instead of just 
+
+ rake sunspot:reindex
+
+as for whatever reason, some of the unrelated gem stuff isn't loaded.
+
