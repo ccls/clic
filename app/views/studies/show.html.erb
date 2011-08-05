@@ -1,17 +1,17 @@
 <h2>Study:</h2>
 
-<p>
+<div>
   <b>Name:</b>
-  <%=h @study.name %>
-</p>
+  <span><%=h @study.name %></span>
 
-<div class='manage'>
+<div style='float:right;'>
   <%= link_to 'Edit', edit_study_path(@study), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', study_path(@study) do %>
    <%= hidden_field_tag 'confirm', "Destroy study '#{h(@study)}'?",
     :id => nil %>
    <%= submit_link_to('Destroy') %>
   <% end %>
+</div>
 </div>
 
 <p>

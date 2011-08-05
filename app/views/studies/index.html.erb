@@ -1,7 +1,7 @@
 <h2>Studies:</h2>
 <% unless @studies.empty? %>
   <table id='studies'><thead>
-    <tr><th>Name</th><th>&nbsp;</th></tr>
+    <tr><th>Name</th><th>Country</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'study', :collection => @studies %>
   </tbody></table><!-- id='studies' -->

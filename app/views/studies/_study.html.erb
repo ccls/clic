@@ -1,5 +1,6 @@
 <% content_tag_for( :tr, study, :class => "study row" ) do %>
  <td class='name'><%= link_to study, study %></td>
+ <td class='country'><%= study.country %></td>
  <td class='manage'>
   <%= link_to 'Edit', edit_study_path(study), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', study_path(study) do %>
