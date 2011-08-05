@@ -22,6 +22,7 @@ Childhood Leukemia International Consortium
 
 == Required Gems
 
+* {sunspot}[http://github.com/outoftime/sunspot] - Sunspot for solr gem usage
 * {RedCloth}[http://redcloth.org] - textile parser. (moving away from this using TinyMCE instead)
 * {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
 * {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb (not using anymore)
@@ -165,25 +166,36 @@ then we continue ...
 
 As this app is being installed on a VM Java jruby tomcat thing, we need special instructions.  Apparently, for Tomcat 5, we need to use jruby-rack-0.9.6.jar, which is included in lib/.
 
-Tomcat will unarchive the war file and DESTROY the existing unarchived version!  Any file uploads will need to be kept elsewhere.
+Tomcat will unarchive the war file and DESTROY the existing unarchived version!  Any file uploads will need to be kept elsewhere.  This is also true for the db, if using sqlite.
 
  ( warble from a jruby environment to get the jruby specific gems )
 
- [jakewendt@dev : clic ]>
- bash
- rvm use jruby
- warble
- scp clic.war ccls.berkeley.edu:
+ # prepare the war
+ [jakewendt@dev : clic ]> bash
+ [jakewendt@dev : clic ]> rvm use jruby
+ [jakewendt@dev : clic ]> warble
+ [jakewendt@dev : clic ]> scp clic.war ccls.berkeley.edu:
 
- [jakewendt@ccls-01]>
- sudo /sbin/service tomcat5 stop
- sudo su -l tomcat
- /bin/rm -rf /var/lib/tomcat5/webapps/clic
- cp ~jakewendt/clic.war /var/lib/tomcat5/webapps/
- exit
+ # stop tomcat as "jakewendt"
+ [jakewendt@dev : clic ]> ssh ccls
+ [jakewendt@ccls-01:~]> sudo /sbin/service tomcat5 stop
 
- sudo /sbin/service tomcat5 start
- tail -f /var/log/tomcat5/catalina.out
+ # copy in new war file as "tomcat"
+ [jakewendt@ccls-01:~] > sudo su -l tomcat
+ [tomcat@ccls-01:~] > /bin/rm -rf /var/lib/tomcat5/webapps/clic
+ [tomcat@ccls-01:~] > cp ~jakewendt/clic.war /var/lib/tomcat5/webapps/
+ [tomcat@ccls-01:~] > exit
+
+ # start tomcat as "jakewendt"
+ [jakewendt@ccls-01:~] > sudo /sbin/service tomcat5 start
+ [jakewendt@ccls-01:~] > tail -f /var/log/tomcat5/catalina.out
+
+ # start sunspot:solr server (sunspot:solr:start does not work in jruby)
+ [jakewendt@ccls-01:~] > sudo su -l tomcat
+ [tomcat@ccls-01:~] > cd /var/lib/tomcat5/webapps/clic/WEB-INF
+ [tomcat@ccls-01:WEB-INF] > rake sunspot:solr:run RAILS_ENV=production &
+ # log MAY BE at /var/lib/tomcat5/webapps/clic/WEB-INF/log/sunspot-solr-production.log
+
 
 {Kenai}[http://kenai.com/projects/warbler/pages/Home]
 
@@ -265,6 +277,15 @@ User icons from {Gravatar}[http://gravatar.com]
 
 
 == Other
+
+
+Forking is frowned upon in jruby so using "start" won't work.  
+To start the solr server just "run" it in the background.
+Can't seem to get a "commit" to work in production so need to build the index
+elsewhere and import everything.  Not gonna work in the long term.
+Also has a tendency to crash out silently.
+
+ rake sunspot:solr:run &
 
 For now, use
 
