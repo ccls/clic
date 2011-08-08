@@ -31,7 +31,7 @@ class InventoriesController < ApplicationController
 						with(p).any_of params[p]
 					end
 				end
-				facet p.to_sym
+				facet p.to_sym, :sort => :index
 			end
 			%w( father_age_birth mother_age_birth ).each do |p|
 #	works, but I really don't like the duplication of similar faceting and filtering code
