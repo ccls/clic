@@ -36,7 +36,7 @@ namespace :subjects do
 				:birth_year       => line['child_birthYEAR'],
 				:gender           => line['child_gender'],
 				:age              => line['child_age'],
-				:ethnicity        => ((line['ethnicity'].blank?) ? "NS" : line['ethnicity']),
+				:ethnicity        => ((line['child_ethnicity'].blank?) ? "NS" : line['child_ethnicity']),
 				:mother_age_birth => line['mother_age_birth'],
 				:father_age_birth => line['father_age_birth'],
 				:income_quint     => ((line['income_quint'].blank?) ? "NS" : line['income_quint']),
@@ -55,7 +55,23 @@ end	#	namespace :app do
 
 __END__
 
-"CLIC_ID","study_name","case_control","leukemiatype","immunophenotype","interview_respondent","reference_year","child_birthYEAR","child_gender","child_age","child_ethnicity","mother_age_birth","father_age_birth","income_quint","downs","mother_education","father_education"
+"CLIC_ID","study_name",
+"case_control",
+"leukemiatype",
+"immunophenotype",
+"interview_respondent",
+"reference_year",
+"child_birthYEAR",
+"child_gender",
+"child_age",
+"child_ethnicity",
+"mother_age_birth",
+"father_age_birth",
+"income_quint",
+"downs",
+"mother_education",
+"father_education"
+
 00000001,"AUS","Case","ALL","T-Cell","Mother",2003,1994,"Male",9,"Caucasian",31,34,"Third Quintile","No","Tertiary Done","Tertiary Done"
 00000002,"AUS","Case","ALL","Pre B-Cell","Mother",2003,1999,"Male",3,"Not Classifiable",32,.,"Lowest Quintile","No","Some Secondary",""
 00000003,"AUS"
