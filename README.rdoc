@@ -275,6 +275,33 @@ User icons from {Gravatar}[http://gravatar.com]
 
 
 
+== SQLite3 to MySQL
+
+ sqlite3 clic.sqlite3.20110809 .dump > clic.sqlite3.20110809.dump
+
+Edit the dump file and remove all lines like ...
+
+ PRAGMA foreign_keys=OFF;
+ BEGIN TRANSACTION;
+ CREATE TABLE ....
+ INSERT INTO "schema_migrations" ...
+ DELETE FROM sqlite_sequence;
+ INSERT INTO "sqlite_sequence" ....
+ CREATE UNIQUE INDEX ....
+ CREATE INDEX ....
+ COMMIT;
+
+Convert table name quotes from double quotes to backticks in vim with ...
+
+ %s/INSERT INTO "/INSERT INTO `/
+ %s/" VALUES(/` VALUES(/
+
+Import to mysql database
+
+ rake db:migrate RAILS_ENV=production
+ mysql -u magee -p --host=cascades.ist.berkeley.edu --port=3347 CCLS_Systems < clic.sqlite3.20110809.dump.forimport
+
+
 
 == Other
 
