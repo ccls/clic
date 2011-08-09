@@ -302,6 +302,8 @@ Import to mysql database
  mysql -u magee -p --host=cascades.ist.berkeley.edu --port=3347 CCLS_Systems < clic.sqlite3.20110809.dump.forimport
 
 
+The boolean values did not export/import well, but none were terribly important.  This should be noted if ever doing this again with boolean values that do matter.
+
 
 == Other
 
