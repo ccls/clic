@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(:version => 20110804163555) do
     t.integer  "publication_subject_id"
     t.integer  "study_id"
     t.string   "author_last_name"
-    t.integer  "publication_year",          :limit => 255
+    t.integer  "publication_year"
     t.string   "journal"
     t.string   "title"
     t.string   "other_publication_subject"
