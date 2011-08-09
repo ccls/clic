@@ -25,13 +25,13 @@ Rails::Initializer.run do |config|
 	if RUBY_PLATFORM =~ /java/
 		config.gem 'activerecord-jdbcsqlite3-adapter',
 			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
-#		config.gem 'activerecord-jdbcmysql-adapter',
-#			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
-#		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
+		config.gem 'activerecord-jdbcmysql-adapter',
+			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
 		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 		config.gem 'jruby-openssl', :lib => 'openssl'
 	else
-#		config.gem 'mysql'
+		config.gem 'mysql'
 #		config.gem "sqlite3-ruby", :lib => "sqlite3"
 		config.gem "sqlite3"
 	end
