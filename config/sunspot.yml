@@ -1,6 +1,6 @@
 production:
   solr:
-    hostname: localhost
+    hostname: localhost6
     port: 8986
     log_level: WARNING
 
@@ -16,3 +16,5 @@ test:
     port: 8984
     log_level: WARNING
     
+
+#	running on localhost6 in production seems to work as opposed to just localhost
