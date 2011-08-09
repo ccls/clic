@@ -13,6 +13,17 @@ class SubjectTest < ActiveSupport::TestCase
 #			t.string :race
 #			t.text :biospecimens
 
+	test "should return several fields as to_s" do
+		object = create_object({
+			:clic_id => "12345678",
+			:case_control => "Case",
+			:leukemiatype => "ALL",
+			:immunophenotype => "T-Cell"
+		})
+		assert_equal "#{object}",
+			"Subject: #{object.clic_id} : #{object.case_control} : #{object.leukemiatype} : #{object.immunophenotype}"
+	end
+
 	test "should search" do
 		Subject.solr_reindex
 		search = Subject.search
