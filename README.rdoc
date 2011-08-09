@@ -286,6 +286,11 @@ elsewhere and import everything.  Not gonna work in the long term.
 Also has a tendency to crash out silently.
 
  rake sunspot:solr:run &
+ cp ~jakewendt/CCLS_Aust_Covariate_sample.csv ./
+ rake app:subjects:import --trace
+ rake "sunspot:reindex[,Subject]" --trace
+
+
 
 For now, use
 
