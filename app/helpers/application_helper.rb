@@ -104,7 +104,7 @@ module ApplicationHelper
 			s << "&nbsp;(&nbsp;#{row.count}&nbsp;)" if options[:facet_counts]
 			s << "</label></li>\n"
 		end
-    s << "</ul>\n"
+		s << "</ul>\n"
 	end
 
 end

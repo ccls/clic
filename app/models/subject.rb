@@ -37,13 +37,13 @@ class Subject < ActiveRecord::Base
 		string  :leukemiatype
 		string  :immunophenotype
 		string  :interview_respondent
-		integer :reference_year
-		integer :birth_year
+		integer :reference_year, :trie => true
+		integer :birth_year, :trie => true
 		string  :gender
-		integer :age
+		integer :age, :trie => true
 		string  :ethnicity
-		integer :mother_age_birth
-		integer :father_age_birth
+		integer :mother_age_birth, :trie => true
+		integer :father_age_birth, :trie => true
 		string  :income_quint
 		string  :downs
 		string  :mother_education

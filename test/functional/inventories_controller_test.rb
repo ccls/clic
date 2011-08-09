@@ -24,8 +24,8 @@ class InventoriesControllerTest < ActionController::TestCase
 		end
 
 	#	%w( world_region country study_name recruitment study_design target_age_group 
-		%w( case_control leukemiatype immunophenotype interview_respondent reference_year
-			birth_year gender age ethnicity income_quint downs
+		%w( case_control leukemiatype immunophenotype interview_respondent 
+			gender age ethnicity income_quint downs
 			mother_education father_education ).each do |p|
 
 			test "should find sole subject with matching param #{p} and #{cu} login" do
@@ -42,19 +42,47 @@ class InventoriesControllerTest < ActionController::TestCase
 				login_as send(cu)
 				subject = random_subject()
 				Subject.solr_reindex
+				#	NOTE "some_bogus_value" will be converted to an integer when applicable
+				#		which means that it will be treated as 0, so removed 0 as option
+				#		in random field generators below.
 				get :show, p.to_sym => ["some_bogus_value"]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 0, assigns(:search).hits.length
 			end
 
-#	test with operators
+#	test with AND/OR operators
 
 		end
 
-#		%w( father_age_birth mother_age_birth ).each do |p|
-#
-#		end
+#	Facets that use ranges.  Tests could be merged if big enough steps
+#	need to be numeric ("some_bogus_value".to_i == 0)
+#	"some_bogus_value" won't match any of the expected value formats so will be ignored
+
+		%w( reference_year birth_year father_age_birth mother_age_birth ).each do |p|
+
+			test "should find sole subject with matching param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				Subject.solr_reindex
+				get :show, p.to_sym => [subject.send(p)]
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 1, assigns(:search).hits.length
+			end
+
+			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				Subject.solr_reindex
+				#	20 should be big enough to be outside the initial range
+				get :show, p.to_sym => [(subject.send(p) + 20).to_s]
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 0, assigns(:search).hits.length
+			end
+
+		end
 
 	end
 
@@ -75,9 +103,9 @@ protected
 			:income_quint         => random_income_quint,
 			:downs                => random_downs,
 			:mother_education     => random_mother_education,
-			:father_education     => random_father_education
-#			:father_age_birth 
-#			:mother_age_birth
+			:father_education     => random_father_education,
+			:father_age_birth     => random_father_age_birth,
+			:mother_age_birth     => random_mother_age_birth
 		}.merge(options))
 	end
 
@@ -94,16 +122,21 @@ protected
 		['Father','Mother'][rand(2)]
 	end
 	def random_reference_year
-		(1995..2010).to_a[rand(16)]
+		#	NOTE keeping this low enough that adding 10 or 20 to it will still keep
+		#		it within the expected ranges for faceting and filtering
+		(1995..2000).to_a[rand(6)]
 	end
 	def random_birth_year
-		(1982..2010).to_a[rand(29)]
+		#	NOTE keeping this low enough that adding 10 or 20 to it will still keep
+		#		it within the expected ranges for faceting and filtering
+		(1982..2000).to_a[rand(19)]
 	end
 	def random_gender
 		['Male','Female'][rand(2)]
 	end
 	def random_age
-		(0..15).to_a[rand(16)]
+		#	NOTE not using 0 
+		(1..15).to_a[rand(15)]
 	end
 	def random_ethnicity
 		['Caucasian','Hispanic'][rand(2)]
@@ -123,23 +156,16 @@ protected
 	def random_education
 		['Some Primary','Some Secondary','Some Tertiary','Tertiary Done'][rand(4)]
 	end
+	def random_mother_age_birth
+		random_age_birth
+	end
+	def random_father_age_birth
+		random_age_birth
+	end
+	def random_age_birth
+		#	NOTE keeping this low enough that adding 10 or 20 to it will still keep
+		#		it within the expected ranges for faceting and filtering
+		(20..30).to_a[rand(11)]
+	end
 
 end
-__END__
-
-
-5 Father Age Births
-
-    under_20 ( 748 )
-    20..29 ( 1152 )
-    30..39 ( 1629 )
-    40..49 ( 366 )
-    over_50 ( 32 )
-
-4 Mother Age Births
-
-    under_20 ( 318 )
-    20..29 ( 1774 )
-    30..39 ( 1733 )
-    40..49 ( 141 )
-
