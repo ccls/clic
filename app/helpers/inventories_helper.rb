@@ -11,6 +11,10 @@ Sunspot::DSL::FieldQuery.class_eval do
 	#		step  = 10
 	#		end   = 50
 	#
+#
+#	TODO change "Under 20" to "20 and under"
+#	TODO change "Over 50"  to "50 and over"
+#
 	def range_facet_and_filter_for(field,params={},options={})
 		start = (options[:start] || 20).to_i
 		stop  = (options[:stop]  || 50).to_i
