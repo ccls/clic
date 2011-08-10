@@ -3,6 +3,7 @@ class Study < ActiveRecord::Base
 
 	has_many :publications
 	has_many :subjects
+	has_many :exposures
 
 	serialize( :principal_investigators, Array )
 

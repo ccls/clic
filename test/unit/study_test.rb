@@ -16,6 +16,7 @@ class StudyTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_have_many(:publications)
 	assert_should_have_many(:subjects)
+	assert_should_have_many(:exposures)
 
 	assert_should_require_attribute_length( :name, :maximum => 250 )
 	assert_should_require_attribute_length( :world_region, :maximum => 250 )

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804163555) do
+ActiveRecord::Schema.define(:version => 20110810203117) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -92,6 +92,19 @@ ActiveRecord::Schema.define(:version => 20110804163555) do
     t.integer  "ends_at_hour"
     t.integer  "ends_at_minute"
     t.string   "ends_at_meridiem"
+  end
+
+  create_table "exposures", :force => true do |t|
+    t.integer  "study_id"
+    t.string   "category"
+    t.string   "relation_to_child"
+    t.text     "windows"
+    t.text     "types"
+    t.text     "assessments"
+    t.text     "forms_of_contact"
+    t.text     "locations_of_use"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "forums", :force => true do |t|
@@ -203,7 +216,7 @@ ActiveRecord::Schema.define(:version => 20110804163555) do
     t.integer  "publication_subject_id"
     t.integer  "study_id"
     t.string   "author_last_name"
-    t.integer  "publication_year"
+    t.integer  "publication_year",          :limit => 255
     t.string   "journal"
     t.string   "title"
     t.string   "other_publication_subject"

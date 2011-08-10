@@ -21,10 +21,11 @@ namespace :subjects do
 		#	DO NOT COMMENT OUT THE HEADER LINE OR IT RAISES CRYPTIC ERROR
 		(f=FasterCSV.open("CCLS_Aust_Covariate_sample.csv", 'rb',{
 			:headers => true })).each do |line|
-			puts "Processing subject line #{f.lineno}:#{line['study_name']}"
+			study_name = line['study_name'].strip
+			puts "Processing subject line #{f.lineno}:#{study_name}"
 
-			study = Study.find_by_name( line['study_name'] )
-			raise "Study not found with name:#{line['study_name']}" unless study
+			study = Study.find_by_name( study_name )
+			raise "Study not found with name:#{study_name}" unless study
 
 			study.subjects.create!({
 				:clic_id          => line['CLIC_ID'],

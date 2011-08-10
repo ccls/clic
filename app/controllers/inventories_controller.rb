@@ -3,6 +3,28 @@ class InventoriesController < ApplicationController
 	before_filter :may_administrate_required
 	
 	def show
+
+		@exposure_search = Exposure.search do
+			facet :category
+			if params[:category]
+				with :category, params[:category]
+				%w( relation_to_child types windows assessments locations_of_use forms_of_contact ).each do |p|
+					if params[p]
+						with(p).any_of params[p]
+					end
+					facet p.to_sym
+				end
+			end
+			facet :study_id
+		end
+		study_ids = @exposure_search.facet(:study_id).rows.collect(&:value)
+
+#		get the study_ids from the exposure search
+#		as pass them on to the Subject search.
+
+
+
+
 		@search = Subject.search do
 			keywords params[:q]
 #	undefined method `name' for "Book":String 

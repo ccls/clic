@@ -16,6 +16,16 @@
    <% end -%>
 
    <%= submit_tag "Search", :name => nil %>
+<hr/>
+   <h2>Exposure Study Filter</h2>
+   <% @exposure_search.facets.each do |facet| -%>
+    <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
+    <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+    <%= facet_for(facet, :radio => (facet.name.to_s == 'category') ) %>
+   <% end -%>
+
+   <%= submit_tag "Search", :name => nil %>
+
   <% end -%>
  </div><!-- id='facets' -->
 

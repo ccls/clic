@@ -111,3 +111,5 @@ end
 
 Factory.define :subject do |f|
 end
+Factory.define :exposure do |f|
+end
