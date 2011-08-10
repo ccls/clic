@@ -49,6 +49,9 @@ namespace :subjects do
 #break if f.lineno > 100
 		end
 		puts "Loaded #{pluralize(Subject.count,'subject')}."
+		puts "Reindexing"
+		Subject.solr_reindex
+		puts "Done"
 	end	#	task :import => :destroy_all do
 
 end	#	namespace :subjects do

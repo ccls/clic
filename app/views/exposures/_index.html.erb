@@ -1,0 +1,18 @@
+<h2>Exposures:</h2>
+<% unless exposures.empty? %>
+ <table id='exposures'><thead>
+  <tr>
+    <th>Category</th>
+    <th>Relation to Child</th>
+    <th>Windows of Exposure</th>
+    <th>Types</th>
+    <th>Assessments</th>
+  </tr>
+ </thead>
+ <tbody>
+  <%= render :partial => 'exposures/exposure', :collection => exposures %>
+ </tbody>
+</table>
+<% else %>
+  <p>Sorry, no exposures yet.</p>
+<% end %>
