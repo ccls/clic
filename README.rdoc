@@ -317,17 +317,5 @@ Also has a tendency to crash out silently.
  rake sunspot:solr:run &
  cp ~jakewendt/CCLS_Aust_Covariate_sample.csv ./
  rake app:subjects:import --trace
- rake "sunspot:reindex[,Subject]" --trace
-
-
-
-For now, use
-
- rake "sunspot:reindex[,Subject]"
-
-instead of just 
-
- rake sunspot:reindex
-
-as for whatever reason, some of the unrelated gem stuff isn't loaded.
+ rake "sunspot:reindex" --trace
 
