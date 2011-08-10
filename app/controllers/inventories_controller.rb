@@ -5,14 +5,14 @@ class InventoriesController < ApplicationController
 	def show
 
 		@exposure_search = Exposure.search do
-			facet :category
+			facet :category, :sort => :index
 			if params[:category]
 				with :category, params[:category]
 				%w( relation_to_child types windows assessments locations_of_use forms_of_contact ).each do |p|
 					if params[p]
 						with(p).any_of params[p]
 					end
-					facet p.to_sym
+					facet p.to_sym, :sort => :index
 				end
 			end
 			facet :study_id
