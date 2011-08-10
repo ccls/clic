@@ -25,7 +25,6 @@ class Group < ActiveRecord::Base
 	has_many :documents, :class_name => 'GroupDocument'
 	has_many :memberships
 	has_many :users, :through => :memberships
-#	has_many :documents, :as => :owner
 
 	has_many :forums
 	validates_presence_of   :name
@@ -35,10 +34,6 @@ class Group < ActiveRecord::Base
 	def to_s
 		name
 	end
-
-#	def to_html_tag
-#		@html_tag ||= name.gsub(/\s+/,'').underscore
-#	end
 
 #	class NotFound < StandardError; end
 
