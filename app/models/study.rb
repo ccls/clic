@@ -5,6 +5,10 @@ class Study < ActiveRecord::Base
 	has_many :subjects
 	has_many :exposures
 
+	attr_protected :principal_investigators
+	attr_writer :principal_investigator_names
+	before_save :parse_principal_investigator_names
+
 	serialize( :principal_investigators, Array )
 
 	# can't use macro style setup for after_find or after_initialize
@@ -38,5 +42,17 @@ class Study < ActiveRecord::Base
 #	searchable do
 #		string :name
 #	end
+
+	def principal_investigator_names
+		principal_investigators.join(', ')
+	end
+
+protected
+
+	def parse_principal_investigator_names
+		unless @principal_investigator_names.blank?
+			self.principal_investigators = @principal_investigator_names.split(',').collect(&:strip).reject{|n|n.blank?}
+		end
+	end
 
 end

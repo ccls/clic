@@ -10,8 +10,8 @@ class StudyTest < ActiveSupport::TestCase
 	assert_should_not_require(:design)
 	assert_should_not_require(:recruitment)
 	assert_should_not_require(:target_age_group)
-	assert_should_not_require(:principal_investigators)	#	possible problems due to serialization
-	assert_should_not_require(:overview)	#	possible problems due to serialization
+	assert_should_not_require(:overview)
+	assert_should_protect(:principal_investigators)
 
 	assert_should_act_as_list
 	assert_should_have_many(:publications)
@@ -29,6 +29,14 @@ class StudyTest < ActiveSupport::TestCase
 	test "should return name as to_s" do
 		object = create_object
 		assert_equal object.name, "#{object}"
+	end
+
+	test "should set principal_investigators with principal_investigator_names" do
+		assert_difference('Study.count',1) {
+			object = create_object(:principal_investigator_names => "  Dave , Simon , ,,   ")
+			assert !object.principal_investigators.empty?
+			assert_equal 2, object.principal_investigators.length
+		}
 	end
 
 end
