@@ -4,11 +4,14 @@ class InventoriesHelperTest < ActionView::TestCase
 
 #	def facet_for(facet,options={})
 
+#	TODO test with AND/OR operators
+#	TODO test with exposures
+
 	test "should respond_to facet_for" do
 		assert respond_to?(:facet_for)
 	end
 
-	test "facet_for is gonna be tough to test" do
+	test "facet_for is gonna be tough to test outside of a controller" do
 pending
 #		response = HTML::Document.new(facet_for('something')).root
 #		puts response

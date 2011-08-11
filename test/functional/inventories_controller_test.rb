@@ -23,7 +23,10 @@ class InventoriesControllerTest < ActionController::TestCase
 			assert_equal 1, assigns(:search).hits.length
 		end
 
-	#	%w( world_region country study_name recruitment study_design target_age_group 
+		%w( world_region country study_name recruitment study_design target_age_group ).each do |p|
+
+		end
+
 		%w( case_control leukemiatype immunophenotype interview_respondent 
 			gender age ethnicity income_quint downs
 			mother_education father_education ).each do |p|
@@ -32,7 +35,8 @@ class InventoriesControllerTest < ActionController::TestCase
 				login_as send(cu)
 				subject = random_subject()
 				Subject.solr_reindex
-				get :show, p.to_sym => [subject.send(p)]
+#				get :show, p.to_sym => [subject.send(p)]
+				get :show, p => [subject.send(p)]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 1, assigns(:search).hits.length
@@ -45,13 +49,16 @@ class InventoriesControllerTest < ActionController::TestCase
 				#	NOTE "some_bogus_value" will be converted to an integer when applicable
 				#		which means that it will be treated as 0, so removed 0 as option
 				#		in random field generators below.
-				get :show, p.to_sym => ["some_bogus_value"]
+#				get :show, p.to_sym => ["some_bogus_value"]
+				get :show, p => ["some_bogus_value"]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 0, assigns(:search).hits.length
 			end
 
-#	test with AND/OR operators
+#	TODO test with AND/OR operators
+#	TODO test with exposures
+#	TODO test with facets as strings in addition to symbols as is gonna be different
 
 		end
 
@@ -65,7 +72,8 @@ class InventoriesControllerTest < ActionController::TestCase
 				login_as send(cu)
 				subject = random_subject()
 				Subject.solr_reindex
-				get :show, p.to_sym => [subject.send(p)]
+#				get :show, p.to_sym => [subject.send(p)]
+				get :show, p => [subject.send(p)]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 1, assigns(:search).hits.length
@@ -76,7 +84,8 @@ class InventoriesControllerTest < ActionController::TestCase
 				subject = random_subject()
 				Subject.solr_reindex
 				#	20 should be big enough to be outside the initial range
-				get :show, p.to_sym => [(subject.send(p) + 20).to_s]
+#				get :show, p.to_sym => [(subject.send(p) + 20).to_s]
+				get :show, p => [(subject.send(p) + 20).to_s]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 0, assigns(:search).hits.length

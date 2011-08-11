@@ -4,11 +4,15 @@ class InventoriesController < ApplicationController
 	
 	def show
 
+#	TODO rename :category to just :exposure
+#	TODO nest exposure facets so if remove :exposure all go away
+
 		@exposure_search = Exposure.search do
 			facet :category, :sort => :index
 			if params[:category]
 				with :category, params[:category]
-				%w( relation_to_child types windows assessments locations_of_use forms_of_contact ).each do |p|
+#				%w( relation_to_child types windows assessments locations_of_use forms_of_contact ).each do |p|
+				exposure_facets.each do |p|
 					if params[p]
 						with(p).any_of params[p]
 					end
@@ -42,10 +46,11 @@ class InventoriesController < ApplicationController
 #	principal_investigators
 #
 #			%w( world_region country study_name recruitment study_design target_age_group case_status subtype biospecimens ).each do |p|
-			%w( world_region country study_name recruitment study_design target_age_group 
-				case_control leukemiatype immunophenotype interview_respondent 
-				gender age ethnicity income_quint downs
-				mother_education father_education ).each do |p|
+#			%w( world_region country study_name recruitment study_design target_age_group 
+#				case_control leukemiatype immunophenotype interview_respondent 
+#				gender age ethnicity income_quint downs
+#				mother_education father_education ).each do |p|
+				subject_facets.each do |p|
 				if params[p]
 					if params[p+'_op'] && params[p+'_op']=='AND'
 						with(p).all_of params[p]
@@ -55,10 +60,12 @@ class InventoriesController < ApplicationController
 				end
 				facet p.to_sym, :sort => :index
 			end
-			%w( birth_year reference_year ).each do |p|
+#			%w( birth_year reference_year ).each do |p|
+			year_facets.each do |p|
 				range_facet_and_filter_for(p,params.dup,{:start => 1980, :stop => 2010, :step => 5})
 			end
-			%w( father_age_birth mother_age_birth ).each do |p|
+#			%w( father_age_birth mother_age_birth ).each do |p|
+			age_facets.each do |p|
 				range_facet_and_filter_for(p,params.dup)
 			end
 
@@ -72,6 +79,24 @@ class InventoriesController < ApplicationController
 		end
 
 	end	#	show action
+
+protected
+
+	def exposure_facets
+		%w( relation_to_child types windows assessments locations_of_use forms_of_contact )
+	end
+
+	def subject_facets
+		%w( world_region country study_name recruitment study_design target_age_group case_control leukemiatype immunophenotype interview_respondent gender age ethnicity income_quint downs mother_education father_education )
+	end
+
+	def year_facets
+		%w( birth_year reference_year )
+	end
+
+	def age_facets
+		%w( father_age_birth mother_age_birth )
+	end
 
 end
 
