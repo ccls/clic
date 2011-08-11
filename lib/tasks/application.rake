@@ -84,4 +84,10 @@ namespace :app do
 	end
 
 
+	#	convenience tasks for when I misremember the order
+	namespace :import do
+		task :exposures => "app:exposures:import"
+		task :subjects => "app:subjects:import"
+	end
+
 end
