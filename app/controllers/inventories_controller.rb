@@ -71,7 +71,16 @@ class InventoriesController < ApplicationController
 
 ##	what about principle investigators?
 
-			with( :study_id ).any_of( study_ids ) if params[:category]
+			#
+			#	if study_ids from exposure search is empty, this search bombs, but nil is ok
+			#
+			if params[:category] 
+				if study_ids.empty?
+					with( :study_id, nil )
+				else
+					with( :study_id ).any_of( study_ids )
+				end
+			end
 			facet :study_id
 
 			order_by :created_at, :asc

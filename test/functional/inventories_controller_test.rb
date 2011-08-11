@@ -23,10 +23,123 @@ class InventoriesControllerTest < ActionController::TestCase
 			assert_equal 1, assigns(:search).hits.length
 		end
 
-		%w( world_region country study_name recruitment study_design target_age_group ).each do |p|
+		test "should find sole subject with matching exposure category and #{cu} login" do
+			login_as send(cu)
+			subject = random_subject()
+			subject.study.exposures.create!(:category => 'Alcohol')
+			Exposure.solr_reindex
+			Subject.solr_reindex
+			get :show, :category => ['Alcohol']
+			assert_response :success
+			assert assigns(:search)
+			assert_equal 1, assigns(:search).hits.length
+			assert_equal subject, assigns(:search).hits.first.instance
+		end
+
+		test "should NOT find sole subject with mismatching exposure category and #{cu} login" do
+			login_as send(cu)
+			subject = random_subject()
+			subject.study.exposures.create!(:category => 'Alcohol')
+			Exposure.solr_reindex
+			Subject.solr_reindex
+			get :show, :category => ['Tobacco']
+			assert_response :success
+			assert assigns(:search)
+			assert_equal 0, assigns(:search).hits.length
+		end
+
+
+		#	exposure facets
+		%w( relation_to_child ).each do |p|
+
+			test "should find sole subject with matching exposure param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				subject.study.exposures.create!(:category => 'Alcohol',p => 'Arbitrary')
+				Exposure.solr_reindex
+				Subject.solr_reindex
+				get :show, :category => ['Alcohol'], p => ['Arbitrary']
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 1, assigns(:search).hits.length
+				assert_equal subject, assigns(:search).hits.first.instance
+			end
+
+			test "should NOT find sole subject with mismatching exposure param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				subject.study.exposures.create!(:category => 'Alcohol', p => 'Arbitrary')
+				Exposure.solr_reindex
+				Subject.solr_reindex
+				get :show, :category => ['Alcohol'], p => ['Different']
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 0, assigns(:search).hits.length
+			end
 
 		end
 
+		#	exposure facet arrays
+		%w( types windows assessments locations_of_use forms_of_contact ).each do |p|
+
+			test "should find sole subject with matching exposure param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				subject.study.exposures.create!(:category => 'Alcohol',p => ['Arbitrary'])
+				Exposure.solr_reindex
+				Subject.solr_reindex
+				get :show, :category => ['Alcohol'], p => ['Arbitrary']
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 1, assigns(:search).hits.length
+				assert_equal subject, assigns(:search).hits.first.instance
+			end
+
+			test "should NOT find sole subject with mismatching exposure param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				subject.study.exposures.create!(:category => 'Alcohol', p => ['Arbitrary'])
+				Exposure.solr_reindex
+				Subject.solr_reindex
+				get :show, :category => ['Alcohol'], p => ['Different']
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 0, assigns(:search).hits.length
+			end
+
+		end
+
+
+		#	study related facets
+		%w( world_region country study_name recruitment study_design target_age_group ).each do |p|
+
+			test "should find sole subject with matching param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				subject.study.update_attribute(p,'Arbitrary')
+				Subject.solr_reindex
+				get :show, p => [subject.send(p)]
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 1, assigns(:search).hits.length
+				assert_equal subject, assigns(:search).hits.first.instance
+			end
+
+			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				subject.study.update_attribute(p,'Arbitrary')
+				Subject.solr_reindex
+				get :show, p => ["some_bogus_value"]
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 0, assigns(:search).hits.length
+			end
+
+		end
+
+
+		#	basic subject facets
 		%w( case_control leukemiatype immunophenotype interview_respondent 
 			gender age ethnicity income_quint downs
 			mother_education father_education ).each do |p|
@@ -35,11 +148,11 @@ class InventoriesControllerTest < ActionController::TestCase
 				login_as send(cu)
 				subject = random_subject()
 				Subject.solr_reindex
-#				get :show, p.to_sym => [subject.send(p)]
 				get :show, p => [subject.send(p)]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 1, assigns(:search).hits.length
+				assert_equal subject, assigns(:search).hits.first.instance
 			end
 
 			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
@@ -49,7 +162,6 @@ class InventoriesControllerTest < ActionController::TestCase
 				#	NOTE "some_bogus_value" will be converted to an integer when applicable
 				#		which means that it will be treated as 0, so removed 0 as option
 				#		in random field generators below.
-#				get :show, p.to_sym => ["some_bogus_value"]
 				get :show, p => ["some_bogus_value"]
 				assert_response :success
 				assert assigns(:search)
@@ -57,8 +169,6 @@ class InventoriesControllerTest < ActionController::TestCase
 			end
 
 #	TODO test with AND/OR operators
-#	TODO test with exposures
-#	TODO test with facets as strings in addition to symbols as is gonna be different
 
 		end
 
@@ -66,17 +176,18 @@ class InventoriesControllerTest < ActionController::TestCase
 #	need to be numeric ("some_bogus_value".to_i == 0)
 #	"some_bogus_value" won't match any of the expected value formats so will be ignored
 
+		#	range related subject facets
 		%w( reference_year birth_year father_age_birth mother_age_birth ).each do |p|
 
 			test "should find sole subject with matching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = random_subject()
 				Subject.solr_reindex
-#				get :show, p.to_sym => [subject.send(p)]
 				get :show, p => [subject.send(p)]
 				assert_response :success
 				assert assigns(:search)
 				assert_equal 1, assigns(:search).hits.length
+				assert_equal subject, assigns(:search).hits.first.instance
 			end
 
 			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
@@ -84,7 +195,6 @@ class InventoriesControllerTest < ActionController::TestCase
 				subject = random_subject()
 				Subject.solr_reindex
 				#	20 should be big enough to be outside the initial range
-#				get :show, p.to_sym => [(subject.send(p) + 20).to_s]
 				get :show, p => [(subject.send(p) + 20).to_s]
 				assert_response :success
 				assert assigns(:search)

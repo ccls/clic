@@ -31,8 +31,16 @@ class Study < ActiveRecord::Base
 		name
 	end
 
+	def study_name=(new_name)
+		self.name = new_name
+	end
+
 	def study_name
 		name
+	end
+
+	def study_design=(new_design)
+		self.design = new_design
 	end
 
 	def study_design
