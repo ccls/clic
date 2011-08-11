@@ -12,13 +12,15 @@ module InventoriesHelper
 
 	def facet_for(facet,options={})
 		#	options include :multiselector, :facetcount
+		style, icon = ( params[facet.name] ) ? 
+			[" style='display:block;'", "ui-icon-triangle-1-s"] : 
+			[                      nil, "ui-icon-triangle-1-e"]
 		s  = "<div class='facet_toggle'>" <<
-			"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span>" <<
+			"<span class='ui-icon #{icon}'>&nbsp;</span>" <<
 			"<a href='javascript:void()'>#{pluralize(facet.rows.length,facet.name.to_s.titleize)}</a>" <<
       "</div>\n"
 		s << multi_select_operator_for(facet.name) if options[:multiselector]
 		#	show this facet if any have been selected
-		style = (params[facet.name] ) ? " style='display:block;'" : nil
 		s << "<ul id='#{facet.name}' class='facet_field'#{style}>\n"
 		facet.rows.each do |row|
 			s << "<li>"
