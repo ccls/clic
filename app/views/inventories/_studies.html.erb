@@ -1,0 +1,12 @@
+<div id='studies' class='tab_contents'>
+ <% unless @search.facet(:study_id).rows.empty? %>
+  <ul class='results'>
+   <% @search.facet(:study_id).rows.each do |row| %>
+    <li class='result'>
+     <span class='study'><%= link_to row.instance.study_name, study_path(row.value) %></span>
+     <span class='count'>&nbsp;(&nbsp;<%= row.count %>&nbsp;)</span>
+    </li>
+   <% end %>
+  </ul>
+ <% end %>
+</div><!-- id='studies' -->

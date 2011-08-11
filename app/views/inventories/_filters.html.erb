@@ -1,0 +1,11 @@
+<div id='filters'>
+ <h3>Filters : found 
+   <%=pluralize(@search.total,'subject')-%> and 
+   <%=pluralize(@search.facet(:study_id).rows.length,'study')-%> matching ...</h3>
+ <% params.each do |k,v| %>
+  <% next if %w(action controller page).include?(k) %>
+  <% next if k =~ /_op$/ %><%# don't show the operators %>
+  <p><%= link_to "#{k}:#{v.join(' '<<(params[k+'_op']||'OR')<<' ')}&nbsp;[X]", 
+         params.merge(k => nil) %></p>
+ <% end %>
+</div><!-- id='filters' -->

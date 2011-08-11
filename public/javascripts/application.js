@@ -50,6 +50,13 @@ http://www.google.com/cse/docs/cref.html
 		return false;
 	});
 
+	jQuery('div.facet_toggle a').click(function(){
+		jQuery(this).parent().next().toggle(500);
+		jQuery(this).next().toggleClass('ui-icon-triangle-1-e');
+		jQuery(this).next().toggleClass('ui-icon-triangle-1-s');
+		return false;
+	});
+
 
 	if( typeof jQuery('textarea.tinymce').tinymce == 'function' ){
 		jQuery('textarea.tinymce').tinymce({
@@ -97,6 +104,9 @@ http://www.google.com/cse/docs/cref.html
 		resource = name.match(/^(\w+)\[/)[1];	// annual_meeting, doc_form, ...
 		count = name.match(/\[(\d+)\]/)[1];	// '0', '1', ...
 		next = parseInt(count) + 1;  // 1, 2, ...
+/*
+	would be cleaner if this was an AJAX request
+*/
 		jQuery('div#group_documents').append( "<hr/><div class='title text_field field_wrapper'><label for='"+resource+"_group_documents_attributes_"+next+"_title'>Document Title</label><input class='autosize' id='"+resource+"_group_documents_attributes_"+next+"_title' name='"+resource+"[group_documents_attributes]["+next+"][title]' size='30' type='text' /></div><!-- class='title text_field' --><div class='document file_field field_wrapper'><label for='"+resource+"_group_documents_attributes_"+next+"_document'>Document</label><input id='"+resource+"_group_documents_attributes_"+next+"_document' name='"+resource+"[group_documents_attributes]["+next+"][document]' size='30' type='file' /></div><!-- class='document file_field' -->"
 );
 		resize_text_areas();

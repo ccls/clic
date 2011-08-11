@@ -13,17 +13,19 @@
 	border: 1px solid #EEE;
 	display:table-row;
 }
-#facets {
+#refine {
 	width: 30%;
 	display:table-cell;
 	border-right: 2px solid silver;
 	padding: 0 10px;
 }
-#facets form input[type=submit] {
-	font-size:16pt;
+#refine form input[type=submit] {
+	font-size:14pt;
 	font-weight:bold;
-	border: 2px solid black;
+	border: 1px solid black;
 	width: 100%;
+	margin: 10px 0;
+
 	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
@@ -38,10 +40,27 @@
 	filter: progid:DXImageTransform.Microsoft.gradient(StartColorStr='#FFFFFF', EndColorStr='#BBBBBB');
 
 }
-#facets ul.facet_field {
-	padding-left: 10px;
+.facets {
+	border: 1px solid silver;
+	border-top: 0;
 }
-#facets ul.facet_field li {
+.facets div.facet_toggle {
+	display:block;
+	padding: 5px;
+	border-top: 1px solid silver;
+	background-color:#EEE;
+}
+.facets div.facet_toggle span {
+	float:left;
+}
+.facets div.facet_toggle a {
+	display:block;
+}
+.facets ul.facet_field {
+	padding-left: 10px;
+	display:none;
+}
+.facets ul.facet_field li {
 	list-style: none;
 }
 #results {

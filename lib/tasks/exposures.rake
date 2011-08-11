@@ -28,7 +28,7 @@ namespace :exposures do
 	
 				study.exposures.create!({
 					:category            => category,
-					:relation_to_child   => line["Relation to Child"],
+					:relation_to_child   => line["Relation to Child"].to_s.strip,
 					:windows             => line['Window of Exposure'].to_s.split(',').collect(&:strip),
 					:types               => line['Type of Exposure'].to_s.split(',').collect(&:strip),
 					:assessments         => line['Exposure Assessment'].to_s.split(',').collect(&:strip),

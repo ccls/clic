@@ -1,0 +1,20 @@
+<div id='subjects' class='tab_contents'>
+ <% unless @search.results.empty? %>
+  <ul class='results'>
+   <% @search.results.each do |result| %>
+    <li class='result'>
+     <span class='subject'><%= result %>
+<%#= link_to result.to_s, result %>
+<%#= result.inspect %>
+</span>
+     <span class='study'><%= link_to result.study_name, study_path(result.study_id) %></span>
+<ul>
+<%= result.attributes.reject{|k,v| %w(created_at updated_at).include?(k) }.collect { |k,v| "<li>#{k}:#{v}</li>" } %>
+</ul>
+    </li>
+   <% end %>
+  </ul>
+ <% end %>
+ <p><%= will_paginate(@search.hits) %></p>
+ <p class='page_info'>Displaying page <%=@search.hits.current_page%> of <%=@search.hits.total_pages%> out of <%=@search.total%> results</p>
+</div><!-- id='subjects' -->

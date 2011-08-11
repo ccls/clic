@@ -1,0 +1,26 @@
+<div id='refine'>
+ <% form_tag( inventory_path, :method => :get ) do %>
+  <%= submit_tag "Refine Search", :name => nil %>
+<div class='facets'>
+  <% @search.facets.each do |facet| -%>
+   <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
+   <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+   <%= facet_for(facet,
+       :multiselector => [:biospecimens,:genotypings].include?(facet.name),
+       :facet_counts  => true ) %>
+  <% end -%>
+</div><!-- class='facets' -->
+
+  <%= submit_tag "Refine Search", :name => nil %>
+<div class='facets'>
+  <% @exposure_search.facets.each do |facet| -%>
+   <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
+   <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+   <%= facet_for(facet, :radio => (facet.name.to_s == 'category') ) %>
+  <% end -%>
+</div><!-- class='facets' -->
+
+  <%= submit_tag "Refine Search", :name => nil %>
+
+ <% end -%>
+</div><!-- id='facets' -->
