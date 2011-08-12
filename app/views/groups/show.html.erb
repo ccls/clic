@@ -1,15 +1,12 @@
-<h2>Group:</h2>
-<p><b>Name:</b><%=h @group.name %></p>
-<p><b>Description:</b><%=sanitize( @group.description ) %></p>
-
-<%# if current_user.may_edit_group?(@group) %>
-<p>
+<h2><%=h @group.name %>:
+<span class='controls'>
  <%= link_to "Edit Group", edit_group_path(@group),
   :class => 'button' %>&nbsp;
  <%= link_to "Request Membership", new_group_membership_path(@group),
   :class => 'button' %>
-</p>
-<%# end %>
+</span>
+</h2>
+<div id='group_description'><%=sanitize( @group.description ) %></div>
 
 <hr/>
 

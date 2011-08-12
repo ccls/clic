@@ -1,4 +1,8 @@
-<h2>Events:</h2>
+<h2>Events:
+<span class='controls'>
+<%= link_to 'Create New Event', new_event_path, :class => 'button' %>
+</span>
+</h2>
 
 <% if @events.length > 0 %>
  <table id='events'><thead>
@@ -8,5 +12,3 @@
 <% else %>
  <p>Sorry, but no events yet.</p>
 <% end %>
-
-<p><%= link_to 'Create New Event', new_event_path, :class => 'button' %></p>

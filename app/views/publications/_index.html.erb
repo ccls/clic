@@ -1,4 +1,10 @@
-<h2>Publications:</h2>
+<h2>Publications:
+<span class='controls'>
+<%= link_to "Add Publication", new_publication_path(:publication => { :study_id => @study }),
+	:class => 'button' %>
+</span>
+</h2>
+
 <% unless publications.empty? %>
   <table id='publications'><thead>
     <tr><th>Title</th><th>Journal</th><th>Author</th><th>PubYear</th><th>&nbsp;</th></tr>

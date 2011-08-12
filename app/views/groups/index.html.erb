@@ -1,4 +1,8 @@
-<h2>Groups:</h2>
+<h2>Groups:
+<span class='controls'>
+ <%= link_to 'Create New Group', new_group_path, :class => 'button' %>
+</span>
+</h2>
 
 <% if @groups.length > 0 %>
  <table id='groups'><thead>
@@ -9,7 +13,3 @@
 <% else %>
  <p>Sorry, but no groups yet.</p>
 <% end %>
-
-<p>
- <%= link_to 'Create New Group', new_group_path, :class => 'button' %>
-</p>

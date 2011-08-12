@@ -110,36 +110,36 @@ form.edit_group .field_wrapper label {
 }
 
 .field_error {
-  background-color: #F88;
+	background-color: #F88;
 }
 
 #errorExplanation {
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+	border: 2px solid red;
+	padding: 7px;
+	padding-bottom: 12px;
+	margin-bottom: 20px;
+	background-color: #f0f0f0;
 }
 
 #errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  background-color: #c00;
-  color: #fff;
+	text-align: left;
+	font-weight: bold;
+	padding: 5px 5px 5px 15px;
+	font-size: 12px;
+	margin: -7px;
+	background-color: #c00;
+	color: #fff;
 }
 
 #errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 5px;
+	color: #333;
+	margin-bottom: 0;
+	padding: 5px;
 }
 
 #errorExplanation ul li {
-  font-size: 12px;
-  list-style: none;
+	font-size: 12px;
+	list-style: none;
 }
 
 
@@ -149,3 +149,13 @@ form.edit_group .field_wrapper label {
 	font-weight: bold;
 }
 
+span.controls {
+	float:right;
+	vertical-align:middle;
+	line-height:inherit;
+	font-size:14px;
+	font-weight:normal;
+}
+span.controls * {
+	vertical-align:middle;
+}

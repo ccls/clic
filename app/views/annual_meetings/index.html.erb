@@ -1,4 +1,10 @@
-<h2>Annual Meetings:</h2>
+<h2>Annual Meetings:
+<span class='controls'>
+<%= link_to "Add Annual Meeting", new_annual_meeting_path,
+	:class => 'button' %>
+</span>
+</h2>
+
 <% unless @annual_meetings.empty? %>
   <table id='annual_meetings'><thead>
     <tr><th>Meeting</th><th>&nbsp;</th></tr>
@@ -8,6 +14,3 @@
 <% else %>
   <p>Sorry, no annual_meetings yet.</p>
 <% end %>
-
-<p><%= link_to "Add Annual Meeting", new_annual_meeting_path,
-	:class => 'button' %></p>

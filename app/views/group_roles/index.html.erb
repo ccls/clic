@@ -1,4 +1,8 @@
-<h2>Group Roles:</h2>
+<h2>Group Roles:
+<span class='controls'>
+<%= link_to 'Create New Group Role', new_group_role_path, :class => 'button' %>
+</span>
+</h2>
 
 <% if @group_roles.length > 0 %>
  <table id='group_roles'><tbody>
@@ -7,7 +11,3 @@
 <% else %>
  <p>Sorry, but no group_roles yet.</p>
 <% end %>
-
-<p>
-<%= link_to 'Create New Group Role', new_group_role_path, :class => 'button' %>
-</p>

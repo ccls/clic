@@ -1,4 +1,10 @@
-<h2>Doc Forms:</h2>
+<h2>Doc Forms:
+<span class='controls'>
+<%= link_to "Add Doc Form", new_doc_form_path,
+	:class => 'button' %>
+</span>
+</h2>
+
 <% unless @doc_forms.empty? %>
   <table id='doc_forms'><thead>
     <tr><th>Title</th><th>&nbsp;</th></tr>
@@ -8,6 +14,3 @@
 <% else %>
   <p>Sorry, no doc_forms yet.</p>
 <% end %>
-
-<p><%= link_to "Add Doc Form", new_doc_form_path,
-	:class => 'button' %></p>

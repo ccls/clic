@@ -1,4 +1,8 @@
-<h2>Studies:</h2>
+<h2>Studies:
+<span class='controls'>
+<%= link_to "Create New Study", new_study_path, :class => 'button' %>
+</span>
+</h2>
 <% unless @studies.empty? %>
   <table id='studies'><thead>
     <tr><th>Name</th><th>Country</th><th>&nbsp;</th></tr>
@@ -8,6 +12,3 @@
 <% else %>
   <p>Sorry, no studies yet.</p>
 <% end %>
-<p>
-<%= link_to "Create New Study", new_study_path, :class => 'button' %>
-</p>

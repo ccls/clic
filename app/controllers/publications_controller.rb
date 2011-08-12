@@ -4,6 +4,10 @@ class PublicationsController < ApplicationController
 
 	resourceful
 
+	def new
+		@publication = Publication.new(params[:publication])
+	end
+
 	def create
 		@publication = Publication.new(params[:publication])
 		@publication.current_user = current_user

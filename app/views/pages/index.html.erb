@@ -1,7 +1,8 @@
 <% javascripts('pages') %>
 <% stylesheets('pages') %>
 
-<h4>Pages:</h4>
+<h2>Pages:</h2>
+
 <% unless @pages.empty? %>
 <table id='pages'><tbody>
 <%= render :partial => 'page', :collection => @pages %>
