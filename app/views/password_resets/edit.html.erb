@@ -1,6 +1,6 @@
 <% stylesheets('user') %>
 
-<h2>Edit Password:</h2>
+<h2>Edit Password</h2>
 <% form_for( @user, :url => password_reset_path(@user.perishable_token),
 	:method => :put,
 	:class => 'edit_user' ) do |f| %>
