@@ -121,15 +121,17 @@ class UserTest < ActiveSupport::TestCase
 			@user = Factory(:user)
 		end
 		assert !@user.reload.approved?
-		assert_difference("User.find(#{@user.id}).memberships.length",1) {
-		assert_difference("Membership.count",1) {
-			@m = Factory(:membership, :user => @user)
-		} }
-		assert_equal @user, @m.user
-		assert !@m.reload.approved?
-		@m.approve!
-		assert @m.reload.approved?
-		assert @user.reload.approved?
+		deny_changes("User.find(#{@user.id}).perishable_token") {
+			assert_difference("User.find(#{@user.id}).memberships.length",1) {
+			assert_difference("Membership.count",1) {
+				@m = Factory(:membership, :user => @user)
+			} }
+			assert_equal @user, @m.user
+			assert !@m.reload.approved?
+			@m.approve!
+			assert @m.reload.approved?
+			assert @user.reload.approved?
+		}
 	end
 
 end

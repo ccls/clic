@@ -19,8 +19,12 @@ class Membership < ActiveRecord::Base
 	after_save :approve_user_if_approved
 
 	def approve_user_if_approved
-		if self.approved?
-			self.user.approve! unless self.user.approved?
+		if self.approved? and !self.user.approved?
+			#	NOTE DO NOT CHANGE USER'S perishable_token, in case the user has not
+			#	confirmed their email yet, to preserve the confirmation email's link.
+			User.disable_perishable_token_maintenance = true
+			self.user.approve! 
+			User.disable_perishable_token_maintenance = false
 		end
 	end
 
