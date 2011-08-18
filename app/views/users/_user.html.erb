@@ -10,10 +10,17 @@
       <%= link_to role_name, users_path( :role_name => role_name ) -%>
     <% end %>
   </td>
+  <td class='confirmed'>
+    <%=mdy user.email_confirmed_at %>
+  </td>
   <td class='manage'>
-    <% form_link_to 'Approve', approve_user_path(user),
-      'method' => 'put' do %>
-      <%= submit_link_to('Approve') %>
-    <% end unless user.approved? %>
+    <% unless user.approved? %>
+      <% form_link_to 'Approve', approve_user_path(user),
+        'method' => 'put' do %>
+        <%= submit_link_to('Approve') %>
+      <% end %>
+    <% else %>
+      <span>Approved</span>
+    <% end %>
   </td>
 <% end %>
