@@ -25,7 +25,19 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	test "should confirm email with valid perishable_token and no login" do
 		u = unapproved_user
 		get :confirm, :id => u.perishable_token
+		assert_not_nil assigns(:user)
 		assert_not_nil flash[:notice]
+		assert_redirected_to login_path
+	end
+
+	test "should NOT confirm email with valid expired perishable_token and no login" do
+		User.perishable_token_valid_for = 1.second	#	default is 10 minutes
+		u = unapproved_user
+		sleep 2
+		get :confirm, :id => u.perishable_token
+		assert_nil assigns(:user)
+		assert_nil flash[:notice]
+		assert_not_nil flash[:error]
 		assert_redirected_to login_path
 	end
 
@@ -48,11 +60,24 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	test "should NOT resend confirm email with valid perishable_token and login" do
 		u = unapproved_user
 		login_as u
+		deny_changes("User.find(#{u.id}).perishable_token") {
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 			get :resend, :id => u.perishable_token
-		}
+		} }
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
+	end
+
+	test "should resend confirm email with valid expired perishable_token and no login" do
+		User.perishable_token_valid_for = 1.second  # default is 10 minutes
+		u = unapproved_user
+		sleep 2
+		assert_changes("User.find(#{u.id}).perishable_token") {
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
+			get :resend, :id => u.perishable_token
+		} }
+		assert_not_nil flash[:notice]
+		assert_redirected_to login_path
 	end
 
 	test "should resend confirm email with valid perishable_token and no login" do
