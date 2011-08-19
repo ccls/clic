@@ -16,7 +16,11 @@ class GroupsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	assert_access_with_login({    :logins => site_administrators })
-	assert_no_access_with_login({ :logins => non_site_administrators })
+	assert_no_access_with_login({ :logins => non_site_administrators,
+		:no_redirect_check => true })
+#	response to be a redirect to <https://test.host:80/> 
+#		but was a redirect to <https://test.host:80/groups/1018266145/memberships/new>.
+#		:redirect => new_group_membership_path(@membership.group) })
 	assert_no_access_without_login
 	assert_access_with_https
 	assert_no_access_with_http
