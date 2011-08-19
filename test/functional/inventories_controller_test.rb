@@ -109,6 +109,25 @@ class InventoriesControllerTest < ActionController::TestCase
 				assert_equal 0, assigns(:search).hits.length
 			end
 
+#
+#	TODO need to implement operator selection for exposure_search
+#
+#			test "should find both subjects with matching param #{p} and #{cu} login and operator OR" do
+#				pending	#	TODO
+#			end
+#
+#			test "should find neither subject with matching param #{p} and #{cu} login and operator AND" do
+#				#	Can only really use the AND operator for items which a subject can have multiple
+#				#	This used to be biospecimens, but now only exposures or study attributes will work.
+#				#	exposure
+#				#		types
+#				#		windows
+#				#		assessments
+#				#		forms_of_contact
+#				#		locations_of_use
+#				pending	#	TODO
+#			end
+
 		end
 
 
@@ -170,7 +189,38 @@ class InventoriesControllerTest < ActionController::TestCase
 				assert_equal 0, assigns(:search).hits.length
 			end
 
-#	TODO test with AND/OR operators
+			%w( AND OR ).each do |op|
+
+				test "should find sole subject with matching param #{p} and #{cu} login and ignore operator #{op}" do
+					login_as send(cu)
+					subject = random_subject()
+					Subject.solr_reindex
+					get :show, p => [subject.send(p)]
+					assert_response :success
+					assert assigns(:search)
+					assert_equal 1, assigns(:search).hits.length
+					assert_equal subject, assigns(:search).hits.first.instance
+				end
+
+			end
+
+			test "should find both subjects with matching param #{p} and #{cu} login and operator OR" do
+				pending	#	TODO
+			end
+
+			test "should find neither subject with matching param #{p} and #{cu} login and operator AND" do
+				#	Can only really use the AND operator for items which a subject can have multiple
+				#	This used to be biospecimens, but now only exposures or study attributes will work.
+				#	study
+				#		principal_investigators	#	not used, so nothing for studies really
+				#	exposure
+				#		types
+				#		windows
+				#		assessments
+				#		forms_of_contact
+				#		locations_of_use
+				pending	#	TODO
+			end
 
 		end
 

@@ -106,6 +106,19 @@ class GroupsControllerTest < ActionController::TestCase
 			assert !assigns(:group)
 			assert_redirected_to groups_path
 		end
+
+		Group.all.each do |group|
+
+			#	show all groups to fully test group menu
+			test "should show group #{group.id} with #{cu} login" do
+				login_as send(cu)
+				get :show, :id => group.id
+				assert_response :success
+				assert_template 'show'
+			end
+
+		end
+
 	end
 
 	non_site_administrators.each do |cu|

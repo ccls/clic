@@ -12,9 +12,11 @@ module InventoriesHelper
 
 	def facet_for(facet,options={})
 		#	options include :multiselector, :facetcount
-		style, icon = ( params[facet.name] ) ? 
-			[" style='display:block;'", "ui-icon-triangle-1-s"] : 
+		style, icon = if( params[facet.name] )
+			[" style='display:block;'", "ui-icon-triangle-1-s"]
+		else
 			[                      nil, "ui-icon-triangle-1-e"]
+		end
 		s  = "<div class='facet_toggle'>" <<
 			"<span class='ui-icon #{icon}'>&nbsp;</span>" <<
 			"<a href='javascript:void()'>#{pluralize(facet.rows.length,facet.name.to_s.titleize)}</a>" <<

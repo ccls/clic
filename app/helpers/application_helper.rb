@@ -59,21 +59,24 @@ module ApplicationHelper
 
 #	TODO add sub-pages with submenus and display if current (primarily for public group pages)
 	def public_pages
-		Page.roots.collect do |page|
+		page_menu = Page.roots.collect do |page|
 			current = (page == @page.try(:root)) ? " class='current'" : nil
 			"<li#{current}>" << link_to( page.menu(session[:locale]), 
 				ActionController::Base.relative_url_root.to_s + page.path,
 				:id => "menu_#{dom_id(page)}" ) << "</li>\n"
-		end.join()
+		end
+		page_menu.join()
 	end
 
 	def group_pages
 		load 'group.rb' unless defined?(Group);
-		Group.roots.collect do |group|
+		group_menu = Group.roots.collect do |group|
 			if group.groups_count > 0
-				style, icon = ( group == @group.try(:parent) ) ? 
-					[" style='display:list-item;'", "ui-icon-triangle-1-s"] : 
+				style, icon = if( group == @group.try(:parent) )
+					[" style='display:list-item;'", "ui-icon-triangle-1-s"]
+				else
 					[                          nil, "ui-icon-triangle-1-e"]
+				end
 				children = "<li class='members'><a class='submenu_toggle'>#{group.name}</a>" <<
 					"<span class='ui-icon #{icon}'>&nbsp;</span></li>\n"
 				children << "<li class='members submenu'#{style}><ul>\n"
@@ -86,7 +89,8 @@ module ApplicationHelper
 				current = ( group == @group ) ? ' current' : nil
 				"<li class='members#{current}'>#{link_to(group.name,group)}</li>\n"
 			end
-		end.join()
+		end
+		group_menu.join()
 	end
 
 end
