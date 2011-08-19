@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-admin:
-  id: 1
-  position: 1
-  name: administrator
+#admin:
+#  id: 1
+#  position: 1
+#  name: administrator
 
 moderator:
   id: 2
