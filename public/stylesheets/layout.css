@@ -1,11 +1,6 @@
 /* CSS layout for clic, Buffler Center website */
 
-
 #container {
-/*
-	width: 900px;
-	margin: 0px auto;
-*/
 	min-width: 1000px;
 	margin: 0 20px;
 	padding: 10px;
@@ -52,43 +47,19 @@
 	float: left;
 }
 
-#header2 {
-	padding-bottom: 20px;
-	background: #99CCFF;
-}
-#header2 img {
-/*
-	width: 900px;
-*/
-	width: 100%;
-	height: 130px;
-}
-
-
 #menu {
 	width: 175px;
 	background:#99CCFF;
-/*
-	clear: left;
-*/
 }
 #content{
 	padding-left: 10px;
-	/* makes room for shifted footer */
-	/* don't think this is necessary anymore */
-/*
-	padding-bottom: 30px; 
-	margin-bottom: -30px;
-	width: 710px;
-	width: 100%;
-*/
 	min-height: 300px;
 	font: 0.8em Arial, Helvetica, sans-serif;
 	color: #000;
 }
 
 
-
+/* not really needed in this stylesheet. move to application.css? */
 ul#application_menu {
 }
 ul#application_menu li {
@@ -114,42 +85,15 @@ ul#application_menu li a {
 ul#application_menu li a:hover {
 	text-decoration: underline;
 }
+ul#application_menu li.current {
+	background-color: #FFF;
+}
+ul#application_menu li.current a {
+	color: #000;
+}
 ul#application_menu li ul li:last-child {
 	border-bottom: 0;
 }
-
-/*
-ul.nav li {
-	padding: 5px;
-	border-bottom: 1px solid #99CCFF;
-	font: 0.8em Arial, Helvetica, sans-serif;
-	color: #fff;
-}
-#GlobalNav li {
-	background: #369;
-}
-#MembersNav li {
-	background: #693;
-}
-#PrivateNav li {
-	background: #936;
-}
-
-ul.nav a {
-	color: #fff;
-	text-decoration: none;
-}
-
-ul.nav a:hover {
-	text-decoration: underline;
-}
-
-#GlobalNav li ul li:last-child {
-	border-bottom: 0;
-}
-*/
-
-
 
 
 #footer {
@@ -161,9 +105,6 @@ ul.nav a:hover {
 
 	/* Jake added */
 	text-align: center;
-/*
-	clear: both;
-*/
 }
 #footer a {
 	color: #666;

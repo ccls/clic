@@ -4,40 +4,26 @@ module ApplicationHelper
 		load 'page.rb' unless defined?(Page);
 		out = "<ul id='application_menu'>\n"
 		if logged_in?
-			out << "<li><a class='submenu_toggle'>Public</a>" <<
+			out << "<li><a class='submenu_toggle'>Public Pages</a>" <<
 				"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span></li>\n"
-			out << "<li class='submenu'><ul>\n"
-			out << Page.roots.collect do |page|
-				"<li>" << link_to( page.menu(session[:locale]), 
-					ActionController::Base.relative_url_root.to_s + page.path,
-					:id => "menu_#{dom_id(page)}",
-					:class => ((page == @page.try(:root)) ? 'current' : nil)) << "</li>\n"
-			end.join()
+			style = ( @page ) ? " style='display:list-item'" : nil
+			out << "<li class='submenu'#{style}><ul>\n"
+			out << public_pages
 			out << "</ul></li>"
-
-			out << "<li class='members'>#{link_to( "Members Only Home", members_only_path )}</li>\n"
-			load 'group.rb' unless defined?(Group);
-			out << Group.roots.collect do |group|
-				if group.groups_count > 0
-					children = "<li class='members'><a class='submenu_toggle'>#{group.name}</a>" <<
-						"<span class='ui-icon ui-icon-triangle-1-e'>&nbsp;</span></li>\n"
-						#	IE8 does not like single tagged spans
-						#	"<span class='ui-icon ui-icon-triangle-1-e'/></li>\n"
-					children << "<li class='members submenu'><ul>\n"
-					children << group.children.collect do |child|
-						"<li class='members'>#{link_to(child.name,child)}</li>\n"
-					end.join()
-					children << "</ul></li>"
-				else
-					"<li class='members'>#{link_to(group.name,group)}</li>\n"
-				end
-			end.join()
-			out << "<li class='members'>#{link_to( "Annual Meetings", annual_meetings_path )}</li>\n"
-			out << "<li class='members'>#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
-			out << "<li class='members'>#{link_to( "Publications", publications_path )}</li>\n"
+			
+			out << "<li class='members#{current_controller('members_onlies')}'>" <<
+				"#{link_to( "Members Only Home", members_only_path )}</li>\n"
+			out << group_pages
+			out << "<li class='members#{current_controller('annual_meetings')}'>" <<
+				"#{link_to( "Annual Meetings", annual_meetings_path )}</li>\n"
+			out << "<li class='members#{current_controller('doc_forms')}'>" <<
+				"#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
+			out << "<li class='members#{current_controller('publications')}'>" <<
+				"#{link_to( "Publications", publications_path )}</li>\n"
 			out << "<li class='members'>Member Directory TODO</li>\n"
 			out << "<li class='members'>Study Contact Info TODO</li>\n"
-			out << "<li class='inventory'>#{link_to( "Inventory", inventory_path )}</li>\n"
+			out << "<li class='inventory#{current_controller('inventories')}'>" <<
+				"#{link_to( "Inventory", inventory_path )}</li>\n"
 
 			out << (( current_user.may_edit? ) ? "" <<
 				"<li class='user'>#{link_to( "Pages", pages_path )}</li>" << 
@@ -55,13 +41,8 @@ module ApplicationHelper
 			out << "<li class='user'>#{link_to( "My Account", user_path(current_user) )}</li>"
 			out << "<li class='user'>#{link_to( "Logout", logout_path )}</li>"
 		else
-			out << Page.roots.collect do |page|
-				"<li>" << link_to( page.menu(session[:locale]), 
-					ActionController::Base.relative_url_root.to_s + page.path,
-					:id => "menu_#{dom_id(page)}",
-					:class => ((page == @page.try(:root)) ? 'current' : nil)) << "</li>\n"
-			end.join()
-			out << "<li>#{link_to( "Members Only", members_only_path )}</li>\n"
+			out << public_pages
+			out << "<li>#{link_to( "Members Only Login", login_path )}</li>\n"
 		end
 		out << "</ul><!-- id='application_menu' -->\n"
 	end
@@ -70,6 +51,42 @@ module ApplicationHelper
 	#	with class='required'
 	def required(text)
 		"<span class='required'>#{text}</span>"
+	end
+
+	def current_controller(name)
+		(controller.controller_name == name) ? ' current' : nil
+	end
+
+#	TODO add sub-pages with submenus and display if current (primarily for public group pages)
+	def public_pages
+		Page.roots.collect do |page|
+			current = (page == @page.try(:root)) ? " class='current'" : nil
+			"<li#{current}>" << link_to( page.menu(session[:locale]), 
+				ActionController::Base.relative_url_root.to_s + page.path,
+				:id => "menu_#{dom_id(page)}" ) << "</li>\n"
+		end.join()
+	end
+
+	def group_pages
+		load 'group.rb' unless defined?(Group);
+		Group.roots.collect do |group|
+			if group.groups_count > 0
+				style, icon = ( group == @group.try(:parent) ) ? 
+					[" style='display:list-item;'", "ui-icon-triangle-1-s"] : 
+					[                          nil, "ui-icon-triangle-1-e"]
+				children = "<li class='members'><a class='submenu_toggle'>#{group.name}</a>" <<
+					"<span class='ui-icon #{icon}'>&nbsp;</span></li>\n"
+				children << "<li class='members submenu'#{style}><ul>\n"
+				children << group.children.collect do |child|
+					current = ( child == @group ) ? ' current' : nil
+					"<li class='members#{current}'>#{link_to(child.name,child)}</li>\n"
+				end.join()
+				children << "</ul></li>"
+			else
+				current = ( group == @group ) ? ' current' : nil
+				"<li class='members#{current}'>#{link_to(group.name,group)}</li>\n"
+			end
+		end.join()
 	end
 
 end
