@@ -195,7 +195,7 @@ class InventoriesControllerTest < ActionController::TestCase
 					login_as send(cu)
 					subject = random_subject()
 					Subject.solr_reindex
-					get :show, p => [subject.send(p)]
+					get :show, p => [subject.send(p)], "#{p}_op" => op
 					assert_response :success
 					assert assigns(:search)
 					assert_equal 1, assigns(:search).hits.length
