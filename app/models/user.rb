@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
 		#	Creating objects via Factory with associated users 
 		#	results in them being autmatically logged in.
 		c.maintain_sessions = false
+
+		#	default is just 10.minutes
+		c.perishable_token_valid_for = 12.hours
 	end
 
 #	the above adds some validations, some of which I'd like to remove

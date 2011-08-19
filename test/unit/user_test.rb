@@ -25,6 +25,11 @@ class UserTest < ActiveSupport::TestCase
 	assert_should_have_many(:group_documents)
 	assert_should_protect(:approved)
 
+
+	test "perishable_token should have 12 hour expiration" do
+		assert_equal User.perishable_token_valid_for, 12.hours.to_i
+	end
+
 	test "should return username as to_s" do
 		object = create_object
 		assert_equal object.username, "#{object}"

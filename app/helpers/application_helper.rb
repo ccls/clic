@@ -15,7 +15,7 @@ module ApplicationHelper
 			end.join()
 			out << "</ul></li>"
 
-			out << "<li class='members'>#{link_to( "Members Only", members_only_path )}</li>\n"
+			out << "<li class='members'>#{link_to( "Members Only Home", members_only_path )}</li>\n"
 			load 'group.rb' unless defined?(Group);
 			out << Group.roots.collect do |group|
 				if group.groups_count > 0
@@ -32,11 +32,12 @@ module ApplicationHelper
 					"<li class='members'>#{link_to(group.name,group)}</li>\n"
 				end
 			end.join()
-			out << "<li class='members'>#{link_to( "Inventory", inventory_path )}</li>\n"
+			out << "<li class='members'>#{link_to( "Annual Meetings", annual_meetings_path )}</li>\n"
 			out << "<li class='members'>#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
 			out << "<li class='members'>#{link_to( "Publications", publications_path )}</li>\n"
 			out << "<li class='members'>Member Directory TODO</li>\n"
 			out << "<li class='members'>Study Contact Info TODO</li>\n"
+			out << "<li class='inventory'>#{link_to( "Inventory", inventory_path )}</li>\n"
 
 			out << (( current_user.may_edit? ) ? "" <<
 				"<li class='user'>#{link_to( "Pages", pages_path )}</li>" << 
@@ -47,7 +48,6 @@ module ApplicationHelper
 			out << (( current_user.may_administrate? ) ? "" <<
 				"<li class='user'>#{link_to( "Memberships", memberships_path )}</li>" << 
 				"<li class='user'>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
-				"<li class='user'>#{link_to( "Annual Meetings (temp)", annual_meetings_path )}</li>" << 
 				"<li class='user'>#{link_to( "Studies (temp)", studies_path )}</li>" << 
 				"<li class='user'>#{link_to( "Groups (temp)", groups_path )}</li>" << 
 				"<li class='user'>#{link_to( "Group Roles (temp)", group_roles_path )}</li>" : '')

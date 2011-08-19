@@ -98,6 +98,9 @@ ul#application_menu li {
 	color: #fff;
 	background: #369;
 }
+ul#application_menu li.inventory {
+	background: #000;
+}
 ul#application_menu li.members {
 	background: #693;
 }

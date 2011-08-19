@@ -2,6 +2,9 @@
 <% if @forum.group %>
 <%= link_to @forum.group.name, @forum.group %>
 &nbsp;&raquo;&nbsp;
+<% else %>
+<%= link_to "Member's Only", members_only_path %>
+&nbsp;&raquo;&nbsp;
 <% end %>
 <%=h @forum.name %></h2>
 
