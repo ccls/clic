@@ -24,35 +24,20 @@ class ForumsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	assert_access_with_login({ 
-		:actions => [:new,:create],
-		:logins => site_administrators })
-	assert_no_access_with_login({ 
-		:redirect => :members_only_path,
-		:actions => [:new,:create],
-		:logins => non_site_administrators })
+	with_options :actions => [:new,:create] do |o|
+		o.assert_access_with_login({    :logins => site_administrators })
+		o.assert_no_access_with_login({ :logins => non_site_administrators,
+			:redirect => :members_only_path })
+	end
 
-	assert_access_with_login({ 
-		:actions => [:show],
-		:logins => ( all_test_roles - unapproved_users ) })
-	assert_no_access_with_login({ 
-		:actions => [:show],
-		:logins => unapproved_users })
+	with_options :actions => [:show] do |o|
+		o.assert_access_with_login({    :logins => approved_users  })
+		o.assert_no_access_with_login({ :logins => unapproved_users })
+	end
 
 	assert_no_access_without_login
 	assert_access_with_https
 	assert_no_access_with_http
-
-	def self.group_readers
-		@group_readers ||= %w( 
-			superuser administrator group_administrator group_moderator
-			group_editor group_reader )
-	end
-
-	def self.group_admins
-		@group_admins ||= %w( 
-			superuser administrator group_administrator group_moderator )
-	end
 
 	group_readers.each do |cu|
 
@@ -78,7 +63,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - group_readers ).each do |cu|
+	non_group_readers.each do |cu|
 
 		test "should NOT show group forum with #{cu} login" do
 			login_as send(cu)
@@ -143,7 +128,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 ##################################################
 
-	group_admins.each do |cu|
+	group_moderators.each do |cu|
 
 		test "should get new forum with group and #{cu} login" do
 			login_as send(cu)
@@ -193,7 +178,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - group_admins ).each do |cu|
+	non_group_moderators.each do |cu|
 
 		test "should NOT get new forum with group and #{cu} login" do
 			login_as send(cu)

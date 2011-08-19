@@ -44,7 +44,8 @@ module ClassMethods
 			@group_asset_editors ||= (group_asset_destroyers + %w(group_editor))
 		end
 		def self.group_asset_destroyers
-			@group_asset_destroyers ||= %w( superuser administrator group_administrator group_moderator )
+#			@group_asset_destroyers ||= %w( superuser administrator group_administrator group_moderator )
+			@group_asset_destroyers ||= %w( superuser administrator group_moderator )
 		end
 
 		############################################################

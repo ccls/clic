@@ -20,27 +20,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	def self.creators
-		@creators ||= site_editors + %w( 
-			interviewer reader approved_user unapproved_user group_roleless
-			unapproved_group_administrator unapproved_nonmember_administrator
-			nonmember_administrator nonmember_moderator 
-			nonmember_editor nonmember_reader nonmember_roleless )
-	end
-
-	def self.editors
-		@editors ||= site_administrators + %w( 
-			group_administrator group_moderator )
-	end
-
-	def self.readers
-		@readers ||= site_administrators + %w( 
-			group_administrator group_moderator
-			group_editor group_reader )
-	end
-
-
-	editors.each do |cu|
+	group_moderators.each do |cu|
 
 		test "should edit membership with #{cu} login" do
 			login_as send(cu)
@@ -165,7 +145,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - editors ).each do |cu|
+	non_group_moderators.each do |cu|
 
 		test "should NOT edit membership with #{cu} login" do
 			login_as send(cu)
@@ -214,7 +194,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Only non-members should be allowed to create.
 	#
-	creators.each do |cu|
+	non_group_members.each do |cu|
 
 		test "should NOT get new membership without valid group and #{cu} login" do
 			login_as send(cu)
@@ -288,7 +268,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members should NOT be allowed to create a membership.
 	#
-	( all_test_roles - creators ).each do |cu|
+	group_members.each do |cu|
 
 		test "should NOT get new membership with #{cu} login" do
 			login_as send(cu)
@@ -312,7 +292,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Members and site admins should be able to view
 	#
-	readers.each do |cu|
+	group_readers.each do |cu|
 
 		test "should show membership with #{cu} login" do
 			login_as send(cu)
@@ -333,7 +313,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 	#	Non-members should not be able to view
 	#
-	( all_test_roles - readers ).each do |cu|
+	non_group_readers.each do |cu|
 
 		test "should NOT show membership with #{cu} login" do
 			login_as send(cu)
@@ -358,22 +338,22 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#
 
 	test "should show membership with self login" do
-		pending
+		pending	#	TODO
 	end
 
 	test "should NOT get new membership with self login" do
 		#	already have one
-		pending
+		pending	#	TODO
 	end
 
 	test "should NOT create new membership with self login" do
 		#	already have one
-		pending
+		pending	#	TODO
 	end
 
 	test "should NOT get all memberships with self login" do
 		#	already have one
-		pending
+		pending	#	TODO
 	end
 
 	test "should NOT edit membership with self login" do
@@ -384,7 +364,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT approve membership with self login" do
-pending
+		pending	#	TODO
 	end
 
 	test "should NOT update membership with self login" do

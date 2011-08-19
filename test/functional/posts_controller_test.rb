@@ -20,15 +20,9 @@ class PostsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	def self.group_creators
-		@group_creators ||= site_administrators + %w( 
-			group_administrator group_moderator group_editor )
-	end
-
 #
 #	NO Group Forum Topic Post
 #
-
 	site_editors.each do |cu|
 
 		test "should get new post with #{cu} login" do
@@ -131,7 +125,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - site_editors ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT get new post with #{cu} login" do
 			login_as send(cu)
@@ -156,7 +150,7 @@ class PostsControllerTest < ActionController::TestCase
 #
 #	Group Forum Topic Post
 #
-	group_creators.each do |cu|
+	group_editors.each do |cu|
 
 		test "should get new group post with #{cu} login" do
 			login_as send(cu)
@@ -247,7 +241,7 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - group_creators ).each do |cu|
+	non_group_editors.each do |cu|
 
 		test "should NOT get new group post with #{cu} login" do
 			login_as send(cu)

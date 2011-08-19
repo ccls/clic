@@ -2,14 +2,16 @@ require 'test_helper'
 
 class InventoriesControllerTest < ActionController::TestCase
 
+	ASSERT_ACCESS_OPTIONS = { :actions => [:show] }
+
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	assert_access_with_login(:show, { :logins => site_administrators })
-	assert_no_access_with_login(:show, { :logins => non_site_administrators })
-	assert_no_access_without_login :show
-	assert_access_with_https   :show
-	assert_no_access_with_http :show
+	assert_access_with_login({    :logins => site_administrators })
+	assert_no_access_with_login({ :logins => non_site_administrators })
+	assert_no_access_without_login
+	assert_access_with_https
+	assert_no_access_with_http
 
 	site_administrators.each do |cu|
 

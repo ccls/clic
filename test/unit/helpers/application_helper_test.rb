@@ -34,11 +34,18 @@ class ApplicationHelperTest < ActionView::TestCase
 		end
 	end
 
+	test "application_menu should not include inventory section when not logged in" do
+		response = HTML::Document.new(application_menu).root
+		assert_select response, "ul#application_menu" do
+			assert_select "li.inventory", 0
+		end
+	end
+
 	test "should return application_menu when logged in" do
 		login_as send(:reader)
 		response = HTML::Document.new(application_menu).root
 		assert_select response, "ul#application_menu" do
-			assert_select "li", 18
+			assert_select "li", 19
 		end
 	end
 
@@ -58,6 +65,14 @@ class ApplicationHelperTest < ActionView::TestCase
 		end
 	end
 
+	test "application_menu should include inventory section when logged in" do
+		login_as send(:reader)
+		response = HTML::Document.new(application_menu).root
+		assert_select response, "ul#application_menu" do
+			assert_select "li.inventory", 1
+		end
+	end
+
 	test "application_menu should include larger user section when logged in as editor" do
 		login_as send(:editor)
 		response = HTML::Document.new(application_menu).root
@@ -70,7 +85,7 @@ class ApplicationHelperTest < ActionView::TestCase
 		login_as send(:administrator)
 		response = HTML::Document.new(application_menu).root
 		assert_select response, "ul#application_menu" do
-			assert_select "li.user", 12
+			assert_select "li.user", 11
 		end
 	end
 	

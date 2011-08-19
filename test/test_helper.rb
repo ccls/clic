@@ -154,28 +154,40 @@ class ActionController::TestCase
 		m.user
 	end
 
-	def group_administrator
-		m = create_membership(
-			:group      => @membership.group,
-			:group_role => GroupRole['administrator'] )
-		assert_not_nil m.group_role_id
-		assert_equal @membership.group, m.group
-		assert m.approved?
-		assert m.user.approved?
-		m.user
-	end
-
-	def unapproved_group_administrator
+	def unapproved_group_moderator
 		m = create_membership(
 			:approved   => false,
 			:group      => @membership.group,
-			:group_role => GroupRole['administrator'] )
+			:group_role => GroupRole['moderator'] )
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
 		assert !m.approved?
 		assert !m.user.approved?
 		m.user
 	end
+
+#	def group_administrator
+#		m = create_membership(
+#			:group      => @membership.group,
+#			:group_role => GroupRole['administrator'] )
+#		assert_not_nil m.group_role_id
+#		assert_equal @membership.group, m.group
+#		assert m.approved?
+#		assert m.user.approved?
+#		m.user
+#	end
+#
+#	def unapproved_group_administrator
+#		m = create_membership(
+#			:approved   => false,
+#			:group      => @membership.group,
+#			:group_role => GroupRole['administrator'] )
+#		assert_not_nil m.group_role_id
+#		assert_equal @membership.group, m.group
+#		assert !m.approved?
+#		assert !m.user.approved?
+#		m.user
+#	end
 
 #	the following "nonmembers" mean that they are "not members of @membership.group"
 
@@ -214,24 +226,34 @@ class ActionController::TestCase
 		m.user
 	end
 
-	def nonmember_administrator
-		m = create_membership(
-			:group_role => GroupRole['administrator'] )
-		assert_not_equal @membership.group, m.group
-		assert m.approved?
-		assert m.user.approved?
-		m.user
-	end
-
-	def unapproved_nonmember_administrator
+	def unapproved_nonmember_moderator
 		m = create_membership(
 			:approved   => false,
-			:group_role => GroupRole['administrator'] )
+			:group_role => GroupRole['moderator'] )
 		assert_not_equal @membership.group, m.group
 		assert !m.approved?
 		assert !m.user.approved?
 		m.user
 	end
+
+#	def nonmember_administrator
+#		m = create_membership(
+#			:group_role => GroupRole['administrator'] )
+#		assert_not_equal @membership.group, m.group
+#		assert m.approved?
+#		assert m.user.approved?
+#		m.user
+#	end
+#
+#	def unapproved_nonmember_administrator
+#		m = create_membership(
+#			:approved   => false,
+#			:group_role => GroupRole['administrator'] )
+#		assert_not_equal @membership.group, m.group
+#		assert !m.approved?
+#		assert !m.user.approved?
+#		m.user
+#	end
 
 	def membership_user
 		@membership.user
@@ -265,7 +287,7 @@ class ActionController::TestCase
 	end
 
 	def self.site_editors
-		@site_editors ||= %w( superuser administrator editor )
+		@site_editors ||= ( site_administrators + %w( editor ) )
 	end
 
 	def self.non_site_editors
@@ -273,7 +295,7 @@ class ActionController::TestCase
 	end
 
 	def self.site_readers
-		@site_readers ||= %w( superuser administrator editor interviewer reader )
+		@site_readers ||= ( site_editors + %w( interviewer reader ) )
 	end
 
 	def self.non_site_readers
@@ -282,18 +304,54 @@ class ActionController::TestCase
 
 	def self.unapproved_users
 		@unapproved_users ||= %w( 
-			unapproved_group_administrator 
-			unapproved_nonmember_administrator
+			unapproved_group_moderator 
+			unapproved_nonmember_moderator
 			unapproved_user )
+	end
+
+	def self.approved_users
+		@approved_users ||= ( all_test_roles - unapproved_users )
 	end
 
 	def self.all_test_roles
 		@all_test_roles ||= %w( superuser administrator editor
 			interviewer reader approved_user unapproved_user
- 			unapproved_group_administrator group_administrator
+ 			unapproved_group_moderator 
  			group_moderator group_editor group_reader group_roleless
- 			unapproved_nonmember_administrator nonmember_administrator
+ 			unapproved_nonmember_moderator nonmember_moderator
  			nonmember_editor nonmember_reader nonmember_roleless )
+	end
+
+	def self.group_readers
+		@group_readers ||= ( group_editors + %w( group_reader ) )
+	end
+
+	def self.non_group_readers
+		@non_group_readers ||= ( all_test_roles - group_readers )
+	end
+
+	def self.group_editors
+		@group_editors ||= ( group_moderators + %w( group_editor ) )
+	end
+
+	def self.non_group_editors
+		@non_group_editors ||= ( all_test_roles - group_editors )
+	end
+
+	def self.group_moderators
+		@group_moderators ||= ( site_administrators + %w( group_moderator ) )
+	end
+
+	def self.non_group_moderators
+		@non_group_moderators ||= ( all_test_roles - group_moderators )
+	end
+
+	def self.group_members
+		@group_members ||= %w( group_moderator group_editor group_reader )
+	end
+
+	def self.non_group_members
+		@non_group_members ||= ( all_test_roles - group_members )
 	end
 
 end

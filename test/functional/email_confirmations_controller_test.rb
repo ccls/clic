@@ -31,6 +31,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT confirm email with valid expired perishable_token and no login" do
+		remember = User.perishable_token_valid_for
 		User.perishable_token_valid_for = 1.second	#	default is 10 minutes
 		u = unapproved_user
 		sleep 2
@@ -39,6 +40,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 		assert_nil flash[:notice]
 		assert_not_nil flash[:error]
 		assert_redirected_to login_path
+		User.perishable_token_valid_for = remember
 	end
 
 	test "should NOT resend confirm email without perishable_token" do
@@ -69,6 +71,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should resend confirm email with valid expired perishable_token and no login" do
+		remember = User.perishable_token_valid_for
 		User.perishable_token_valid_for = 1.second  # default is 10 minutes
 		u = unapproved_user
 		sleep 2
@@ -78,6 +81,7 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 		} }
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
+		User.perishable_token_valid_for = remember
 	end
 
 	test "should resend confirm email with valid perishable_token and no login" do

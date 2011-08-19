@@ -12,33 +12,24 @@ class AnnouncementsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:announcement,options)
 	end
 
-	assert_access_with_login({ 
-		:logins => site_administrators,
-		:actions => [:edit,:update,:destroy] })
+	#	using with_options for clarity
+	with_options :actions => [:edit,:update,:destroy] do |o|
+		o.assert_access_with_login({    :logins => site_administrators })
+		o.assert_no_access_with_login({ :logins => non_site_administrators })
+	end
 
-	assert_no_access_with_login({ 
-		:logins => non_site_administrators,
-		:actions => [:edit,:update,:destroy] })
+	with_options :actions => [:new,:create] do |o|
+		o.assert_access_with_login({ :logins => site_administrators })
+		o.assert_no_access_with_login({ :logins => non_site_administrators,
+			:redirect => :members_only_path })
+	end
 
-	assert_access_with_login({ 
-		:logins => site_administrators,
-		:actions => [:new,:create] })
-
-	assert_no_access_with_login({ 
-		:logins => non_site_administrators,
-		:actions => [:new,:create],
-		:redirect => :members_only_path })
-
-	assert_access_with_login({ 
-		:logins => ( all_test_roles - unapproved_users ),
-		:actions => [:show,:index] })
-
-	assert_no_access_with_login({ 
-		:logins => unapproved_users,
-		:actions => [:show,:index] })
+	with_options :actions => [:show,:index] do |o|
+		o.assert_access_with_login({    :logins => approved_users })
+		o.assert_no_access_with_login({ :logins => unapproved_users })
+	end
 
 	assert_no_access_without_login
-
 	assert_access_with_https
 	assert_no_access_with_http
 
@@ -49,9 +40,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :announcements_path,
-		:edit => { :id => 0 },
-		:update => { :id => 0 },
-		:show => { :id => 0 },
+		:edit    => { :id => 0 },
+		:update  => { :id => 0 },
+		:show    => { :id => 0 },
 		:destroy => { :id => 0 }
 	)
 

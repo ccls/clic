@@ -15,11 +15,9 @@ class GroupsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	assert_access_with_login({ 
-		:logins => site_administrators })
-
+	assert_access_with_login({    :logins => site_administrators })
+	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
-
 	assert_access_with_https
 	assert_no_access_with_http
 
@@ -30,29 +28,13 @@ class GroupsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :groups_path,
-		:edit => { :id => 0 },
-		:update => { :id => 0 },
-		:show => { :id => 0 },
+		:edit    => { :id => 0 },
+		:update  => { :id => 0 },
+		:show    => { :id => 0 },
 		:destroy => { :id => 0 }
 	)
 
-	def self.group_creators
-		@group_creators ||= site_administrators
-	end
-	def self.group_editors
-		@group_editors ||= ( group_creators + %w( group_administrator group_moderator ) )
-	end
-	def self.group_readers 
-		@group_readers ||= ( group_editors + %w( group_editor group_reader ) )
-	end
-	def self.group_browsers
-		@group_browsers ||= group_creators
-	end
-	def self.group_destroyers
-		@group_destroyers ||= group_creators
-	end
-
-	group_creators.each do |cu|
+	site_administrators.each do |cu|
 
 		test "should get new group with #{cu} login" do
 			login_as send(cu)
@@ -96,9 +78,33 @@ class GroupsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+		test "should get index with #{cu} login" do
+			login_as send(cu)
+			get :index
+			assert_response :success
+			assert_template 'index'
+		end
+
+		test "should destroy with #{cu} login" do
+			login_as send(cu)
+			assert_difference("Group.count", -1) {
+				delete :destroy, :id => @membership.group.id
+			}
+			assert assigns(:group)
+			assert_redirected_to groups_path
+		end
+
+		test "should NOT destroy with #{cu} login and invalid id" do
+			login_as send(cu)
+			assert_difference("Group.count", 0) {
+				delete :destroy, :id => 0
+			}
+			assert !assigns(:group)
+			assert_redirected_to groups_path
+		end
 	end
 
-	( all_test_roles - group_creators ).each do |cu|
+	non_site_administrators.each do |cu|
 
 		test "should NOT get new group with #{cu} login" do
 			login_as send(cu)
@@ -116,9 +122,25 @@ class GroupsControllerTest < ActionController::TestCase
 			assert_redirected_to root_path
 		end
 
+		test "should NOT get index with #{cu} login" do
+			login_as send(cu)
+			get :index
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
+		test "should NOT destroy with #{cu} login" do
+			login_as send(cu)
+			assert_difference("Group.count", 0) {
+				delete :destroy, :id => @membership.group.id
+			}
+			assert assigns(:group)
+			assert_redirected_to root_path
+		end
+
 	end
 
-	group_editors.each do |cu|
+	group_moderators.each do |cu|
 
 		test "should edit group with #{cu} login" do
 			login_as send(cu)
@@ -167,7 +189,7 @@ class GroupsControllerTest < ActionController::TestCase
 		end
 	
 	end
-	( all_test_roles - group_editors ).each do |cu|
+	non_group_moderators.each do |cu|
 
 		test "should NOT edit group with #{cu} login" do
 			login_as send(cu)
@@ -206,68 +228,13 @@ class GroupsControllerTest < ActionController::TestCase
 		end
 
 	end
-	( all_test_roles - group_readers ).each do |cu|
+	non_group_readers.each do |cu|
 
 		test "should NOT read with #{cu} login" do
 			login_as send(cu)
 			get :show, :id => @membership.group.id
 			assert assigns(:group)
 			assert_redirected_to new_group_membership_path(assigns(:group))
-		end
-
-	end
-
-	group_browsers.each do |cu|
-
-		test "should get index with #{cu} login" do
-			login_as send(cu)
-			get :index
-			assert_response :success
-			assert_template 'index'
-		end
-
-	end
-	( all_test_roles - group_browsers ).each do |cu|
-
-		test "should NOT get index with #{cu} login" do
-			login_as send(cu)
-			get :index
-			assert_not_nil flash[:error]
-			assert_redirected_to root_path
-		end
-
-	end
-
-	group_destroyers.each do |cu|
-
-		test "should destroy with #{cu} login" do
-			login_as send(cu)
-			assert_difference("Group.count", -1) {
-				delete :destroy, :id => @membership.group.id
-			}
-			assert assigns(:group)
-			assert_redirected_to groups_path
-		end
-
-		test "should NOT destroy with #{cu} login and invalid id" do
-			login_as send(cu)
-			assert_difference("Group.count", 0) {
-				delete :destroy, :id => 0
-			}
-			assert !assigns(:group)
-			assert_redirected_to groups_path
-		end
-
-	end
-	( all_test_roles - group_destroyers ).each do |cu|
-
-		test "should NOT destroy with #{cu} login" do
-			login_as send(cu)
-			assert_difference("Group.count", 0) {
-				delete :destroy, :id => @membership.group.id
-			}
-			assert assigns(:group)
-			assert_redirected_to root_path
 		end
 
 	end

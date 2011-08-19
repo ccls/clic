@@ -2,9 +2,7 @@ require 'test_helper'
 
 class EditorImagesControllerTest < ActionController::TestCase
 
-	assert_no_access_without_login({
-		:actions => [:index]
-	})
+	assert_no_access_without_login({ :actions => [:index] })
 
 	assert_no_route(:get,:new)
 	assert_no_route(:post,:create)

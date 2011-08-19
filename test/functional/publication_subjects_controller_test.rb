@@ -12,8 +12,8 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 	def factory_create
 		Factory(:publication_subject)
 	end
-	def factory_attributes
-		Factory.attributes_for(:publication_subject)
+	def factory_attributes(options={})
+		Factory.attributes_for(:publication_subject,options)
 	end
 
 	assert_access_with_https
@@ -25,17 +25,18 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-#	assert_no_access_with_login(
-#		:attributes_for_create => nil,
-#		:method_for_create => nil,
-#		:actions => nil,
-#		:suffix => " and invalid id",
-#		:login => :superuser,
-#		:redirect => :documents_path,
-#		:edit => { :id => 0 },
-#		:update => { :id => 0 },
-#		:destroy => { :id => 0 }
-#	)
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:actions => nil,
+		:suffix => " and invalid id",
+		:login => :superuser,
+		:redirect => :publication_subjects_path,
+		:show    => { :id => 0 },
+		:edit    => { :id => 0 },
+		:update  => { :id => 0 },
+		:destroy => { :id => 0 }
+	)
 
 	site_administrators.each do |cu|
 
@@ -44,7 +45,7 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			PublicationSubject.any_instance.stubs(:valid?).returns(false)
 			assert_difference('PublicationSubject.count',0) {
-				post :create, :publication_subject => Factory.attributes_for(:publication_subject)
+				post :create, :publication_subject => factory_attributes	#Factory.attributes_for(:publication_subject)
 			}
 			assert_not_nil flash[:error]
 			assert_response :success
@@ -56,7 +57,7 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			PublicationSubject.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('PublicationSubject.count',0) {
-				post :create, :publication_subject => Factory.attributes_for(:publication_subject)
+				post :create, :publication_subject => factory_attributes	#Factory.attributes_for(:publication_subject)
 			}
 			assert_not_nil flash[:error]
 			assert_response :success

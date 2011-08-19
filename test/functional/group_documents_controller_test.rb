@@ -13,7 +13,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	assert_no_route(:delete, :destroy)
 
 	def factory_attributes(options={})
-		Factory.attributes_for(:group_document)
+		Factory.attributes_for(:group_document,options)
 	end
 
 	def create_group_document(options={})
@@ -39,12 +39,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	def self.readers
-		@readers ||= site_administrators + %w( 
-			group_administrator group_moderator
-			group_editor group_reader )
-	end
-
 	site_administrators.each do |cu|
 
 		test "should get index with #{cu} login" do
@@ -57,7 +51,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - site_administrators ).each do |cu|
+	non_site_administrators.each do |cu|
 
 		test "should NOT get index with #{cu} login" do
 			login_as send(cu)
@@ -72,7 +66,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	#
 	#	NOT Attached to a Group
 	#
-	( all_test_roles - unapproved_users ).each do |cu|
+	approved_users.each do |cu|
 
 		test "should NOT show groupless group document with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -166,7 +160,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	#
 	#	Attached to a Group
 	#
-	readers.each do |cu|
+	group_readers.each do |cu|
 
 		test "should NOT show group's group document with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -223,7 +217,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - readers ).each do |cu|
+	non_group_readers.each do |cu|
 
 		test "should NOT show group's group document with #{cu} login" do
 			login_as send(cu)

@@ -9,7 +9,7 @@ class GroupAnnouncementsControllerTest < ActionController::TestCase
 	)
 
 	def factory_attributes(options={})
-		Factory.attributes_for(:group_announcement)
+		Factory.attributes_for(:group_announcement,options)
 	end
 
 	def create_group_object(options={})

@@ -15,14 +15,9 @@ class GroupRolesControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	assert_access_with_login({ 
-		:logins => site_administrators })
-
-	assert_no_access_with_login({ 
-		:logins => non_site_administrators })
-
+	assert_access_with_login({    :logins => site_administrators })
+	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
-
 	assert_access_with_https
 	assert_no_access_with_http
 
@@ -33,9 +28,9 @@ class GroupRolesControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :group_roles_path,
-		:edit => { :id => 0 },
-		:update => { :id => 0 },
-		:show => { :id => 0 },
+		:edit    => { :id => 0 },
+		:update  => { :id => 0 },
+		:show    => { :id => 0 },
 		:destroy => { :id => 0 }
 	)
 

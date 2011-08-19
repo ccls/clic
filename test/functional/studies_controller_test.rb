@@ -12,29 +12,30 @@ class StudiesControllerTest < ActionController::TestCase
 	def factory_create
 		Factory(:study)
 	end
-	def factory_attributes
-		Factory.attributes_for(:study)
+	def factory_attributes(options={})
+		Factory.attributes_for(:study,options)
 	end
 
-	assert_access_with_https
-	assert_access_with_login({ :logins => site_administrators })
-	assert_no_access_with_http 
+	assert_access_with_login({    :logins => site_administrators })
 	assert_no_access_with_login({ :logins => non_site_administrators })
+	assert_access_with_https
+	assert_no_access_with_http 
 	assert_no_access_without_login
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-#	assert_no_access_with_login(
-#		:attributes_for_create => nil,
-#		:method_for_create => nil,
-#		:actions => nil,
-#		:suffix => " and invalid id",
-#		:login => :superuser,
-#		:redirect => :documents_path,
-#		:edit => { :id => 0 },
-#		:update => { :id => 0 },
-#		:destroy => { :id => 0 }
-#	)
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:actions => nil,
+		:suffix => " and invalid id",
+		:login => :superuser,
+		:redirect => :studies_path,
+		:show    => { :id => 0 },
+		:edit    => { :id => 0 },
+		:update  => { :id => 0 },
+		:destroy => { :id => 0 }
+	)
 
 end

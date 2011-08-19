@@ -23,29 +23,14 @@ class TopicsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:topic,options)
 	end
 
-	assert_access_with_login({ 
-		:logins => ( all_test_roles - unapproved_users ) })
-
-	assert_no_access_with_login({ 
-		:logins => unapproved_users })
-
+	assert_access_with_login({    :logins => approved_users })
+	assert_no_access_with_login({ :logins => unapproved_users })
 	assert_no_access_without_login
-
 	assert_access_with_https
 	assert_no_access_with_http
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
-
-	def self.group_creators
-		@group_creators ||= site_administrators + %w( 
-			group_administrator group_moderator group_editor )
-	end
-
-	def self.group_readers
-		@group_readers ||= group_creators + %w( group_reader )
-	end
-
 
 #
 #	NO Group Forum Topic
@@ -151,7 +136,7 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - site_editors ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT get new topic with #{cu} login" do
 			login_as send(cu)
@@ -179,7 +164,7 @@ class TopicsControllerTest < ActionController::TestCase
 #		Show (any logged in user can view)
 #
 
-	( all_test_roles - unapproved_users ).each do |cu|
+	approved_users.each do |cu|
 
 		test "should NOT show topic with #{cu} login and invalid id" do
 			login_as send(cu)
@@ -218,7 +203,7 @@ class TopicsControllerTest < ActionController::TestCase
 #	Group Forum Topic
 #
 
-	group_creators.each do |cu|
+	group_editors.each do |cu|
 
 		test "should get new group topic with #{cu} login" do
 			login_as send(cu)
@@ -301,7 +286,7 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - group_creators ).each do |cu|
+	non_group_editors.each do |cu|
 
 		test "should NOT get new group topic with #{cu} login" do
 			login_as send(cu)
@@ -351,7 +336,7 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
-	( all_test_roles - group_readers ).each do |cu|
+	non_group_readers.each do |cu|
 
 		test "should NOT show group topic with #{cu} login" do
 			login_as send(cu)

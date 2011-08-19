@@ -6,6 +6,8 @@ class SubjectTest < ActiveSupport::TestCase
 	assert_should_belong_to(:study)
 	assert_should_be_searchable
 
+#	TODO
+#	assert_not_required ...
 #			t.integer :subid
 #			t.string :case_status
 #			t.string :subtype
