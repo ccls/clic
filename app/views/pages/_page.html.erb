@@ -15,7 +15,7 @@
   </td>
   <td class='manage'>
    <% if page.children.length > 1 %>
-    <%= link_to "Order", pages_path(:parent_id => page.id) -%>&nbsp;
+    <%= link_to "Order", pages_path(:parent_id => page.id), :class => 'button' -%>&nbsp;
    <% end %>
    <%= link_to "Edit", edit_page_path(page), :class => 'button' -%>&nbsp;
    <% destroy_link_to "Destroy", page_path(page) do %>
