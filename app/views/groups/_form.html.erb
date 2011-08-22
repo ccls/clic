@@ -6,6 +6,8 @@
 
 <%# Don't allow self to be own parent.  Kinda makes finding group difficult. %>
 
+<p>Note:  Groups with children are not true groups, but merely placeholders for grouping other groups.  Currently allowing onlyh one level deep.</p>
+
  <%= f.wrapped_collection_select( :parent_id, (Group.roots-[@group]),
   :id, :name, :include_blank => true,
   :label_text => 'Parent: (main or sub group?)' ) %>

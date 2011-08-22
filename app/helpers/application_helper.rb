@@ -57,15 +57,27 @@ module ApplicationHelper
 		(controller.controller_name == name) ? ' current' : nil
 	end
 
-#	TODO add sub-pages with submenus and display if current (primarily for public group pages)
 	def public_pages
 		page_menu = Page.roots.collect do |page|
-			current = (page == @page.try(:root)) ? " class='current'" : nil
-			"<li#{current}>" << link_to( page.menu(session[:locale]), 
-				ActionController::Base.relative_url_root.to_s + page.path,
-				:id => "menu_#{dom_id(page)}" ) << "</li>\n"
+			if( !page.children.empty? and ( (page == @page ) or (page == @page.try(:root)) ) )
+				out = public_page_li(page)
+				out << "<li><ul>"
+				child_menu = page.children.collect do |child|
+					public_page_li(child)
+				end
+				out << child_menu.join() << "</ul></li>"
+			else
+				public_page_li(page)
+			end
 		end
 		page_menu.join()
+	end
+
+	def public_page_li(page)
+		current = (page == @page) ? " class='current'" : nil
+		"<li#{current}>" << link_to( page.menu(session[:locale]), 
+			ActionController::Base.relative_url_root.to_s + page.path,
+			:id => "menu_#{dom_id(page)}" ) << "</li>\n"
 	end
 
 	def group_pages
@@ -81,16 +93,19 @@ module ApplicationHelper
 					"<span class='ui-icon #{icon}'>&nbsp;</span></li>\n"
 				children << "<li class='members submenu'#{style}><ul>\n"
 				children << group.children.collect do |child|
-					current = ( child == @group ) ? ' current' : nil
-					"<li class='members#{current}'>#{link_to(child.name,child)}</li>\n"
+					group_li(child)
 				end.join()
 				children << "</ul></li>"
 			else
-				current = ( group == @group ) ? ' current' : nil
-				"<li class='members#{current}'>#{link_to(group.name,group)}</li>\n"
+				group_li(group)
 			end
 		end
 		group_menu.join()
+	end
+
+	def group_li(group)
+		current = ( group == @group ) ? ' current' : nil
+		"<li class='members#{current}'>#{link_to(group.name,group)}</li>\n"
 	end
 
 end

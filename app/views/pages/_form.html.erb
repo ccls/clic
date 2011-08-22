@@ -5,8 +5,11 @@
 <legend>Page</legend>
 
 <div class='parent'>
+
+<p>Note: Pages with children are not true pages, merely placeholders for grouping other pages.  Currently only allowing one level deep.</p>
+
 <b>Parent?</b> (Is this a main or sub menu page?)<br/>
-<%= f.collection_select :parent_id, Page.all(:order => "menu_en"), 
+<%= f.collection_select :parent_id, Page.roots(:order => "menu_en"), 
 	:id, :menu, :include_blank => true %>  
 </div>
 
