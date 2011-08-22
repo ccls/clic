@@ -9,6 +9,9 @@
  <tr><th>Title</th><th>Time</th><th>&nbsp;</th></tr></thead><tbody>
  <%= render :partial => 'event', :collection => @events %>
  </tbody></table><!-- id='events' -->
+
+<%= calendar() %>
+
 <% else %>
  <p>Sorry, but no events yet.</p>
 <% end %>
