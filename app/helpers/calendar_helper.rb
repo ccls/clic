@@ -31,9 +31,9 @@ module CalendarHelper
 					out << todays_events.collect{|e|
 						eout  = "<div class='event'>"
 						eout << link_to(e,event_path(e))
-						eout << "</div><!-- class='event' -->"
+						eout << "</div>"
 					}.join()
-					out << "</div><!-- class='events' -->"
+					out << "</div>"
 				end
 				out << "</td>"
 			end

@@ -13,15 +13,8 @@
  </div><!-- class='announcement_section section' -->
 
  <div class='calendar_section section'>
-  <h2>Calendar</h2>
-  <% if @events.length > 0 %>
-   <table id='events'><tbody>
-   <%= render :partial => 'event', :collection => @events %>
-   </tbody></table><!-- id='events' -->
-  <% else %>
-   <p>Sorry, but no events yet.</p>
-  <% end %>
-  <p>(show two months at a time)</p>
+  <h2><%=Date::MONTHNAMES[Date.today.month]%> Calendar</h2>
+  <%= calendar() %>
  </div><!-- class='calendar_section section' -->
 
 </div><!-- class='members_only' -->

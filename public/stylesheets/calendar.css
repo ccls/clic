@@ -3,7 +3,7 @@ table#calendar {
 	border-collapse: separate;
 	border: 1px solid #9DABCE;
 	border-width: 0px 0px 1px 1px;
-	margin: 10px auto;
+	margin: 0px auto;
 	font-size: 20px;
 }
 table#calendar th,

@@ -24,14 +24,8 @@
  </div><!-- class='announcement_section section' -->
 
  <div class='calendar_section section'>
-  <h3>Events</h3>
-  <% if @events.length > 0 %>
-   <table id='events'><tbody>
-   <%= render :partial => 'event', :collection => @events %>
-   </tbody></table><!-- id='events' -->
-  <% else %>
-   <p>Sorry, but no events yet.</p>
-  <% end %>
+  <h3><%=Date::MONTHNAMES[Date.today.month]%> Calendar</h3>
+  <%= calendar() %>
  </div><!-- class='calendar_section section' -->
 </div><!-- class='members_only' -->
 
