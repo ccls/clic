@@ -29,7 +29,7 @@ class GroupsController < ApplicationController
 	end 
 
 	def show
-		@announcements = @group.announcements
+#		@announcements = @group.announcements
 		@events = @group.events
 		@forums = @group.forums
 	end

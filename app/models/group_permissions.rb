@@ -109,14 +109,14 @@ module GroupPermissions
 			may_administrate? || is_group_moderator?(group)
 		end
 	
-		#
-		#	Group Announcements
-		#
-		alias_method :may_create_group_announcements?,  :may_create_group_events?
-		alias_method :may_update_group_announcements?,  :may_update_group_events?
-		alias_method :may_edit_group_announcements?,    :may_edit_group_events?
-		alias_method :may_read_group_announcements?,    :may_read_group_events?
-		alias_method :may_destroy_group_announcements?, :may_destroy_group_events?
+#		#
+#		#	Group Announcements
+#		#
+#		alias_method :may_create_group_announcements?,  :may_create_group_events?
+#		alias_method :may_update_group_announcements?,  :may_update_group_events?
+#		alias_method :may_edit_group_announcements?,    :may_edit_group_events?
+#		alias_method :may_read_group_announcements?,    :may_read_group_events?
+#		alias_method :may_destroy_group_announcements?, :may_destroy_group_events?
 	
 		#
 		#			Groups
