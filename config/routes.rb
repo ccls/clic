@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+	map.resources :professions
 
 	map.resource  :inventory, :only => :show
 	map.resources :editor_images, :only => :index

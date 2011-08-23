@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823164213) do
+ActiveRecord::Schema.define(:version => 20110823212348) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -203,6 +203,15 @@ ActiveRecord::Schema.define(:version => 20110823164213) do
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
+  create_table "professions", :force => true do |t|
+    t.integer  "position"
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "professions", ["name"], :name => "index_professions_on_name", :unique => true
+
   create_table "publication_subjects", :force => true do |t|
     t.integer  "position"
     t.string   "name"
@@ -292,6 +301,13 @@ ActiveRecord::Schema.define(:version => 20110823164213) do
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
+
+  create_table "user_professions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "profession_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username",                                 :null => false

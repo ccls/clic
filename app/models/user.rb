@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
 	has_many :posts
 	has_many :groups, :through => :memberships
 	has_many :documents, :as => :owner
+	has_many :user_professions
+	has_many :professions, :through => :user_professions
 
 	#	triggered from simply_authorized habtm :after_add
 	def after_add_role(role)

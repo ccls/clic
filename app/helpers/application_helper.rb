@@ -33,6 +33,7 @@ module ApplicationHelper
 
 			out << (( current_user.may_administrate? ) ? "" <<
 				"<li class='user'>#{link_to( "Memberships", memberships_path )}</li>" << 
+				"<li class='user'>#{link_to( "Professions (temp)", professions_path )}</li>" << 
 				"<li class='user'>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
 				"<li class='user'>#{link_to( "Studies (temp)", studies_path )}</li>" << 
 				"<li class='user'>#{link_to( "Groups (temp)", groups_path )}</li>" << 

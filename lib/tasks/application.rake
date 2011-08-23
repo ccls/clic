@@ -2,16 +2,18 @@ namespace :app do
 
 	desc "Load some fixtures to database for application"
 	task :setup => :environment do
+#	I keep this all commented out to avoid accidental usage
 #		fixtures = []
-#		fixtures.push('pages')
+##		fixtures.push('pages')
 #		fixtures.push('roles')
 #		fixtures.push('group_roles')
-#		fixtures.push('groups')
-#		fixtures.push('forums')
-#		fixtures.push('photos')
-#		fixtures.push('documents')
+##		fixtures.push('groups')
+##		fixtures.push('forums')
+##		fixtures.push('photos')
+##		fixtures.push('documents')
 #		fixtures.push('publication_subjects')
-#		fixtures.push('studies')
+##		fixtures.push('studies')
+#		fixtures.push('professions')
 #		ENV['FIXTURES'] = fixtures.join(',')
 #		puts "Loading fixtures for #{ENV['FIXTURES']}"
 #		Rake::Task["db:fixtures:load"].invoke

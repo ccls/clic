@@ -15,6 +15,7 @@ class UserTest < ActiveSupport::TestCase
 	assert_should_require(:phone_number)
 	assert_should_not_require(:research_interests)
 	assert_should_not_require(:selected_publications)
+	assert_should_have_many(:user_professions)
 	assert_should_have_many(:memberships)
 #	assert_should_have_many(:announcements)
 	assert_should_have_many(:events)

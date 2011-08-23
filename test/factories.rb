@@ -66,6 +66,10 @@ Factory.define :post do |f|
 	f.sequence(:body) { |n| "Post Body #{n}" }
 end
 
+Factory.define :profession do |f|
+	f.sequence(:name) { |n| "Name #{n}" }
+end
+
 Factory.define :publication do |f|
 	f.association :study
 	f.association :publication_subject
@@ -108,6 +112,12 @@ Factory.define :user do |f|
 	f.address "Address"
 	f.phone_number "PhoneNumber"
 end
+Factory.define :user_profession do |f|
+	f.association :user
+	f.association :profession
+	f.updated_at Time.now	#	to make it dirty
+end
+
 
 Factory.define :subject do |f|
 end

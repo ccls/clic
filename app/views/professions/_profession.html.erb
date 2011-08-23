@@ -1,0 +1,12 @@
+<% content_tag_for( :tr, profession, :class => "profession row" ) do %>
+ <td class='name'><%= link_to profession, profession %></td>
+ <td class='manage'>
+  <%= link_to 'Edit', edit_profession_path(profession), 
+   :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', profession_path(profession) do %>
+   <%= hidden_field_tag 'confirm', "Destroy profession '#{h(profession)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+ </td>
+<% end %>

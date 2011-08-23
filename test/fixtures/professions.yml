@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+a:
+  name: Epidemiologist/Environmental Health Scientist
+b:
+  name: Laboratory Scientist (Geneticist, Molecular Biologist, Toxicologist, etc.)
+c:
+  name: Statistician
+d:
+  name: Clinician
+e:
+  name: Administrator
+f:
+  name: students 
+g:
+  name: Post-Doc/Fellow.
+h:
+  name: Other
