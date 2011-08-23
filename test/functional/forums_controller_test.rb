@@ -2,10 +2,7 @@ require 'test_helper'
 
 class ForumsControllerTest < ActionController::TestCase
 
-	assert_no_route(:get,:index)
-#	assert_no_route(:get,:new)
-#	assert_no_route(:post,:create)
-
+	assert_no_route(:get, :index)
 	assert_no_route(:get, :show)
 	assert_no_route(:get, :edit)
 	assert_no_route(:put, :update)
@@ -25,8 +22,8 @@ class ForumsControllerTest < ActionController::TestCase
 	setup :create_a_membership
 
 	with_options :actions => [:new,:create] do |o|
-		o.assert_access_with_login({    :logins => site_administrators })
-		o.assert_no_access_with_login({ :logins => non_site_administrators,
+		o.assert_access_with_login({    :logins => site_editors })
+		o.assert_no_access_with_login({ :logins => non_site_editors,
 			:redirect => :members_only_path })
 	end
 

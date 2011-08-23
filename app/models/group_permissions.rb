@@ -168,7 +168,7 @@ module GroupPermissions
 			if group
 				may_administrate? || is_group_moderator?(group)
 			else
-				may_administrate?
+				may_edit?
 			end
 		end
 
