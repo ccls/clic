@@ -84,6 +84,26 @@ namespace :app do
 	end
 
 
+	task :convert_announcements_to_events => :environment do
+		puts "Converting all announcements to events."
+		jake = User.find_by_email('jakewendt@berkeley.edu')
+		Announcement.all.each do |a|
+			puts "Converting #{a} to event."
+			puts "Group: #{a.group}"
+			e = if a.group
+				a.group.events.new(a.attributes)
+			else
+				Event.new(a.attributes)
+			end
+			#	user is protected so must explicitly assign
+			e.user = a.user || jake
+#			puts e.inspect
+#			puts e.errors.inspect unless e.valid?
+			e.save!
+		end
+	end
+
+
 	#	convenience tasks for when I misremember the order
 	namespace :import do
 		task :exposures => "app:exposures:import"
