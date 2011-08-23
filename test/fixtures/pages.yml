@@ -179,7 +179,7 @@ pages_6:
   id: 6
   menu_en: Working Groups
   menu_es: ""
-  parent_id: 
+  parent_id: 3
   path: /workinggroups
   position: 6
   title_en: Working Groups
@@ -359,7 +359,7 @@ pages_11:
   id: 11
   menu_en: Coordination Group
   menu_es: ""
-  parent_id: 
+  parent_id: 3
   path: /coordinationgroup
   position: 10
   title_en: Coordination Group
@@ -385,7 +385,7 @@ pages_12:
   id: 12
   menu_en: Management Group
   menu_es: ""
-  parent_id: 
+  parent_id: 3
   path: /managementgroup
   position: 11
   title_en: Management Group
@@ -417,7 +417,7 @@ pages_13:
   id: 13
   menu_en: Core Logistics Groups
   menu_es: ""
-  parent_id: 
+  parent_id: 3
   path: /corelogisticsgroups
   position: 12
   title_en: Core Logistics Groups
@@ -469,7 +469,7 @@ pages_14:
   id: 14
   menu_en: Interest Groups
   menu_es: ""
-  parent_id: 
+  parent_id: 3
   path: /interestgroups
   position: 13
   title_en: Interest Groups
