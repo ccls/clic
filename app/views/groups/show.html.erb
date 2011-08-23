@@ -14,12 +14,12 @@
 <div class='members_only'>
  <div class='announcement_section section'>
   <h3>Announcements</h3>
-  <% unless @announcements.empty? %>
-   <table id='announcements'><tbody>
-   <%= render :partial => 'announcement', :collection => @announcements %>
-   </tbody></table><!-- id='announcements' -->
+  <% unless @events.empty? %>
+   <table id='events'><tbody>
+   <%= render :partial => 'event', :collection => @events %>
+   </tbody></table><!-- id='events' -->
   <% else %>
-   <p>Sorry, but no announcements yet.</p>
+   <p>Sorry, but no events yet.</p>
   <% end %>
  </div><!-- class='announcement_section section' -->
 
@@ -29,18 +29,8 @@
  </div><!-- class='calendar_section section' -->
 </div><!-- class='members_only' -->
 
-<div class='members_only'>
- <div class='announcement_section section'>
-  <p>
-   <%= link_to "Create new group announcement", new_group_announcement_path(@group), 
-    :class => 'button' %></p>
- </div><!-- class='announcement_section section' -->
- <div class='calendar_section section'>
- <p>
-  <%= link_to "Create new group event", new_group_event_path(@group), 
+<p><%= link_to "Create new group event", new_group_event_path(@group), 
    :class => 'button' %></p>
- </div><!-- class='calendar_section section' -->
-</div><!-- class='members_only' -->
 </div><!-- class='members_only_wrapper' -->
 
 <hr/>

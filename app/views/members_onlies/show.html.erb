@@ -3,12 +3,12 @@
 
  <div class='announcement_section section'>
   <h2>Announcements</h2>
-  <% if @announcements.length > 0 %>
-   <table id='announcements'><tbody>
-   <%= render :partial => 'announcement', :collection => @announcements %>
-   </tbody></table><!-- id='announcements' -->
+  <% if @events.length > 0 %>
+   <table id='events'><tbody>
+   <%= render :partial => 'event', :collection => @events %>
+   </tbody></table><!-- id='events' -->
   <% else %>
-   <p>Sorry, but no announcements yet.</p>
+   <p>Sorry, but no events yet.</p>
   <% end %>
  </div><!-- class='announcement_section section' -->
 
@@ -19,18 +19,7 @@
 
 </div><!-- class='members_only' -->
 
-<div class='members_only'>
- <div class='announcement_section section'>
- <p>
-  <%= link_to "New Site Announcement", new_announcement_path,
-   :class => 'button' %></p>
- </div>
- <div class='calendar_section section'>
- <p>
-  <%= link_to "New Site Event", new_event_path,
-   :class => 'button' %></p>
- </div>
-</div>
+<p><%= link_to "New Site Event", new_event_path, :class => 'button' %></p>
 </div><!-- class='members_only_wrapper' -->
 
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810203117) do
+ActiveRecord::Schema.define(:version => 20110823164213) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",      :null => false
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20110810203117) do
     t.text     "content",            :null => false
     t.integer  "user_id",            :null => false
     t.integer  "group_id"
-    t.date     "begins_on",          :null => false
+    t.date     "begins_on"
     t.date     "ends_on"
     t.datetime "created_at"
     t.datetime "updated_at"

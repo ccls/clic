@@ -26,7 +26,7 @@ Factory.define :event do |f|
 	f.association :user
 	f.sequence(:title) { |n| "Event Title #{n}" }
 	f.content "Some event content"
-	f.begins_on Chronic.parse('tomorrow')
+	f.begins_on Chronic.parse('Dec 5, 1971').to_date
 end
 Factory.define :group_event, :parent => :event do |f|
 	f.association :group

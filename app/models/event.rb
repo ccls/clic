@@ -6,8 +6,8 @@ class Event < ActiveRecord::Base
 	validates_presence_of :user, :title, :content
 	validates_length_of :title,   :maximum => 250
 	validates_length_of :content, :maximum => 65000
-	validates_presence_of :begins_on
-	validates_complete_date_for :begins_on
+	validates_presence_of :begins_on, :if => :ends_on
+	validates_complete_date_for :begins_on, :ends_on, :allow_nil => true
 
 	validates_inclusion_of :begins_at_hour,     :ends_at_hour, 
 		:in => (1..12), :allow_blank => true
@@ -20,6 +20,22 @@ class Event < ActiveRecord::Base
 
 	named_scope :groupless, :conditions => {
 		:group_id => nil }
+
+	validate :begins_at_is_before_ends_at
+
+	def begins_at_is_before_ends_at
+		errors.add(:ends_on, "must be after begins_on"
+			) if ends_at_is_before_begins_at?
+	end
+
+	def ends_at_is_before_begins_at?
+		if begins_on and ends_on
+			Chronic.parse("#{begins_on.to_date} #{begins_at}"
+				) > Chronic.parse("#{ends_on.to_date} #{ends_at}")
+		else
+			false
+		end
+	end
 
 	def to_s
 		title

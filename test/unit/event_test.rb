@@ -3,8 +3,11 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
 	assert_should_create_default_object
 	assert_should_require(:title)
+	assert_should_require_attribute_length( :title,   :maximum => 250 )
 	assert_should_require(:content)
-	assert_should_require(:begins_on)
+	assert_should_require_attribute_length( :content, :maximum => 65000 )
+
+	assert_should_not_require(:begins_on)
 	assert_should_not_require(:begins_at_hour)
 	assert_should_not_require(:begins_at_minute)
 	assert_should_not_require(:begins_at_meridiem)
@@ -12,13 +15,13 @@ class EventTest < ActiveSupport::TestCase
 	assert_should_not_require(:ends_at_hour)
 	assert_should_not_require(:ends_at_minute)
 	assert_should_not_require(:ends_at_meridiem)
+	assert_requires_complete_date( :begins_on )
+	assert_requires_complete_date( :ends_on )
+
 	assert_should_initially_belong_to( :user )
 	assert_should_belong_to( :group )
-	assert_requires_complete_date( :begins_on )
 	assert_should_protect(:group_id)
 	assert_should_protect(:user_id)
-	assert_should_require_attribute_length( :title,   :maximum => 250 )
-	assert_should_require_attribute_length( :content, :maximum => 65000 )
 
 	test "should return title as to_s" do
 		object = create_object
@@ -181,6 +184,53 @@ class EventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should allow ends_on be the same as begins_on" do
+		assert_difference( 'Event.count', 1 ) do
+			object = create_object(
+				:begins_on => Chronic.parse('yesterday'),
+				:ends_on   => Chronic.parse('yesterday')
+			)
+		end
+	end
+
+	test "should allow ends_at be the same as begins_at" do
+		assert_difference( 'Event.count', 1 ) do
+			object = create_object(
+				:begins_on => Chronic.parse('yesterday'),
+				:begins_at_hour => 5,
+				:begins_at_minute => 0,
+				:begins_at_meridiem => 'pm',
+				:ends_on   => Chronic.parse('yesterday'),
+				:ends_at_hour => 5,
+				:ends_at_minute => 0,
+				:ends_at_meridiem => 'pm'
+			)
+		end
+	end
+
+	test "should require ends_on be on or after begins_on" do
+		assert_difference( 'Event.count', 0 ) do
+			object = create_object(
+				:begins_on => Chronic.parse('tomorrow'),
+				:ends_on   => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:ends_on)
+			assert_match(/after begins_on/,
+				object.errors.on(:ends_on) )
+		end
+	end
+
+	test "should require begins_on if ends_on" do
+		assert_difference( 'Event.count', 0 ) do
+			object = create_object(
+				:begins_on => nil,
+				:ends_on   => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:begins_on)
+			assert_match(/be blank/,
+				object.errors.on(:begins_on) )
+		end
+	end
 
 protected
 
