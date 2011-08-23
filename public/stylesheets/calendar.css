@@ -1,3 +1,20 @@
+div.cal_title_bar {
+	line-height: 22px;
+	margin: 15px 25px;
+	text-align:center;
+	vertical-align:bottom;
+}
+div.cal_title_bar span.cal_title {
+/*	same as h2 */
+	color: #6699CC;
+	font: bold 1.4em Arial,Helvetica,sans-serif;
+}
+div.cal_title_bar a.prev {
+	float:left;
+}
+div.cal_title_bar a.next {
+	float:right;
+}
 table#calendar {
 	width: auto;
 	border-collapse: separate;

@@ -13,7 +13,7 @@
 <div class='members_only_wrapper'>
 <div class='members_only'>
  <div class='announcement_section section'>
-  <h3>Announcements</h3>
+  <h2>Announcements</h2>
   <% unless @events.empty? %>
    <table id='events'><tbody>
    <%= render :partial => 'event', :collection => @events %>
@@ -24,7 +24,6 @@
  </div><!-- class='announcement_section section' -->
 
  <div class='calendar_section section'>
-  <h3><%=Date::MONTHNAMES[Date.today.month]%> Calendar</h3>
   <%= calendar() %>
  </div><!-- class='calendar_section section' -->
 </div><!-- class='members_only' -->
