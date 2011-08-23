@@ -1,11 +1,11 @@
-Factory.define :announcement do |f|
-	f.association :user
-	f.sequence(:title) { |n| "Announcement Title #{n}" }
-	f.content "Some announcement content"
-end
-Factory.define :group_announcement, :parent => :announcement do |f|
-	f.association :group
-end
+#Factory.define :announcement do |f|
+#	f.association :user
+#	f.sequence(:title) { |n| "Announcement Title #{n}" }
+#	f.content "Some announcement content"
+#end
+#Factory.define :group_announcement, :parent => :announcement do |f|
+#	f.association :group
+#end
 
 Factory.define :annual_meeting do |f|
 	f.sequence(:meeting) { |n| "Meeting #{n}" }
