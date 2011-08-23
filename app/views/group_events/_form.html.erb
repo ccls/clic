@@ -8,8 +8,7 @@
 <%= f.wrapped_text_area :content,
 	:label_text => "Content #{required('*')}",
 	:class => 'tinymce' %>
-<% f.wrapped_date_text_field :begins_on,
-	:label_text => "Begins On #{required('*')}" do %>
+<% f.wrapped_date_text_field :begins_on do %>
  <%= f.wrapped_hour_select(:begins_at_hour,
 	:label_text => '&nbsp;&nbsp;at&nbsp;') %>
  <%= f.wrapped_minute_select(:begins_at_minute, 
