@@ -20,7 +20,6 @@ class Group < ActiveRecord::Base
 	named_scope :not_roots, :conditions => [
 		'groups.parent_id IS NOT NULL' ]
 
-#	has_many :announcements
 	has_many :events
 	has_many :documents, :class_name => 'GroupDocument'
 	has_many :memberships

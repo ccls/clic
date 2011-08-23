@@ -1,7 +1,5 @@
 class GroupsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	before_filter :valid_id_required, 
 		:only => [:show,:edit,:update,:destroy]
 	before_filter "may_create_groups_required", :only => [:new,:create]
@@ -29,7 +27,6 @@ class GroupsController < ApplicationController
 	end 
 
 	def show
-#		@announcements = @group.announcements
 		@events = @group.events
 		@forums = @group.forums
 	end
