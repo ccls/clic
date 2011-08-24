@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+#	TODO remove profession column from users table
+
 	#	by default, expects a username or login attribute
 	#	which I didn't have and caused a bit of a headache!
 	#	Also automatically logs newly created user in
