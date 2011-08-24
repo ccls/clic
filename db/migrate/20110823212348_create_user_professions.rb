@@ -1,8 +1,8 @@
 class CreateUserProfessions < ActiveRecord::Migration
 	def self.up
 		create_table :user_professions do |t|
-			t.integer :user_id
-			t.integer :profession_id
+			t.integer :user_id, :null => false
+			t.integer :profession_id, :null => false
 			t.timestamps
 		end
 	end
