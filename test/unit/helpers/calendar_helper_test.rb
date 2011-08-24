@@ -146,30 +146,6 @@ class CalendarHelperTest < ActionView::TestCase
 		assert_equal Date.today.beginning_of_month, response
 	end
 
-## def next_month
-#
-#	test "should respond_to next_month" do
-#		assert respond_to?(:next_month)
-#	end
-#
-#	test "should return next_month date" do
-#		response = next_month
-#		assert response.is_a?(Date)
-#		assert_equal Date.today.beginning_of_month.next_month, response
-#	end
-#
-## def prev_month
-#
-#	test "should respond_to prev_month" do
-#		assert respond_to?(:prev_month)
-#	end
-#
-#	test "should return prev_month date" do
-#		response = prev_month
-#		assert response.is_a?(Date)
-#		assert_equal Date.today.beginning_of_month.prev_month, response
-#	end
-
 protected
 #	"fake" controller methods
 	def params
