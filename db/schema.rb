@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824214646) do
+ActiveRecord::Schema.define(:version => 20110824215431) do
 
   create_table "annual_meetings", :force => true do |t|
     t.string   "meeting"
@@ -206,6 +206,13 @@ ActiveRecord::Schema.define(:version => 20110824214646) do
   create_table "publication_publication_subjects", :force => true do |t|
     t.integer  "publication_id",         :null => false
     t.integer  "publication_subject_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "publication_studies", :force => true do |t|
+    t.integer  "publication_id", :null => false
+    t.integer  "study_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

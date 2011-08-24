@@ -83,6 +83,12 @@ Factory.define :publication_publication_subject do |f|
 	f.updated_at Time.now	#	to make it dirty
 end
 
+Factory.define :publication_study do |f|
+	f.association :publication
+	f.association :study
+	f.updated_at Time.now	#	to make it dirty
+end
+
 Factory.define :study do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
 end
