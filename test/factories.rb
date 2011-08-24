@@ -114,7 +114,8 @@ Factory.define :user do |f|
 	f.organization "Organization"
 	f.address "Address"
 	f.phone_number "PhoneNumber"
-	f.profession_ids [Profession.random.id]
+#	f.profession_ids [Profession.random.id]	#	usually works
+	f.professions {|p| [p.association(:profession)] }	#	seems to make everyone happy
 end
 Factory.define :user_profession do |f|
 	f.association :user
