@@ -73,10 +73,10 @@ pending
 		end
 	end
 
-private 
+protected
 #	"fake" controller methods
 	def params
-		@params || {}
+		@params || HWIA.new
 	end
 	def params=(new_params)
 		@params = new_params

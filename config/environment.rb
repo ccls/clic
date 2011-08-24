@@ -84,4 +84,5 @@ ActionView::Base.field_error_proc = Proc.new { |html_tag, instance|
 	}
 	nodes.to_html
 }
-
+# simple helper
+HWIA = HashWithIndifferentAccess

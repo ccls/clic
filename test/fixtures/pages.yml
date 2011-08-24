@@ -199,7 +199,7 @@ pages_7:
   menu_en: Publications
   menu_es: ""
   parent_id: 
-  path: /publications
+  path: /public
   position: 7
   title_en: Publications
   title_es: ""
@@ -522,18 +522,4 @@ pages_15:
   path: /pastclicmeetings
   position: 14
   title_en: Past CLIC Meetings
-  title_es: ""
-pages_16: 
-  body_en: |
-    CLIC's
-
-  body_es: ""
-  hide_menu: true
-  id: 16
-  menu_en: test
-  menu_es: ""
-  parent_id: 
-  path: /test
-  position: 15
-  title_en: test
   title_es: ""

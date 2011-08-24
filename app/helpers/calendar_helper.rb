@@ -4,11 +4,14 @@ module CalendarHelper
 		stylesheets('calendar')
 		javascripts('calendar')
 		today = Date.today	#	TODO this will be the server's today, not necessarily the user's
-		calday = calendar_start_day()		#	TODO insert some params for flipping through the calendar
+		calday = calendar_start_day()	
 		out =  "<div><div class='cal_title_bar'>"
-		out << link_to('&laquo; Prev', params.merge(:month => prev_month), :class => 'prev' )
-		out << "<span class='cal_title'>#{Date::MONTHNAMES[calendar_month.month]} #{calendar_month.year} Calendar</span>"
-		out << link_to('Next &raquo;', params.merge(:month => next_month), :class => 'next' )
+		out << link_to('&laquo; Prev', params.merge(
+			:month => calendar_month.prev_month), :class => 'prev' )
+		out << "<span class='cal_title'>" <<
+			"#{Date::MONTHNAMES[calendar_month.month]} #{calendar_month.year} Calendar</span>"
+		out << link_to('Next &raquo;', params.merge(
+			:month => calendar_month.next_month), :class => 'next' )
 		out << "</div>"
 		out << "<table id='calendar'><thead><tr>"
 		out << Date::ABBR_DAYNAMES.collect do |wday|
@@ -57,23 +60,27 @@ module CalendarHelper
 
 	def calendar_start_day(options={})
 		#	returns Sunday before given month and year
-		calendar_month - calendar_month.wday
+#		calendar_month - calendar_month.wday
+		calendar_month.beginning_of_week - 1.day
 	end
 
 	#	returns the first day of the month
 	def calendar_month
 		#	Date.parse() returns => Mon, 01 Jan -4712 which we don't want
-		Date.parse(params[:month]||'')
+		Date.parse(params[:month]||'').beginning_of_month
 	rescue
-		Date.parse("#{Date.today.month}/#{Date.today.year}")
+#		Date.parse("#{Date.today.month}/#{Date.today.year}")
+		Date.today.beginning_of_month
 	end
 
-	def next_month
-		calendar_month + 1.month
-	end
-
-	def prev_month
-		calendar_month - 1.month
-	end
+#	def next_month
+##		calendar_month + 1.month
+#		calendar_month.next_month
+#	end
+#
+#	def prev_month
+##		calendar_month - 1.month
+#		calendar_month.prev_month
+#	end
 
 end

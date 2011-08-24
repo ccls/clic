@@ -107,6 +107,7 @@ class GroupsControllerTest < ActionController::TestCase
 			assert_redirected_to groups_path
 		end
 
+		#	in rake test:coverage, 'sometimes' the Group.all is empty?????
 		Group.all.each do |group|
 
 			#	show all groups to fully test group menu
