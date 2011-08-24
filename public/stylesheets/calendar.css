@@ -67,6 +67,7 @@ table#calendar td.has_event div.events {
 	background-color:#88F;
 	padding:20px;
 	white-space:pre;	/* don't break and word-wrap on edge */
+	font-size: 12pt;
 }
 table#calendar td.has_event:hover div.events {
 	display:block;
