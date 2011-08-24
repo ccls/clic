@@ -11,9 +11,27 @@
 <%= f.wrapped_text_field :degrees,
 	:label_text => "Degrees #{required('*')}",
 	:class => 'autosize' %>
-<%= f.wrapped_text_field :profession,
+<%#= f.wrapped_text_field :profession,
 	:label_text => "Profession #{required('*')}",
 	:class => 'autosize' %>
+
+<%#= f.wrapped_collection_select(:profession_ids,Profession.all,
+	:id, :name, {:label_text => 'Professions'}, 
+	{ :multiple => true, :size => Profession.count } ) %>
+
+<div class="profession_ids field_wrapper<%=' field_error' if f.object.errors.on(:profession_ids)-%>">
+<div class='label'>Professions <%=required('*')-%></div>
+<div class="profession_ids_wrapper">
+<% Profession.all.each do |p| %>
+<div class="profession_ids check_box field_wrapper">
+<%= f.check_box(:profession_ids,{:name => 'user[profession_ids][]', 
+	:id => "user_profession_#{p.id}" },p.id, nil ) %>
+<%= label_tag("user_profession_#{p.id}",p.name)%>
+</div>
+<% end %>
+</div>
+</div>
+
 <%= f.wrapped_text_field :organization,
 	:label_text => "Organization #{required('*')}",
 	:class => 'autosize' %>

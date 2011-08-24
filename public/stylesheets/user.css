@@ -42,6 +42,7 @@ form.edit_user div.membership_requests div.field_wrapper select {
 	margin: 0px;
 }
 
+form.edit_user .label,
 form.edit_user label {
 	float: left;
 	width: 200px;
@@ -56,4 +57,16 @@ form.edit_user p {
 }
 form.edit_user p {
 	clear:left;
+}
+form.edit_user div.field_wrapper div.profession_ids_wrapper {
+	display:inline-block;
+}
+form.edit_user div.field_wrapper div.profession_ids_wrapper div.profession_ids {
+	margin-top:0;
+	margin-bottom:0;
+}
+form.edit_user div.field_wrapper div.profession_ids_wrapper div.profession_ids input,
+form.edit_user div.field_wrapper div.profession_ids_wrapper div.profession_ids label {
+	line-height: 20px;
+	padding:0;
 }

@@ -69,7 +69,8 @@ class User < ActiveRecord::Base
 	end
 
 	validates_presence_of :title
-	validates_presence_of :profession
+#	validates_presence_of :profession
+	validates_presence_of :profession_ids
 	validates_presence_of :organization
 	validates_presence_of :first_name
 	validates_presence_of :last_name
@@ -112,10 +113,7 @@ class User < ActiveRecord::Base
 			includes = [:roles]
 			if Role.all.collect(&:name).include?(options[:role_name])
 				joins = [:roles]
-#				conditions = ["roles.name = '#{options[:role_name]}'"]
 				conditions = ["roles.name = ?",options[:role_name]]
-	#		else
-	#			@errors = "No such role '#{options[:role_name]}'"
 			end 
 		end 
 		self.all( 
@@ -153,6 +151,10 @@ class User < ActiveRecord::Base
 
 	def approved?
 		approved
+	end
+
+	def profession_names
+		professions.collect(&:name).join(', ')
 	end
 
 #	class NotFound < StandardError; end

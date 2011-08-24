@@ -7,7 +7,7 @@
 
   <div class='person'>
     <h2><%= @user.title %> <%= @user.full_name %></h2>
-    <p>Profession:&nbsp;<%= @user.profession %></p>
+    <p>Professions:&nbsp;<%= @user.profession_names %></p>
     <p>Organization:&nbsp;<%= @user.organization %></p>
     <p>Phone:&nbsp;<%= @user.phone_number %></p>
     <p>Address:&nbsp;<%= @user.address %></p>
@@ -24,12 +24,12 @@
 <div class='user'>
  <div class='research_interests'>
   <h2>Research Interests:</h2>
-  <%= sanitize(textilize(@user.research_interests)) %>
+  <%= sanitize(@user.research_interests) %>
  </div><!-- class='research_interests' -->
 
  <div class='selected_publications'>
   <h2>Selected Publications:</h2>
-  <%= sanitize(textilize(@user.selected_publications)) %>
+  <%= sanitize(@user.selected_publications) %>
  </div><!-- class='selected_publications' -->
 
  <div class='groups'>

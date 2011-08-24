@@ -99,10 +99,11 @@ Factory.define :user do |f|
 	f.last_name "Last"
 	f.degrees "Degrees"
 	f.title "Title"
-	f.profession "Profession"
+#	f.profession "Profession"
 	f.organization "Organization"
 	f.address "Address"
 	f.phone_number "PhoneNumber"
+	f.profession_ids [Profession.random.id]
 end
 Factory.define :user_profession do |f|
 	f.association :user
