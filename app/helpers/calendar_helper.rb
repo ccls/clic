@@ -51,9 +51,11 @@ module CalendarHelper
 	end
 
 	def calendar_start_day(options={})
+#	beginning_of_week will give the Monday before the given day
+#		which is NOT what I want
+#		calendar_month.beginning_of_week - 1.day
 		#	returns Sunday before given month and year
-#		calendar_month - calendar_month.wday
-		calendar_month.beginning_of_week - 1.day
+		calendar_month - calendar_month.wday
 	end
 
 	#	returns the first day of the month
