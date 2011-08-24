@@ -80,13 +80,13 @@ end
 Factory.define :publication_publication_subject do |f|
 	f.association :publication
 	f.association :publication_subject
-	f.updated_at Time.now	#	to make it dirty
+#	f.updated_at Time.now	#	to make it dirty
 end
 
 Factory.define :publication_study do |f|
 	f.association :publication
 	f.association :study
-	f.updated_at Time.now	#	to make it dirty
+#	f.updated_at Time.now	#	to make it dirty
 end
 
 Factory.define :study do |f|
@@ -115,12 +115,15 @@ Factory.define :user do |f|
 	f.address "Address"
 	f.phone_number "PhoneNumber"
 #	f.profession_ids [Profession.random.id]	#	usually works
-	f.professions {|p| [p.association(:profession)] }	#	seems to make everyone happy
+#	f.professions {|p| [p.association(:profession)] }	#	seems to make everyone happy, well most
+#	f.profession_ids {|p| [p.association(:profession).id] }	#	seems to make everyone happy, well most
+	f.profession_ids {|p| [Factory(:profession).id] }	#	seems to make everyone happy, well most
+#	after_build {|u| u.professions << Factory(:profession) }	#	nope
 end
 Factory.define :user_profession do |f|
 	f.association :user
 	f.association :profession
-	f.updated_at Time.now	#	to make it dirty
+#	f.updated_at Time.now	#	to make it dirty
 end
 
 
