@@ -77,6 +77,11 @@ end
 Factory.define :publication_subject do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
 end
+Factory.define :publication_publication_subject do |f|
+	f.association :publication
+	f.association :publication_subject
+	f.updated_at Time.now	#	to make it dirty
+end
 
 Factory.define :study do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
