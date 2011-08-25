@@ -10,6 +10,11 @@ class Group < ActiveRecord::Base
 			:foreign_key => 'parent_id',
 			:dependent => :nullify
 	end
+	has_many :events
+	has_many :documents, :class_name => 'GroupDocument'
+	has_many :memberships
+	has_many :users, :through => :memberships
+	has_many :forums
 	
 	named_scope :joinable, :conditions => { 
 		:groups_count => 0 }
@@ -20,15 +25,10 @@ class Group < ActiveRecord::Base
 	named_scope :not_roots, :conditions => [
 		'groups.parent_id IS NOT NULL' ]
 
-	has_many :events
-	has_many :documents, :class_name => 'GroupDocument'
-	has_many :memberships
-	has_many :users, :through => :memberships
-
-	has_many :forums
 	validates_presence_of   :name
 	validates_uniqueness_of :name
 	validates_length_of     :name, :maximum => 250
+	validate :cannot_be_own_child
 
 	def to_s
 		name
@@ -40,6 +40,19 @@ class Group < ActiveRecord::Base
 	#	searches for a record with a matching name.
 	def self.[](name)
 		find_by_name(name.to_s) #|| raise(NotFound)
+	end
+
+protected
+
+	def cannot_be_own_child
+		errors.add( :parent_id, "cannot be own child." 
+			) if( ( !id.nil? ) && ( id == parent_id ) )
+
+#	do it this way to give it its own error "type" (:unconfirmed_email here)
+#			errors.add(:base, ActiveRecord::Error.new(
+#				self, :base, :unconfirmed_email,
+#				{ :message => "You have not yet confirmed your email address." })
+#				) unless attempted_record.email_confirmed?
 	end
 
 end
