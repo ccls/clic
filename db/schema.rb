@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824215431) do
+ActiveRecord::Schema.define(:version => 20110825205346) do
 
   create_table "annual_meetings", :force => true do |t|
     t.string   "meeting"
@@ -240,6 +240,17 @@ ActiveRecord::Schema.define(:version => 20110824215431) do
 
   add_index "publications", ["publication_subject_id"], :name => "index_publications_on_publication_subject_id"
   add_index "publications", ["study_id"], :name => "index_publications_on_study_id"
+
+  create_table "questionnaires", :force => true do |t|
+    t.integer  "study_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+  end
 
   create_table "roles", :force => true do |t|
     t.integer  "position"

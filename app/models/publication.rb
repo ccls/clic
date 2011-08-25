@@ -44,8 +44,8 @@ protected
 	end
 
 	#	publication_subject is not yet required, so use try
-	def publication_subject_is_other?
-		publication_subject.try(:is_other?)
-	end
+#	def publication_subject_is_other?
+#		publication_subject.try(:is_other?)
+#	end
 
 end

@@ -91,6 +91,10 @@ Factory.define :publication_study do |f|
 #	f.updated_at Time.now	#	to make it dirty
 end
 
+Factory.define :questionnaire do |f|
+	f.sequence(:title) { |n| "Title #{n}" }
+end
+
 Factory.define :study do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
 end

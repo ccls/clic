@@ -5,6 +5,7 @@ class Study < ActiveRecord::Base
 	has_many :publications, :through => :publication_studies
 	has_many :subjects
 	has_many :exposures
+	has_many :questionnaires
 
 	attr_protected :principal_investigators
 	attr_writer :principal_investigator_names

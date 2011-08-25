@@ -16,4 +16,8 @@ class GroupDocumentTest < ActiveSupport::TestCase
 		assert_equal object.title, "#{object}"
 	end
 
+	test "should create with attachment" do
+		pending
+	end
+
 end
