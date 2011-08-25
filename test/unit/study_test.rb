@@ -14,7 +14,7 @@ class StudyTest < ActiveSupport::TestCase
 	assert_should_protect(:principal_investigators)
 
 	assert_should_act_as_list
-	assert_should_have_many(:publications)
+#	assert_should_have_many(:publications)
 	assert_should_have_many(:subjects)
 	assert_should_have_many(:exposures)
 

@@ -1,7 +1,8 @@
 class Study < ActiveRecord::Base
 	acts_as_list
 
-	has_many :publications
+	has_many :publication_studies
+	has_many :publications, :through => :publication_studies
 	has_many :subjects
 	has_many :exposures
 

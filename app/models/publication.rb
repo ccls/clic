@@ -1,13 +1,19 @@
 class Publication < ActiveRecord::Base
 
-	belongs_to :publication_subject
-	belongs_to :study
+#	belongs_to :publication_subject
+#	belongs_to :study
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable
+	has_many   :publication_publication_subjects
+	has_many   :publication_subjects, :through => :publication_publication_subjects
+	has_many   :publication_studies
+	has_many   :studies, :through => :publication_studies
+	validates_presence_of :publication_subject_ids
+	validates_presence_of :study_ids
 
 	accepts_nested_attributes_for :group_documents, 
 		:reject_if => proc{|attributes| attributes['document'].blank? }
 
-	validates_presence_of :publication_subject, :study
+#	validates_presence_of :publication_subject, :study
 
 	validates_presence_of :title, :journal, :publication_year, :author_last_name
 
@@ -17,7 +23,7 @@ class Publication < ActiveRecord::Base
 	validates_inclusion_of :publication_year, :in => 1900..Time.now.year,
 		:message => "should be between 1900 and #{Time.now.year}"
 
-	validates_presence_of :other_publication_subject, :if => :publication_subject_is_other?
+#	validates_presence_of :other_publication_subject, :if => :publication_subject_is_other?
 
 	attr_accessor :current_user
 

@@ -21,13 +21,17 @@
 </p>
 
 <p>
-  <b>Publication Subject:</b>
-  <%= link_to @publication.publication_subject, @publication.publication_subject %>
+  <b>Publication Subjects:</b>
+  <% @publication.publication_subjects.each do |ps| %>
+  <%= link_to ps, ps %>
+  <% end %>
 </p>
 
 <p>
-  <b>Study:</b>
-  <%= link_to @publication.study, @publication.study %>
+  <b>Studies:</b>
+  <% @publication.studies.each do |s| %>
+  <%= link_to s, s %>
+  <% end %>
 </p>
 
 <% unless @publication.group_documents.empty? %>

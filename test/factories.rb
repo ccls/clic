@@ -63,8 +63,8 @@ Factory.define :profession do |f|
 end
 
 Factory.define :publication do |f|
-	f.association :study
-	f.association :publication_subject
+#	f.association :study
+#	f.association :publication_subject
 	f.sequence(:title) { |n| "Title #{n}" }
 	f.sequence(:journal) { |n| "Journal #{n}" }
 
@@ -72,6 +72,8 @@ Factory.define :publication do |f|
 #	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
 	f.publication_year Time.now.year
 	f.sequence(:author_last_name) { |n| "Author Last Name #{n}" }
+	f.study_ids {|p| [Factory(:study).id] }
+	f.publication_subject_ids {|p| [Factory(:publication_subject).id] }
 end
 
 Factory.define :publication_subject do |f|

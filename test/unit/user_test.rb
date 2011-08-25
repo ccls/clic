@@ -13,6 +13,7 @@ class UserTest < ActiveSupport::TestCase
 	assert_should_require(:organization)
 	assert_should_require(:address)
 	assert_should_require(:phone_number)
+	assert_should_require(:profession_ids)
 	assert_should_not_require(:research_interests)
 	assert_should_not_require(:selected_publications)
 #	can't test this way as initially has one and fails assertion

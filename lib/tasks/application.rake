@@ -107,6 +107,22 @@ namespace :app do
 #		end
 #	end
 
+#	One timer
+
+	task :publications_from_one_to_many => :environment do
+		puts "Adding previous study and publication_subject to new arrays"
+		Publication.all.each do |p|
+			puts p
+#			puts p.study_id
+#			puts p.publication_subject_id
+#			puts p.study_ids
+#			puts p.publication_subject_ids
+			p.studies << Study.find(p.study_id) unless p.study_ids.include?(p.study_id)
+			p.publication_subjects << PublicationSubject.find(p.publication_subject_id) unless p.publication_subject_ids.include?(p.publication_subject_id)
+#			puts p.study_ids
+#			puts p.publication_subject_ids
+		end
+	end
 
 	#	convenience tasks for when I misremember the order
 	namespace :import do

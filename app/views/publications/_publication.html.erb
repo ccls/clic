@@ -2,8 +2,6 @@
  <td class='title'><%= link_to publication, publication %></td>
  <td class='journal'><%=h publication.journal %></td>
  <td class='author'><%=h publication.author_last_name %></td>
-
-<%# TODO publication_year will now be an integer %>
  <td class='pubyear'><%=h publication.publication_year %></td>
  <td class='manage'>
   <%= link_to 'Edit', edit_publication_path(publication), :class => 'button' %>&nbsp;

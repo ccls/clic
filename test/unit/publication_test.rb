@@ -7,12 +7,9 @@ class PublicationTest < ActiveSupport::TestCase
 	assert_should_require(:journal)
 	assert_should_require(:publication_year)
 	assert_should_require(:author_last_name)
-	assert_should_require(:publication_subject)
-	assert_should_require(:study)
+	assert_should_require(:publication_subject_ids)
+	assert_should_require(:study_ids)
 	assert_should_not_require(:other_publication_subject)
-
-	assert_should_initially_belong_to(:publication_subject)
-	assert_should_initially_belong_to(:study)
 	assert_should_have_many(:group_documents, :as => :attachable)
 
 	assert_should_require_attribute_length( :title, :journal,
@@ -59,13 +56,13 @@ class PublicationTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
-	test "should require other_publication_subject if publication_subject is other" do
-		assert_difference('Publication.count',0) {
-			object = create_object(:publication_subject_id => PublicationSubject.find(:first,
-				:conditions => { :name => 'Other' }).id)
-			assert object.errors.on_attr_and_type(:other_publication_subject, :blank)
-		}
-	end
+#	test "should require other_publication_subject if publication_subject is other" do
+#		assert_difference('Publication.count',0) {
+#			object = create_object(:publication_subject_id => PublicationSubject.find(:first,
+#				:conditions => { :name => 'Other' }).id)
+#			assert object.errors.on_attr_and_type(:other_publication_subject, :blank)
+#		}
+#	end
 
 	test "should require publication_year after 1899" do
 		assert_difference('Publication.count',0) {
