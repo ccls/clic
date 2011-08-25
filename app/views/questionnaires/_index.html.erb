@@ -1,0 +1,14 @@
+<h2>Questions</h2>
+<% unless questionnaires.empty? %>
+ <table id='questionnaires'><thead>
+  <tr>
+    <th>Title</th>
+  </tr>
+ </thead>
+ <tbody>
+  <%= render :partial => 'questionnaires/questionnaire', :collection => questionnaires %>
+ </tbody>
+</table>
+<% else %>
+  <p>Sorry, no questionnaires yet.</p>
+<% end %>

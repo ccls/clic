@@ -8,8 +8,8 @@
    <ul>
     <li class='studies'><a href='javascript:void()' class='current'>Studies</a></li>
     <li class='subjects'><a href='javascript:void()'>Subjects</a></li>
-<!--
     <li class='questions'><a href='javascript:void()'>Questions</a></li>
+<!--
     <li class='pubmed'><a href='javascript:void()'>PubMed</a></li>
 -->
    </ul>
@@ -17,14 +17,7 @@
 
   <%= render :partial => 'studies' %>
   <%= render :partial => 'subjects' %>
-
-<!--
-  <div id='questions' class='tab_contents'>
-   <h1>Pending</h1>
-   <h2>Still need to parse the questions spreadsheet(s)</h2>
-  </div>
--->
-<!-- id='questions' -->
+  <%= render :partial => 'questions' %>
 
 <!--
   <div id='pubmed' class='tab_contents'>

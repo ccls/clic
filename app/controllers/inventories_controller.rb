@@ -86,7 +86,8 @@ class InventoriesController < ApplicationController
 			order_by :created_at, :asc
 			paginate :page => params[:page]
 		end
-
+		studies = @search.facet(:study_id).rows.collect(&:instance)
+		@questionnaires = studies.collect(&:questionnaires).flatten
 	end	#	show action
 
 protected

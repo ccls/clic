@@ -1,0 +1,12 @@
+<div id='questions' class='tab_contents'>
+ <% unless @questionnaires.empty? %>
+  <ul class='results'>
+    <% @questionnaires.each do |questionnaire| %>
+     <li class='result'>
+      <span class='study'><%= link_to questionnaire.study, questionnaire.study %></span>
+      <span class='questionnaire'><%= link_to questionnaire, questionnaire %></span>
+     </li>
+    <% end %>
+  </ul>
+ <% end %>
+</div><!-- id='questions' -->
