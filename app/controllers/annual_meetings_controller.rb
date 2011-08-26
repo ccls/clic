@@ -1,7 +1,5 @@
 class AnnualMeetingsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	resourceful
 
 	def create

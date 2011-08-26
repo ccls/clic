@@ -1,12 +1,6 @@
 class PublicationsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	resourceful
-
-	def new
-		@publication = Publication.new(params[:publication])
-	end
 
 	def create
 		@publication = Publication.new(params[:publication])
@@ -17,6 +11,12 @@ class PublicationsController < ApplicationController
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "something bad happened"
 		render :action => 'new'
+	end
+
+protected
+
+	def get_new
+		@publication = Publication.new(params[:publication])
 	end
 
 end

@@ -94,8 +94,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should show groupless group document with #{cu} login" do
-			load 'group_document.rb'	#	why?  I have to force reloading?
-			#	I don't have to do that for documents?
 			login_as send(cu)
 			document = create_group_document
 			assert_nil document.group
@@ -106,20 +104,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should get redirect to private s3 groupless group document with #{cu} login" do
-			GroupDocument.has_attached_file :document, {
-				:s3_headers => {
-					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
-				:s3_permissions => :private,
-				:storage => :s3,
-				:s3_protocol => 'https',
-				:s3_credentials => "#{Rails.root}/config/s3.yml",
-				:bucket => 'ccls',
-				:path => "group_documents/:id/:filename"
-			}
-	
 			#	Since the REAL S3 credentials are only in production
 			#	Bad credentials make exists? return true????
 			Rails.stubs(:env).returns('production')
+			load 'group_document.rb'
+
 			document = Factory(:group_document, :document_file_name => 'bogus_file_name')
 			assert_not_nil document.id
 			assert_nil     document.group
@@ -131,11 +120,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#	I think that newer versions of paperclip don't include the file name "." without extension
-#	upgrade from paperclip 2.3.11 to 2.3.13 caused this change
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-			assigns(:group_document).destroy
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+
+			#	WE MUST UNDO these has_attached_file modifications
+			Rails.unstub(:env)
+			load 'group_document.rb'
 		end
 
 	end
@@ -170,8 +159,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should show group's group document with #{cu} login" do
-			load 'group_document.rb'	#	why?  I have to force reloading?
-			#	I don't have to do that for documents?
 			login_as send(cu)
 			document = create_group_document(:group => @membership.group)
 			assert_not_nil document.group
@@ -182,22 +169,14 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should get redirect to private s3 group's group document with #{cu} login" do
-			GroupDocument.has_attached_file :document, {
-				:s3_headers => {
-					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
-				:s3_permissions => :private,
-				:storage => :s3,
-				:s3_protocol => 'https',
-				:s3_credentials => "#{Rails.root}/config/s3.yml",
-				:bucket => 'ccls',
-				:path => "group_documents/:id/:filename"
-			}
-	
 			#	Since the REAL S3 credentials are only in production
 			#	Bad credentials make exists? return true????
 			Rails.stubs(:env).returns('production')
+			load 'group_document.rb'
+
 			document = Factory(:group_document, :document_file_name => 'bogus_file_name',
 				:group => @membership.group)
+			assert_not_nil document.id
 			assert_not_nil document.group
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
@@ -207,12 +186,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#	I think that newer versions of paperclip don't include the file name "." without extension
-#	upgrade from paperclip 2.3.11 to 2.3.13 caused this change
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
 
-			assigns(:group_document).destroy
+			#	WE MUST UNDO these has_attached_file modifications
+			Rails.unstub(:env)
+			load 'group_document.rb'
 		end
 
 	end

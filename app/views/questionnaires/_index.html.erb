@@ -1,8 +1,19 @@
-<h2>Questions</h2>
+<h2>Questionnaires 
+<% if current_user.may_create_questionnaires? %>
+<span class='controls'>
+<%= link_to 'Create New Questionnaire', 
+	new_questionnaire_path(:questionnaire => { :study_id => @study.try(:id) } ), 
+	:class => 'button' %>
+</span>
+<% end %>
+</h2>
+
 <% unless questionnaires.empty? %>
  <table id='questionnaires'><thead>
   <tr>
+    <th>Study</th>
     <th>Title</th>
+    <th>File</th>
   </tr>
  </thead>
  <tbody>

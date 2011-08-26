@@ -1,7 +1,5 @@
 class TopicsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	before_filter :valid_forum_id_required,
 		:only => [:new,:create]
 	before_filter :valid_id_required,

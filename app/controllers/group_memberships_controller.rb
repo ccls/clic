@@ -1,7 +1,5 @@
 class GroupMembershipsController < ApplicationController
 
-#	layout 'members_onlies'
-
 #	before_filter :group_required,
 #		:only => [:new,:create,:index]
 	before_filter :group_required

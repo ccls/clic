@@ -1,3 +1,6 @@
 <tr class='row'>
- <td><%=h questionniare.title %></td>
+ <td><%= link_to questionnaire.study, questionnaire.study %></td>
+ <td><%= link_to questionnaire, questionnaire %></td>
+ <td><%= questionnaire.document_file_name %></td>
+ <td><%= link_to 'Download', download_questionnaire_path(questionnaire) %></td>
 </tr>

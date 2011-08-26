@@ -73,20 +73,11 @@ class DocumentsControllerTest < ActionController::TestCase
 #	end
 
 		test "should get redirect to private s3 document with #{cu} login" do
-			Document.has_attached_file :document, {
-				:s3_headers => {
-					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
-				:s3_permissions => :private,
-				:storage => :s3,
-				:s3_protocol => 'https',
-				:s3_credentials => "#{Rails.root}/config/s3.yml",
-				:bucket => 'ccls',
-				:path => "documents/:id/:filename"
-			}
-
 			#	Since the REAL S3 credentials are only in production
 			#	Bad credentials make exists? return true????
 			Rails.stubs(:env).returns('production')
+			load 'document.rb'
+
 			document = Factory(:document, :document_file_name => 'bogus_file_name')
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
@@ -96,10 +87,11 @@ class DocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#	I think that newer versions of paperclip don't include the file name "." without extension
-#	upgrade from paperclip 2.3.11 to 2.3.13 caused this change
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+
+			#	WE MUST UNDO these has_attached_file modifications
+			Rails.unstub(:env)
+			load 'document.rb'
 		end
 
 		test "should NOT download document with nil document and #{cu} login" do
@@ -185,33 +177,25 @@ class DocumentsControllerTest < ActionController::TestCase
 	( non_site_editors + ['no_login'] ).each do |cu|
 
 		test "should get redirect to private s3 document with #{cu} login" do
-			Document.has_attached_file :document, {
-				:s3_headers => {
-					'x-amz-storage-class' => 'REDUCED_REDUNDANCY' },
-				:s3_permissions => :private,
-				:storage => :s3,
-				:s3_protocol => 'https',
-				:s3_credentials => "#{Rails.root}/config/s3.yml",
-				:bucket => 'ccls',
-				:path => "documents/:id/:filename"
-			}
-
 			#	Since the REAL S3 credentials are only in production
 			#	Bad credentials make exists? return true????
 			Rails.stubs(:env).returns('production')
+			load 'document.rb'
+
 			document = Factory(:document, :document_file_name => 'bogus_file_name')
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
 
 			AWS::S3::S3Object.stubs(:exists?).returns(true)
 
-			login_as send(cu) #unless cu == 'NOLOGIN'
+			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#	I think that newer versions of paperclip don't include the file name "." without extension
-#	upgrade from paperclip 2.3.11 to 2.3.13 caused this change
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\.\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/ccls/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+
+			#	WE MUST UNDO these has_attached_file modifications
+			Rails.unstub(:env)
+			load 'document.rb'
 		end
 
 		test "should NOT download document with nil document and #{cu} login" do

@@ -1,6 +1,8 @@
 <h2>Publications
 <span class='controls'>
-<%#= link_to "Add Publication", new_publication_path(:publication => { :study_id => @study }),
+<%= link_to "Create New Publication", 
+	new_publication_path(:publication => { :study_ids => [@study.try(:id)],
+		:publication_subject_ids => [@publication_subject.try(:id)] }),
 	:class => 'button' %>
 </span>
 </h2>

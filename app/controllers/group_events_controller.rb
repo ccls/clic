@@ -1,7 +1,5 @@
 class GroupEventsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	before_filter :valid_group_id_required
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:show,:destroy]

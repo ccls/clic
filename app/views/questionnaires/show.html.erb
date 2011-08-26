@@ -1,0 +1,26 @@
+<h2>Questionnaire</h2>
+
+<p>
+  <b>Title:</b>
+  <%=h @questionnaire.title %>
+</p>
+
+<p>
+  <b>Document:</b>
+  <%=h @questionnaire.document_file_name %>
+</p>
+
+<p>
+  <%= link_to 'Download', download_questionnaire_path(@questionnaire) %>
+</p>
+
+<% if current_user.may_edit_questionnaires? %>
+<div class='manage'>
+  <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', questionnaire_path(@questionnaire) do %>
+   <%= hidden_field_tag 'confirm', "Destroy questionnaire '#{h(@questionnaire)}'?", 
+    :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+</div>
+<% end %>

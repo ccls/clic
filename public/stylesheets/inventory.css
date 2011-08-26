@@ -134,6 +134,7 @@ ul.results li:nth-child(2n)   { background-color: #EEE; }
 ul.results li:nth-child(2n+1) { background-color: #DDD; }
 #subjects ul.results li span.subject { }
 #subjects ul.results li span.study { float:right; }
+#questions ul.results li span.questionnaire { float:right; }
 
 #subjects {
 	display:none;	/* hide initially */

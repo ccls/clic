@@ -98,7 +98,7 @@ class ApplicationHelperTest < ActionView::TestCase
 		login_as send(:administrator)
 		response = HTML::Document.new(application_menu).root
 		assert_select response, "ul#application_menu" do
-			assert_select "li.user", 12
+			assert_select "li.user", 13
 		end
 	end
 	

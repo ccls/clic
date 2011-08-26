@@ -1,7 +1,5 @@
 class PostsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	before_filter :valid_topic_id_required,
 		:only => [:new,:create,:index]
 	before_filter :may_edit_forum_required,

@@ -6,7 +6,6 @@ end
 
 Factory.define :document do |f|
 	f.sequence(:title) { |n| "Document Title #{n}" }
-#	f.sequence(:document_file_name) { |n| "document_file_name#{n}" }
 end
 
 Factory.define :doc_form do |f|
@@ -24,8 +23,10 @@ Factory.define :group_event, :parent => :event do |f|
 	f.association :group
 end
 
+Factory.define :exposure do |f|
+end
+
 Factory.define :forum do |f|
-#	f.association :group
 	f.sequence(:name) { |n| "Forum #{n}" }
 end
 
@@ -34,10 +35,8 @@ Factory.define :group do |f|
 end
 
 Factory.define :group_document do |f|
-#	f.association :post
 	f.association :attachable, :factory => :post
 	f.association :user
-#	f.association :group
 	f.sequence(:title) { |n| "Group Document Title #{n}" }
 end
 
@@ -48,7 +47,6 @@ end
 Factory.define :membership do |f|
 	f.association :user
 	f.association :group
-#	f.association :group_role
 	f.updated_at Time.now	#	to make it dirty
 end
 
@@ -63,13 +61,8 @@ Factory.define :profession do |f|
 end
 
 Factory.define :publication do |f|
-#	f.association :study
-#	f.association :publication_subject
 	f.sequence(:title) { |n| "Title #{n}" }
 	f.sequence(:journal) { |n| "Journal #{n}" }
-
-#	TODO publication_year will now be an integer
-#	f.sequence(:publication_year) { |n| "Publication Year #{n}" }
 	f.publication_year Time.now.year
 	f.sequence(:author_last_name) { |n| "Author Last Name #{n}" }
 	f.study_ids {|p| [Factory(:study).id] }
@@ -79,24 +72,27 @@ end
 Factory.define :publication_subject do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
 end
+
 Factory.define :publication_publication_subject do |f|
 	f.association :publication
 	f.association :publication_subject
-#	f.updated_at Time.now	#	to make it dirty
 end
 
 Factory.define :publication_study do |f|
 	f.association :publication
 	f.association :study
-#	f.updated_at Time.now	#	to make it dirty
 end
 
 Factory.define :questionnaire do |f|
+	f.association :study
 	f.sequence(:title) { |n| "Title #{n}" }
 end
 
 Factory.define :study do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
+end
+
+Factory.define :subject do |f|
 end
 
 Factory.define :topic do |f|
@@ -111,29 +107,17 @@ Factory.define :user do |f|
 	f.password 'V@1!dP@55w0rd'
 	f.password_confirmation 'V@1!dP@55w0rd'
 	f.email_confirmed_at Time.now
-#	f.role_name 'user'
 	f.first_name "First"
 	f.last_name "Last"
 	f.degrees "Degrees"
 	f.title "Title"
-#	f.profession "Profession"
 	f.organization "Organization"
 	f.address "Address"
 	f.phone_number "PhoneNumber"
-#	f.profession_ids [Profession.random.id]	#	usually works
-#	f.professions {|p| [p.association(:profession)] }	#	seems to make everyone happy, well most
-#	f.profession_ids {|p| [p.association(:profession).id] }	#	seems to make everyone happy, well most
-	f.profession_ids {|p| [Factory(:profession).id] }	#	seems to make everyone happy, well most
-#	after_build {|u| u.professions << Factory(:profession) }	#	nope
+	f.profession_ids {|p| [Factory(:profession).id] }
 end
+
 Factory.define :user_profession do |f|
 	f.association :user
 	f.association :profession
-#	f.updated_at Time.now	#	to make it dirty
-end
-
-
-Factory.define :subject do |f|
-end
-Factory.define :exposure do |f|
 end

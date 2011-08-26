@@ -1,7 +1,5 @@
 class GroupDocumentsController < ApplicationController
 
-#	layout 'members_onlies'
-
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:show,:destroy]
 
