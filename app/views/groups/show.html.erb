@@ -1,7 +1,9 @@
 <h2><%=h @group.name %>
 <span class='controls'>
+<% if current_user.may_edit_group?(@group) %>
  <%= link_to "Edit Group", edit_group_path(@group),
   :class => 'button' %>&nbsp;
+<% end %>
  <%= link_to "Request Membership", new_group_membership_path(@group),
   :class => 'button' %>
 </span>
@@ -29,8 +31,10 @@
 </div><!-- class='members_only' -->
 
 <p>
+<% if current_user.may_create_group_events?(@group) %>
 <%= link_to "Create New Group Event", new_group_event_path(@group), 
    :class => 'button' %>&nbsp;
+<% end %>
 <%= link_to "All Group Events", group_events_path(@group), 
    :class => 'button' %>
 </p>

@@ -4,6 +4,7 @@
   <%= link_to group.name, group %>
  </td>
  <%= "<td>&nbsp;</td>" if( group.parent_id.nil? ) %>
+<% if current_user.may_edit_group?(group) %>
  <td class='manage'>
   <%= link_to 'Edit', edit_group_path(group), :class => 'button' %>
   <% destroy_link_to 'Destroy', group_path(group) do %>
@@ -12,6 +13,7 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
+<% end %>
 <% end %><!-- class='group row' -->
 
 <% if group.children.length > 0 %>
