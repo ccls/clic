@@ -78,4 +78,15 @@ protected	#	private #	(does it matter which or if neither?)
 		end
 	end
 
+	def record_or_recall_sort_order
+		%w( dir order ).map(&:to_sym).each do |param|
+			if params[param].blank? && !session[param].blank?
+				params[param] = session[param]	#	recall
+			elsif !params[param].blank?
+				session[param] = params[param]	#	record
+			end
+		end
+	end
+	alias_method :recall_or_record_sort_order, :record_or_recall_sort_order
+
 end

@@ -1,13 +1,18 @@
 <h2>Member Directory</h2>
 
-<% form_tag directory_path, :method => :get do %>
-<%= text_field_tag :q %>
-<%= submit_tag 'Search', :name => nil %>
-<% end %>
+<%# form_tag directory_path, :method => :get do %>
+<%#= text_field_tag :q %>
+<%#= submit_tag 'Search', :name => nil %>
+<%# end %>
 
 <% unless @members.empty? %>
   <table id='members'><thead>
-    <tr><th>Last Name</th><th>First Name</th><th>Title</th><th>Study</th><th>Profession</th></tr>
+    <tr>
+<th><%= sort_link('Last Name','Name') %></th>
+<th><%= sort_link('Title') %></th>
+<th>Profession(s)</th>
+<th>Phone</th>
+</tr>
   </thead><tbody>
 <%= render :partial => 'member', :collection => @members %>
   </tbody></table><!-- id='members' -->

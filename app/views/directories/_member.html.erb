@@ -1,7 +1,8 @@
 <% content_tag_for( :tr, member, :class => "member row" ) do %>
- <td><%= member.last_name %></td>
- <td><%= member.first_name %></td>
+ <td><%= member.full_name %></td>
  <td><%= member.title %></td>
- <td>&nbsp;</td>
- <td><%= member.profession %></td>
+ <td><%= member.profession_names %></td>
+ <td><%= member.phone_number %><br/>
+     <%= member.email %>
+ </td>
 <% end %>
