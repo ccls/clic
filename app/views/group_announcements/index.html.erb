@@ -1,0 +1,17 @@
+<h2><%= link_to @group.name, @group %>&nbsp;&raquo;&nbsp;Announcements</h2>
+
+<% if @announcements.length > 0 %>
+ <table id='announcements'><thead>
+ <tr><th>Title</th><th>Time</th><th>&nbsp;</th></tr></thead><tbody>
+ <%= render :partial => 'announcement', :collection => @announcements %>
+ </tbody></table><!-- id='announcements' -->
+<% else %>
+ <p>Sorry, but no announcements yet.</p>
+<% end %>
+
+<p>
+<%= link_to 'Group', group_path(@group), 
+	:class => 'button' %>&nbsp;
+<%= link_to 'Create New Group Announcement', new_group_announcement_path(@group), 
+	:class => 'button' %>
+</p>

@@ -1,7 +1,7 @@
 class MembersOnliesController < ApplicationController
 
 	def show
-		@events = Event.groupless
+		@announcements = Announcement.groupless
 		@forums = Forum.groupless
 	end
 

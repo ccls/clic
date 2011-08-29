@@ -10,7 +10,7 @@ class Group < ActiveRecord::Base
 			:foreign_key => 'parent_id',
 			:dependent => :nullify
 	end
-	has_many :events
+	has_many :announcements
 	has_many :documents, :class_name => 'GroupDocument'
 	has_many :memberships
 	has_many :users, :through => :memberships

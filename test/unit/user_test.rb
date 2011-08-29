@@ -20,7 +20,7 @@ class UserTest < ActiveSupport::TestCase
 #	assert_should_have_many(:user_professions)
 	assert_should_have_many(:memberships)
 #	assert_should_have_many(:announcements)
-	assert_should_have_many(:events)
+	assert_should_have_many(:announcements)
 	assert_should_have_many(:topics)
 	assert_should_have_many(:posts)
 #	polymorphism causing an issue here I think

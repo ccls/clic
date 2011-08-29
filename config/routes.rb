@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource  :inventory, :only => :show
 	map.resources :editor_images, :only => :index
 	map.resources :editor_links,  :only => :index
-	map.resources :events
+	map.resources :announcements
 	map.resources :documents, :member => { :preview => :get }
 
 	map.resources :doc_forms
@@ -23,8 +23,8 @@ ActionController::Routing::Routes.draw do |map|
 		group.resources :memberships,
 			:controller => 'group_memberships',
 			:member => { :approve => :put }
-		group.resources :events, 
-			:controller => 'group_events'
+		group.resources :announcements, 
+			:controller => 'group_announcements'
 	end
 
 #	may want to create a group_forums controller to clarify things

@@ -1,4 +1,4 @@
-class Event < ActiveRecord::Base
+class Announcement < ActiveRecord::Base
 	default_scope :order => 'begins_on DESC'
 	belongs_to :user
 	belongs_to :group

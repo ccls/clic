@@ -43,11 +43,11 @@ table#calendar td:hover {
 	font-weight:bold;
 	color: #222;
 }
-table#calendar td.has_event {
+table#calendar td.has_announcement {
 	background-color: #008;
 	color: white;
 }
-table#calendar td.has_event:hover {
+table#calendar td.has_announcement:hover {
 }
 table#calendar td.today {
 	color: white;
@@ -56,11 +56,11 @@ table#calendar td.today {
 table#calendar td.today:hover {
 	background-color: #800;
 }
-table#calendar td.has_event div.events a {
+table#calendar td.has_announcement div.announcements a {
 	color:white;
 	text-decoration: none;
 }
-table#calendar td.has_event div.events {
+table#calendar td.has_announcement div.announcements {
 	position:absolute;
 	margin-left: 40px;
 	display:none;
@@ -69,6 +69,6 @@ table#calendar td.has_event div.events {
 	white-space:pre;	/* don't break and word-wrap on edge */
 	font-size: 12pt;
 }
-table#calendar td.has_event:hover div.events {
+table#calendar td.has_announcement:hover div.announcements {
 	display:block;
 }

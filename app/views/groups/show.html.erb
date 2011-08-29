@@ -16,10 +16,10 @@
 <div class='members_only'>
  <div class='announcement_section section'>
   <h2>Announcements</h2>
-  <% unless @events.empty? %>
-   <table id='events'><tbody>
-   <%= render :partial => 'event', :collection => @events %>
-   </tbody></table><!-- id='events' -->
+  <% unless @announcements.empty? %>
+   <table id='announcements'><tbody>
+   <%= render :partial => 'announcement', :collection => @announcements %>
+   </tbody></table><!-- id='announcements' -->
   <% else %>
    <p>Sorry, but no announcements yet.</p>
   <% end %>
@@ -31,11 +31,11 @@
 </div><!-- class='members_only' -->
 
 <p>
-<% if current_user.may_create_group_events?(@group) %>
-<%= link_to "Create New Group Announcement", new_group_event_path(@group), 
+<% if current_user.may_create_group_announcements?(@group) %>
+<%= link_to "Create New Group Announcement", new_group_announcement_path(@group), 
    :class => 'button' %>&nbsp;
 <% end %>
-<%= link_to "All Group Announcements", group_events_path(@group), 
+<%= link_to "All Group Announcements", group_announcements_path(@group), 
    :class => 'button' %>
 </p>
 </div><!-- class='members_only_wrapper' -->

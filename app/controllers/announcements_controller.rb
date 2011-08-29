@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class AnnouncementsController < ApplicationController
 
 	resourceful
 
@@ -12,10 +12,10 @@ class EventsController < ApplicationController
 		:only => [:edit,:update,:show,:destroy]
 
 	def create
-		@event = Event.new(params[:event])
-		@event.user = current_user
-		@event.save!
-		flash[:notice] = "Event created."
+		@announcement = Announcement.new(params[:announcement])
+		@announcement.user = current_user
+		@announcement.save!
+		flash[:notice] = "Announcement created."
 		redirect_to members_only_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Something bad happened"
@@ -23,16 +23,16 @@ class EventsController < ApplicationController
 	end
 
 	def update
-#		@event.update_attributes!(params[:event])
-		@event.update_attributes(params[:event])
-		#	due to some upgrades, it is possible for older events
+#		@announcement.update_attributes!(params[:announcement])
+		@announcement.update_attributes(params[:announcement])
+		#	due to some upgrades, it is possible for older announcements
 		#	to not have a user so set it here.
-		@event.user = current_user if @event.user.nil?
-		@event.save!
+		@announcement.user = current_user if @announcement.user.nil?
+		@announcement.save!
 		flash[:notice] = 'Success!'
-		redirect_to events_path
+		redirect_to announcements_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash.now[:error] = "There was a problem updating the event"
+		flash.now[:error] = "There was a problem updating the announcement"
 		render :action => "edit"
 	end
 
@@ -40,18 +40,18 @@ class EventsController < ApplicationController
 protected
 
 	def get_all
-		@events = Event.find(:all, :conditions => {
+		@announcements = Announcement.find(:all, :conditions => {
 			:group_id => nil })
 	end
 
 	def may_not_have_group_required
-		@event.group_id && access_denied(
-			"This is a restricted group event", members_only_path)
+		@announcement.group_id && access_denied(
+			"This is a restricted group announcement", members_only_path)
 	end
 
-	def may_create_events_required
-		current_user.may_create_events? || access_denied(
-			"You don't have permission to create events.", 
+	def may_create_announcements_required
+		current_user.may_create_announcements? || access_denied(
+			"You don't have permission to create announcements.", 
 			members_only_path )
 	end
 

@@ -7,7 +7,7 @@ module GroupTestHelper
 
 module ClassMethods
 
-	#	centralization of group announcements and group events
+	#	centralization of group announcements
 	def assert_nested_group_asset(*args)
 		options = HashWithIndifferentAccess.new({
 			:attributes_method => :factory_attributes,

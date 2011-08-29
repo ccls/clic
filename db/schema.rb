@@ -9,7 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110825205346) do
+ActiveRecord::Schema.define(:version => 20110829222439) do
+
+  create_table "announcements", :force => true do |t|
+    t.string   "title",              :null => false
+    t.text     "content",            :null => false
+    t.integer  "user_id",            :null => false
+    t.integer  "group_id"
+    t.date     "begins_on"
+    t.date     "ends_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "location"
+    t.integer  "begins_at_hour"
+    t.integer  "begins_at_minute"
+    t.string   "begins_at_meridiem"
+    t.integer  "ends_at_hour"
+    t.integer  "ends_at_minute"
+    t.string   "ends_at_meridiem"
+  end
 
   create_table "annual_meetings", :force => true do |t|
     t.string   "meeting"
@@ -66,24 +84,6 @@ ActiveRecord::Schema.define(:version => 20110825205346) do
 
   add_index "documents", ["document_file_name"], :name => "index_documents_on_document_file_name", :unique => true
   add_index "documents", ["owner_id", "owner_type"], :name => "index_documents_on_owner_id_and_owner_type"
-
-  create_table "events", :force => true do |t|
-    t.string   "title",              :null => false
-    t.text     "content",            :null => false
-    t.integer  "user_id",            :null => false
-    t.integer  "group_id"
-    t.date     "begins_on"
-    t.date     "ends_on"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "location"
-    t.integer  "begins_at_hour"
-    t.integer  "begins_at_minute"
-    t.string   "begins_at_meridiem"
-    t.integer  "ends_at_hour"
-    t.integer  "ends_at_minute"
-    t.string   "ends_at_meridiem"
-  end
 
   create_table "exposures", :force => true do |t|
     t.integer  "study_id"

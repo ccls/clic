@@ -13,13 +13,13 @@ Factory.define :doc_form do |f|
 	f.sequence(:abstract) { |n| "Abstract #{n}" }
 end
 
-Factory.define :event do |f|
+Factory.define :announcement do |f|
 	f.association :user
-	f.sequence(:title) { |n| "Event Title #{n}" }
-	f.content "Some event content"
+	f.sequence(:title) { |n| "Announcement Title #{n}" }
+	f.content "Some announcement content"
 	f.begins_on Chronic.parse('Dec 5, 1971').to_date
 end
-Factory.define :group_event, :parent => :event do |f|
+Factory.define :group_announcement, :parent => :announcement do |f|
 	f.association :group
 end
 

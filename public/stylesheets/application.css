@@ -81,8 +81,8 @@ form#new_user div.field_wrapper.selected_publications label,
 form.edit_user div.field_wrapper.selected_publications label,
 form#new_user div.field_wrapper.research_interests label,
 form.edit_user div.field_wrapper.research_interests label,
-form#new_event div.field_wrapper.content label,
-form.edit_event div.field_wrapper.content label {
+form#new_announcement div.field_wrapper.content label,
+form.edit_announcement div.field_wrapper.content label {
 	float:none;
 	display:block;
 }

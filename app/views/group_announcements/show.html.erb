@@ -1,0 +1,46 @@
+<p>
+  <b>Title:</b>
+  <%=h @announcement.title %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%=h @announcement.location %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= sanitize(@announcement.content) %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @announcement.user %>
+</p>
+
+<p>
+  <b>Begins On:</b>
+  <%=mdy @announcement.begins_on %>
+</p>
+
+<p>
+  <b>Begins At:</b>
+  <%=h @announcement.begins_at %>
+</p>
+
+<p>
+  <b>Ends On:</b>
+  <%=mdy @announcement.ends_on %>
+</p>
+
+<p>
+  <b>Ends At:</b>
+  <%=h @announcement.ends_at %>
+</p>
+
+<p>
+<%= link_to 'Edit Group Announcement', edit_group_announcement_path(@group,@announcement),
+	:class => 'button' %>&nbsp;
+<%= link_to "Show Group's Announcements", group_announcements_path(@group),
+	:class => 'button' %>
+</p>

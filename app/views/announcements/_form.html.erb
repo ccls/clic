@@ -1,7 +1,7 @@
 <% javascripts('tiny_mce/jquery.tinymce.js') %>
 <h2>Editing Announcement</h2>
 
-<% form_for(@event) do |f| %>
+<% form_for(@announcement) do |f| %>
  <%= f.error_messages %>
  <%= f.wrapped_text_field :title,
 	:label_text => "Title #{required('*')}",
@@ -29,11 +29,11 @@
  <% end %>
  <p><%= required('*&nbsp;-&nbsp;Required') -%> (times are optional)</p>
  <p>
-  <%= f.submit_link_to( ((@event.new_record?)?'Create':'Update')<<' Event' ) %>&nbsp;
-  <% unless( @event.new_record? ) %>
-    <%= link_to 'Cancel and Show This Announcement', @event, :class => 'button' %>&nbsp;
+  <%= f.submit_link_to( ((@announcement.new_record?)?'Create':'Update')<<' Announcement' ) %>&nbsp;
+  <% unless( @announcement.new_record? ) %>
+    <%= link_to 'Cancel and Show This Announcement', @announcement, :class => 'button' %>&nbsp;
   <% end %>
-  <%= link_to 'Cancel and Show All Announcements', events_path, :class => 'button' %>
+  <%= link_to 'Cancel and Show All Announcements', announcements_path, :class => 'button' %>
  </p>
 <% end %>
 

@@ -1,0 +1,14 @@
+<h2>Announcements
+<span class='controls'>
+<%= link_to 'Create New Announcement', new_announcement_path, :class => 'button' %>
+</span>
+</h2>
+
+<% if @announcements.length > 0 %>
+ <table id='announcements'><thead>
+ <tr><th>Title</th><th>Time</th><th>&nbsp;</th></tr></thead><tbody>
+ <%= render :partial => 'announcement', :collection => @announcements %>
+ </tbody></table><!-- id='announcements' -->
+<% else %>
+ <p>Sorry, but no announcements yet.</p>
+<% end %>

@@ -1,0 +1,13 @@
+<h2>Editing Group Announcement</h2>
+
+<% form_for(@announcement,
+	:url => group_announcement_path(@group,@announcement) ) do |f| %>
+ <%= render :partial => 'form', :locals => {:f => f} %>
+ <p>
+  <%= f.submit_link_to( 'Update' ) %>&nbsp;
+  <%= link_to 'Cancel and Show Group Announcement', group_announcement_path(@group,@announcement),
+		:class => 'button' %>&nbsp;
+  <%= link_to "Cancel and Show Group's Announcements", group_announcements_path(@group),
+		:class => 'button' %>
+ </p>
+<% end %>

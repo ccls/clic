@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
 		:class_name => 'Membership', 
 		:conditions => { :approved => true }
 	has_many :group_documents
-	has_many :events
+	has_many :announcements
 	has_many :topics
 	has_many :posts
 	has_many :groups, :through => :memberships

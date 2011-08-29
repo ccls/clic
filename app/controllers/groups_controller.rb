@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
 	end 
 
 	def show
-		@events = @group.events
+		@announcements = @group.announcements
 		@forums = @group.forums
 	end
 
