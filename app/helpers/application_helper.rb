@@ -20,7 +20,8 @@ module ApplicationHelper
 				"#{link_to( "Documents and Forms", doc_forms_path )}</li>\n"
 			out << "<li class='members#{current_controller('publications')}'>" <<
 				"#{link_to( "Publications", publications_path )}</li>\n"
-			out << "<li class='members'>Member Directory TODO</li>\n"
+			out << "<li class='members#{current_controller('directories')}'>" <<
+				"#{link_to( "Member Directory", directory_path )}</li>\n"
 			out << "<li class='members'>Study Contact Info TODO</li>\n"
 			out << "<li class='inventory#{current_controller('inventories')}'>" <<
 				"#{link_to( "Inventory", inventory_path )}</li>\n"

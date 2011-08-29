@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+	map.resource  :directory, :only => :show
 	map.resources :questionnaires, :member => { :download => :get }
 
 	map.resources :professions
