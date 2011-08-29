@@ -15,6 +15,11 @@
 </div>
 
 <p>
+  <b>Principal Investigators:</b>
+  <%=h @study.principal_investigators.join(', ') %>
+</p>
+
+<p>
   <b>World region:</b>
   <%=h @study.world_region %>
 </p>
@@ -37,11 +42,6 @@
 <p>
   <b>Recruitment:</b>
   <%=h @study.recruitment %>
-</p>
-
-<p>
-  <b>Principal Investigators:</b>
-  <%=h @study.principal_investigators.join(', ') %>
 </p>
 
 <p>
