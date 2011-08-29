@@ -8,7 +8,7 @@
    <%= render :partial => 'event', :collection => @events %>
    </tbody></table><!-- id='events' -->
   <% else %>
-   <p>Sorry, but no events yet.</p>
+   <p>Sorry, but no announcements yet.</p>
   <% end %>
  </div><!-- class='announcement_section section' -->
 
@@ -19,8 +19,8 @@
 </div><!-- class='members_only' -->
 
 <p>
-<%= link_to "New Site Event", new_event_path, :class => 'button' %>&nbsp;
-<%= link_to "All Site Events", events_path, :class => 'button' %>
+<%= link_to "New Site Announcement", new_event_path, :class => 'button' %>&nbsp;
+<%= link_to "All Site Announcements", events_path, :class => 'button' %>
 </p>
 </div><!-- class='members_only_wrapper' -->
 

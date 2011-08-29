@@ -7,7 +7,7 @@
   <% if current_user.may_edit_events? %>
    <%= link_to 'Edit', edit_event_path(event), :class => 'button' %>&nbsp;
    <%# destroy_link_to 'Destroy', event_path(event) do %>
-    <%#= hidden_field_tag 'confirm', "Destroy event '#{h(event)}'?", 
+    <%#= hidden_field_tag 'confirm', "Destroy announcement '#{h(event)}'?", 
      :id => nil %>
     <%#= submit_link_to('Destroy') %>
    <%# end %>

@@ -1,4 +1,4 @@
-<h2><%= link_to @group.name, @group %>&nbsp;&raquo;&nbsp;Events</h2>
+<h2><%= link_to @group.name, @group %>&nbsp;&raquo;&nbsp;Announcements</h2>
 
 <% if @events.length > 0 %>
  <table id='events'><thead>
@@ -12,6 +12,6 @@
 <p>
 <%= link_to 'Group', group_path(@group), 
 	:class => 'button' %>&nbsp;
-<%= link_to 'Create New Group Event', new_group_event_path(@group), 
+<%= link_to 'Create New Group Announcement', new_group_event_path(@group), 
 	:class => 'button' %>
 </p>

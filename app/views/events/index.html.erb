@@ -1,6 +1,6 @@
-<h2>Events
+<h2>Announcements
 <span class='controls'>
-<%= link_to 'Create New Event', new_event_path, :class => 'button' %>
+<%= link_to 'Create New Announcement', new_event_path, :class => 'button' %>
 </span>
 </h2>
 
@@ -10,5 +10,5 @@
  <%= render :partial => 'event', :collection => @events %>
  </tbody></table><!-- id='events' -->
 <% else %>
- <p>Sorry, but no events yet.</p>
+ <p>Sorry, but no announcements yet.</p>
 <% end %>

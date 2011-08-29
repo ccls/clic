@@ -21,7 +21,7 @@
    <%= render :partial => 'event', :collection => @events %>
    </tbody></table><!-- id='events' -->
   <% else %>
-   <p>Sorry, but no events yet.</p>
+   <p>Sorry, but no announcements yet.</p>
   <% end %>
  </div><!-- class='announcement_section section' -->
 
@@ -32,10 +32,10 @@
 
 <p>
 <% if current_user.may_create_group_events?(@group) %>
-<%= link_to "Create New Group Event", new_group_event_path(@group), 
+<%= link_to "Create New Group Announcement", new_group_event_path(@group), 
    :class => 'button' %>&nbsp;
 <% end %>
-<%= link_to "All Group Events", group_events_path(@group), 
+<%= link_to "All Group Announcements", group_events_path(@group), 
    :class => 'button' %>
 </p>
 </div><!-- class='members_only_wrapper' -->

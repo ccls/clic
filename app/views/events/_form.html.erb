@@ -1,5 +1,5 @@
 <% javascripts('tiny_mce/jquery.tinymce.js') %>
-<h2>Editing event</h2>
+<h2>Editing Announcement</h2>
 
 <% form_for(@event) do |f| %>
  <%= f.error_messages %>
@@ -31,9 +31,9 @@
  <p>
   <%= f.submit_link_to( ((@event.new_record?)?'Create':'Update')<<' Event' ) %>&nbsp;
   <% unless( @event.new_record? ) %>
-    <%= link_to 'Cancel and Show This Event', @event, :class => 'button' %>&nbsp;
+    <%= link_to 'Cancel and Show This Announcement', @event, :class => 'button' %>&nbsp;
   <% end %>
-  <%= link_to 'Cancel and Show All Events', events_path, :class => 'button' %>
+  <%= link_to 'Cancel and Show All Announcements', events_path, :class => 'button' %>
  </p>
 <% end %>
 
