@@ -36,6 +36,7 @@ module SitePermissions
 		def may?
 			may_read? || approved?
 		end
+		alias_method :may_read_directory?, :may?
 
 		#	from SimplyAuthorized::UserModel::InstanceMethods
 #

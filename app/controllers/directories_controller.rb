@@ -1,5 +1,7 @@
 class DirectoriesController < ApplicationController
-	before_filter :may_read_required
+
+	before_filter :may_read_directory_required
+
 	def show
 		recall_or_record_sort_order
 		@members = User.find(:all,
@@ -37,6 +39,10 @@ protected
 		else
 			nil
 		end
+	end
+
+	def may_read_directory_required
+		current_user.may_read_directory? || access_denied
 	end
 
 end
