@@ -2,6 +2,9 @@ require 'test_helper'
 
 class DirectoriesControllerTest < ActionController::TestCase
 
+	#	gotta have a membership to use
+	setup :create_a_membership
+
 	approved_users.each do |cu|
 
 		test "should get member directory with #{cu} login" do
