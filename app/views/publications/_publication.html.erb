@@ -3,6 +3,7 @@
  <td class='journal'><%=h publication.journal %></td>
  <td class='author'><%=h publication.author_last_name %></td>
  <td class='pubyear'><%=h publication.publication_year %></td>
+<% if current_user.may_edit_publications? %>
  <td class='manage'>
   <%= link_to 'Edit', edit_publication_path(publication), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', publication_path(publication) do %>
@@ -11,4 +12,5 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
+<% end %>
 <% end %>

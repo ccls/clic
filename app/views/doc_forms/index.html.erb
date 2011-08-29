@@ -1,8 +1,10 @@
 <h2>Doc Forms
+<% if current_user.may_create_doc_forms? %>
 <span class='controls'>
 <%= link_to "Add Doc Form", new_doc_form_path,
 	:class => 'button' %>
 </span>
+<% end %>
 </h2>
 
 <% unless @doc_forms.empty? %>

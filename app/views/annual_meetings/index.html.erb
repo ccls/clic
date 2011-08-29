@@ -1,8 +1,10 @@
 <h2>Annual Meetings
+<% if current_user.may_create_annual_meetings? %>
 <span class='controls'>
 <%= link_to "Add Annual Meeting", new_annual_meeting_path,
 	:class => 'button' %>
 </span>
+<% end %>
 </h2>
 
 <% unless @annual_meetings.empty? %>

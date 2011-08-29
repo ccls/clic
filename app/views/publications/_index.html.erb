@@ -1,10 +1,12 @@
 <h2>Publications
+<% if current_user.may_create_publications? %>
 <span class='controls'>
 <%= link_to "Create New Publication", 
 	new_publication_path(:publication => { :study_ids => [@study.try(:id)],
 		:publication_subject_ids => [@publication_subject.try(:id)] }),
 	:class => 'button' %>
 </span>
+<% end %>
 </h2>
 
 <% unless publications.empty? %>
