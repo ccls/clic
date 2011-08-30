@@ -41,6 +41,7 @@
   <% end %>
 <% end %>
 
+<% if current_user.may_edit_publications? %>
 <div class='manage'>
   <%= link_to 'Edit', edit_publication_path(@publication), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', publication_path(@publication) do %>
@@ -49,3 +50,4 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
+<% end %>

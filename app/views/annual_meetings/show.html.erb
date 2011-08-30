@@ -15,7 +15,7 @@
   <% end %>
 <% end %>
 
-
+<% if current_user.may_edit_annual_meetings? %>
 <div class='manage'>
   <%= link_to 'Edit', edit_annual_meeting_path(@annual_meeting), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', annual_meeting_path(@annual_meeting) do %>
@@ -24,3 +24,4 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
+<% end %>

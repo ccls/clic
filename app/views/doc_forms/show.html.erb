@@ -18,7 +18,7 @@
   <% end %>
 <% end %>
 
-
+<% if current_user.may_edit_doc_forms? %>
 <div class='manage'>
   <%= link_to 'Edit', edit_doc_form_path(@doc_form), :class => 'button' %>&nbsp;
   <% destroy_link_to 'Destroy', doc_form_path(@doc_form) do %>
@@ -27,3 +27,4 @@
    <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
+<% end %>

@@ -7,10 +7,10 @@ class DirectoriesController < ApplicationController
 		@members = User.find(:all,
 			:select => 'DISTINCT users.*',
 			:include => :professions,
-			:joins => [
-				'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")',
-				'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
-			],
+#			:joins => [
+#				'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")',
+#				'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
+#			],
 			:order => search_order )
 	end
 
@@ -18,7 +18,6 @@ protected
 
 	def valid_orders
 		HWIA.new(
-			:profession => 'professions.name',
 			:last_name  => nil,
 			:title      => nil
 		)

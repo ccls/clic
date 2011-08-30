@@ -34,7 +34,8 @@ class DirectoriesControllerTest < ActionController::TestCase
 
 	[nil,'asc','desc','bogus'].each do |dir|
 
-		[nil,'last_name','profession','title','bogus'].each do |order|
+#		[nil,'last_name','profession','title','bogus'].each do |order|
+		[nil,'last_name','title','bogus'].each do |order|
 
 			test "should get member directory with dir:#{dir}:, order:#{order}: and administrator login" do
 				login_as send(:administrator)
