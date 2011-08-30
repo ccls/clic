@@ -97,7 +97,9 @@ protected
 	end
 
 	def may_read_inventory_required
-		current_user.may_read_inventory? || access_denied()
+		current_user.may_read_inventory? || access_denied(
+			"Coordination Group membership required to access the inventory. Request membership now?", new_group_membership_path(Group.find_by_name('Coordination Group'))
+		)
 	end
 
 end
