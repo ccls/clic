@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
 
 	def show
 		@announcements = @group.announcements
+		@cal_events = @announcements	#	TODO for now, but should remove timeless announcements
 		@forums = @group.forums
 	end
 

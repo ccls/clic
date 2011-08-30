@@ -430,14 +430,16 @@ module ClassMethods
 					:group_id => @membership.group.id, 
 					:id => object.id
 				assert_not_nil flash[:error]
-				assert_redirected_to root_path
+#				assert_redirected_to root_path
+				assert_redirected_to new_group_membership_path(@membership.group)
 			end
 	
 			test "should NOT get index #{options[:attributes_key].to_s.pluralize} with #{cu} login" do
 				login_as send(cu)
 				get :index, :group_id => @membership.group.id
 				assert_not_nil flash[:error]
-				assert_redirected_to root_path
+#				assert_redirected_to root_path
+				assert_redirected_to new_group_membership_path(@membership.group)
 			end
 	
 		end	#	No access roles

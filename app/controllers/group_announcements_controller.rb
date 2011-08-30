@@ -78,7 +78,9 @@ protected
 	end
 
 	def may_read_group_announcements_required
-		current_user.may_read_group_announcements?(@group) || access_denied
+		current_user.may_read_group_announcements?(@group) || access_denied(
+			"Group Membership required. Request one now?", new_group_membership_path(@group)
+		)
 	end
 
 	def may_update_group_announcements_required

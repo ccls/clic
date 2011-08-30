@@ -58,13 +58,13 @@ class CalendarHelperTest < ActionView::TestCase
 	end
 
 	test "should return calendar with an announcement" do
-		@announcements << create_announcement(:begins_on => Date.today)
+		@cal_events << create_announcement(:begins_on => Date.today)
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
 			assert_select "table#calendar" do
-				assert_select "td.has_announcement", 1 do
-					assert_select "div.announcements", 1 do
-						assert_select "div.announcement", 1
+				assert_select "td.has_event", 1 do
+					assert_select "div.events", 1 do
+						assert_select "div.event", 1
 					end
 				end
 			end
@@ -74,15 +74,15 @@ class CalendarHelperTest < ActionView::TestCase
 	test "should return calendar with announcement spanning multiple days" do
 		#	this will be a bit dependent on what day the test actually runs
 		#	3 day announcement, but only guaranteed that 2 days are this month
-		@announcements << create_announcement(:begins_on => Date.yesterday,
+		@cal_events << create_announcement(:begins_on => Date.yesterday,
 			:ends_on => Date.tomorrow)
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
 			assert_select "table#calendar" do
-				assert_select "td.has_announcement", 2..3 do |days|
+				assert_select "td.has_event", 2..3 do |days|
 					days.each do |day|
-						assert_select day, "div.announcements", 1 do
-							assert_select "div.announcement", 1
+						assert_select day, "div.events", 1 do
+							assert_select "div.event", 1
 						end
 					end
 				end
@@ -91,14 +91,14 @@ class CalendarHelperTest < ActionView::TestCase
 	end
 
 	test "should return calendar with multiple announcements on single day" do
-		@announcements << create_announcement(:begins_on => Date.today)
-		@announcements << create_announcement(:begins_on => Date.today)
+		@cal_events << create_announcement(:begins_on => Date.today)
+		@cal_events << create_announcement(:begins_on => Date.today)
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
 			assert_select "table#calendar" do
-				assert_select "td.has_announcement", 1 do
-					assert_select "div.announcements", 1 do
-						assert_select "div.announcement", 2
+				assert_select "td.has_event", 1 do
+					assert_select "div.events", 1 do
+						assert_select "div.event", 2
 					end
 				end
 			end
@@ -109,13 +109,13 @@ class CalendarHelperTest < ActionView::TestCase
 		@group = create_group
 		self.params = HWIA.new( :controller => 'groups', :action => 'show', :id => @group.id )
 		@group.announcements << create_announcement(:begins_on => Date.today)
-		@announcements = @group.announcements #	@announcements expected by calendar
+		@cal_events = @group.announcements #	@cal_events expected by calendar
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
 			assert_select "table#calendar" do
-				assert_select "td.has_announcement", 1 do
-					assert_select "div.announcements", 1 do
-						assert_select "div.announcement", 1
+				assert_select "td.has_event", 1 do
+					assert_select "div.events", 1 do
+						assert_select "div.event", 1
 					end
 				end
 			end

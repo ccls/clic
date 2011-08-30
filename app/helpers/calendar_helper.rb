@@ -16,19 +16,20 @@ module CalendarHelper
 			7.times.each do |day|
 				classes = []
 				classes.push('today') if(today == calday)
-				todays_announcements = @announcements.select{|e|
+				todays_announcements = @cal_events.select{|e|
 					e.begins_on == calday ||
 					e.ends_on == calday || (
 						!e.begins_on.nil? && !e.ends_on.nil? && 
 						( e.begins_on .. e.ends_on ).to_a.include?(calday)
 					)
 				}
-				classes.push('has_announcement') unless ( todays_announcements.empty? )
+				classes.push('has_event') unless ( todays_announcements.empty? )
 				out << "<td class='#{classes.join(' ')}'>#{calday.day}"
 				unless ( todays_announcements.empty? )
-					out << "<div class='announcements'>"
+					out << "<div class='events'>"
+					out << "<span class='date'>#{mdy(calday)}</span>"
 					out << todays_announcements.collect{|e|
-						eout  = "<div class='announcement'>"
+						eout  = "<div class='event'>"
 						eout << if e.group
 								link_to(e,group_announcement_path(e.group,e))
 							else

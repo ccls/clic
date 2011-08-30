@@ -234,6 +234,8 @@ class GroupsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => @membership.group.id
 			assert assigns(:group)
+			assert assigns(:announcements)
+			assert assigns(:cal_events)
 			assert_response :success
 			assert_template 'show'
 		end
