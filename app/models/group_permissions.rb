@@ -163,6 +163,10 @@ module GroupPermissions
 			end
 		end
 
+		def may_read_inventory?
+			may_administrate?
+		end
+
 	end	#	module InstanceMethods
 
 end

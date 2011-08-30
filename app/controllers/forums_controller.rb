@@ -32,6 +32,7 @@ protected
 	def valid_id_required
 		if Forum.exists?(params[:id])
 			@forum = Forum.find(params[:id])
+			@group = @forum.group if @forum.group
 		else
 			access_denied("Valid forum id required")
 		end

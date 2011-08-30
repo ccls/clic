@@ -1,6 +1,6 @@
 <h2>
-<% if @forum.group %>
-<%= link_to @forum.group.name, @forum.group %>
+<% if @group %>
+<%= link_to @group.name, @group %>
 &nbsp;&raquo;&nbsp;
 <% else %>
 <%= link_to "Member's Only", members_only_path %>

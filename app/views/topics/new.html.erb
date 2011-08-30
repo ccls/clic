@@ -1,11 +1,14 @@
 <% javascripts('tiny_mce/jquery.tinymce.js') %>
-<h2><% if @group %>
+<h2>
+<% if @group %>
 <%= link_to @group.name, @group %>
 &nbsp;&raquo;&nbsp;
 <% else %>
 <%= link_to "Member's Only", members_only_path %>
 &nbsp;&raquo;&nbsp;
 <% end %>
+<%= link_to @forum.name, @forum %>
+&nbsp;&raquo;&nbsp;
 Creating new discussion topic</h2>
 
 <% form_for( @topic, :url => forum_topics_path(@forum),
@@ -30,7 +33,7 @@ Creating new discussion topic</h2>
   <% end %>
 
   <p>
-    <%= f.submit_link_to 'Create' %>&nbsp;
+    <%= f.submit_link_to 'Create Topic' %>&nbsp;
     <%= link_to 'Cancel and return to Forum', forum_path(@forum),
       :class => 'button' %>
   </p>

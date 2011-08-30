@@ -39,6 +39,7 @@ protected
 		if Topic.exists?(params[:id])
 			@topic = Topic.find(params[:id])
 			@forum = @topic.forum
+			@group = @forum.group if @forum.group
 		else
 			access_denied("Valid topic id required")
 		end

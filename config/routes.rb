@@ -69,14 +69,15 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.signup  '/signup',  :controller => 'users',         :action => 'new'
 	map.signin  '/signin',  :controller => 'user_sessions', :action => 'new'
-	map.login   '/login',	  :controller => 'user_sessions', :action => 'new'
+	map.login   '/login',   :controller => 'user_sessions', :action => 'new'
 	map.signout '/signout', :controller => 'user_sessions', :action => 'destroy'
 	map.logout  '/logout',  :controller => 'user_sessions', :action => 'destroy'
 
 	map.root :controller => "pages", :action => "show", :path => [""]
 
-	map.resource  :calendar,   :only => [ :show ]
-	map.resources :search_results,   :only => [ :index ]
+	#	TODO why do I still have this?
+	map.resource  :calendar,       :only => [ :show ]
+	map.resources :search_results, :only => [ :index ]
 
 	#	MUST BE LAST OR WILL BLOCK ALL OTHER ROUTES!
 	#	catch all route to manage admin created pages.
