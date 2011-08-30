@@ -72,18 +72,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-#	could add these non-group tests to those at the top
-#	I should try to add the "invalid"/"failed save" tests into gem
-
-	site_administrators.each do |cu|
-#
-#		test "should get new forum without group with #{cu} login" do
-#			pending
-#		end
-#
-#		test "should create forum without group with #{cu} login" do
-#			pending
-#		end
+	site_editors.each do |cu|
 
 		test "should NOT create forum without group with #{cu} login " <<
 				"with invalid forum" do
@@ -110,22 +99,10 @@ class ForumsControllerTest < ActionController::TestCase
 		end
 
 	end
-#
-#	non_site_administrators.each do |cu|
-#
-#		test "should NOT get new forum without group with #{cu} login" do
-#			pending
-#		end
-#
-#		test "should NOT create forum without group with #{cu} login" do
-#			pending
-#		end
-#
-#	end
 
 ##################################################
 
-	group_moderators.each do |cu|
+	group_editors.each do |cu|
 
 		test "should get new forum with group and #{cu} login" do
 			login_as send(cu)
@@ -175,7 +152,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-	non_group_moderators.each do |cu|
+	non_group_editors.each do |cu|
 
 		test "should NOT get new forum with group and #{cu} login" do
 			login_as send(cu)

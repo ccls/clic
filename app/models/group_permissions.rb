@@ -157,7 +157,7 @@ module GroupPermissions
 
 		def may_create_forum_for_group?(group)
 			if group
-				may_administrate? || is_group_moderator?(group)
+				may_administrate? || is_group_editor?(group)
 			else
 				may_edit?
 			end
