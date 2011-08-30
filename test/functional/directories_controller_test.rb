@@ -14,6 +14,21 @@ class DirectoriesControllerTest < ActionController::TestCase
 			assert_template 'show'
 		end
 
+		[nil,'asc','desc','bogus'].each do |dir|
+
+			[nil,'last_name','profession','title','bogus'].each do |order|
+
+				test "should get member directory with dir:#{dir}:, order:#{order}: #{cu} login" do
+					login_as send(cu)
+					get :show, :dir => dir, :order => order
+					assert_response :success
+					assert_template 'show'
+				end
+
+			end
+
+		end
+
 	end
 
 	unapproved_users.each do |cu|

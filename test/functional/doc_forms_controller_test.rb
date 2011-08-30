@@ -72,16 +72,55 @@ class DocFormsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
-		test "should NOT create doc form with invalid attachment and #{cu} login" do
-			pending	#	TODO
+		test "should NOT create doc_form with an invalid attachment and #{cu} login" do
+			login_as send(cu)
+			assert_difference('GroupDocument.count',0) {
+			assert_difference('DocForm.count',0) {
+				post :create, :doc_form => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:title => nil,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )])
+			} }
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
 		end
 
-		test "should create doc form with an attachment and #{cu} login" do
-			pending	#	TODO
+		test "should create doc_form with an attachment and #{cu} login" do
+			login_as send(cu)
+			assert_difference('GroupDocument.count',1) {
+			assert_difference('DocForm.count',1) {
+				post :create, :doc_form => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )])
+			} }
+			assert_not_nil flash[:notice]
+			assert_redirected_to assigns(:doc_form)
+			assigns(:doc_form).destroy
 		end
 
-		test "should create doc form with multiple attachments and #{cu} login" do
-			pending	#	TODO
+		test "should create doc_form with multiple attachments and #{cu} login" do
+			login_as send(cu)
+			assert_difference('GroupDocument.count',2) {
+			assert_difference('DocForm.count',1) {
+				post :create, :doc_form => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') ),
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )
+					]
+				)
+			} }
+			assert_not_nil flash[:notice]
+			assert_redirected_to assigns(:doc_form)
+			assigns(:doc_form).destroy
 		end
 
 	end

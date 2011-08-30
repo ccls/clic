@@ -54,7 +54,7 @@ class PublicationsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			Publication.any_instance.stubs(:valid?).returns(false)
 			assert_difference('Publication.count',0) {
-				post :create, :publication => factory_attributes	#Factory.attributes_for(:publication)
+				post :create, :publication => factory_attributes
 			}
 			assert_not_nil flash[:error]
 			assert_response :success
@@ -66,7 +66,7 @@ class PublicationsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			Publication.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('Publication.count',0) {
-				post :create, :publication => factory_attributes	#Factory.attributes_for(:publication)
+				post :create, :publication => factory_attributes
 			}
 			assert_not_nil flash[:error]
 			assert_response :success
@@ -74,15 +74,54 @@ class PublicationsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create publication with an invalid attachment and #{cu} login" do
-			pending	#	TODO
+			login_as send(cu)
+			assert_difference('GroupDocument.count',0) {
+			assert_difference('Publication.count',0) {
+				post :create, :publication => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:title => nil,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )])
+			} }
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
 		end
 
 		test "should create publication with an attachment and #{cu} login" do
-			pending	#	TODO
+			login_as send(cu)
+			assert_difference('GroupDocument.count',1) {
+			assert_difference('Publication.count',1) {
+				post :create, :publication => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )])
+			} }
+			assert_not_nil flash[:notice]
+			assert_redirected_to assigns(:publication)
+			assigns(:publication).destroy
 		end
 
 		test "should create publication with multiple attachments and #{cu} login" do
-			pending	#	TODO
+			login_as send(cu)
+			assert_difference('GroupDocument.count',2) {
+			assert_difference('Publication.count',1) {
+				post :create, :publication => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') ),
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )
+					]
+				)
+			} }
+			assert_not_nil flash[:notice]
+			assert_redirected_to assigns(:publication)
+			assigns(:publication).destroy
 		end
 
 	end

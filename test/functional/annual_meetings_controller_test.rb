@@ -72,16 +72,55 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
-		test "should NOT create annual meeting with invalid attachment and #{cu} login" do
-			pending	#	TODO
+		test "should NOT create annual_meeting with an invalid attachment and #{cu} login" do
+			login_as send(cu)
+			assert_difference('GroupDocument.count',0) {
+			assert_difference('AnnualMeeting.count',0) {
+				post :create, :annual_meeting => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:title => nil,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )])
+			} }
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
 		end
 
-		test "should create annual meeting with an attachment and #{cu} login" do
-			pending	#	TODO
+		test "should create annual_meeting with an attachment and #{cu} login" do
+			login_as send(cu)
+			assert_difference('GroupDocument.count',1) {
+			assert_difference('AnnualMeeting.count',1) {
+				post :create, :annual_meeting => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )])
+			} }
+			assert_not_nil flash[:notice]
+			assert_redirected_to assigns(:annual_meeting)
+			assigns(:annual_meeting).destroy
 		end
 
-		test "should create annual meeting with multiple attachments and #{cu} login" do
-			pending	#	TODO
+		test "should create annual_meeting with multiple attachments and #{cu} login" do
+			login_as send(cu)
+			assert_difference('GroupDocument.count',2) {
+			assert_difference('AnnualMeeting.count',1) {
+				post :create, :annual_meeting => factory_attributes(
+					:group_documents_attributes => [
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') ),
+						Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf') )
+					]
+				)
+			} }
+			assert_not_nil flash[:notice]
+			assert_redirected_to assigns(:annual_meeting)
+			assigns(:annual_meeting).destroy
 		end
 
 	end

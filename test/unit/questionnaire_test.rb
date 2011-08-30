@@ -14,7 +14,13 @@ class QuestionnaireTest < ActiveSupport::TestCase
 	end
 
 	test "should create with attachment" do
-		pending
+		assert_difference('Questionnaire.count',1) {
+			@object = create_object(
+				:document => File.open(File.dirname(__FILE__) + 
+					'/../assets/edit_save_wireframe.pdf')
+			)
+		}
+		@object.destroy
 	end
 
 end
