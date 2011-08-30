@@ -10,6 +10,7 @@ class TopicsController < ApplicationController
 		:only => [:new,:create]
 
 	def new
+		@group = @forum.group if @forum.group
 		@topic = Topic.new
 	end
 
