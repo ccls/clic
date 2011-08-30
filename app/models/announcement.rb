@@ -1,5 +1,5 @@
 class Announcement < ActiveRecord::Base
-	default_scope :order => 'begins_on DESC'
+	default_scope :order => 'created_at DESC, begins_on DESC'
 	belongs_to :user
 	belongs_to :group
 
