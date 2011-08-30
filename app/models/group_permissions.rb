@@ -164,7 +164,7 @@ module GroupPermissions
 		end
 
 		def may_read_inventory?
-			may_administrate?
+			may_administrate? || is_group_reader?(Group.find_by_name('Coordination Group'))
 		end
 
 	end	#	module InstanceMethods
