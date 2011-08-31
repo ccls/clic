@@ -544,8 +544,7 @@ class UsersControllerTest < ActionController::TestCase
 		User.any_instance.stubs(:create_or_update).returns(false)
 		login_as user
 		deny_changes("User.find(#{user.id}).updated_at") {
-			put :update, :id => user.id,
-				:user => factory_attributes
+			put :update, :id => user.id, :user => factory_attributes
 		}
 		assert assigns(:user)
 		assert_response :success
@@ -557,23 +556,13 @@ class UsersControllerTest < ActionController::TestCase
 		user = create_user(:updated_at => Chronic.parse('yesterday'))
 		User.any_instance.stubs(:valid?).returns(false)
 		login_as user
-pending
-#		deny_changes("User.find(#{user.id}).updated_at") {
-#	this will actually change the last_request_at and updated_at field
-#			put :update, :id => user.id,
-#				:user => factory_attributes
-#		}
-#		assert assigns(:user)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_not_nil flash[:error]
+		deny_changes("User.find(#{user.id}).updated_at") {
+			put :update, :id => user.id, :user => factory_attributes
+		}
+		assert assigns(:user)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
-
-
-
-
-
-#	Destroy  
-
 
 end
