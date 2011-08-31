@@ -133,3 +133,6 @@ div#group_documents {
 	border: 1px solid silver;
 	padding: 0 10px;
 }
+dl#group_role_definitions dd {
+	padding-left:20px;
+}
