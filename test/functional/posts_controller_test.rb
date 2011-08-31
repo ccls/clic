@@ -37,9 +37,10 @@ class PostsControllerTest < ActionController::TestCase
 		test "should update post with #{cu} login" do
 			login_as send(cu)
 			post = create_post
-#			assert_changes("Post.find(#{post.id}).updated_at") {
+			sleep 1
+			assert_changes("Post.find(#{post.id}).updated_at") {
 				put :update, :id => post.id, :post => factory_attributes
-#			}
+			}
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
 		end
@@ -51,9 +52,9 @@ class PostsControllerTest < ActionController::TestCase
 			deny_changes("Post.find(#{post.id}).updated_at") {
 				put :update, :id => post.id, :post => factory_attributes
 			}
-pending # TODO
-#			assert_not_nil flash[:error]
-#			assert_redirected_to post.topic
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'edit'
 		end
 
 		test "should not update post with #{cu} login and post invalid" do
@@ -63,20 +64,20 @@ pending # TODO
 			deny_changes("Post.find(#{post.id}).updated_at") {
 				put :update, :id => post.id, :post => factory_attributes
 			}
-pending # TODO
-#			assert_not_nil flash[:error]
-#			assert_redirected_to post.topic
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'edit'
 		end
 
 		test "should destroy post with #{cu} login" do
 			login_as send(cu)
 			post = create_post
-#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
-#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
-#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
-#			assert_difference('Post.count', -1) {
+			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+			assert_difference('Post.count', -1) {
 				delete :destroy, :id => post.id
-#			} } } }
+			} } } }
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
 		end
@@ -84,13 +85,14 @@ pending # TODO
 		test "should destroy attachments with post destruction and #{cu} login" do
 			login_as send(cu)
 			post = create_post
-#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
-#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
-#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+#	TODO
 #			assert_difference('GroupDocument.count', -1) {
-#			assert_difference('Post.count', -1) {
+			assert_difference('Post.count', -1) {
 				delete :destroy, :id => post.id
-#			} } } } }
+			} } } } #}
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
 		end
@@ -120,12 +122,12 @@ pending # TODO
 		test "should NOT destroy post with #{cu} login" do
 			login_as send(cu)
 			post = create_post
-#			assert_difference( "User.find(#{post.user_id}).posts_count", 0) {
-#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", 0) {
-#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", 0) {
-#			assert_difference('Post.count', 0) {
+			assert_difference( "User.find(#{post.user_id}).posts_count", 0) {
+			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", 0) {
+			assert_difference( "Topic.find(#{post.topic_id}).posts_count", 0) {
+			assert_difference('Post.count', 0) {
 				delete :destroy, :id => post.id
-#			} } } }
+			} } } }
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 		end
@@ -276,9 +278,10 @@ pending # TODO
 			forum = create_group_forum(@membership.group)
 			topic = create_forum_topic(forum)
 			post = create_post(:topic => topic)
-#			assert_changes("Post.find(#{post.id}).updated_at") {
+			sleep 1
+			assert_changes("Post.find(#{post.id}).updated_at") {
 				put :update, :id => post.id, :post => factory_attributes
-#			}
+			}
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
 		end
@@ -292,7 +295,9 @@ pending # TODO
 			deny_changes("Post.find(#{post.id}).updated_at") {
 				put :update, :id => post.id, :post => factory_attributes
 			}
-pending # TODO
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'edit'
 		end
 
 		test "should not update group post with #{cu} login and post invalid" do
@@ -304,7 +309,9 @@ pending # TODO
 			deny_changes("Post.find(#{post.id}).updated_at") {
 				put :update, :id => post.id, :post => factory_attributes
 			}
-pending # TODO
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'edit'
 		end
 
 		test "should destroy group post with #{cu} login" do
@@ -312,12 +319,12 @@ pending # TODO
 			forum = create_group_forum(@membership.group)
 			topic = create_forum_topic(forum)
 			post = create_post(:topic => topic)
-#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
-#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
-#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
-#			assert_difference('Post.count', -1) {
+			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+			assert_difference('Post.count', -1) {
 				delete :destroy, :id => post.id
-#			} } } }
+			} } } }
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
 		end
@@ -327,13 +334,14 @@ pending # TODO
 			forum = create_group_forum(@membership.group)
 			topic = create_forum_topic(forum)
 			post = create_post(:topic => topic)
-#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
-#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
-#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+#	TODO
 #			assert_difference('GroupDocument.count', -1) {
-#			assert_difference('Post.count', -1) {
+			assert_difference('Post.count', -1) {
 				delete :destroy, :id => post.id
-#			} } } } }
+			} } } } #}
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
 		end
@@ -369,12 +377,12 @@ pending # TODO
 			forum = create_group_forum(@membership.group)
 			topic = create_forum_topic(forum)
 			post = create_post(:topic => topic)
-#			assert_difference( "User.find(#{post.user_id}).posts_count", 0) {
-#			assert_difference( "Forum.find(#{post.topic.forum.id}).posts_count", 0) {
-#			assert_difference( "Topic.find(#{post.topic.id}).posts_count", 0) {
-#			assert_difference('Post.count', 0) {
+			assert_difference( "User.find(#{post.user_id}).posts_count", 0) {
+			assert_difference( "Forum.find(#{post.topic.forum.id}).posts_count", 0) {
+			assert_difference( "Topic.find(#{post.topic.id}).posts_count", 0) {
+			assert_difference('Post.count', 0) {
 				delete :destroy, :id => post.id
-#			} } } }
+			} } } }
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 		end

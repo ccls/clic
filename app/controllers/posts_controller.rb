@@ -25,20 +25,18 @@ class PostsController < ApplicationController
 		render :action => 'new'
 	end
 
-	def edit
-	end
-
 	def update
-#		@post.update ...
+		@post.update_attributes!(params[:post])
 		flash[:notice] = "Post updated"
-#	rescue
 		redirect_to @post.topic
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "Post updation failed"
+		render :action => 'edit'
 	end
 
 	def destroy
-#		@post.destroy
+		@post.destroy
 		flash[:notice] = "Post destroyed"
-#	rescue
 		redirect_to @post.topic
 	end
 
