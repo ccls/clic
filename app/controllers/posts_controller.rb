@@ -2,6 +2,8 @@ class PostsController < ApplicationController
 
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:destroy]
+	before_filter :may_moderate_forum_required,
+		:only => [:edit,:update,:destroy]
 
 	before_filter :valid_topic_id_required,
 		:only => [:new,:create,:index]
@@ -27,7 +29,9 @@ class PostsController < ApplicationController
 	end
 
 	def update
+#		@post.update ...
 		flash[:notice] = "Post updated"
+#	rescue
 		redirect_to @post.topic
 	end
 
@@ -43,7 +47,10 @@ protected
 	def valid_id_required
 		if Post.exists?(params[:id])
 			@post  = Post.find(params[:id])
-#			@forum = @topic.forum	#	needed for permissions
+			#	needed for permissions, as is method_missing and singular so
+			#		will be passed to may_moderate_forum?(@forum) when
+			#		may_moderate_forum_required is called
+			@forum = @post.topic.forum	
 		else
 			access_denied("Valid post id required")
 		end
