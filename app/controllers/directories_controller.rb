@@ -27,8 +27,10 @@ protected
 		if valid_orders.has_key?(params[:order])
 			order_string = if valid_orders[params[:order]].blank?
 				params[:order]
-			else
-				valid_orders[params[:order]]
+#	Only used when order is part of a join.
+#	Uncomment if such a sortable column is added.
+#			else
+#				valid_orders[params[:order]]
 			end
 			dir = case params[:dir].try(:downcase)
 				when 'desc' then 'desc'

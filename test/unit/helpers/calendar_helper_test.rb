@@ -4,7 +4,7 @@ class CalendarHelperTest < ActionView::TestCase
 
 	def setup
 		self.params = HWIA.new( :controller => 'members_onlies', :action => 'show' )
-		@announcements = []
+		@cal_events = []
 	end
 
 # def calendar
@@ -161,5 +161,9 @@ protected
 	def stylesheets(*args)
 		#	placeholder so can call calendar and avoid
 		#		NoMethodError: undefined method `stylesheets' for #<CalendarHelperTest:0x106049140>
+	end
+	#	is available in reality from simply helpful
+	def mdy(date)
+		( date.nil? )?'&nbsp;':date.strftime("%m/%d/%Y")
 	end
 end
