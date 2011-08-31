@@ -2,6 +2,8 @@ require 'test_helper'
 
 class ContactsControllerTest < ActionController::TestCase
 
+	setup :create_a_membership
+
 	approved_users.each do |cu|
 
 		test "should get study contact info with #{cu} login" do
