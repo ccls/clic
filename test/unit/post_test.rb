@@ -91,4 +91,17 @@ class PostTest < ActiveSupport::TestCase
 #		GroupDocument.destroy_all
 #	end
 
+	test "should destroy group_document with post" do
+		object = create_post( {
+			:group_documents_attributes => [
+				Factory.attributes_for(:group_document,
+					:document => File.open(File.dirname(__FILE__) + 
+						'/../assets/edit_save_wireframe.pdf'))
+		]})
+		assert_difference('GroupDocument.count',-1) {
+		assert_difference('Post.count',-1) {
+			object.destroy
+		} }
+	end
+
 end
