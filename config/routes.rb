@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :groups, :shallow => true do |group|
 		group.resources :forums, :only => [:new,:create,:show] do |forum|
 			forum.resources :topics, :only => [:new,:create,:show] do |topic|
-				topic.resources :posts, :only => [:new, :create ]
+				topic.resources :posts, :only => [:new, :create, :edit, :update, :destroy ]
 			end
 		end
 	end

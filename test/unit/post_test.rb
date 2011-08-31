@@ -22,6 +22,17 @@ class PostTest < ActiveSupport::TestCase
 		} } } }
 	end
 
+	test "should increment posts_count on create" do
+		topic = create_topic
+		user = topic.user
+		assert_difference("User.find(#{user.id}).posts_count",1) {
+		assert_difference("Forum.find(#{topic.forum.id}).posts_count",1) {
+		assert_difference("Topic.find(#{topic.id}).posts_count",1) {
+		assert_difference('Post.count',1) {
+			object = create_object(:topic => topic, :user => user)
+		} } } }
+	end
+
 	test "should return first 10 of body as to_s" do
 		object = create_object
 		assert_equal object.body[0..9], "#{object}"
@@ -69,28 +80,6 @@ class PostTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
-#	before_create fails, but not using validation for topic
-#
-#	test "should NOT create post with nested attributes for group_documents" <<
-#			" without topic" do
-#		topic = Factory(:topic)
-#		assert_difference('Topic.count',0) {
-#		assert_difference('User.count',0) {
-#		assert_difference('GroupDocument.count',0) {
-#		assert_difference('Post.count',0) {
-#			object = create_post( {
-#				:topic => nil, 		#	needs to be explicitly nil otherwise factory will add one
-#				:user => topic.user,
-#				:group_documents_attributes => [
-#					Factory.attributes_for(:group_document,
-#						:document => File.open(File.dirname(__FILE__) + 
-#							'/../assets/edit_save_wireframe.pdf'))
-#			]})
-#			puts object.errors.inspect
-#		} } } }
-#		GroupDocument.destroy_all
-#	end
-
 	test "should destroy group_document with post" do
 		object = create_post( {
 			:group_documents_attributes => [
@@ -98,10 +87,12 @@ class PostTest < ActiveSupport::TestCase
 					:document => File.open(File.dirname(__FILE__) + 
 						'/../assets/edit_save_wireframe.pdf'))
 		]})
+		assert_difference("Forum.find(#{object.topic.forum.id}).posts_count",-1) {
+		assert_difference("Topic.find(#{object.topic.id}).posts_count",-1) {
 		assert_difference('GroupDocument.count',-1) {
 		assert_difference('Post.count',-1) {
 			object.destroy
-		} }
+		} } } }
 	end
 
 end

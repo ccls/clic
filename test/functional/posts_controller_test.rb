@@ -23,6 +23,97 @@ class PostsControllerTest < ActionController::TestCase
 #
 #	NO Group Forum Topic Post
 #
+
+	site_administrators.each do |cu|
+
+		test "should edit post with #{cu} login" do
+			login_as send(cu)
+			post = create_post
+			get :edit, :id => post.id
+			assert_response :success
+			assert_template 'edit'
+		end
+
+		test "should update post with #{cu} login" do
+# TODO
+			login_as send(cu)
+			post = create_post
+			put :update, :id => post.id, :post => factory_attributes
+			assert_not_nil flash[:notice]
+			assert_redirected_to post.topic
+pending
+		end
+
+		test "should destroy post with #{cu} login" do
+# TODO
+			login_as send(cu)
+			post = create_post
+#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+#			assert_difference('Post.count', -1) {
+				delete :destroy, :id => post.id
+#			} } } }
+			assert_not_nil flash[:notice]
+			assert_redirected_to post.topic
+		end
+
+		test "should destroy attachments with post destruction and #{cu} login" do
+# TODO
+			login_as send(cu)
+			post = create_post
+#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+#			assert_difference('GroupDocument.count', -1) {
+#			assert_difference('Post.count', -1) {
+				delete :destroy, :id => post.id
+#			} } } } }
+			assert_not_nil flash[:notice]
+			assert_redirected_to post.topic
+		end
+
+	end
+
+	non_site_administrators.each do |cu|
+
+		test "should NOT edit post with #{cu} login" do
+# TODO
+			login_as send(cu)
+			post = create_post
+			get :edit, :id => post.id
+#			assert_not_nil flash[:error]
+#			assert_redirected_to
+pending
+		end
+
+		test "should NOT update post with #{cu} login" do
+# TODO
+			login_as send(cu)
+			post = create_post
+			put :update, :id => post.id, :post => factory_attributes
+#			assert_not_nil flash[:error]
+#			assert_redirected_to
+pending
+		end
+
+		test "should NOT destroy post with #{cu} login" do
+# TODO
+			login_as send(cu)
+			post = create_post
+#			assert_difference( "User.find(#{post.user_id}).posts_count", 0) {
+#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", 0) {
+#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", 0) {
+#			assert_difference('Post.count', 0) {
+				delete :destroy, :id => post.id
+#			} } } }
+#			assert_not_nil flash[:error]
+#			assert_redirected_to
+pending
+		end
+
+	end
+
 	site_editors.each do |cu|
 
 		test "should get new post with #{cu} login" do
@@ -150,6 +241,88 @@ class PostsControllerTest < ActionController::TestCase
 #
 #	Group Forum Topic Post
 #
+	group_moderators.each do |cu|
+
+		test "should edit group post with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			post = create_post(:topic => topic)
+			get :edit, :id => post.id
+			assert_response :success
+			assert_template 'edit'
+		end
+
+		test "should update group post with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			post = create_post(:topic => topic)
+			pending # TODO
+#			assert_not_nil flash[:notice]
+#			assert_redirected_to
+		end
+
+		test "should destroy group post with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			post = create_post(:topic => topic)
+#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+#			assert_difference('Post.count', -1) {
+			pending # TODO
+#			} } } }
+#			assert_not_nil flash[:notice]
+#			assert_redirected_to
+		end
+
+		test "should destroy attachments with group post destruction and #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			post = create_post(:topic => topic)
+#			assert_difference( "User.find(#{post.user_id}).posts_count", -1) {
+#			assert_difference( "Forum.find(#{post.topic.forum_id}).posts_count", -1) {
+#			assert_difference( "Topic.find(#{post.topic_id}).posts_count", -1) {
+#			assert_difference('GroupDocument.count', -1) {
+#			assert_difference('Post.count', 0) {
+			pending # TODO
+#			} } } } }
+#			assert_not_nil flash[:notice]
+#			assert_redirected_to
+		end
+
+	end
+
+	non_group_moderators.each do |cu|
+
+		test "should NOT edit group post with #{cu} login" do
+			pending # TODO
+#			assert_not_nil flash[:error]
+#			assert_redirected_to
+		end
+
+		test "should NOT update group post with #{cu} login" do
+			pending # TODO
+#			assert_not_nil flash[:error]
+#			assert_redirected_to
+		end
+
+		test "should NOT destroy group post with #{cu} login" do
+#			assert_difference( "User.find(#{post.user_id}).posts_count", 0) {
+#			assert_difference( "Forum.find(#{post.topic.forum.id}).posts_count", 0) {
+#			assert_difference( "Topic.find(#{post.topic.id}).posts_count", 0) {
+#			assert_difference('Post.count', 0) {
+			pending # TODO
+#			} } } }
+#			assert_not_nil flash[:error]
+#			assert_redirected_to
+		end
+
+	end
+
 	group_editors.each do |cu|
 
 		test "should get new group post with #{cu} login" do
