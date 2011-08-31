@@ -1,4 +1,5 @@
 class Study < ActiveRecord::Base
+	default_scope :order => 'name ASC'
 	acts_as_list
 
 	has_many :publication_studies

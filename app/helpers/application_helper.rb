@@ -22,7 +22,8 @@ module ApplicationHelper
 				"#{link_to( "Publications", publications_path )}</li>\n"
 			out << "<li class='members#{current_controller('directories')}'>" <<
 				"#{link_to( "Member Directory", directory_path )}</li>\n"
-			out << "<li class='members'>Study Contact Info TODO</li>\n"
+			out << "<li class='members#{current_controller('contacts')}'>" <<
+				"#{link_to( "Study Contact Info", contacts_path )}</li>\n"
 			out << "<li class='inventory#{current_controller('inventories')}'>" <<
 				"#{link_to( "Inventory", inventory_path )}</li>\n"
 
@@ -34,12 +35,12 @@ module ApplicationHelper
 
 			out << (( current_user.may_administrate? ) ? "" <<
 				"<li class='user'>#{link_to( "Memberships", memberships_path )}</li>" << 
-				"<li class='user'>#{link_to( "Questionnaires (temp)", questionnaires_path )}</li>" << 
-				"<li class='user'>#{link_to( "Professions (temp)", professions_path )}</li>" << 
-				"<li class='user'>#{link_to( "Publication Subjects (temp)", publication_subjects_path )}</li>" << 
-				"<li class='user'>#{link_to( "Studies (temp)", studies_path )}</li>" << 
-				"<li class='user'>#{link_to( "Groups (temp)", groups_path )}</li>" << 
-				"<li class='user'>#{link_to( "Group Roles (temp)", group_roles_path )}</li>" : '')
+				"<li class='user'>#{link_to( "Questionnaires", questionnaires_path )}</li>" << 
+				"<li class='user'>#{link_to( "Professions", professions_path )}</li>" << 
+				"<li class='user'>#{link_to( "Publication Subjects", publication_subjects_path )}</li>" << 
+				"<li class='user'>#{link_to( "Studies", studies_path )}</li>" << 
+				"<li class='user'>#{link_to( "Groups", groups_path )}</li>" << 
+				"<li class='user'>#{link_to( "Group Roles", group_roles_path )}</li>" : '')
 
 			out << "<li class='user'>#{link_to( "My Account", user_path(current_user) )}</li>"
 			out << "<li class='user'>#{link_to( "Logout", logout_path )}</li>"

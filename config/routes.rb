@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :doc_forms
 	map.resources :studies
+	map.resources :contacts, :only => :index
 	map.resources :publication_subjects
 	map.resources :annual_meetings
 	map.resources :publications

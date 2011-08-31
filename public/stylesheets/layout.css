@@ -47,6 +47,15 @@
 	float: left;
 }
 
+#header2 {
+	padding-bottom: 10px;
+}
+#header2 img {
+	width: 100%;
+	height: 130px;
+}
+
+
 #menu {
 	width: 175px;
 	background:#99CCFF;

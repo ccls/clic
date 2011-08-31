@@ -1,0 +1,13 @@
+<h2>Study Contact Info</h2>
+
+<% unless @studies.empty? %>
+  <table id='contacts'>
+<!--
+<thead><tr><th>Name</th></tr></thead>
+-->
+<tbody>
+  <%= render :partial => 'contacts/contact', :collection => @studies %>
+  </tbody></table><!-- id='contacts' -->
+<% else %>
+  <p>Sorry, no contacts yet.</p>
+<% end %>
