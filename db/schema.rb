@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110829222439) do
+ActiveRecord::Schema.define(:version => 20110831175600) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",              :null => false
@@ -281,6 +281,7 @@ ActiveRecord::Schema.define(:version => 20110829222439) do
     t.string   "target_age_group"
     t.text     "principal_investigators"
     t.text     "overview"
+    t.text     "contact_info"
   end
 
   add_index "studies", ["name"], :name => "index_studies_on_name"

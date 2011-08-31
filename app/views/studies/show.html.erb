@@ -19,24 +19,8 @@
   <%=h @study.principal_investigators.join(', ') %>
 </p>
 
-<p>
-  <b>Contact Information:</b>
-
-
-
-
-
-
-
-TODO: Insert contact info here
-
-
-
-
-
-
-
-</p>
+<p><b>Contact Information:</b></p>
+<pre style='white-space:pre-wrap'><%=h @study.contact_info %></pre>
 
 <p>
   <b>World region:</b>
@@ -63,12 +47,8 @@ TODO: Insert contact info here
   <%=h @study.recruitment %>
 </p>
 
-<p>
-  <b>Overview:</b>
-</p>
-<pre style='white-space:pre-wrap'>
-  <%=h @study.overview %>
-</pre>
+<p><b>Overview:</b></p>
+<pre style='white-space:pre-wrap'><%=h @study.overview %></pre>
 
 <%= render :partial => 'publications/index',
 	:locals => { :publications => @study.publications } %>

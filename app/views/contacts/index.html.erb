@@ -2,9 +2,7 @@
 
 <% unless @studies.empty? %>
   <table id='contacts'>
-<!--
-<thead><tr><th>Name</th></tr></thead>
--->
+<thead><tr><th>Name</th><th>Contact Info</th></tr></thead>
 <tbody>
   <%= render :partial => 'contacts/contact', :collection => @studies %>
   </tbody></table><!-- id='contacts' -->

@@ -1,3 +1,4 @@
 <% content_tag_for( :tr, contact, :class => "contact row" ) do %>
  <td class='name'><%= contact %></td>
+ <td class='contact'><pre style='white-space:pre-wrap'><%=h contact.contact_info %></pre></td>
 <% end %>
