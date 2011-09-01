@@ -1,0 +1,11 @@
+<% javascripts('tiny_mce/jquery.tinymce.js') %>
+<h2>Editting reply to ... &nbsp;&raquo;&nbsp;<%= link_to @post.topic.title, @post.topic %></h2>
+
+<% form_for @post do |f| %>
+  <%= f.error_messages %>
+  <%= f.text_area :body, :class => 'tinymce' %>
+  <p>
+    <%= f.submit_link_to 'Submit' %>&nbsp;
+    <%= link_to 'Cancel and return to Topic', @post.topic, :class => 'button' %>
+  </p>
+<% end %>

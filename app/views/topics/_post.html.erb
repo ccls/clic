@@ -14,4 +14,14 @@
  <td class='created_at'>
   <%= post.created_at %>
  </td>
+ <td class='manage'>
+<% if current_user.may_moderate_forum?(post.topic.forum) %>
+  <%= link_to 'Edit', edit_post_path(post), :class => 'button' %>&nbsp;
+  <% destroy_link_to 'Destroy', post_path(post) do %>
+   <%= hidden_field_tag 'confirm', "Destroy post '#{h Hpricot(post.body).to_plain_text}'?", 
+     :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+<% end %>
+ </td>
 <% end %><!-- class='post row' -->
