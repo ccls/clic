@@ -5,6 +5,10 @@ def pluralize(count, singular, plural = nil)
 	"#{count || 0} " + ((count == 1 || count =~ /^1(\.0+)?$/) ? singular : (plural || singular.pluralize))
 end
 
+def unblankify(value)
+	(value.blank?) ? 'NS' : value
+end
+
 namespace :app do
 namespace :subjects do
 
@@ -31,20 +35,20 @@ namespace :subjects do
 			study.subjects.create!({
 				:clic_id          => line['CLIC_ID'],
 				:case_control     => line['case_control'],
-				:leukemiatype     => ((line['leukemiatype'].blank?) ? "NS" : line['leukemiatype']),
-				:immunophenotype  => ((line['immunophenotype'].blank?) ? "NS" : line['immunophenotype']),
-				:interview_respondent => line['interview_respondent'],
+				:leukemiatype     => unblankify(line['leukemiatype']),
+				:immunophenotype  => unblankify(line['immunophenotype']),
+				:interview_respondent => unblankify(line['interview_respondent']),
 				:reference_year   => line['reference_year'],
 				:birth_year       => line['child_birthYEAR'],
 				:gender           => line['child_gender'],
 				:age              => line['child_age'],
-				:ethnicity        => ((line['child_ethnicity'].blank?) ? "NS" : line['child_ethnicity']),
+				:ethnicity        => unblankify(line['child_ethnicity']),
 				:mother_age_birth => line['mother_age_birth'],
 				:father_age_birth => line['father_age_birth'],
-				:income_quint     => ((line['income_quint'].blank?) ? "NS" : line['income_quint']),
-				:downs            => ((line['downs'].blank?) ? "NS" : line['downs']),
-				:mother_education => ((line['mother_education'].blank?) ? "NS" : line['mother_education']),
-				:father_education => ((line['father_education'].blank?) ? "NS" : line['father_education'])
+				:income_quint     => unblankify(line['income_quint']),
+				:downs            => unblankify(line['downs']),
+				:mother_education => unblankify(line['mother_education']),
+				:father_education => unblankify(line['father_education'])
 			})
 
 #break if f.lineno > 100

@@ -19,12 +19,24 @@ module InventoriesHelper
 		end
 		s  = "<div class='facet_toggle'>" <<
 			"<span class='ui-icon #{icon}'>&nbsp;</span>" <<
-			"<a href='javascript:void()'>#{pluralize(facet.rows.length,facet.name.to_s.titleize)}</a>" <<
+			"<a href='javascript:void()'>#{pluralize(facet.rows.reject{|r|r.value.blank?}.length,facet.name.to_s.titleize)}</a>" <<
 			"</div>\n"
+#			"<a href='javascript:void()'>#{pluralize(facet.rows.length,facet.name.to_s.titleize)}</a>" <<
 		s << multi_select_operator_for(facet.name) if options[:multiselector]
 		#	show this facet if any have been selected
 		s << "<ul id='#{facet.name}' class='facet_field'#{style}>\n"
 		facet.rows.each do |row|
+
+#
+#	NOTE for now, if a blank field has made it into the index, IGNORE IT.
+#		Unfortunately, searching for a '' creates syntactically incorrect query.
+#
+#		Of course, this mucks up the count.  Errr!!!
+#		So I had to handle it yet again.
+#
+			next if row.value.blank?
+
+
 			s << "<li>"
 			if options[:radio]
 				s << radio_button_tag( "#{facet.name}[]", row.value,

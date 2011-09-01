@@ -1,11 +1,25 @@
 class InventoriesController < ApplicationController
 
+#	NOTE	Sunspot searching for blank facet values.
+#		Searching for '' is not possible and searching for nil
+#		A value that is '' will create a facet this is '', but 
+#			is not searchable.  PERIOD.  There MAY be a way to do
+#			this, but I have not found it.  The '' creates a 
+#			search statement that is syntactically incorrect.
+#		Nil, however, is searchable, but not as a value in a
+#			any_of or all_of array.  It would have to be explicitly
+#			parsed out of the param array and explicitly checked for.
+#		Due to these restrictions, I am skipping all blank facet
+#			values in the view and ignoring them in this controller
+#			as a user may manually modify the url.
+
 	before_filter :may_read_inventory_required
 	
 	def show
 
 #	TODO rename :category to just :exposure
 #	TODO nest exposure facets so if remove :exposure all go away
+#	or just params.delete( all of the exposure keys )
 
 		@exposure_search = Exposure.search do
 			facet :category, :sort => :index
@@ -13,7 +27,12 @@ class InventoriesController < ApplicationController
 				with :category, params[:category]
 				exposure_facets.each do |p|
 					if params[p]
-						with(p).any_of params[p]
+						params[p] = params[p].dup.reject{|x|x.blank?}
+						unless params[p].empty?
+							with(p).any_of params[p]
+						else
+							params.delete(p)	#	remove the key so doesn't show in view
+						end
 					end
 					facet p.to_sym, :sort => :index
 				end
@@ -40,12 +59,22 @@ class InventoriesController < ApplicationController
 #	genotypings not desired at the moment.  When it is, just add to the list after biospecimens
 #	principal_investigators
 #
+
 			subject_facets.each do |p|
 				if params[p]
+					params[p] = params[p].dup.reject{|x|x.blank?}
 					if params[p+'_op'] && params[p+'_op']=='AND'
-						with(p).all_of params[p]
+						unless params[p].empty?
+							with(p).all_of params[p]
+						else
+							params.delete(p)	#	remove the key so doesn't show in view
+						end
 					else
-						with(p).any_of params[p]
+						unless params[p].empty?
+							with(p).any_of params[p]
+						else
+							params.delete(p)	#	remove the key so doesn't show in view
+						end
 					end
 				end
 				facet p.to_sym, :sort => :index

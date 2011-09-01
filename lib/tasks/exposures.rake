@@ -1,4 +1,10 @@
 require 'fastercsv'
+
+def arrayify(value)
+	#	to_s in case is nil
+	value.to_s.split(',').collect(&:strip)
+end
+
 namespace :app do
 namespace :exposures do
 
@@ -30,11 +36,16 @@ namespace :exposures do
 				study.exposures.create!({
 					:category            => category,
 					:relation_to_child   => line["Relation to Child"].to_s.strip,
-					:windows             => line['Window of Exposure'].to_s.split(',').collect(&:strip),
-					:types               => line['Type of Exposure'].to_s.split(',').collect(&:strip),
-					:assessments         => line['Exposure Assessment'].to_s.split(',').collect(&:strip),
-					:locations_of_use    => line['Location of Use'].to_s.split(',').collect(&:strip),
-					:forms_of_contact    => line['Form of Contact'].to_s.split(',').collect(&:strip)
+#					:windows             => line['Window of Exposure'].to_s.split(',').collect(&:strip),
+#					:types               => line['Type of Exposure'].to_s.split(',').collect(&:strip),
+#					:assessments         => line['Exposure Assessment'].to_s.split(',').collect(&:strip),
+#					:locations_of_use    => line['Location of Use'].to_s.split(',').collect(&:strip),
+#					:forms_of_contact    => line['Form of Contact'].to_s.split(',').collect(&:strip)
+					:windows             => arrayify(line['Window of Exposure']),
+					:types               => arrayify(line['Type of Exposure']),
+					:assessments         => arrayify(line['Exposure Assessment']),
+					:locations_of_use    => arrayify(line['Location of Use']),
+					:forms_of_contact    => arrayify(line['Form of Contact'])
 				})
 
 #break if f.lineno > 1
