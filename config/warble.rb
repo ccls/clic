@@ -23,6 +23,8 @@ Warbler::Config.new do |config|
 #	config.includes = FileList["Rakefile"]
 #	config.includes = FileList["Rakefile","solr","solr/conf/*"]
 	config.includes = FileList["Rakefile","solr","solr/*","solr/**/*"]
+#	might want to be more specific
+#	config.includes = FileList["Rakefile","solr/conf/*","solr/data/production/**/*"]
 
 
 	# Additional files/directories to exclude

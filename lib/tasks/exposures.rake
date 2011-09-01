@@ -18,7 +18,8 @@ namespace :exposures do
 				study_name = line['Study'].strip
 				puts "Processing exposure line #{f.lineno}:#{study_name}"
 
-				unless( %w( CCLS AUS-ALL ).include?(study_name) )
+#				unless( %w( CCLS AUS-ALL ).include?(study_name) )
+				unless( ['CCLS','AUS-ALL','COG','GCCR','France - ESCALE','Quebec'].include?(study_name) )
 					puts "Skipping this study for demo purposes."
 					next
 				end

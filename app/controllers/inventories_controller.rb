@@ -76,6 +76,9 @@ class InventoriesController < ApplicationController
 		end
 		studies = @search.facet(:study_id).rows.collect(&:instance)
 		@questionnaires = studies.collect(&:questionnaires).flatten
+	rescue Errno::ECONNREFUSED
+		flash[:error] = "Solr seems to be down for the moment."
+		redirect_to root_path
 	end	#	show action
 
 protected

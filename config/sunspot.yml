@@ -1,6 +1,7 @@
 production:
+#    hostname: localhost6
   solr:
-    hostname: localhost6
+    hostname: localhost
     port: 8986
     log_level: WARNING
 
@@ -18,3 +19,6 @@ test:
     
 
 #	running on localhost6 in production seems to work as opposed to just localhost
+#	actually, it doesn't seem to make any difference as noted yet.
+#	Once started as tomcat, it seems best to logout, otherwise it hangs
+#	Perhaps adding a NOHUP or something would fix this.
