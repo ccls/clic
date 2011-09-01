@@ -31,66 +31,48 @@ class InventoriesControllerTest < ActionController::TestCase
 
 		test "should show with subjects and #{cu} login" do
 			login_as send(cu)
-			random_subject()
-			Subject.solr_reindex
+			subject = random_subject()
 			get :show
-			assert_response :success
-			assert assigns(:search)
-			assert_equal 1, assigns(:search).hits.length
+			assert_found_one(subject)
 		end
 
 		test "should find sole subject with matching exposure category and #{cu} login" do
 			login_as send(cu)
-			subject = random_subject()
-			subject.study.exposures.create!(:category => 'Alcohol')
-			Exposure.solr_reindex
-			Subject.solr_reindex
+			subject = random_exposure_subject()
 			get :show, :category => ['Alcohol']
-			assert_response :success
-			assert assigns(:search)
-			assert_equal 1, assigns(:search).hits.length
-			assert_equal subject, assigns(:search).hits.first.instance
+			assert_found_one(subject)
 		end
 
 		test "should NOT find sole subject with mismatching exposure category and #{cu} login" do
 			login_as send(cu)
-			subject = random_subject()
-			subject.study.exposures.create!(:category => 'Alcohol')
-			Exposure.solr_reindex
-			Subject.solr_reindex
+			subject = random_exposure_subject()
 			get :show, :category => ['Tobacco']
-			assert_response :success
-			assert assigns(:search)
-			assert_equal 0, assigns(:search).hits.length
+			assert_found_nothing
 		end
 
 
 		#	exposure facets
 		%w( relation_to_child ).each do |p|
 
+			test "should find sole subject ignoring blank exposure param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_exposure_subject(p => 'Arbitrary')
+				get :show, :category => ['Alcohol'], p => ['']
+				assert_found_one(subject)
+			end
+
 			test "should find sole subject with matching exposure param #{p} and #{cu} login" do
 				login_as send(cu)
-				subject = random_subject()
-				subject.study.exposures.create!(:category => 'Alcohol',p => 'Arbitrary')
-				Exposure.solr_reindex
-				Subject.solr_reindex
+				subject = random_exposure_subject(p => 'Arbitrary')
 				get :show, :category => ['Alcohol'], p => ['Arbitrary']
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 1, assigns(:search).hits.length
-				assert_equal subject, assigns(:search).hits.first.instance
+				assert_found_one(subject)
 			end
 
 			test "should NOT find sole subject with mismatching exposure param #{p} and #{cu} login" do
 				login_as send(cu)
-				subject = random_subject()
-				subject.study.exposures.create!(:category => 'Alcohol', p => 'Arbitrary')
-				Exposure.solr_reindex
-				Subject.solr_reindex
+				subject = random_exposure_subject(p => 'Arbitrary')
 				get :show, :category => ['Alcohol'], p => ['Different']
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 0, assigns(:search).hits.length
+				assert_found_nothing
 			end
 
 		end
@@ -98,29 +80,25 @@ class InventoriesControllerTest < ActionController::TestCase
 		#	exposure facet arrays
 		%w( types windows assessments locations_of_use forms_of_contact ).each do |p|
 
+			test "should find sole subject ignoring blank exposure param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_exposure_subject(p => ['Arbitrary'])
+				get :show, :category => ['Alcohol'], p => ['']
+				assert_found_one(subject)
+			end
+
 			test "should find sole subject with matching exposure param #{p} and #{cu} login" do
 				login_as send(cu)
-				subject = random_subject()
-				subject.study.exposures.create!(:category => 'Alcohol',p => ['Arbitrary'])
-				Exposure.solr_reindex
-				Subject.solr_reindex
+				subject = random_exposure_subject(p => ['Arbitrary'])
 				get :show, :category => ['Alcohol'], p => ['Arbitrary']
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 1, assigns(:search).hits.length
-				assert_equal subject, assigns(:search).hits.first.instance
+				assert_found_one(subject)
 			end
 
 			test "should NOT find sole subject with mismatching exposure param #{p} and #{cu} login" do
 				login_as send(cu)
-				subject = random_subject()
-				subject.study.exposures.create!(:category => 'Alcohol', p => ['Arbitrary'])
-				Exposure.solr_reindex
-				Subject.solr_reindex
+				subject = random_exposure_subject(p => ['Arbitrary'])
 				get :show, :category => ['Alcohol'], p => ['Different']
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 0, assigns(:search).hits.length
+				assert_found_nothing
 			end
 
 #
@@ -148,27 +126,31 @@ class InventoriesControllerTest < ActionController::TestCase
 		#	study related facets
 		%w( world_region country study_name recruitment study_design target_age_group ).each do |p|
 
+			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = _random_subject()
+				subject.study.update_attribute(p,'Arbitrary')
+				Subject.solr_reindex
+				get :show, p => ['']
+				assert_found_one(subject)
+			end
+
 			test "should find sole subject with matching param #{p} and #{cu} login" do
 				login_as send(cu)
-				subject = random_subject()
+				subject = _random_subject()
 				subject.study.update_attribute(p,'Arbitrary')
 				Subject.solr_reindex
 				get :show, p => [subject.send(p)]
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 1, assigns(:search).hits.length
-				assert_equal subject, assigns(:search).hits.first.instance
+				assert_found_one(subject)
 			end
 
 			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
 				login_as send(cu)
-				subject = random_subject()
+				subject = _random_subject()
 				subject.study.update_attribute(p,'Arbitrary')
 				Subject.solr_reindex
 				get :show, p => ["some_bogus_value"]
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 0, assigns(:search).hits.length
+				assert_found_nothing
 			end
 
 		end
@@ -179,28 +161,28 @@ class InventoriesControllerTest < ActionController::TestCase
 			gender age ethnicity income_quint downs
 			mother_education father_education ).each do |p|
 
+			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				get :show, p => ['']
+				assert_found_one(subject)
+			end
+
 			test "should find sole subject with matching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = random_subject()
-				Subject.solr_reindex
 				get :show, p => [subject.send(p)]
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 1, assigns(:search).hits.length
-				assert_equal subject, assigns(:search).hits.first.instance
+				assert_found_one(subject)
 			end
 
 			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = random_subject()
-				Subject.solr_reindex
 				#	NOTE "some_bogus_value" will be converted to an integer when applicable
 				#		which means that it will be treated as 0, so removed 0 as option
 				#		in random field generators below.
 				get :show, p => ["some_bogus_value"]
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 0, assigns(:search).hits.length
+				assert_found_nothing
 			end
 
 			%w( AND OR ).each do |op|
@@ -208,18 +190,23 @@ class InventoriesControllerTest < ActionController::TestCase
 				test "should find sole subject with matching param #{p} and #{cu} login and ignore operator #{op}" do
 					login_as send(cu)
 					subject = random_subject()
-					Subject.solr_reindex
 					get :show, p => [subject.send(p)], "#{p}_op" => op
-					assert_response :success
-					assert assigns(:search)
-					assert_equal 1, assigns(:search).hits.length
-					assert_equal subject, assigns(:search).hits.first.instance
+					assert_found_one(subject)
 				end
 
 			end
 
 			test "should find both subjects with matching param #{p} and #{cu} login and operator OR" do
-				pending	#	TODO
+				login_as send(cu)
+				s1 = random_subject()
+				s2 = random_subject()		#	TODO No guarantee to be different
+				get :show, p => [s1.send(p),s2.send(p)], "#{p}_op" => 'OR'
+				assert_response :success
+				assert assigns(:search)
+				assert_equal 2, assigns(:search).hits.length
+				found = assigns(:search).hits.collect(&:instance)
+				assert found.include?(s1)
+				assert found.include?(s2)
 			end
 
 			test "should find neither subject with matching param #{p} and #{cu} login and operator AND" do
@@ -245,26 +232,26 @@ class InventoriesControllerTest < ActionController::TestCase
 		#	range related subject facets
 		%w( reference_year birth_year father_age_birth mother_age_birth ).each do |p|
 
+			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
+				login_as send(cu)
+				subject = random_subject()
+				get :show, p => ['']
+				assert_found_one(subject)
+			end
+
 			test "should find sole subject with matching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = random_subject()
-				Subject.solr_reindex
 				get :show, p => [subject.send(p)]
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 1, assigns(:search).hits.length
-				assert_equal subject, assigns(:search).hits.first.instance
+				assert_found_one(subject)
 			end
 
 			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = random_subject()
-				Subject.solr_reindex
 				#	20 should be big enough to be outside the initial range
 				get :show, p => [(subject.send(p) + 20).to_s]
-				assert_response :success
-				assert assigns(:search)
-				assert_equal 0, assigns(:search).hits.length
+				assert_found_nothing
 			end
 
 		end
@@ -273,7 +260,34 @@ class InventoriesControllerTest < ActionController::TestCase
 
 protected
 
+	def assert_found_one(subject)
+		assert_response :success
+		assert assigns(:search)
+		assert_equal 1, assigns(:search).hits.length
+		assert_equal( subject, assigns(:search).hits.first.instance )
+	end
+
+	def assert_found_nothing
+		assert_response :success
+		assert assigns(:search)
+		assert_equal 0, assigns(:search).hits.length
+	end
+
 	def random_subject(options={})
+		subject = _random_subject(options)
+		Subject.solr_reindex
+		subject
+	end
+
+	def random_exposure_subject(options={})
+		subject = _random_subject()
+		subject.study.exposures.create!({:category => 'Alcohol'}.merge(options))
+		Exposure.solr_reindex
+		Subject.solr_reindex
+		subject
+	end
+
+	def _random_subject(options={})
 		Factory(:subject, { 
 			:study                => Study.random,
 			:case_control         => random_case_control,
