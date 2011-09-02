@@ -3,11 +3,13 @@ class TopicsController < ApplicationController
 	before_filter :valid_forum_id_required,
 		:only => [:new,:create]
 	before_filter :valid_id_required,
-		:only => [:show]
+		:only => [:show,:edit,:update,:destroy]
 	before_filter :may_read_forum_required, 
 		:only => [:show]
 	before_filter :may_edit_forum_required,
-		:only => [:new,:create]
+		:only => [:new,:create,:edit,:update]
+	before_filter :may_moderate_forum_required,
+		:only => [:destroy]
 
 	def new
 		@group = @forum.group if @forum.group
@@ -18,11 +20,25 @@ class TopicsController < ApplicationController
 		@topic = @forum.topics.new(params[:topic])
 		@topic.user = current_user
 		@topic.save!
-		flash[:notice] = "Success!"
+		flash[:notice] = "Topic successfully created!"
 		redirect_to forum_path(@forum)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash.now[:error] = "something bad happened"
+		flash.now[:error] = "Topic creation failed."
 		render :action => 'new'
+	end
+
+	def update
+		@topic.update_attributes!(params[:topic])
+		flash[:notice] = "Topic successfully updated!"
+		redirect_to @topic
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "Topic update failed."
+		render :action => 'edit'
+	end
+
+	def destroy
+		@topic.destroy
+		redirect_to @topic.forum
 	end
 
 protected

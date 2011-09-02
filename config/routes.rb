@@ -30,11 +30,11 @@ ActionController::Routing::Routes.draw do |map|
 
 #	may want to create a group_forums controller to clarify things
 
-	map.resources :forums, :only => [:new,:create]
+	map.resources :forums, :except => [:index]
 	map.resources :groups, :shallow => true do |group|
-		group.resources :forums, :only => [:new,:create,:show] do |forum|
-			forum.resources :topics, :only => [:new,:create,:show] do |topic|
-				topic.resources :posts, :only => [:new, :create, :edit, :update, :destroy ]
+		group.resources :forums, :only => [:new,:create] do |forum|
+			forum.resources :topics, :except => [:index] do |topic|
+				topic.resources :posts, :except => [:show,:index]
 			end
 		end
 	end

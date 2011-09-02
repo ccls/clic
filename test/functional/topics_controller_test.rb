@@ -25,6 +25,19 @@ class TopicsControllerTest < ActionController::TestCase
 
 	assert_access_with_login({    :logins => approved_users })
 	assert_no_access_with_login({ :logins => unapproved_users })
+
+	with_options :actions => [:edit,:update] do |o|
+		o.assert_access_with_login({    :logins => site_editors })
+		o.assert_no_access_with_login({ :logins => non_site_editors,
+			:no_redirect_check => true })	#	goes back to forum path
+	end
+
+	with_options :actions => [:destroy] do |o|
+		o.assert_access_with_login({    :logins => site_administrators,
+			:no_redirect_check => true })	#	goes back to forum and not topic index
+		o.assert_no_access_with_login({ :logins => non_site_administrators })
+	end
+
 	assert_no_access_without_login
 	assert_access_with_https
 	assert_no_access_with_http
@@ -80,9 +93,9 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('GroupDocument.count',1) {
 				post :create, :forum_id => forum.id, :topic => factory_attributes(
 					:posts_attributes => [Factory.attributes_for(:post,
-					:group_documents_attributes => [Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))])])
+						:group_documents_attributes => [Factory.attributes_for(:group_document,
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf'))])])
 			} } } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
@@ -131,6 +144,32 @@ class TopicsControllerTest < ActionController::TestCase
 			assert assigns(:topic)
 			assert_response :success
 			assert_template 'new'
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT update topic with #{cu} login when save fails" do
+			login_as send(cu)
+			topic = create_topic
+			Topic.any_instance.stubs(:create_or_update).returns(false)
+			deny_changes("Topic.find(#{topic.id}).updated_at") {
+				put :update, :id => topic.id, :topic => factory_attributes
+			}
+			assert assigns(:topic)
+			assert_response :success
+			assert_template 'edit'
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT update topic with #{cu} login and invalid topic" do
+			login_as send(cu)
+			topic = create_topic
+			Topic.any_instance.stubs(:valid?).returns(false)
+			deny_changes("Topic.find(#{topic.id}).updated_at") {
+				put :update, :id => topic.id, :topic => factory_attributes
+			}
+			assert assigns(:topic)
+			assert_response :success
+			assert_template 'edit'
 			assert_not_nil flash[:error]
 		end
 
@@ -203,6 +242,34 @@ class TopicsControllerTest < ActionController::TestCase
 #	Group Forum Topic
 #
 
+	group_moderators.each do |cu|
+
+		test "should destroy topic with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			assert_difference("Topic.count",-1) {
+				delete :destroy, :id => topic.id
+			}
+			assert_redirected_to forum_path(forum)
+		end
+
+	end
+
+	non_group_moderators.each do |cu|
+
+		test "should not destroy topic with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			assert_difference("Topic.count",0) {
+				delete :destroy, :id => topic.id
+			}
+			assert_redirected_to root_path
+		end
+
+	end
+
 	group_editors.each do |cu|
 
 		test "should get new group topic with #{cu} login" do
@@ -241,8 +308,8 @@ class TopicsControllerTest < ActionController::TestCase
 				post :create, :forum_id => forum.id, :topic => factory_attributes(
 					:posts_attributes => [Factory.attributes_for(:post,
 						:group_documents_attributes => [Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))])])
+							:document => File.open(File.dirname(__FILE__) + 
+								'/../assets/edit_save_wireframe.pdf'))])])
 			} } } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
@@ -284,6 +351,43 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+		test "should edit group topic with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			get :edit, :id => topic.id
+			assert_response :success
+			assert_template 'edit'
+		end
+
+		test "should NOT update group topic with #{cu} login when save fails" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			Topic.any_instance.stubs(:create_or_update).returns(false)
+			deny_changes("Topic.find(#{topic.id}).updated_at") {
+				put :update, :id => topic.id, :topic => factory_attributes
+			}
+			assert assigns(:topic)
+			assert_response :success
+			assert_template 'edit'
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT update group topic with #{cu} login and invalid topic" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			Topic.any_instance.stubs(:valid?).returns(false)
+			deny_changes("Topic.find(#{topic.id}).updated_at") {
+				put :update, :id => topic.id, :topic => factory_attributes
+			}
+			assert assigns(:topic)
+			assert_response :success
+			assert_template 'edit'
+			assert_not_nil flash[:error]
+		end
+
 	end
 
 	non_group_editors.each do |cu|
@@ -304,6 +408,26 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('GroupDocument.count',0) {
 				post_create(forum.id)
 			} } }
+			assert_not_nil flash[:error]
+			assert_redirected_to forum_path(forum)
+		end
+
+		test "should NOT edit group topic with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			get :edit, :id => topic.id
+			assert_not_nil flash[:error]
+			assert_redirected_to forum_path(forum)
+		end
+
+		test "should NOT update group topic with #{cu} login" do
+			login_as send(cu)
+			forum = create_group_forum(@membership.group)
+			topic = create_forum_topic(forum)
+			deny_changes("Topic.find(#{topic.id}).updated_at") {
+				put :update, :id => topic.id, :topic => factory_attributes
+			}
 			assert_not_nil flash[:error]
 			assert_redirected_to forum_path(forum)
 		end

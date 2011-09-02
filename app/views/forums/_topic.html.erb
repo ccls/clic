@@ -15,4 +15,16 @@
 	<span>by&nbsp;<%=h topic.last_post.user %></span>
   <% end %>
  </td>
+ <td class='manage'>
+<% if current_user.may_edit_forum?(topic.forum) %>
+  <%= link_to 'Edit', edit_topic_path(topic), :class => 'button' %>&nbsp;
+<% if current_user.may_moderate_forum?(topic.forum) %>
+  <% destroy_link_to 'Destroy', topic_path(topic) do %>
+   <%= hidden_field_tag 'confirm', "Destroy topic '#{h(topic)}'?", 
+     :id => nil %>
+   <%= submit_link_to('Destroy') %>
+  <% end %>
+<% end %>
+<% end %>
+ </td>
 <% end %><!-- class='topic row' -->

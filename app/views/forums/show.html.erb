@@ -11,7 +11,7 @@
 <h3>Topics</h3>
 <% if @forum.topics_count > 0 %>
 <table id='topics'><thead>
-<tr><th>Title</th><th>Posts</th><th>Views</th><th>Last Post</th></tr>
+<tr><th>Title</th><th>Posts</th><th>Views</th><th>Last Post</th><th>&nbsp;</th></tr>
 </thead><tbody>
 <%= render :partial => 'topic', :collection => @forum.topics %>
 </tbody></table><!-- id='topics' -->

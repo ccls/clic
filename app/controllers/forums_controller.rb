@@ -3,8 +3,14 @@ class ForumsController < ApplicationController
 	before_filter :valid_id_required,
 		:only => [:edit,:update,:show,:destroy]
 
-	before_filter :may_read_forum_required, :only => [:show]
-	before_filter :may_create_forum_for_group_required, :only => [:new,:create]
+	before_filter :may_read_forum_required, 
+		:only => [:show]
+	before_filter :may_create_forum_for_group_required, 
+		:only => [:new,:create]
+	before_filter :may_edit_forum_required,
+		:only => [:edit,:update]
+	before_filter :may_moderate_forum_required,
+		:only => [:destroy]
 
 	def new
 		@forum = Forum.new
@@ -14,11 +20,25 @@ class ForumsController < ApplicationController
 		@forum = Forum.new(params[:forum])
 		@forum.group = @group
 		@forum.save!
-		flash[:notice] = 'Forum creation successful!'
+		flash[:notice] = 'Forum successfully created!'
 		redirect_to @forum
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash[:error] = 'Forum creation failed'
+		flash.now[:error] = 'Forum creation failed'
 		render :action => 'new'
+	end
+
+	def update
+		@forum.update_attributes!(params[:forum])
+		flash[:notice] = 'Forum successfully updated!'
+		redirect_to @forum
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "Forum update failed"
+		render :action => 'edit'
+	end
+
+	def destroy
+		@forum.destroy
+		redirect_to @forum.group || members_only_path
 	end
 
 protected

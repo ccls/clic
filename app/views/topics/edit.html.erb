@@ -1,0 +1,24 @@
+<% javascripts('tiny_mce/jquery.tinymce.js') %>
+<h2>
+<% if @group %>
+<%= link_to @group.name, @group %>
+&nbsp;&raquo;&nbsp;
+<% else %>
+<%= link_to "Member's Only", members_only_path %>
+&nbsp;&raquo;&nbsp;
+<% end %>
+<%= link_to @forum.name, @forum %>
+&nbsp;&raquo;&nbsp;
+Updating discussion topic</h2>
+
+<% form_for( @topic ) do |f| %>
+  <%= f.error_messages %>
+  <%= f.wrapped_text_field :title,
+    :label_text => 'Topic Title',
+    :class => 'autosize' %>
+  <p>
+    <%= f.submit_link_to 'Update Topic' %>&nbsp;
+    <%= link_to 'Cancel and return to Forum', forum_path(@forum),
+      :class => 'button' %>
+  </p>
+<% end %>
