@@ -29,6 +29,14 @@ class InventoriesControllerTest < ActionController::TestCase
 
 	inventory_readers.each do |cu|
 
+		test "should return to root if solr server is down and #{cu} login" do
+			login_as send(cu)
+			Subject.stubs(:search).raises(Errno::ECONNREFUSED)
+			get :show
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
 		test "should show with subjects and #{cu} login" do
 			login_as send(cu)
 			subject = random_subject()
@@ -186,6 +194,13 @@ class InventoriesControllerTest < ActionController::TestCase
 			end
 
 			%w( AND OR ).each do |op|
+
+				test "should find sole subject ignoring blank param #{p} and #{cu} login and ignore operators #{op}" do
+					login_as send(cu)
+					subject = random_subject()
+					get :show, p => [''], "#{p}_op" => op
+					assert_found_one(subject)
+				end
 
 				test "should find sole subject with matching param #{p} and #{cu} login and ignore operator #{op}" do
 					login_as send(cu)

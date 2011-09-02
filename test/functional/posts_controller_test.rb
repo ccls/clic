@@ -34,6 +34,13 @@ class PostsControllerTest < ActionController::TestCase
 			assert_template 'edit'
 		end
 
+		test "should not edit post with #{cu} login and invalid id" do
+			login_as send(cu)
+			get :edit, :id => 0
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
 		test "should update post with #{cu} login" do
 			login_as send(cu)
 			post = create_post
@@ -69,6 +76,13 @@ class PostsControllerTest < ActionController::TestCase
 			assert_template 'edit'
 		end
 
+		test "should not update post with #{cu} login and invalid id" do
+			login_as send(cu)
+			put :update, :id => 0
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
 		test "should destroy post with #{cu} login" do
 			login_as send(cu)
 			post = create_post
@@ -95,6 +109,13 @@ class PostsControllerTest < ActionController::TestCase
 			} } } } #}
 			assert_not_nil flash[:notice]
 			assert_redirected_to post.topic
+		end
+
+		test "should not destroy post with #{cu} login and invalid id" do
+			login_as send(cu)
+			delete :destroy, :id => 0
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
 
 	end
