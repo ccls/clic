@@ -29,6 +29,9 @@ class InventoriesControllerTest < ActionController::TestCase
 
 	inventory_readers.each do |cu|
 
+#	run just this one test like so
+#	ruby -I.:lib:test -rubygems test/functional/inventories_controller_test.rb -n '/^(test_should_return_to_root_if_solr_server_is_down_and_administrator_login)$/' | unit_diff -u
+
 		test "should return to root if solr server is down and #{cu} login" do
 			login_as send(cu)
 			Subject.stubs(:search).raises(Errno::ECONNREFUSED)
