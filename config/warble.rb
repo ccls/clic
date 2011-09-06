@@ -1,8 +1,12 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
-gem 'ccls-ccls_engine'
-require 'ccls_engine/warble'
+#	Now that I'm using bundler and don't have all the problematic gems,
+#		maybe I don't need this excess baggage ...
+#	Warble seems to successfully run.  Will have to wait and see what
+#		actually happens in production.
+#gem 'ccls-ccls_engine'
+#require 'ccls_engine/warble'
 
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
@@ -30,6 +34,10 @@ Warbler::Config.new do |config|
 	# Additional files/directories to exclude
 	# config.excludes = FileList["lib/tasks/*"]
 	config.excludes = FileList[*%w(
+		solr/data/development
+		solr/data/development/**/*
+		solr/data/test
+		solr/data/test/**/*
 		db/*.sqlite3
 		development
 		development/**/*
