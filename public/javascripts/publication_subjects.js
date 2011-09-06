@@ -18,7 +18,7 @@ jQuery(function(){
 				Shouldn't get here as button should 
 				be disabled if not different!
 			*/
-			alert("Publication_subject order hasn't changed. Nothing to save.");
+			alert("Publication Subject order hasn't changed. Nothing to save.");
 			return false
 		} else {
 			new_action = jQuery(this).attr('action');
