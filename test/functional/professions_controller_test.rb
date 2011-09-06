@@ -72,7 +72,7 @@ class ProfessionsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create profession with #{cu} login " <<
-				"when forum save fails" do
+				"when profession save fails" do
 			login_as send(cu)
 			Profession.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('Profession.count',0) {
