@@ -1,4 +1,4 @@
-<% javascripts('jquery.simplemodal.1.4.1.min.js','new_user.js') %>
+<% javascripts('jquery.simplemodal.1.4.1.min.js') %>
 <% stylesheets('simple_modal_basic.css') %>
 
 <h2>User</h2>
@@ -16,7 +16,7 @@
 
 <%= render :partial => 'form2', :locals => { :f => f } %>
 
-<h3>Membership Requests.<span id='membership_help' class='modal_trigger'>help?</span></h3>
+<h3>Membership Requests.&nbsp;<span id='membership_help' class='modal_trigger'>help?</span></h3>
 <div id='membership_help_content' class='modal_content'>
 <p>A selection of a Group Role is required to access the various Groups.  Membership to the Coordination Group is required to access the Inventory.</p>
 <%= render 'memberships/definitions' %>

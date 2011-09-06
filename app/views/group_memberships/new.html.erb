@@ -1,4 +1,10 @@
-<h2>Request membership</h2>
+<% javascripts('jquery.simplemodal.1.4.1.min.js') %>
+<% stylesheets('simple_modal_basic.css') %>
+<h2>Request membership&nbsp;<span id='membership_help' class='modal_trigger'>help?</span></h2>
+<div id='membership_help_content' class='modal_content'>
+<p>A selection of a Group Role is required to access the various Groups.  Membership to the Coordination Group is required to access the Inventory.</p>
+<%= render 'memberships/definitions' %>
+</div>
 
 <% form_for([@group,@membership]) do |f| %>
  <h4>Group</h4>
@@ -10,5 +16,3 @@
    <%= f.submit_link_to 'Send Request' %>
  </p>
 <% end %>
-
-<%= render 'memberships/definitions' %>

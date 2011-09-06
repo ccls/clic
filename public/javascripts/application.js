@@ -121,6 +121,14 @@ http://www.google.com/cse/docs/cref.html
 		return false;
 	});
 
+
+	jQuery('.modal_trigger').click(function(){
+		if( typeof jQuery('#'+this.id+'_content').modal == 'function' ){
+			jQuery('#'+this.id+'_content').modal();
+			return false;
+		}
+	});
+
 	add_clic_prefix_to_links();
 });
 
