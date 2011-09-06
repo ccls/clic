@@ -1,24 +1,24 @@
-var initial_profession_order;
+var initial_publication_subject_order;
 jQuery(function(){
-	jQuery('#professions').sortable({
+	jQuery('#publication_subjects').sortable({
 		axis:'y', 
 		dropOnEmpty:false, 
 		handle:'img.handle', 
-		update:function(event,ui){compare_profession_order()},
-		items:'tr.profession.row'
+		update:function(event,ui){compare_publication_subject_order()},
+		items:'tr.publication_subject.row'
 	});
 
 	jQuery('#save_order').disable();
 
-	initial_profession_order = profession_order();
+	initial_publication_subject_order = publication_subject_order();
 
-	jQuery('form#order_professions').submit(function(){
-		if( initial_profession_order == profession_order() ) {
+	jQuery('form#order_publication_subjects').submit(function(){
+		if( initial_publication_subject_order == publication_subject_order() ) {
 			/*
 				Shouldn't get here as button should 
 				be disabled if not different!
 			*/
-			alert("Profession order hasn't changed. Nothing to save.");
+			alert("Publication_subject order hasn't changed. Nothing to save.");
 			return false
 		} else {
 			new_action = jQuery(this).attr('action');
@@ -27,19 +27,19 @@ jQuery(function(){
 			} else {
 				new_action += '?';
 			}
-			new_action += profession_order();
+			new_action += publication_subject_order();
 			jQuery(this).attr('action',new_action);
 		}
 	})
 
 });
 
-function profession_order() {
-	return jQuery('#professions').sortable('serialize',{key:'professions[]'});
+function publication_subject_order() {
+	return jQuery('#publication_subjects').sortable('serialize',{key:'publication_subjects[]'});
 }
 
-function compare_profession_order(){
-	if( initial_profession_order == profession_order() ) {
+function compare_publication_subject_order(){
+	if( initial_publication_subject_order == publication_subject_order() ) {
 		jQuery('#save_order').disable();
 	} else {
 		jQuery('#save_order').highlight(4000);
