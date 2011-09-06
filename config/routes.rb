@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource  :directory, :only => :show
 	map.resources :questionnaires, :member => { :download => :get }
 
-	map.resources :professions
+	map.resources :professions, :collection => { :order => :post }
 
 	map.resource  :inventory, :only => :show
 	map.resources :editor_images, :only => :index
@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :doc_forms
 	map.resources :studies
 	map.resources :contacts, :only => :index
-	map.resources :publication_subjects
+	map.resources :publication_subjects, :collection => { :order => :post }
 	map.resources :annual_meetings
 	map.resources :publications
 
