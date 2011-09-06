@@ -1,9 +1,21 @@
 <% form_tag directory_path, :method => :get do %>
 
+<div style='display:inline-block;'>
+<%= label_tag :last_name %><br/>
+<%= text_field_tag :last_name, params[:last_name] %>
+</div>
+
+<div style='display:inline-block;'>
+<%= label_tag :first_name %><br/>
+<%= text_field_tag :first_name, params[:first_name] %>
+</div>
+
+<div>
 <%= label_tag :profession_id %><br/>
 <%#= select_tag(:profession_id,options_from_collection_for_select(Profession.all,:id,:name,params[:profession_id].to_i)) %>
 <%= select_tag(:profession_id,options_for_select([['select profession',nil]]+
 	Profession.all.collect{|p|[p.name,p.id]},params[:profession_id].to_i)) %>
+</div>
 
 <br/>
 <%= submit_tag 'Search Directory', :name => nil %>

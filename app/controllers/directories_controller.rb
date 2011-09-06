@@ -4,23 +4,29 @@ class DirectoriesController < ApplicationController
 
 	def show
 		recall_or_record_sort_order
-		conditions = {}
+		conditions = [[]]
 		joins = []
+		if params[:first_name] and !params[:first_name].blank?
+			conditions[0] << 'users.first_name LIKE ?'
+			conditions << "%#{params[:first_name]}%"
+		end
+		if params[:last_name] and !params[:last_name].blank?
+			conditions[0] << 'users.last_name LIKE ?'
+			conditions << "%#{params[:last_name]}%"
+		end
 		if params[:profession_id] and !params[:profession_id].blank?
 			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
 			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
-			conditions['professions.id'] = params[:profession_id]
+			conditions[0] << 'professions.id = ?'
+			conditions << params[:profession_id]
 		end
+		conditions[0] = conditions[0].join(' AND ')
 		@members = User.find(:all,
-			:select => 'DISTINCT users.*',
+			:select     => 'DISTINCT users.*',
 			:conditions => conditions,
-			:joins => joins,
-			:include => :professions,
-#			:joins => [
-#				'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")',
-#				'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
-#			],
-			:order => search_order )
+			:joins      => joins,
+			:include    => :professions,
+			:order      => search_order )
 	end
 
 protected
