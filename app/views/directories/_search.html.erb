@@ -1,9 +1,10 @@
 <% form_tag directory_path, :method => :get do %>
 
-<div class='field_wrapper'>
-<%= label_tag :profession_id %>
-<%= select_tag(:profession_id,options_from_collection_for_select(Profession.all,:id,:name,params[:profession_id].to_i)) %>
-</div>
+<%= label_tag :profession_id %><br/>
+<%#= select_tag(:profession_id,options_from_collection_for_select(Profession.all,:id,:name,params[:profession_id].to_i)) %>
+<%= select_tag(:profession_id,options_for_select([['select profession',nil]]+
+	Profession.all.collect{|p|[p.name,p.id]},params[:profession_id].to_i)) %>
 
+<br/>
 <%= submit_tag 'Search Directory', :name => nil %>
 <% end %>

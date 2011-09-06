@@ -6,7 +6,7 @@ class DirectoriesController < ApplicationController
 		recall_or_record_sort_order
 		conditions = {}
 		joins = []
-		if params[:profession_id]
+		if params[:profession_id] and !params[:profession_id].blank?
 			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
 			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
 			conditions['professions.id'] = params[:profession_id]
