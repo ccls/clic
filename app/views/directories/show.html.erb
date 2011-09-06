@@ -1,9 +1,6 @@
 <h2>Member Directory</h2>
 
-<%# form_tag directory_path, :method => :get do %>
-<%#= text_field_tag :q %>
-<%#= submit_tag 'Search', :name => nil %>
-<%# end %>
+<%= render 'search' %>
 
 <% unless @members.empty? %>
   <table id='members'><thead>

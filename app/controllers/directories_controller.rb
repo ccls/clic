@@ -4,8 +4,17 @@ class DirectoriesController < ApplicationController
 
 	def show
 		recall_or_record_sort_order
+		conditions = {}
+		joins = []
+		if params[:profession_id]
+			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
+			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
+			conditions['professions.id'] = params[:profession_id]
+		end
 		@members = User.find(:all,
 			:select => 'DISTINCT users.*',
+			:conditions => conditions,
+			:joins => joins,
 			:include => :professions,
 #			:joins => [
 #				'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")',
