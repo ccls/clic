@@ -136,3 +136,18 @@ div#group_documents {
 div#group_role_definitions dl dd {
 	padding-left:20px;
 }
+
+.modal_trigger {
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid blue;
+	text-decoration: none;
+	padding: 1px 8px;
+	color: blue;
+	background-color: lightblue;
+}
+div.modal_content {
+	display:none;
+}
