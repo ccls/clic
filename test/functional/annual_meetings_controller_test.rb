@@ -61,7 +61,7 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create annual_meeting with #{cu} login " <<
-				"when forum save fails" do
+				"when annual_meeting save fails" do
 			login_as send(cu)
 			AnnualMeeting.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('AnnualMeeting.count',0) {

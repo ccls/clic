@@ -61,7 +61,7 @@ class DocFormsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create doc_form with #{cu} login " <<
-				"when forum save fails" do
+				"when doc_form save fails" do
 			login_as send(cu)
 			DocForm.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('DocForm.count',0) {
