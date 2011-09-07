@@ -33,38 +33,7 @@ class ProfessionsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :professions_path,
-		:show    => { :id => 0 },
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
-
-	site_administrators.each do |cu|
-
-		test "should NOT create profession with #{cu} login " <<
-				"with invalid profession" do
-			login_as send(cu)
-			Profession.any_instance.stubs(:valid?).returns(false)
-			assert_difference('Profession.count',0) {
-				post :create, :profession => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create profession with #{cu} login " <<
-				"when profession save fails" do
-			login_as send(cu)
-			Profession.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('Profession.count',0) {
-				post :create, :profession => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-	end
 
 end

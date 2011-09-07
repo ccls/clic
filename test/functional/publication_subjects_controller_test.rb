@@ -33,38 +33,7 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :publication_subjects_path,
-		:show    => { :id => 0 },
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
-
-	site_administrators.each do |cu|
-
-		test "should NOT create publication_subject with #{cu} login " <<
-				"with invalid publication_subject" do
-			login_as send(cu)
-			PublicationSubject.any_instance.stubs(:valid?).returns(false)
-			assert_difference('PublicationSubject.count',0) {
-				post :create, :publication_subject => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create publication_subject with #{cu} login " <<
-				"when publication_subject save fails" do
-			login_as send(cu)
-			PublicationSubject.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('PublicationSubject.count',0) {
-				post :create, :publication_subject => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-	end
 
 end

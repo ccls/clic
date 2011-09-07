@@ -42,37 +42,10 @@ class QuestionnairesControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :questionnaires_path,
-		:show    => { :id => 0 },
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
 
 	site_administrators.each do |cu|
-
-		test "should NOT create questionnaire with #{cu} login " <<
-				"with invalid questionnaire" do
-			login_as send(cu)
-			Questionnaire.any_instance.stubs(:valid?).returns(false)
-			assert_difference('Questionnaire.count',0) {
-				post :create, :questionnaire => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create questionnaire with #{cu} login " <<
-				"when questionnaire save fails" do
-			login_as send(cu)
-			Questionnaire.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('Questionnaire.count',0) {
-				post :create, :questionnaire => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
 
 		test "should create questionnaire with #{cu} login and attachment" do
 			login_as send(cu)

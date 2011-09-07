@@ -32,37 +32,10 @@ class GroupsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :groups_path,
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:show    => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
 
 	site_administrators.each do |cu|
-
-		test "should NOT create new group with #{cu} login when create fails" do
-			Group.any_instance.stubs(:create_or_update).returns(false)
-			login_as send(cu)
-			assert_difference('Group.count',0) do
-				post :create, :group => factory_attributes
-			end
-			assert assigns(:group)
-			assert_response :success
-			assert_template 'new'
-			assert_not_nil flash[:error]
-		end
-	
-		test "should NOT create new group with #{cu} login and invalid group" do
-			Group.any_instance.stubs(:valid?).returns(false)
-			login_as send(cu)
-			assert_difference('Group.count',0) do
-				post :create, :group => factory_attributes
-			end
-			assert assigns(:group)
-			assert_response :success
-			assert_template 'new'
-			assert_not_nil flash[:error]
-		end
 
 		#	in rake test:coverage, 'sometimes' the Group.all is empty?????
 		Group.all.each do |group|

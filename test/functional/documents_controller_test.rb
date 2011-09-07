@@ -24,18 +24,6 @@ class DocumentsControllerTest < ActionController::TestCase
 
 	assert_no_access_without_login
 
-	assert_no_access_with_login(
-		:attributes_for_create => nil,
-		:method_for_create => nil,
-		:actions => nil,
-		:suffix => " and invalid id",
-		:login => :superuser,
-		:redirect => :documents_path,
-		:edit => { :id => 0 },
-		:update => { :id => 0 },
-		:destroy => { :id => 0 }
-	)
-
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
@@ -151,25 +139,6 @@ class DocumentsControllerTest < ActionController::TestCase
 			assert_not_nil @response.headers['Content-disposition'].match(
 				/attachment;.*pdf/)
 			document.destroy
-		end
-
-		test "should NOT create invalid document with #{cu} login" do
-			login_as send(cu)
-			assert_no_difference('Document.count') do
-				post :create, :document => {}
-			end
-			assert_not_nil flash[:error]
-			assert_template 'new'
-			assert_response :success
-		end
-
-		test "should NOT update invalid document with #{cu} login" do
-			login_as send(cu)
-			put :update, :id => Factory(:document).id, 
-				:document => { :title => "a" }
-			assert_not_nil flash[:error]
-			assert_template 'edit'
-			assert_response :success
 		end
 
 	end

@@ -16,7 +16,7 @@ class MembershipsController < ApplicationController
 		#	should check for a difference, but not necessary
 		@membership.group_role = @group_role
 		@membership.save!
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash[:error] = "Membership update failed"
 	ensure
 		redirect_to memberships_path
@@ -24,7 +24,7 @@ class MembershipsController < ApplicationController
 
 	def approve
 		@membership.approve!
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash[:error] = "Membership approval failed"
 	ensure
 		redirect_to memberships_path

@@ -41,37 +41,10 @@ class PublicationsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :publications_path,
-		:show    => { :id => 0 },
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
 
 	site_administrators.each do |cu|
-
-		test "should NOT create publication with #{cu} login " <<
-				"with invalid publication" do
-			login_as send(cu)
-			Publication.any_instance.stubs(:valid?).returns(false)
-			assert_difference('Publication.count',0) {
-				post :create, :publication => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create publication with #{cu} login " <<
-				"when publication save fails" do
-			login_as send(cu)
-			Publication.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('Publication.count',0) {
-				post :create, :publication => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
 
 		test "should NOT create publication with an invalid attachment and #{cu} login" do
 			login_as send(cu)

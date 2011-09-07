@@ -40,37 +40,10 @@ class DocFormsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :doc_forms_path,
-		:show    => { :id => 0 },
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
 
 	site_administrators.each do |cu|
-
-		test "should NOT create doc_form with #{cu} login " <<
-				"with invalid doc_form" do
-			login_as send(cu)
-			DocForm.any_instance.stubs(:valid?).returns(false)
-			assert_difference('DocForm.count',0) {
-				post :create, :doc_form => factory_attributes	#Factory.attributes_for(:doc_form)
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create doc_form with #{cu} login " <<
-				"when doc_form save fails" do
-			login_as send(cu)
-			DocForm.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('DocForm.count',0) {
-				post :create, :doc_form => factory_attributes	#Factory.attributes_for(:doc_form)
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
 
 		test "should NOT create doc_form with an invalid attachment and #{cu} login" do
 			login_as send(cu)

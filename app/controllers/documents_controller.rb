@@ -51,7 +51,7 @@ class DocumentsController < ApplicationController
 		@document = Document.new(params[:document])
 		@document.save!
 		redirect_to preview_document_path(@document)
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Error"
 		render :action => 'new'
 	end
@@ -59,7 +59,7 @@ class DocumentsController < ApplicationController
 	def update
 		@document.update_attributes!(params[:document])
 		redirect_to preview_document_path(@document)
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Error"
 		render :action => 'edit'
 	end

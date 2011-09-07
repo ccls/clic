@@ -61,60 +61,6 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
-	site_editors.each do |cu|
-
-		test "should NOT create groupless forum with #{cu} login " <<
-				"with invalid forum" do
-			login_as send(cu)
-			Forum.any_instance.stubs(:valid?).returns(false)
-			assert_difference('Forum.count',0) {
-				post :create, :forum => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create groupless forum with #{cu} login " <<
-				"when forum save fails" do
-			login_as send(cu)
-			Forum.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('Forum.count',0) {
-				post :create, :forum => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT update groupless forum with #{cu} login " <<
-				"with invalid forum" do
-			login_as send(cu)
-			forum = create_forum
-			Forum.any_instance.stubs(:valid?).returns(false)
-			deny_changes("Forum.find(#{forum.id}).updated_at") {
-				put :update, :id => forum.id, :forum => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'edit'
-		end
-
-		test "should NOT update groupless forum with #{cu} login " <<
-				"when forum save fails" do
-			login_as send(cu)
-			forum = create_forum
-			Forum.any_instance.stubs(:create_or_update).returns(false)
-			deny_changes("Forum.find(#{forum.id}).updated_at") {
-				put :update, :id => forum.id, :forum => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'edit'
-		end
-
-	end
-
 ##################################################
 
 	group_readers.each do |cu|

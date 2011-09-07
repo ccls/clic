@@ -40,37 +40,10 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :annual_meetings_path,
-		:show    => { :id => 0 },
-		:edit    => { :id => 0 },
-		:update  => { :id => 0 },
-		:destroy => { :id => 0 }
+		:show    => { :id => 0 }
 	)
 
 	site_administrators.each do |cu|
-
-		test "should NOT create annual_meeting with #{cu} login " <<
-				"with invalid annual_meeting" do
-			login_as send(cu)
-			AnnualMeeting.any_instance.stubs(:valid?).returns(false)
-			assert_difference('AnnualMeeting.count',0) {
-				post :create, :annual_meeting => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
-
-		test "should NOT create annual_meeting with #{cu} login " <<
-				"when annual_meeting save fails" do
-			login_as send(cu)
-			AnnualMeeting.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('AnnualMeeting.count',0) {
-				post :create, :annual_meeting => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'new'
-		end
 
 		test "should NOT create annual_meeting with an invalid attachment and #{cu} login" do
 			login_as send(cu)
