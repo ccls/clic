@@ -1,9 +1,7 @@
 <% content_tag_for( :tr, publication_subject, :class => "publication_subject row" ) do %>
-
-<td><%= hidden_field_tag( 'publication_subjects[]', publication_subject.id, :id => nil ) %>
-<%= image_tag 'drag.gif', :class => 'handle' %></td>
-<td class='position'><%= publication_subject.position -%></td>
-
+ <td><%= hidden_field_tag( 'ids[]', publication_subject.id, :id => nil ) %>
+  <%= image_tag 'drag.gif', :class => 'handle' %></td>
+ <td class='position'><%= publication_subject.position -%></td>
  <td class='name'><%= link_to publication_subject, publication_subject %></td>
  <td class='manage'>
   <%= link_to 'Edit', edit_publication_subject_path(publication_subject), 

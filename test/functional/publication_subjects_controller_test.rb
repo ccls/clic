@@ -21,6 +21,7 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 	assert_no_access_with_http 
 	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
+	assert_orderable
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
@@ -40,25 +41,6 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 
 	site_administrators.each do |cu|
 
-		test "should order publication_subjects with #{cu} login" do
-			login_as send(cu)
-			publication_subjects = []
-			3.times{ publication_subjects.push(factory_create) }
-			before_ids = PublicationSubject.all.collect(&:id)
-			post :order, :publication_subjects => before_ids.reverse
-			after_ids = PublicationSubject.all.collect(&:id)
-			assert_equal after_ids, before_ids.reverse
-			assert_redirected_to publication_subjects_path
-		end
-
-		test "should NOT order publication_subjects without publication_subjects " <<
-				"with #{cu} login" do
-			login_as send(cu)
-			post :order
-			assert_not_nil flash[:error]
-			assert_redirected_to publication_subjects_path
-		end
-
 		test "should NOT create publication_subject with #{cu} login " <<
 				"with invalid publication_subject" do
 			login_as send(cu)
@@ -72,7 +54,7 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create publication_subject with #{cu} login " <<
-				"when forum save fails" do
+				"when publication_subject save fails" do
 			login_as send(cu)
 			PublicationSubject.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('PublicationSubject.count',0) {
@@ -83,28 +65,6 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
-	end
-
-	non_site_administrators.each do |cu|
-
-		test "should NOT order publication_subjects with #{cu} login" do
-			login_as send(cu)
-			publication_subjects = []
-			3.times{ publication_subjects.push(factory_create) }
-			before_ids = PublicationSubject.all.collect(&:id)
-			post :order, :publication_subjects => before_ids.reverse
-			assert_not_nil flash[:error]
-			assert_redirected_to root_path
-		end
-
-	end
-
-	test "should NOT order publication_subjects without login" do
-		publication_subjects = []
-		3.times{ publication_subjects.push(factory_create) }
-		before_ids = PublicationSubject.all.collect(&:id)
-		post :order, :publication_subjects => before_ids.reverse
-		assert_redirected_to_login
 	end
 
 end

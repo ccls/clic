@@ -2,8 +2,6 @@
 #	Currently, used just in professions' and publication_subjects' controllers
 #		primarily to dry it up.  Could also add to pages' controller and any
 #		future orderable resources.  This is nice as there isn't a view.
-#	Need to do something similar in javascript as the 3 orderable resources
-#		each have very similar javascripts.
 #
 module OrderableController
 
@@ -29,16 +27,22 @@ module OrderableController
 	module Actions
 
 		def order
-#	If generalize javascript, the passed param will be something
-#		like just "ids" rather than the model.
-			param = self.class.controller_name	#	publication_subjects
-
-			if params[param] && params[param].is_a?(Array)
-				params[param].each_with_index { |id,index| 
-					param.camelize.singularize.constantize.find(id).update_attribute(:position, index+1 ) }
-			else
-				flash[:error] = "No #{param} order given!"
-			end
+			model = self.class.controller_name.camelize.singularize.constantize
+#	This seems to treat params[:ids] as an array even if it is not?
+			params[:ids].each_with_index { |id,index| 
+				model.find(id).update_attribute(:position, index+1 ) }
+		rescue NoMethodError => e
+#	Most likely caused by nonexistant params[:ids]
+#	e would be ...
+#		You have a nil object when you didn't expect it!
+#		You might have expected an instance of Array.
+#		The error occurred while evaluating nil.each_with_index
+			flash[:error] = "No ids passed"
+		rescue ActiveRecord::RecordNotFound => e
+#	e would be like "Couldn't find PublicationSubject with ID=0"
+#			flash[:error] = "Ids included an invalid id:#{e}"
+			flash[:error] = e.to_s
+		ensure
 			redirect_to :action => 'index'
 		end
 

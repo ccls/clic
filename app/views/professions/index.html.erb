@@ -1,4 +1,4 @@
-<% javascripts('professions') %>
+<% javascripts('orderable') %>
 
 <h2>Professions
 <% if current_user.may_create_professions? %>
@@ -8,7 +8,7 @@
 <% end %></h2>
 
 <% unless @professions.empty? %>
-  <table id='professions'><thead>
+  <table id='professions' class='orderable'><thead>
     <tr><th>&nbsp;</th><th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'profession', :collection => @professions %>
@@ -18,9 +18,6 @@
 <% end %>
 
 
-<% form_tag(order_professions_path, :method => :post, :id => 'order_professions') do -%>
-<%#= hidden_field_tag :parent_id, params[:parent_id] %>
-<p>
-<%= submit_tag 'Save profession order', :name => nil, :id => 'save_order' %>
-</p>
+<% form_tag(order_professions_path, :method => :post, :id => 'order') do -%>
+<p><%= submit_tag 'Save profession order', :name => nil, :id => 'save_order' %></p>
 <% end %>

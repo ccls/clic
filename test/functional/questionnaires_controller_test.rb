@@ -63,7 +63,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create questionnaire with #{cu} login " <<
-				"when forum save fails" do
+				"when questionnaire save fails" do
 			login_as send(cu)
 			Questionnaire.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('Questionnaire.count',0) {

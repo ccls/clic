@@ -1,5 +1,5 @@
 <% content_tag_for( :tr, profession, :class => "profession row" ) do %>
- <td><%= hidden_field_tag( 'professions[]', profession.id, :id => nil ) %>
+ <td><%= hidden_field_tag( 'ids[]', profession.id, :id => nil ) %>
   <%= image_tag 'drag.gif', :class => 'handle' %></td>
  <td class='position'><%= profession.position -%></td>
  <td class='name'><%= link_to profession, profession %></td>

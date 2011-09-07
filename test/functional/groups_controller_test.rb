@@ -38,25 +38,31 @@ class GroupsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
+
+#	TODO
+#	some of this seems to be a repitition of the assert_access_with_login tests
+
 	site_administrators.each do |cu|
 
-		test "should get new group with #{cu} login" do
-			login_as send(cu)
-			get :new
-			assert assigns(:group)
-			assert_response :success
-			assert_template 'new'
-		end
+#	TODO duplicate?
+#		test "should get new group with #{cu} login" do
+#			login_as send(cu)
+#			get :new
+#			assert assigns(:group)
+#			assert_response :success
+#			assert_template 'new'
+#		end
 	
-		test "should create group with #{cu} login" do
-			login_as send(cu)
-			assert_difference('Group.count',1) do
-				post :create, :group => factory_attributes
-			end
-			assert assigns(:group)
-			assert_redirected_to group_path(assigns(:group))
-			assert_not_nil flash[:notice]
-		end
+#	TODO duplicate?
+#		test "should create group with #{cu} login" do
+#			login_as send(cu)
+#			assert_difference('Group.count',1) do
+#				post :create, :group => factory_attributes
+#			end
+#			assert assigns(:group)
+#			assert_redirected_to group_path(assigns(:group))
+#			assert_not_nil flash[:notice]
+#		end
 	
 		test "should NOT create new group with #{cu} login when create fails" do
 			Group.any_instance.stubs(:create_or_update).returns(false)
@@ -82,30 +88,33 @@ class GroupsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
-		test "should get index with #{cu} login" do
-			login_as send(cu)
-			get :index
-			assert_response :success
-			assert_template 'index'
-		end
+#	TODO duplicate?
+#		test "should get index with #{cu} login" do
+#			login_as send(cu)
+#			get :index
+#			assert_response :success
+#			assert_template 'index'
+#		end
 
-		test "should destroy with #{cu} login" do
-			login_as send(cu)
-			assert_difference("Group.count", -1) {
-				delete :destroy, :id => @membership.group.id
-			}
-			assert assigns(:group)
-			assert_redirected_to groups_path
-		end
+#	TODO duplicate? using membership group unnecessary
+#		test "should destroy with #{cu} login" do
+#			login_as send(cu)
+#			assert_difference("Group.count", -1) {
+#				delete :destroy, :id => @membership.group.id
+#			}
+#			assert assigns(:group)
+#			assert_redirected_to groups_path
+#		end
 
-		test "should NOT destroy with #{cu} login and invalid id" do
-			login_as send(cu)
-			assert_difference("Group.count", 0) {
-				delete :destroy, :id => 0
-			}
-			assert !assigns(:group)
-			assert_redirected_to groups_path
-		end
+#	TODO duplicate?
+#		test "should NOT destroy with #{cu} login and invalid id" do
+#			login_as send(cu)
+#			assert_difference("Group.count", 0) {
+#				delete :destroy, :id => 0
+#			}
+#			assert !assigns(:group)
+#			assert_redirected_to groups_path
+#		end
 
 		#	in rake test:coverage, 'sometimes' the Group.all is empty?????
 		Group.all.each do |group|
@@ -122,41 +131,45 @@ class GroupsControllerTest < ActionController::TestCase
 
 	end
 
-	non_site_administrators.each do |cu|
+#	non_site_administrators.each do |cu|
 
-		test "should NOT get new group with #{cu} login" do
-			login_as send(cu)
-			get :new
-			assert_not_nil flash[:error]
-			assert_redirected_to root_path
-		end
+#	TODO duplicate?
+#		test "should NOT get new group with #{cu} login" do
+#			login_as send(cu)
+#			get :new
+#			assert_not_nil flash[:error]
+#			assert_redirected_to root_path
+#		end
 	
-		test "should NOT create group with #{cu} login" do
-			login_as send(cu)
-			assert_difference('Group.count',0) do
-				post :create, :group => factory_attributes
-			end
-			assert_not_nil flash[:error]
-			assert_redirected_to root_path
-		end
+#	TODO duplicate?
+#		test "should NOT create group with #{cu} login" do
+#			login_as send(cu)
+#			assert_difference('Group.count',0) do
+#				post :create, :group => factory_attributes
+#			end
+#			assert_not_nil flash[:error]
+#			assert_redirected_to root_path
+#		end
 
-		test "should NOT get index with #{cu} login" do
-			login_as send(cu)
-			get :index
-			assert_not_nil flash[:error]
-			assert_redirected_to root_path
-		end
+#	TODO duplicate?
+#		test "should NOT get index with #{cu} login" do
+#			login_as send(cu)
+#			get :index
+#			assert_not_nil flash[:error]
+#			assert_redirected_to root_path
+#		end
 
-		test "should NOT destroy with #{cu} login" do
-			login_as send(cu)
-			assert_difference("Group.count", 0) {
-				delete :destroy, :id => @membership.group.id
-			}
-			assert assigns(:group)
-			assert_redirected_to root_path
-		end
+#	TODO duplicate? using membership group unnecessary
+#		test "should NOT destroy with #{cu} login" do
+#			login_as send(cu)
+#			assert_difference("Group.count", 0) {
+#				delete :destroy, :id => @membership.group.id
+#			}
+#			assert assigns(:group)
+#			assert_redirected_to root_path
+#		end
 
-	end
+#	end
 
 	group_moderators.each do |cu|
 

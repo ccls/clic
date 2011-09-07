@@ -62,7 +62,7 @@ class PublicationsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT create publication with #{cu} login " <<
-				"when forum save fails" do
+				"when publication save fails" do
 			login_as send(cu)
 			Publication.any_instance.stubs(:create_or_update).returns(false)
 			assert_difference('Publication.count',0) {

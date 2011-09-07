@@ -9,7 +9,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 require 'test_help'
 require 'group_test_helper'
-require 'test_startup_shutdown'
+require 'orderable_test_helper'
+#require 'test_startup_shutdown'
 #require 'test_sunspot'
 #TestSunspot.setup
 #	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x

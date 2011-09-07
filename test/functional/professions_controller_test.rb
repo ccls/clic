@@ -21,6 +21,7 @@ class ProfessionsControllerTest < ActionController::TestCase
 	assert_no_access_with_http 
 	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
+	assert_orderable
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
@@ -39,25 +40,6 @@ class ProfessionsControllerTest < ActionController::TestCase
 	)
 
 	site_administrators.each do |cu|
-
-		test "should order professions with #{cu} login" do
-			login_as send(cu)
-			professions = []
-			3.times{ professions.push(factory_create) }
-			before_ids = Profession.all.collect(&:id)
-			post :order, :professions => before_ids.reverse
-			after_ids = Profession.all.collect(&:id)
-			assert_equal after_ids, before_ids.reverse
-			assert_redirected_to professions_path
-		end
-
-		test "should NOT order professions without professions " <<
-				"with #{cu} login" do
-			login_as send(cu)
-			post :order
-			assert_not_nil flash[:error]
-			assert_redirected_to professions_path
-		end
 
 		test "should NOT create profession with #{cu} login " <<
 				"with invalid profession" do
@@ -83,28 +65,6 @@ class ProfessionsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
-	end
-
-	non_site_administrators.each do |cu|
-
-		test "should NOT order professions with #{cu} login" do
-			login_as send(cu)
-			professions = []
-			3.times{ professions.push(factory_create) }
-			before_ids = Profession.all.collect(&:id)
-			post :order, :professions => before_ids.reverse
-			assert_not_nil flash[:error]
-			assert_redirected_to root_path
-		end
-
-	end
-
-	test "should NOT order professions without login" do
-		professions = []
-		3.times{ professions.push(factory_create) }
-		before_ids = Profession.all.collect(&:id)
-		post :order, :professions => before_ids.reverse
-		assert_redirected_to_login
 	end
 
 end
