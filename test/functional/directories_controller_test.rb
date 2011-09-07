@@ -48,4 +48,15 @@ class DirectoriesControllerTest < ActionController::TestCase
 
 	end
 
+	[:first_name,:last_name,:profession_id].each do |field|
+
+		test "should search directory with field #{field}" do
+			login_as send(:administrator)
+			get :show, field => 'irrelevant'
+			assert_response :success
+			assert_template 'show'
+		end
+
+	end
+
 end
