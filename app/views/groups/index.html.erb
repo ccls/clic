@@ -1,15 +1,30 @@
-<h2>Groups
+<% javascripts('orderable') %>
+
+<h2>
+<% if @group %>
+<%= link_to 'Groups', groups_path %>
+&nbsp;&raquo;&nbsp;
+<%= link_to @group, @group %>
+<% else %>
+Groups
+<% end %>
 <span class='controls'>
  <%= link_to 'Create New Group', new_group_path, :class => 'button' %>
 </span>
 </h2>
 
 <% if @groups.length > 0 %>
- <table id='groups'><thead>
- <tr><th>Group</th><th>Subgroup</th><th>&nbsp;</th></tr>
+ <table id='groups' class='orderable'><thead>
+ <tr><th>&nbsp;</th><th>&nbsp;</th><th>Group</th></tr>
  </thead><tbody>
  <%= render :partial => 'group', :collection => @groups %>
  </tbody></table><!-- id='groups' -->
 <% else %>
  <p>Sorry, but no groups yet.</p>
+<% end %>
+
+
+<% form_tag(order_groups_path, :method => :post, :id => 'order') do -%>
+<%= hidden_field_tag :parent_id, params[:parent_id] %>
+<p><%= submit_tag 'Save group order', :name => nil, :id => 'save_order' %></p>
 <% end %>

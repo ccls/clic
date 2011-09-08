@@ -43,7 +43,7 @@ module OrderableController
 #			flash[:error] = "Ids included an invalid id:#{e}"
 			flash[:error] = e.to_s
 		ensure
-			redirect_to :action => 'index'
+			redirect_to :action => 'index', :parent_id => params[:parent_id]
 		end
 
 	end

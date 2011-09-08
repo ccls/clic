@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :group_roles
 	map.resources :memberships, :only => [:index,:update,:destroy,:edit],
 		:member => { :approve => :put }
-	map.resources :groups do |group|
+	map.resources :groups, :collection => { :order => :post } do |group|
 		group.resources :memberships,
 			:controller => 'group_memberships',
 			:member => { :approve => :put }

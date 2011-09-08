@@ -18,6 +18,9 @@ module OrderableTestHelper
 
 				test "should order #{resources} with #{cu} login" do
 					login_as send(cu)
+#	As some models (Groups) may have existing records,
+#	we must remove them. This may cause membership problems.
+model.destroy_all
 					orderable = []
 					3.times{ orderable.push(factory_create) }
 					before_ids = model.all.collect(&:id)
@@ -58,8 +61,11 @@ module OrderableTestHelper
 
 				test "should NOT order #{resources} with #{cu} login" do
 					login_as send(cu)
-					orderable = []
-					3.times{ orderable.push(factory_create) }
+#	As some models (Groups) may have existing records,
+#	we must remove them. This may cause membership problems.
+model.destroy_all
+#					orderable = []
+#					3.times{ orderable.push(factory_create) }
 					before_ids = model.all.collect(&:id)
 					post :order, :ids => before_ids.reverse
 					assert_not_nil flash[:error]
@@ -69,8 +75,11 @@ module OrderableTestHelper
 			end
 
 			test "should NOT order #{resources} without login" do
-				orderable = []
-				3.times{ orderable.push(factory_create) }
+#	As some models (Groups) may have existing records,
+#	we must remove them. This may cause membership problems.
+#model.destroy_all
+#				orderable = []
+#				3.times{ orderable.push(factory_create) }
 				before_ids = model.all.collect(&:id)
 				post :order, :ids => before_ids.reverse
 				assert_redirected_to_login

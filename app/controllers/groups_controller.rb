@@ -1,5 +1,7 @@
 class GroupsController < ApplicationController
+	orderable
 
+	before_filter :valid_parent_id_required, :only => :index
 	before_filter :valid_id_required, 
 		:only => [:show,:edit,:update,:destroy]
 	before_filter "may_create_groups_required", :only => [:new,:create]
@@ -9,7 +11,11 @@ class GroupsController < ApplicationController
 	before_filter "may_destroy_group_required", :only => [:destroy]
 
 	def index
-		@groups = Group.roots
+		@groups = if @group
+			@group.children
+		else
+			Group.roots
+		end
 	end
 
 	def new
@@ -47,6 +53,14 @@ class GroupsController < ApplicationController
 	end
 
 protected
+
+	def valid_parent_id_required
+		if( !params[:parent_id].blank? && Group.exists?(params[:parent_id]) )
+			@group = Group.find(params[:parent_id])
+#		else
+#			access_denied("Valid parent_id required!", groups_path)
+		end
+	end
 
 	def valid_id_required
 		if( !params[:id].blank? && Group.exists?(params[:id]) )
