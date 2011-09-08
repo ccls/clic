@@ -53,6 +53,13 @@ class GroupsControllerTest < ActionController::TestCase
 				assert_template 'show'
 			end
 
+			test "should get children of group #{group.id} with #{cu} login" do
+				login_as send(cu)
+				get :index, :parent_id => group.id
+				assert_response :success
+				assert_template 'index'
+			end
+
 		end
 
 	end
