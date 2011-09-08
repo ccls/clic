@@ -21,14 +21,14 @@ class GroupRolesControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
-	assert_no_access_with_login(
-		:attributes_for_create => nil,
-		:method_for_create => nil,
-		:actions => nil,
-		:suffix => " and invalid id",
-		:login => :superuser,
-		:redirect => :group_roles_path,
-		:show    => { :id => 0 }
-	)
+#	assert_no_access_with_login(
+#		:attributes_for_create => nil,
+#		:method_for_create => nil,
+#		:actions => nil,
+#		:suffix => " and invalid id",
+#		:login => :superuser,
+#		:redirect => :group_roles_path,
+#		:show    => { :id => 0 }
+#	)
 
 end

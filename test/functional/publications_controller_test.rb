@@ -34,15 +34,15 @@ class PublicationsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
-	assert_no_access_with_login(
-		:attributes_for_create => nil,
-		:method_for_create => nil,
-		:actions => nil,
-		:suffix => " and invalid id",
-		:login => :superuser,
-		:redirect => :publications_path,
-		:show    => { :id => 0 }
-	)
+#	assert_no_access_with_login(
+#		:attributes_for_create => nil,
+#		:method_for_create => nil,
+#		:actions => nil,
+#		:suffix => " and invalid id",
+#		:login => :superuser,
+#		:redirect => :publications_path,
+#		:show    => { :id => 0 }
+#	)
 
 	site_administrators.each do |cu|
 

@@ -6,8 +6,11 @@ class GroupsControllerTest < ActionController::TestCase
 		:model => 'Group',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :create_group
+		:method_for_create => :factory_create
 	}
+	def factory_create
+		create_group
+	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:group,options)
 	end
@@ -25,15 +28,17 @@ class GroupsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
-	assert_no_access_with_login(
-		:attributes_for_create => nil,
-		:method_for_create => nil,
-		:actions => nil,
-		:suffix => " and invalid id",
-		:login => :superuser,
-		:redirect => :groups_path,
-		:show    => { :id => 0 }
-	)
+#	assert_no_access_with_login(
+#		:attributes_for_create => nil,
+#		:method_for_create => nil,
+#		:actions => nil,
+#		:suffix => " and invalid id",
+#		:login => :superuser,
+#		:redirect => :groups_path,
+#		:show    => { :id => 0 }
+#	)
+
+	assert_orderable
 
 	site_administrators.each do |cu|
 
