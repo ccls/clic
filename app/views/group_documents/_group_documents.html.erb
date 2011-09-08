@@ -1,6 +1,7 @@
 <div id='group_documents'>
   <p>Optional File Attachment(s) ... <a id='add_attachment' class='button'>Add Another</a></p>
 <% f.fields_for :group_documents do |d| -%>
+<p>Be advised that some characters in the filename are not handled correctly and the uploaded file may not be reachable.  The apostrophe is currently the only known problem so far. Rename the file on your computer prior to uploading so that it does not include any special characters.</p>
   <%= d.wrapped_text_field :title,
     :label_text => 'Document Title',
     :class => 'autosize' %>
