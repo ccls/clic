@@ -40,7 +40,6 @@ Childhood Leukemia International Consortium
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 * {jakewendt-simply_pages}[http://github.com/jakewendt/simply_pages]
 * {jakewendt-simply_photos}[http://github.com/jakewendt/simply_photos]
-* {jakewendt-simply_documents}[http://github.com/jakewendt/simply_documents]
 * {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
 * {jakewendt-html_test}[http://github.com/jakewendt/html_test] - html testing and validation
 * {jakewendt-rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
