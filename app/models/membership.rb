@@ -1,4 +1,6 @@
 class Membership < ActiveRecord::Base
+	default_scope :order => 'approved'
+
 	belongs_to :user
 	belongs_to :group
 	belongs_to :group_role
