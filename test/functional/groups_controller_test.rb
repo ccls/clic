@@ -32,6 +32,7 @@ class GroupsControllerTest < ActionController::TestCase
 	site_administrators.each do |cu|
 
 		#	in rake test:coverage, 'sometimes' the Group.all is empty?????
+		#	I think that this is usually after a rake db:test:prepare
 		Group.all.each do |group|
 
 			#	show all groups to fully test group menu
