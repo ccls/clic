@@ -2,7 +2,8 @@ require 'test_helper'
 
 class CalendarsControllerTest < ActionController::TestCase
 
-	ASSERT_ACCESS_OPTIONS = { :actions => [:show] }
+	ASSERT_ACCESS_OPTIONS = { :actions => [:show],
+		:skip_show_failure => true }
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership

@@ -16,6 +16,7 @@ class InventoriesControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = { 
 		:actions => [:show],
+		:skip_show_failure => true,
 		:no_redirect_check => true }
 
 	# a @membership is required so that those group roles will work
