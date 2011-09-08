@@ -52,6 +52,12 @@ Childhood Leukemia International Consortium
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb) (not used anymore)
 
 
+== IMPORTANT NOTES
+
+
+* For the time being, do not use apostrophes in the filenames of any uploaded files.  I think that Paperclip does not deal with them, at least using expiring_url, and somehow the signature is incorrect.
+
+
 == Installation 
 
  #	Copy session file.
