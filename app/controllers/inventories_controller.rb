@@ -138,23 +138,29 @@ class InventoriesController < ApplicationController
 		studies = @search.facet(:study_id).rows.collect(&:instance)
 		@questionnaires = studies.collect(&:questionnaires).flatten
 
-		conditions = [[]]
-		joins = []
-		joins << 'LEFT JOIN "publication_studies" ON ("publications"."id" = "publication_studies"."publication_id")'
-		joins << 'LEFT JOIN "studies" ON ("studies"."id" = "publication_studies"."study_id")'
-		conditions[0] << 'studies.id IN (?)'
-		conditions << studies.collect(&:id)
-		if params[:category] and !params[:category].blank?
-			joins << 'LEFT JOIN "publication_publication_subjects" ON ("publications"."id" = "publication_publication_subjects"."publication_id")'
-			joins << 'LEFT JOIN "publication_subjects" ON ("publication_subjects"."id" = "publication_publication_subjects"."publication_subject_id")'
-			conditions[0] << 'publication_subjects.name = ?'
-			conditions << params[:category]
+		#	I'm not particularly proud of this, but there was a bit of a rush.
+		#	There should always be at least one study, however.
+		if studies.empty?
+			@publications = []
+		else
+			conditions = [[]]
+			joins = []
+			joins << 'LEFT JOIN "publication_studies" ON ("publications"."id" = "publication_studies"."publication_id")'
+			joins << 'LEFT JOIN "studies" ON ("studies"."id" = "publication_studies"."study_id")'
+			conditions[0] << 'studies.id IN (?)'
+			conditions << studies.collect(&:id)
+			if params[:category] and !params[:category].blank?
+				joins << 'LEFT JOIN "publication_publication_subjects" ON ("publications"."id" = "publication_publication_subjects"."publication_id")'
+				joins << 'LEFT JOIN "publication_subjects" ON ("publication_subjects"."id" = "publication_publication_subjects"."publication_subject_id")'
+				conditions[0] << 'publication_subjects.name = ?'
+				conditions << params[:category]
+			end
+			conditions[0] = conditions[0].join(' AND ')
+			@publications = Publication.find(:all,
+				:select     => 'DISTINCT publications.*',
+				:conditions => conditions,
+				:joins      => joins )
 		end
-		conditions[0] = conditions[0].join(' AND ')
-		@publications = Publication.find(:all,
-			:select     => 'DISTINCT publications.*',
-			:conditions => conditions,
-			:joins      => joins )
 	rescue Errno::ECONNREFUSED
 		flash[:error] = "Solr seems to be down for the moment."
 		redirect_to root_path
@@ -163,7 +169,7 @@ class InventoriesController < ApplicationController
 protected
 
 	def all_subject_facets
-		%w( case_status leukemia_type immunophenotype gender age birth_year reference_year mother_age father_age mother_education father_education household_income down_syndrome study_name country recruitment study_design )
+		%w( case_status leukemia_type immunophenotype gender age ethnicity birth_year reference_year mother_age father_age mother_education father_education household_income down_syndrome study_name country recruitment study_design )
 	end
 
 	def exposure_facets
@@ -171,10 +177,10 @@ protected
 		%w( relation_to_child types windows locations_of_use forms_of_contact )
 	end
 
-	def subject_facets
-#		%w( study_name country recruitment study_design case_control leukemiatype immunophenotype gender ethnicity mother_education father_education income_quint downs )
-		%w( study_name country recruitment study_design case_status leukemia_type immunophenotype gender ethnicity mother_education father_education household_income down_syndrome )
-	end
+#	def subject_facets
+##		%w( study_name country recruitment study_design case_control leukemiatype immunophenotype gender ethnicity mother_education father_education income_quint downs )
+#		%w( study_name country recruitment study_design case_status leukemia_type immunophenotype gender ethnicity mother_education father_education household_income down_syndrome )
+#	end
 
 	def year_facets
 		%w( birth_year reference_year )
