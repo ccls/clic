@@ -171,8 +171,8 @@ class InventoriesControllerTest < ActionController::TestCase
 
 
 		#	basic subject facets
-		%w( case_control leukemiatype immunophenotype 
-			gender ethnicity income_quint downs
+		%w( case_status leukemia_type immunophenotype 
+			gender ethnicity household_income down_syndrome
 			mother_education father_education ).each do |p|
 
 			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
@@ -251,7 +251,7 @@ class InventoriesControllerTest < ActionController::TestCase
 #	"some_bogus_value" won't match any of the expected value formats so will be ignored
 
 		#	range related subject facets
-		%w( age reference_year birth_year father_age_birth mother_age_birth ).each do |p|
+		%w( age reference_year birth_year father_age mother_age ).each do |p|
 
 			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
 				login_as send(cu)

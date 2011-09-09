@@ -122,7 +122,8 @@ protected
 	end
 
 	def subject_facets
-		%w( study_name country recruitment study_design case_control leukemiatype immunophenotype gender ethnicity mother_education father_education income_quint downs )
+#		%w( study_name country recruitment study_design case_control leukemiatype immunophenotype gender ethnicity mother_education father_education income_quint downs )
+		%w( study_name country recruitment study_design case_status leukemia_type immunophenotype gender ethnicity mother_education father_education household_income down_syndrome )
 	end
 
 	def year_facets
@@ -130,7 +131,8 @@ protected
 	end
 
 	def age_facets
-		%w( age father_age_birth mother_age_birth )
+#		%w( age father_age_birth mother_age_birth )
+		%w( age father_age mother_age )
 	end
 
 	def may_read_inventory_required
