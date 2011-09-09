@@ -15,6 +15,11 @@
         <span class='study'><%= link_to study, study %></span>
        <% end -%>
       </div>
+      <div><span>Publication Subjects:</span>
+       <% publication.publication_subjects.each do |publication_subject| -%>
+        <span class='publication_subject'><%= link_to publication_subject, publication_subject %></span>
+       <% end -%>
+      </div>
      </li>
     <% end %>
   </ul>

@@ -138,9 +138,23 @@ class InventoriesController < ApplicationController
 		studies = @search.facet(:study_id).rows.collect(&:instance)
 		@questionnaires = studies.collect(&:questionnaires).flatten
 
-		@publications = []	#Publication.find(:all)
-
-
+		conditions = [[]]
+		joins = []
+		joins << 'LEFT JOIN "publication_studies" ON ("publications"."id" = "publication_studies"."publication_id")'
+		joins << 'LEFT JOIN "studies" ON ("studies"."id" = "publication_studies"."study_id")'
+		conditions[0] << 'studies.id IN (?)'
+		conditions << studies.collect(&:id)
+		if params[:category] and !params[:category].blank?
+			joins << 'LEFT JOIN "publication_publication_subjects" ON ("publications"."id" = "publication_publication_subjects"."publication_id")'
+			joins << 'LEFT JOIN "publication_subjects" ON ("publication_subjects"."id" = "publication_publication_subjects"."publication_subject_id")'
+			conditions[0] << 'publication_subjects.name = ?'
+			conditions << params[:category]
+		end
+		conditions[0] = conditions[0].join(' AND ')
+		@publications = Publication.find(:all,
+			:select     => 'DISTINCT publications.*',
+			:conditions => conditions,
+			:joins      => joins )
 	rescue Errno::ECONNREFUSED
 		flash[:error] = "Solr seems to be down for the moment."
 		redirect_to root_path
