@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20110909182556) do
 
   create_table "publications", :force => true do |t|
     t.string   "author_last_name"
-    t.integer  "publication_year",          :limit => 255
+    t.integer  "publication_year"
     t.string   "journal"
     t.string   "title"
     t.string   "other_publication_subject"
@@ -315,8 +315,8 @@ ActiveRecord::Schema.define(:version => 20110909182556) do
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
 
   create_table "user_professions", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "profession_id"
+    t.integer  "user_id",       :null => false
+    t.integer  "profession_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

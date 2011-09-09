@@ -15,8 +15,11 @@ class DirectoriesController < ApplicationController
 			conditions << "%#{params[:last_name]}%"
 		end
 		if params[:profession_id] and !params[:profession_id].blank?
-			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
-			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
+#	Sqlite quoting does not work on mysql
+#			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
+#			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
+			joins << 'LEFT JOIN user_professions ON (users.id = user_professions.user_id)'
+			joins << 'LEFT JOIN professions ON (professions.id = user_professions.profession_id)'
 			conditions[0] << 'professions.id = ?'
 			conditions << params[:profession_id]
 		end

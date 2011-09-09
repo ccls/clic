@@ -145,13 +145,19 @@ class InventoriesController < ApplicationController
 		else
 			conditions = [[]]
 			joins = []
-			joins << 'LEFT JOIN "publication_studies" ON ("publications"."id" = "publication_studies"."publication_id")'
-			joins << 'LEFT JOIN "studies" ON ("studies"."id" = "publication_studies"."study_id")'
+#	Sqlite3 quoting doesn't work on MySQL
+#			joins << 'LEFT JOIN "publication_studies" ON ("publications"."id" = "publication_studies"."publication_id")'
+#			joins << 'LEFT JOIN "studies" ON ("studies"."id" = "publication_studies"."study_id")'
+			joins << 'LEFT JOIN publication_studies ON (publications.id = publication_studies.publication_id)'
+			joins << 'LEFT JOIN studies ON (studies.id = publication_studies.study_id)'
 			conditions[0] << 'studies.id IN (?)'
 			conditions << studies.collect(&:id)
 			if params[:category] and !params[:category].blank?
-				joins << 'LEFT JOIN "publication_publication_subjects" ON ("publications"."id" = "publication_publication_subjects"."publication_id")'
-				joins << 'LEFT JOIN "publication_subjects" ON ("publication_subjects"."id" = "publication_publication_subjects"."publication_subject_id")'
+#	Sqlite3 quoting doesn't work on MySQL
+#				joins << 'LEFT JOIN "publication_publication_subjects" ON ("publications"."id" = "publication_publication_subjects"."publication_id")'
+#				joins << 'LEFT JOIN "publication_subjects" ON ("publication_subjects"."id" = "publication_publication_subjects"."publication_subject_id")'
+				joins << 'LEFT JOIN publication_publication_subjects ON (publications.id = publication_publication_subjects.publication_id)'
+				joins << 'LEFT JOIN publication_subjects ON (publication_subjects.id = publication_publication_subjects.publication_subject_id)'
 				conditions[0] << 'publication_subjects.name = ?'
 				conditions << params[:category]
 			end
