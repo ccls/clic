@@ -1,0 +1,24 @@
+<div id='publications' class='tab_contents'>
+
+
+<p>This tab will include all publications that match at least one of the found studies AND, 
+if provided, the exposure category as one of the publication subjects.</p>
+
+<p>Just title and author.  
+No buttons. 
+Also study name with link.  
+Publication download link with the publication title shown.</p>
+
+ <% unless @publications.empty? %>
+  <ul class='results'>
+    <% @publications.each do |publication| %>
+     <li class='result'>
+<% publication.studies.each do |study| %>
+      <span class='study'><%= link_to study, study %></span>
+<% end %>
+      <span class='publication'><%= link_to publication, publication %></span>
+     </li>
+    <% end %>
+  </ul>
+ <% end %>
+</div><!-- id='publications' -->
