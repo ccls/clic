@@ -311,8 +311,8 @@ protected
 	def _random_subject(options={})
 		Factory(:subject, { 
 			:study                => Study.random,
-			:case_control         => random_case_control,
-			:leukemiatype         => random_leukemiatype,
+			:case_status          => random_case_status,
+			:leukemia_type        => random_leukemia_type,
 			:immunophenotype      => random_immunophenotype,
 			:interview_respondent => random_interview_respondent,
 			:reference_year       => random_reference_year,
@@ -320,19 +320,19 @@ protected
 			:gender               => random_gender,
 			:age                  => random_age,
 			:ethnicity            => random_ethnicity,
-			:income_quint         => random_income_quint,
-			:downs                => random_downs,
+			:household_income     => random_household_income,
+			:down_syndrome        => random_down_syndrome,
 			:mother_education     => random_mother_education,
 			:father_education     => random_father_education,
-			:father_age_birth     => random_father_age_birth,
-			:mother_age_birth     => random_mother_age_birth
+			:father_age           => random_father_age,
+			:mother_age           => random_mother_age
 		}.merge(options))
 	end
 
-	def random_case_control
+	def random_case_status
 		['Case','Control'][rand(2)]
 	end
-	def random_leukemiatype
+	def random_leukemia_type
 		['ALL','AML'][rand(2)]
 	end
 	def random_immunophenotype
@@ -361,10 +361,10 @@ protected
 	def random_ethnicity
 		['Caucasian','Hispanic'][rand(2)]
 	end
-	def random_income_quint
+	def random_household_income
 		['Highest Quintile','Second Quintile','Third Quintile','Fourth Quintile','Lowest Quintile'][rand(5)]
 	end
-	def random_downs
+	def random_down_syndrome
 		['Yes','No'][rand(2)]
 	end
 	def random_mother_education
@@ -376,13 +376,13 @@ protected
 	def random_education
 		['Some Primary','Some Secondary','Some Tertiary','Tertiary Done'][rand(4)]
 	end
-	def random_mother_age_birth
-		random_age_birth
+	def random_mother_age
+		random_parent_age
 	end
-	def random_father_age_birth
-		random_age_birth
+	def random_father_age
+		random_parent_age
 	end
-	def random_age_birth
+	def random_parent_age
 		#	NOTE keeping this low enough that adding 10 or 20 to it will still keep
 		#		it within the expected ranges for faceting and filtering
 		(20..30).to_a[rand(11)]

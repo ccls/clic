@@ -23,7 +23,7 @@ class SubjectTest < ActiveSupport::TestCase
 			:immunophenotype => "T-Cell"
 		})
 		assert_equal "#{object}",
-			"Subject: #{object.clic_id} : #{object.case_control} : #{object.leukemiatype} : #{object.immunophenotype}"
+			"Subject: #{object.clic_id} : #{object.case_status} : #{object.leukemia_type} : #{object.immunophenotype}"
 	end
 
 	test "should search" do
