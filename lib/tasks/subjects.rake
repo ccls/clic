@@ -9,6 +9,26 @@ def unblankify(value,default = 'NS')
 	(value.blank?) ? default : value
 end
 
+def education(value)
+	case value
+		when "None/Primary" then "1: None/Primary"
+		when "Secondary"    then "2: Secondary"
+		when "Tertiary"     then "3: Tertiary"
+		else "NS"
+	end
+end
+
+def income_quint(value)
+	case value
+		when "Highest Quintile" then "5th Quintile"
+		when "Fourth Quintile"  then "4th Quintile"
+		when "Third Quintile"   then "3rd Quintile"
+		when "Second Quintile"  then "2nd Quintile"
+		when "Lowest Quintile"  then "1st Quintile"
+		else 'NS'
+	end
+end
+
 namespace :app do
 namespace :subjects do
 
@@ -45,10 +65,10 @@ namespace :subjects do
 				:ethnicity        => unblankify(line['child_ethnicity']),
 				:mother_age_birth => line['mother_age_birth'],
 				:father_age_birth => line['father_age_birth'],
-				:income_quint     => unblankify(line['income_quint']),
+				:income_quint     => income_quint(line['income_quint']),
 				:downs            => unblankify(line['downs']),
-				:mother_education => unblankify(line['mother_education']),
-				:father_education => unblankify(line['father_education'])
+				:mother_education => education(line['mother_education']),
+				:father_education => education(line['father_education'])
 			})
 
 #break if f.lineno > 100
