@@ -138,7 +138,7 @@ class InventoriesController < ApplicationController
 		studies = @search.facet(:study_id).rows.collect(&:instance)
 		@questionnaires = studies.collect(&:questionnaires).flatten
 
-		@publications = Publication.find(:all)
+		@publications = []	#Publication.find(:all)
 
 
 	rescue Errno::ECONNREFUSED

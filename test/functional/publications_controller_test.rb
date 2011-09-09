@@ -87,6 +87,10 @@ class PublicationsControllerTest < ActionController::TestCase
 			assigns(:publication).destroy
 		end
 
+		test "should add attachment on update with #{cu} login" do
+			pending # TODO
+		end
+
 	end
 
 end

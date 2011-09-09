@@ -1,24 +1,24 @@
 <div id='publications' class='tab_contents'>
-
-
-<p>This tab will include all publications that match at least one of the found studies AND, 
-if provided, the exposure category as one of the publication subjects.</p>
-
-<p>Just title and author.  
-No buttons. 
-Also study name with link.  
-Publication download link with the publication title shown.</p>
-
  <% unless @publications.empty? %>
   <ul class='results'>
     <% @publications.each do |publication| %>
      <li class='result'>
-<% publication.studies.each do |study| %>
-      <span class='study'><%= link_to study, study %></span>
-<% end %>
       <span class='publication'><%= link_to publication, publication %></span>
+      <span class='author'><%= publication.author_last_name %></span>
+      <div><span>Attachments:</span>
+       <% publication.group_documents.each do |document| -%>
+        <span><%= link_to document.title, group_document_path(document) %></span>
+       <% end -%>
+      </div>
+      <div><span>Studies:</span>
+       <% publication.studies.each do |study| -%>
+        <span class='study'><%= link_to study, study %></span>
+       <% end -%>
+      </div>
      </li>
     <% end %>
   </ul>
+ <% else %>
+  <p>Sorry, but no matching publications found.</p>
  <% end %>
 </div><!-- id='publications' -->

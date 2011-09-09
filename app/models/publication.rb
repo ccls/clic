@@ -27,7 +27,8 @@ class Publication < ActiveRecord::Base
 
 	attr_accessor :current_user
 
-	before_validation_on_create  :set_group_documents_user
+#	before_validation_on_create  :set_group_documents_user
+	before_validation  :set_group_documents_user
 
 	def to_s
 		title
@@ -39,7 +40,7 @@ protected
 		group_documents.each do |gd|
 #	topic will be nil on nested attribute creation, so need to wait
 #			gd.group = topic.forum.group
-			gd.user  = current_user
+			gd.user  = current_user if gd.user.blank?
 		end
 	end
 
