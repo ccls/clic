@@ -142,4 +142,12 @@ class UserTest < ActiveSupport::TestCase
 		}
 	end
 
+	test "should cleanup attachment file name" do
+		bad_file_name = File.join(RAILS_ROOT, 'test', 'assets', %Q{IT's, 1234 UPPERCASE!.PNG})
+		document = File.open(bad_file_name,'rb')
+		record = User.new(:avatar => document)
+		assert_equal "ITs_1234_UPPERCASE_.PNG", record.avatar_file_name
+		document.close
+	end
+
 end

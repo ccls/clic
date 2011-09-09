@@ -22,4 +22,12 @@ class DocumentTest < ActiveSupport::TestCase
 		@object.destroy
 	end
 
+	test "should cleanup attachment file name" do
+		bad_file_name = File.join(RAILS_ROOT, 'test', 'assets', %Q{IT's, 1234 UPPERCASE!.PNG})
+		document = File.open(bad_file_name,'rb')
+		record = Document.new(:document => document)
+		assert_equal "ITs_1234_UPPERCASE_.PNG", record.document_file_name
+		document.close
+	end
+
 end
