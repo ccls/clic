@@ -18,8 +18,8 @@ class SubjectTest < ActiveSupport::TestCase
 	test "should return several fields as to_s" do
 		object = create_object({
 			:clic_id => "12345678",
-			:case_control => "Case",
-			:leukemiatype => "ALL",
+			:case_status => "Case",
+			:leukemia_type => "ALL",
 			:immunophenotype => "T-Cell"
 		})
 		assert_equal "#{object}",

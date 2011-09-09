@@ -33,25 +33,19 @@ class Subject < ActiveRecord::Base
 #		string :biospecimens, :multiple => true
 
 		string  :clic_id
-#		string  :case_control			#	change
-		string  :case_status, :using => :case_control			#	change
-#		string  :leukemiatype			#	change
-		string  :leukemia_type, :using => :leukemiatype			#	change
-		string  :immunophenotype			#	change
+		string  :case_status
+		string  :leukemia_type
+		string  :immunophenotype
 		string  :interview_respondent
 		integer :reference_year, :trie => true
 		integer :birth_year, :trie => true
 		string  :gender
 		integer :age, :trie => true
 		string  :ethnicity
-#		integer :mother_age_birth, :trie => true			#	change
-		integer :mother_age, :using => :mother_age_birth, :trie => true			#	change
-#		integer :father_age_birth, :trie => true			#	change
-		integer :father_age, :using => :father_age_birth, :trie => true			#	change
-#		string  :income_quint			#	change
-		string  :household_income, :using => :income_quint			#	change
-#		string  :downs
-		string  :down_syndrome, :using => :downs
+		integer :mother_age, :trie => true
+		integer :father_age, :trie => true
+		string  :household_income
+		string  :down_syndrome
 		string  :mother_education
 		string  :father_education
 
@@ -61,6 +55,6 @@ class Subject < ActiveRecord::Base
 
 	def to_s
 #		"Subject: #{subid} : #{case_status} : #{subtype}"
-		"Subject: #{clic_id} : #{case_control} : #{leukemiatype} : #{immunophenotype}"
+		"Subject: #{clic_id} : #{case_status} : #{leukemia_type} : #{immunophenotype}"
 	end
 end

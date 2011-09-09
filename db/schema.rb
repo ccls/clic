@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110909173535) do
+ActiveRecord::Schema.define(:version => 20110909182556) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",              :null => false
@@ -284,8 +284,8 @@ ActiveRecord::Schema.define(:version => 20110909173535) do
   create_table "subjects", :force => true do |t|
     t.integer  "study_id"
     t.string   "clic_id"
-    t.string   "case_control"
-    t.string   "leukemiatype"
+    t.string   "case_status"
+    t.string   "leukemia_type"
     t.string   "immunophenotype"
     t.string   "interview_respondent"
     t.integer  "reference_year"
@@ -293,10 +293,10 @@ ActiveRecord::Schema.define(:version => 20110909173535) do
     t.string   "gender"
     t.integer  "age"
     t.string   "ethnicity"
-    t.integer  "mother_age_birth"
-    t.integer  "father_age_birth"
-    t.string   "income_quint"
-    t.string   "downs"
+    t.integer  "mother_age"
+    t.integer  "father_age"
+    t.string   "household_income"
+    t.string   "down_syndrome"
     t.string   "mother_education"
     t.string   "father_education"
     t.datetime "created_at"

@@ -54,8 +54,8 @@ namespace :subjects do
 
 			study.subjects.create!({
 				:clic_id          => line['CLIC_ID'],
-				:case_control     => line['case_control'],
-				:leukemiatype     => unblankify(line['leukemiatype'],'Control'),
+				:case_status      => line['case_control'],
+				:leukemia_type    => unblankify(line['leukemiatype'],'Control'),
 				:immunophenotype  => unblankify(line['immunophenotype'],'Control'),
 				:interview_respondent => unblankify(line['interview_respondent']),
 				:reference_year   => line['reference_year'],
@@ -63,10 +63,10 @@ namespace :subjects do
 				:gender           => line['child_gender'],
 				:age              => line['child_age'],
 				:ethnicity        => unblankify(line['child_ethnicity']),
-				:mother_age_birth => line['mother_age_birth'],
-				:father_age_birth => line['father_age_birth'],
-				:income_quint     => income_quint(line['income_quint']),
-				:downs            => unblankify(line['downs']),
+				:mother_age       => line['mother_age_birth'],
+				:father_age       => line['father_age_birth'],
+				:household_income => income_quint(line['income_quint']),
+				:down_syndrome    => unblankify(line['downs']),
 				:mother_education => education(line['mother_education']),
 				:father_education => education(line['father_education'])
 			})
