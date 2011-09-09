@@ -5,8 +5,8 @@ def pluralize(count, singular, plural = nil)
 	"#{count || 0} " + ((count == 1 || count =~ /^1(\.0+)?$/) ? singular : (plural || singular.pluralize))
 end
 
-def unblankify(value)
-	(value.blank?) ? 'NS' : value
+def unblankify(value,default = 'NS')
+	(value.blank?) ? default : value
 end
 
 namespace :app do
@@ -35,8 +35,8 @@ namespace :subjects do
 			study.subjects.create!({
 				:clic_id          => line['CLIC_ID'],
 				:case_control     => line['case_control'],
-				:leukemiatype     => unblankify(line['leukemiatype']),
-				:immunophenotype  => unblankify(line['immunophenotype']),
+				:leukemiatype     => unblankify(line['leukemiatype'],'Control'),
+				:immunophenotype  => unblankify(line['immunophenotype'],'Control'),
 				:interview_respondent => unblankify(line['interview_respondent']),
 				:reference_year   => line['reference_year'],
 				:birth_year       => line['child_birthYEAR'],

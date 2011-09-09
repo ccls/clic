@@ -33,18 +33,18 @@ class Subject < ActiveRecord::Base
 #		string :biospecimens, :multiple => true
 
 		string  :clic_id
-		string  :case_control
-		string  :leukemiatype
-		string  :immunophenotype
+		string  :case_control			#	change
+		string  :leukemiatype			#	change
+		string  :immunophenotype			#	change
 		string  :interview_respondent
 		integer :reference_year, :trie => true
 		integer :birth_year, :trie => true
 		string  :gender
 		integer :age, :trie => true
 		string  :ethnicity
-		integer :mother_age_birth, :trie => true
-		integer :father_age_birth, :trie => true
-		string  :income_quint
+		integer :mother_age_birth, :trie => true			#	change
+		integer :father_age_birth, :trie => true			#	change
+		string  :income_quint			#	change
 		string  :downs
 		string  :mother_education
 		string  :father_education

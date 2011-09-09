@@ -90,7 +90,8 @@ class InventoriesControllerTest < ActionController::TestCase
 		end
 
 		#	exposure facet arrays
-		%w( types windows assessments locations_of_use forms_of_contact ).each do |p|
+#		%w( types windows assessments locations_of_use forms_of_contact ).each do |p|
+		%w( types windows locations_of_use forms_of_contact ).each do |p|
 
 			test "should find sole subject ignoring blank exposure param #{p} and #{cu} login" do
 				login_as send(cu)
@@ -136,7 +137,8 @@ class InventoriesControllerTest < ActionController::TestCase
 
 
 		#	study related facets
-		%w( world_region country study_name recruitment study_design target_age_group ).each do |p|
+#		%w( world_region country study_name recruitment study_design target_age_group ).each do |p|
+		%w( country study_name recruitment study_design ).each do |p|
 
 			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
 				login_as send(cu)
@@ -169,8 +171,8 @@ class InventoriesControllerTest < ActionController::TestCase
 
 
 		#	basic subject facets
-		%w( case_control leukemiatype immunophenotype interview_respondent 
-			gender age ethnicity income_quint downs
+		%w( case_control leukemiatype immunophenotype 
+			gender ethnicity income_quint downs
 			mother_education father_education ).each do |p|
 
 			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
@@ -249,7 +251,7 @@ class InventoriesControllerTest < ActionController::TestCase
 #	"some_bogus_value" won't match any of the expected value formats so will be ignored
 
 		#	range related subject facets
-		%w( reference_year birth_year father_age_birth mother_age_birth ).each do |p|
+		%w( age reference_year birth_year father_age_birth mother_age_birth ).each do |p|
 
 			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
 				login_as send(cu)

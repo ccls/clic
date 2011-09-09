@@ -26,4 +26,19 @@ class GroupDocumentTest < ActiveSupport::TestCase
 		@object.destroy
 	end
 
+
+#	TODO figure out how to cleanup ALL of the uploaded paperclip
+#				attachments so that all of the bad characters like apostrophes
+#				are removed
+
+	test "should cleanup attachment file name" do
+		bad_file_name = File.join(RAILS_ROOT, 'test', 'fixtures', 
+				%Q{IT's,  UPPERCASE!.JPG})
+#		document = File.new(bad_file_name,'w')
+#		gd = GroupDocument.new(:document => document )
+#		puts gd.document.methods.sort
+#		document.close
+#		document.delete
+	end
+
 end

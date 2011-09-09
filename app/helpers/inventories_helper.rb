@@ -19,8 +19,9 @@ module InventoriesHelper
 		end
 		s  = "<div class='facet_toggle'>" <<
 			"<span class='ui-icon #{icon}'>&nbsp;</span>" <<
-			"<a href='javascript:void()'>#{pluralize(facet.rows.reject{|r|r.value.blank?}.length,facet.name.to_s.titleize)}</a>" <<
+			"<a href='javascript:void()'>#{facet.name.to_s.titleize}&nbsp;(#{facet.rows.reject{|r|r.value.blank?}.length})</a>" <<
 			"</div>\n"
+#			"<a href='javascript:void()'>#{pluralize(facet.rows.reject{|r|r.value.blank?}.length,facet.name.to_s.titleize)}</a>" <<
 #			"<a href='javascript:void()'>#{pluralize(facet.rows.length,facet.name.to_s.titleize)}</a>" <<
 		s << multi_select_operator_for(facet.name) if options[:multiselector]
 		#	show this facet if any have been selected

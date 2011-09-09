@@ -1,6 +1,6 @@
 <div id='refine'>
  <% form_tag( inventory_path, :method => :get ) do %>
-  <%= submit_tag "Refine Search", :name => nil %>
+  <%= submit_tag "Search", :name => nil %>
 <div class='facets'>
   <% @search.facets.each do |facet| -%>
    <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
@@ -11,7 +11,9 @@
   <% end -%>
 </div><!-- class='facets' -->
 
-  <%= submit_tag "Refine Search", :name => nil %>
+<h3>Exposures</h3>
+  <%#= submit_tag "Refine Search", :name => nil %>
+
 <div class='facets'>
   <% @exposure_search.facets.each do |facet| -%>
    <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
@@ -20,7 +22,7 @@
   <% end -%>
 </div><!-- class='facets' -->
 
-  <%= submit_tag "Refine Search", :name => nil %>
+  <%#= submit_tag "Refine Search", :name => nil %>
 
  <% end -%>
 </div><!-- id='facets' -->

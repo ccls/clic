@@ -85,7 +85,11 @@ class InventoriesController < ApplicationController
 			end
 
 			age_facets.each do |p|
-				range_facet_and_filter_for(p,params.dup)
+				if %w( age ).include?(p)
+					range_facet_and_filter_for(p,params.dup,:start => 1, :step => 2)
+				else
+					range_facet_and_filter_for(p,params.dup)
+				end
 			end
 
 			#
@@ -113,11 +117,12 @@ class InventoriesController < ApplicationController
 protected
 
 	def exposure_facets
-		%w( relation_to_child types windows assessments locations_of_use forms_of_contact )
+#		%w( relation_to_child types windows assessments locations_of_use forms_of_contact )
+		%w( relation_to_child types windows locations_of_use forms_of_contact )
 	end
 
 	def subject_facets
-		%w( world_region country study_name recruitment study_design target_age_group case_control leukemiatype immunophenotype interview_respondent gender age ethnicity income_quint downs mother_education father_education )
+		%w( study_name country recruitment study_design case_control leukemiatype immunophenotype gender ethnicity mother_education father_education income_quint downs )
 	end
 
 	def year_facets
@@ -125,7 +130,7 @@ protected
 	end
 
 	def age_facets
-		%w( father_age_birth mother_age_birth )
+		%w( age father_age_birth mother_age_birth )
 	end
 
 	def may_read_inventory_required
@@ -191,23 +196,3 @@ Sunspot::DSL::Search.class_eval do
 	end
 
 end
-
-__END__
-
-			t.string  :clic_id
-			t.string  :case_control
-			t.string  :leukemiatype
-			t.string  :immunophenotype
-			t.string  :interview_respondent
-			t.integer :reference_year
-			t.integer :birth_year
-			t.string  :gender
-			t.integer :age
-			t.string  :ethnicity
-			t.integer :mother_age_birth
-			t.integer :father_age_birth
-			t.string  :income_quint
-			t.string  :downs
-			t.string  :mother_education
-			t.string  :father_education
-
