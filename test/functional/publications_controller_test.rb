@@ -13,10 +13,7 @@ class PublicationsControllerTest < ActionController::TestCase
 		Factory(:publication)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:publication,{
-			:study_id               => Study.first.id,
-			:publication_subject_id => PublicationSubject.first.id
-		}.merge(options))
+		Factory.attributes_for(:publication,options)
 	end
 
 	with_options :actions => [:new,:create,:edit,:update,:destroy] do |o|
