@@ -1,28 +1,29 @@
 <div id='refine'>
  <% form_tag( inventory_path, :method => :get ) do %>
   <%= submit_tag "Search", :name => nil %>
-<div class='facets'>
-  <% @search.facets.each do |facet| -%>
-   <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
-   <% next if facet.rows.empty? -%><%# don't show empty facets -%>
-   <%= facet_for(facet,
+  <h3>Subject Characteristics</h3>
+  <div class='facets'>
+   <% @search.facets.each do |facet| -%>
+    <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
+    <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+    <% if facet.name.to_s == 'study_name' %>
+  </div><!-- class='facets' -->
+  <h3>Study Characteristics</h3>
+  <div class='facets'>
+    <% end %>
+    <%= facet_for(facet,
        :multiselector => [:biospecimens,:genotypings].include?(facet.name),
        :facet_counts  => true ) %>
-  <% end -%>
-</div><!-- class='facets' -->
+   <% end -%>
+  </div><!-- class='facets' -->
 
-<h3>Exposures</h3>
-  <%#= submit_tag "Refine Search", :name => nil %>
-
-<div class='facets'>
-  <% @exposure_search.facets.each do |facet| -%>
-   <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
-   <% next if facet.rows.empty? -%><%# don't show empty facets -%>
-   <%= facet_for(facet, :radio => (facet.name.to_s == 'category') ) %>
-  <% end -%>
-</div><!-- class='facets' -->
-
-  <%#= submit_tag "Refine Search", :name => nil %>
-
+  <h3>Exposures</h3>
+  <div class='facets'>
+   <% @exposure_search.facets.each do |facet| -%>
+    <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
+    <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+    <%= facet_for(facet, :radio => (facet.name.to_s == 'category') ) %>
+   <% end -%>
+  </div><!-- class='facets' -->
  <% end -%>
 </div><!-- id='facets' -->

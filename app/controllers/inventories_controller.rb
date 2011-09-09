@@ -60,35 +60,63 @@ class InventoriesController < ApplicationController
 #	principal_investigators
 #
 
-			subject_facets.each do |p|
-				if params[p]
-					params[p] = params[p].dup.reject{|x|x.blank?}
-					if params[p+'_op'] && params[p+'_op']=='AND'
-						unless params[p].empty?
-							with(p).all_of params[p]
+#			subject_facets.each do |p|
+#				if params[p]
+#					params[p] = params[p].dup.reject{|x|x.blank?}
+#					if params[p+'_op'] && params[p+'_op']=='AND'
+#						unless params[p].empty?
+#							with(p).all_of params[p]
+#						else
+#							params.delete(p)	#	remove the key so doesn't show in view
+#						end
+#					else
+#						unless params[p].empty?
+#							with(p).any_of params[p]
+#						else
+#							params.delete(p)	#	remove the key so doesn't show in view
+#						end
+#					end
+#				end
+#				facet p.to_sym, :sort => :index
+#			end
+#
+#			year_facets.each do |p|
+#				range_facet_and_filter_for(p,params.dup,{:start => 1980, :stop => 2010, :step => 5})
+#			end
+#
+#			age_facets.each do |p|
+#				if %w( age ).include?(p)
+#					range_facet_and_filter_for(p,params.dup,:start => 1, :step => 2)
+#				else
+#					range_facet_and_filter_for(p,params.dup)
+#				end
+#			end
+
+			all_subject_facets.each do |p|
+				if child_age_facets.include?(p)
+					range_facet_and_filter_for(p,params.dup,:start => 1, :step => 2)
+				elsif parent_age_facets.include?(p)
+					range_facet_and_filter_for(p,params.dup)
+				elsif year_facets.include?(p)
+					range_facet_and_filter_for(p,params.dup,{:start => 1980, :stop => 2010, :step => 5})
+				else
+					if params[p]
+						params[p] = params[p].dup.reject{|x|x.blank?}
+						if params[p+'_op'] && params[p+'_op']=='AND'
+							unless params[p].empty?
+								with(p).all_of params[p]
+							else
+								params.delete(p)	#	remove the key so doesn't show in view
+							end
 						else
-							params.delete(p)	#	remove the key so doesn't show in view
-						end
-					else
-						unless params[p].empty?
-							with(p).any_of params[p]
-						else
-							params.delete(p)	#	remove the key so doesn't show in view
+							unless params[p].empty?
+								with(p).any_of params[p]
+							else
+								params.delete(p)	#	remove the key so doesn't show in view
+							end
 						end
 					end
-				end
-				facet p.to_sym, :sort => :index
-			end
-
-			year_facets.each do |p|
-				range_facet_and_filter_for(p,params.dup,{:start => 1980, :stop => 2010, :step => 5})
-			end
-
-			age_facets.each do |p|
-				if %w( age ).include?(p)
-					range_facet_and_filter_for(p,params.dup,:start => 1, :step => 2)
-				else
-					range_facet_and_filter_for(p,params.dup)
+					facet p.to_sym, :sort => :index
 				end
 			end
 
@@ -116,6 +144,10 @@ class InventoriesController < ApplicationController
 
 protected
 
+	def all_subject_facets
+		%w( case_status leukemia_type immunophenotype gender age birth_year reference_year mother_age father_age mother_education father_education household_income down_syndrome study_name country recruitment study_design )
+	end
+
 	def exposure_facets
 #		%w( relation_to_child types windows assessments locations_of_use forms_of_contact )
 		%w( relation_to_child types windows locations_of_use forms_of_contact )
@@ -130,9 +162,14 @@ protected
 		%w( birth_year reference_year )
 	end
 
-	def age_facets
+	def child_age_facets
+		%w( age )
+	end
+
+	def parent_age_facets
 #		%w( age father_age_birth mother_age_birth )
-		%w( age father_age mother_age )
+#		%w( age father_age mother_age )
+		%w( father_age mother_age )
 	end
 
 	def may_read_inventory_required
