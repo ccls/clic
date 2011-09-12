@@ -1,4 +1,11 @@
 module FactoryTestHelper
+
+	def group_doc_attributes_with_attachment(options={})
+		Factory.attributes_for(:group_document,{
+			:document => File.open(File.dirname(__FILE__) + 
+				'/assets/edit_save_wireframe.pdf')}.merge(options))
+	end
+
 #
 #	def active_user(options={})
 #		u = Factory(:user, options)
@@ -36,3 +43,4 @@ module FactoryTestHelper
 #	end
 #
 end
+ActiveSupport::TestCase.send(:include, FactoryTestHelper)

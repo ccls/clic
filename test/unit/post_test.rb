@@ -47,9 +47,7 @@ class PostTest < ActiveSupport::TestCase
 			object = create_post( {
 				:topic => topic, :user => topic.user,
 				:group_documents_attributes => [
-					Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+					group_doc_attributes_with_attachment
 			]})
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -71,9 +69,7 @@ class PostTest < ActiveSupport::TestCase
 				:topic => topic, 
 				:user => nil,		#	needs to be explicitly nil otherwise factory will add one
 				:group_documents_attributes => [
-					Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+					group_doc_attributes_with_attachment
 			]})
 			assert object.errors.on_attr_and_type('group_documents.user',:blank)
 		} } } }
@@ -83,9 +79,7 @@ class PostTest < ActiveSupport::TestCase
 	test "should destroy group_document with post" do
 		object = create_post( {
 			:group_documents_attributes => [
-				Factory.attributes_for(:group_document,
-					:document => File.open(File.dirname(__FILE__) + 
-						'/../assets/edit_save_wireframe.pdf'))
+				group_doc_attributes_with_attachment
 		]})
 		assert_difference("Forum.find(#{object.topic.forum.id}).posts_count",-1) {
 		assert_difference("Topic.find(#{object.topic.id}).posts_count",-1) {

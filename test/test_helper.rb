@@ -8,6 +8,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 #require 'test/unit/testcase'
 
 require 'test_help'
+require 'factory_test_helper'
 require 'group_test_helper'
 require 'orderable_test_helper'
 #require 'test_startup_shutdown'

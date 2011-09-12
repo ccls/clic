@@ -19,34 +19,61 @@ class DocFormTest < ActiveSupport::TestCase
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('DocForm.count',1) {
-			object = create_doc_form(
+			@object = create_doc_form(
 				:current_user => user,
 				:group_documents_attributes => [
-					Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+					group_doc_attributes_with_attachment
 			])
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
+			assert !@object.new_record?, 
+				"#{@object.errors.full_messages.to_sentence}"
 		} } }
-		GroupDocument.destroy_all
+		@object.destroy
 	end
 
 	test "should NOT create doc_form with nested attributes for group_documents" <<
 			" without user" do
-		user = Factory(:user)
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',0) {
 		assert_difference('DocForm.count',0) {
-			object = create_doc_form(
+			@object = create_doc_form(
 				:group_documents_attributes => [
-					Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf'))
+					group_doc_attributes_with_attachment
+			])
+			assert @object.errors.on_attr_and_type('group_documents.user',:blank)
+		} } }
+		@object.destroy
+	end
+
+	test "should update doc_form with nested attributes for group_documents" do
+		user = Factory(:user)
+		object = create_doc_form
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',1) {
+		assert_difference('DocForm.count',0) {
+			object.update_attributes(
+				:current_user => user,
+				:group_documents_attributes => [
+					group_doc_attributes_with_attachment
+			])
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+		} } }
+		object.destroy
+	end
+
+	test "should NOT update doc_form with nested attributes for group_documents" <<
+			" without user" do
+		object = create_doc_form
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',0) {
+		assert_difference('DocForm.count',0) {
+			object.update_attributes(
+				:group_documents_attributes => [
+					group_doc_attributes_with_attachment
 			])
 			assert object.errors.on_attr_and_type('group_documents.user',:blank)
 		} } }
-		GroupDocument.destroy_all
+		object.destroy
 	end
 
 end

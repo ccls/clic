@@ -93,9 +93,9 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('GroupDocument.count',1) {
 				post :create, :forum_id => forum.id, :topic => factory_attributes(
 					:posts_attributes => [Factory.attributes_for(:post,
-						:group_documents_attributes => [Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf'))])])
+						:group_documents_attributes => [
+							group_doc_attributes_with_attachment
+						])])
 			} } } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)
@@ -307,9 +307,9 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('GroupDocument.count',1) {
 				post :create, :forum_id => forum.id, :topic => factory_attributes(
 					:posts_attributes => [Factory.attributes_for(:post,
-						:group_documents_attributes => [Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf'))])])
+						:group_documents_attributes => [
+							group_doc_attributes_with_attachment
+						])])
 			} } } } } }
 			assert assigns(:forum)
 			assert assigns(:topic)

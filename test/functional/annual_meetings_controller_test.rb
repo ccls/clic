@@ -36,30 +36,30 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 	site_administrators.each do |cu|
 
 		test "should NOT create annual_meeting with an invalid attachment and #{cu} login" do
+#	doesn't work as expected for nested attributes
+#			GroupDocument.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			assert_difference('GroupDocument.count',0) {
 			assert_difference('AnnualMeeting.count',0) {
 				post :create, :annual_meeting => factory_attributes(
-					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:title => nil,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') )])
+					:group_documents_attributes => [ group_doc_attributes_with_attachment(
+						:title => nil) ])
 			} }
 			assert_not_nil flash[:error]
 			assert_response :success
 			assert_template 'new'
 		end
+#						Factory.attributes_for(:group_document,
+#							:title => nil,
+#							:document => File.open(File.dirname(__FILE__) + 
+#								'/../assets/edit_save_wireframe.pdf') )])
 
 		test "should create annual_meeting with an attachment and #{cu} login" do
 			login_as send(cu)
 			assert_difference('GroupDocument.count',1) {
 			assert_difference('AnnualMeeting.count',1) {
 				post :create, :annual_meeting => factory_attributes(
-					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') )])
+					:group_documents_attributes => [ group_doc_attributes_with_attachment ])
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:annual_meeting)
@@ -72,18 +72,28 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 			assert_difference('AnnualMeeting.count',1) {
 				post :create, :annual_meeting => factory_attributes(
 					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') ),
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') )
+						group_doc_attributes_with_attachment,
+						group_doc_attributes_with_attachment
 					]
 				)
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:annual_meeting)
 			assigns(:annual_meeting).destroy
+		end
+
+		test "should add attachment on update with #{cu} login" do
+			login_as send(cu)
+			object = create_annual_meeting
+			assert_difference('GroupDocument.count',1) {
+#			assert_changes("AnnualMeeting.find(#{object.id}).updated_at") {
+				put :update, :id => object.id,
+					:annual_meeting => factory_attributes(
+					:group_documents_attributes => [ group_doc_attributes_with_attachment ])
+			} #}
+			assert_not_nil flash[:notice]
+			assert_redirected_to annual_meetings_path
+			assigns(:annual_meeting).destroy	
 		end
 
 	end

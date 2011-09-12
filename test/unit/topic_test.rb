@@ -53,9 +53,7 @@ class TopicTest < ActiveSupport::TestCase
 				:user => user,
 				:posts_attributes => [Factory.attributes_for(:post,
 					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf'))
+						group_doc_attributes_with_attachment
 					])
 			]})
 			assert !object.new_record?, 
@@ -84,9 +82,7 @@ class TopicTest < ActiveSupport::TestCase
 				:user => user,
 				:posts_attributes => [Factory.attributes_for(:post,
 					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf'))
+						group_doc_attributes_with_attachment
 					])
 			]})
 			assert !object.new_record?, 

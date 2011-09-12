@@ -26,34 +26,61 @@ class PublicationTest < ActiveSupport::TestCase
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('Publication.count',1) {
-			object = create_publication(
+			@object = create_publication(
 				:current_user => user,
 				:group_documents_attributes => [
-					Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf') )
+					group_doc_attributes_with_attachment
 			])
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
+			assert !@object.new_record?, 
+				"#{@object.errors.full_messages.to_sentence}"
 		} } }
-		GroupDocument.destroy_all
+		@object.destroy
 	end
 
 	test "should NOT create publication with nested attributes for group_documents" <<
 			" without user" do
-		user = Factory(:user)
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',0) {
 		assert_difference('Publication.count',0) {
-			object = create_publication(
+			@object = create_publication(
 				:group_documents_attributes => [
-					Factory.attributes_for(:group_document,
-						:document => File.open(File.dirname(__FILE__) + 
-							'/../assets/edit_save_wireframe.pdf') )
+					group_doc_attributes_with_attachment
+			])
+			assert @object.errors.on_attr_and_type('group_documents.user',:blank)
+		} } }
+		@object.destroy
+	end
+
+	test "should update publication with nested attributes for group_documents" do
+		object = create_publication
+		user = Factory(:user)
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',1) {
+		assert_difference('Publication.count',0) {
+			object.update_attributes(
+				:current_user => user,
+				:group_documents_attributes => [
+					group_doc_attributes_with_attachment
+			])
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+		} } }
+		object.destroy
+	end
+
+	test "should NOT update publication with nested attributes for group_documents" <<
+			" without user" do
+		object = create_publication
+		assert_difference('User.count',0) {
+		assert_difference('GroupDocument.count',0) {
+		assert_difference('Publication.count',0) {
+			object.update_attributes(
+				:group_documents_attributes => [
+					group_doc_attributes_with_attachment
 			])
 			assert object.errors.on_attr_and_type('group_documents.user',:blank)
 		} } }
-		GroupDocument.destroy_all
+		object.destroy
 	end
 
 #	test "should require other_publication_subject if publication_subject is other" do

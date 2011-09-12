@@ -34,30 +34,30 @@ class PublicationsControllerTest < ActionController::TestCase
 	site_administrators.each do |cu|
 
 		test "should NOT create publication with an invalid attachment and #{cu} login" do
+#	doesn't work as expected for nested attributes
+#			GroupDocument.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			assert_difference('GroupDocument.count',0) {
 			assert_difference('Publication.count',0) {
 				post :create, :publication => factory_attributes(
-					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:title => nil,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') )])
+					:group_documents_attributes => [ group_doc_attributes_with_attachment(
+						:title => nil ) ])
 			} }
 			assert_not_nil flash[:error]
 			assert_response :success
 			assert_template 'new'
 		end
+#						Factory.attributes_for(:group_document,
+#							:title => nil,
+#							:document => File.open(File.dirname(__FILE__) + 
+#								'/../assets/edit_save_wireframe.pdf') )])
 
 		test "should create publication with an attachment and #{cu} login" do
 			login_as send(cu)
 			assert_difference('GroupDocument.count',1) {
 			assert_difference('Publication.count',1) {
 				post :create, :publication => factory_attributes(
-					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') )])
+					:group_documents_attributes => [ group_doc_attributes_with_attachment ])
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:publication)
@@ -70,14 +70,9 @@ class PublicationsControllerTest < ActionController::TestCase
 			assert_difference('Publication.count',1) {
 				post :create, :publication => factory_attributes(
 					:group_documents_attributes => [
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') ),
-						Factory.attributes_for(:group_document,
-							:document => File.open(File.dirname(__FILE__) + 
-								'/../assets/edit_save_wireframe.pdf') )
-					]
-				)
+						group_doc_attributes_with_attachment,
+						group_doc_attributes_with_attachment
+					])
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:publication)
@@ -85,7 +80,17 @@ class PublicationsControllerTest < ActionController::TestCase
 		end
 
 		test "should add attachment on update with #{cu} login" do
-			pending # TODO
+			login_as send(cu)
+			object = create_publication
+			assert_difference('GroupDocument.count',1) {
+#			assert_changes("Publication.find(#{object.id}).updated_at") {
+				put :update, :id => object.id,
+					:publication => factory_attributes(
+						:group_documents_attributes => [ group_doc_attributes_with_attachment ])
+			} #}
+			assert_not_nil flash[:notice]
+			assert_redirected_to publications_path
+			assigns(:publication).destroy	
 		end
 
 	end

@@ -25,6 +25,7 @@ class Publication < ActiveRecord::Base
 
 #	validates_presence_of :other_publication_subject, :if => :publication_subject_is_other?
 
+	#	solely used to pass the current_user from the controller to the group documents
 	attr_accessor :current_user
 
 #	before_validation_on_create  :set_group_documents_user
@@ -40,7 +41,7 @@ protected
 		group_documents.each do |gd|
 #	topic will be nil on nested attribute creation, so need to wait
 #			gd.group = topic.forum.group
-			gd.user  = current_user if gd.user.blank?
+			gd.user  = current_user if gd.user_id.blank?
 		end
 	end
 
