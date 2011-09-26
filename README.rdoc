@@ -25,7 +25,6 @@ Childhood Leukemia International Consortium
 * {sunspot}[http://github.com/outoftime/sunspot] - Sunspot for solr gem usage
 * {RedCloth}[http://redcloth.org] - textile parser. (moving away from this using TinyMCE instead)
 * {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
-* {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb (not using anymore)
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
 * {rcov}[http://github.com/relevance/rcov] - testing
 * {mocha}[http://github.com/floehopper/mocha] - testing
@@ -44,11 +43,6 @@ Childhood Leukemia International Consortium
 * {jakewendt-html_test}[http://github.com/jakewendt/html_test] - html testing and validation
 * {jakewendt-rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 * {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods, but may use the jrails.js.)
-
-
-== Required and included plugins
-
-* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb) (not used anymore)
 
 
 == IMPORTANT NOTES
@@ -157,9 +151,6 @@ then we continue ...
  rake app:setup
 
  script/server
-
- #	We don't use backgroundrb at this point
- #	script/backgroundrb start
 
  #	login to your app
  #	The first administrator/deputy must be created via the command line.
