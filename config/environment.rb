@@ -67,10 +67,12 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
+#
+#if RUBY_PLATFORM =~ /java/i
+#	require 'file_utils_extension'
+#end
 
-if RUBY_PLATFORM =~ /java/i
-	require 'file_utils_extension'
-end
+#	Don't know why I need this ...
 require 'acts_as_list'
 
 #	don't use the default div wrappers as they muck up style
