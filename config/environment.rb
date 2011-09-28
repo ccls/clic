@@ -32,25 +32,28 @@ Rails::Initializer.run do |config|
 		config.gem 'jruby-openssl', :lib => 'openssl'
 	else
 		config.gem 'mysql'
-#		config.gem "sqlite3-ruby", :lib => "sqlite3"
 		config.gem "sqlite3"
 	end
 
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic', :version => '~> 2'
 	config.gem 'paperclip'
-	config.gem 'gravatar'	#	needed until removed from simply_pages
+	config.gem 'gravatar'	#	needed until removed from simply_pages	# TODO remove me
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
 	config.gem "aws-s3", :lib => "aws/s3"
-	config.gem 'jakewendt-simply_helpful'
-	config.gem 'jakewendt-simply_authorized'
-	config.gem 'jakewendt-simply_pages'
-	config.gem 'jakewendt-simply_photos'
-	config.gem 'jakewendt-ruby_extension'
-	config.gem 'jakewendt-rails_extension'
 
-	#	require it, but don't load it
-	config.gem 'jakewendt-rdoc_rails', :lib => false
+	#	Without this, rake doesn't properly include that app/ paths?
+#	config.gem 'ccls-common_lib'
+
+	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
+	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
+	config.gem 'jakewendt-simply_pages'		#	TODO remove me
+	config.gem 'jakewendt-simply_photos'		#	TODO remove me
+	config.gem 'jakewendt-ruby_extension'		#	TODO remove me
+	config.gem 'jakewendt-rails_extension'		#	TODO remove me
+
+	#	require it, but don't load it		#	TODO remove me
+	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
 
 	#		http://chronic.rubyforge.org/
 	config.gem "chronic"	#, :version => '= 0.5.0'
