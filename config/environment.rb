@@ -52,7 +52,7 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-rails_extension'		#	TODO remove me
 
 	#	require it, but don't load it		#	TODO remove me
-	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
+#	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
 
 	#		http://chronic.rubyforge.org/
 	config.gem "chronic"	#, :version => '= 0.5.0'
