@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
 	config.gem 'authlogic', :version => '~> 2'
 	config.gem 'jrails'	#	for jquery helpers
 	config.gem 'paperclip'
-	config.gem 'gravatar'	#	needed until removed from simply_pages	# TODO remove me
+#	config.gem 'gravatar'	#	needed until removed from simply_pages	# TODO remove me
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
 	config.gem "aws-s3", :lib => "aws/s3"
 

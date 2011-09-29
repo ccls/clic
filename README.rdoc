@@ -31,7 +31,6 @@ Childhood Leukemia International Consortium
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
-* {gravatar}[http://rubygems.org/gems/gravatar] - for user icons (No longer used)
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
@@ -40,7 +39,7 @@ Childhood Leukemia International Consortium
 * {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
 * {jakewendt-html_test}[http://github.com/jakewendt/html_test] - html testing and validation
 * {jakewendt-rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
-* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods, but may use the jrails.js.)
+* {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
 
 
 == IMPORTANT NOTES
@@ -261,8 +260,6 @@ I've made some mods in {html_test}[http://github.com/jakewendt/html_test] to che
 == Credit / Special Thanks
 
 Gradient images made with {Gradient Image Maker}[http://tools.dynamicdrive.com/gradient/]
-
-User icons from {Gravatar}[http://gravatar.com]
 
 {Demo on css rounded corners}[http://css-radius.heroku.com]
 

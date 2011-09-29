@@ -1,7 +1,6 @@
 module ApplicationHelper
 
 	def application_menu
-#		load 'page.rb' unless defined?(Page);
 		require_dependency 'page.rb' unless Page
 		out = "<ul id='application_menu'>\n"
 		if logged_in?
@@ -86,7 +85,6 @@ module ApplicationHelper
 	end
 
 	def group_pages
-#		load 'group.rb' unless defined?(Group);
 		require_dependency 'group.rb' unless Group
 		group_menu = Group.roots.collect do |group|
 			if group.groups_count > 0
