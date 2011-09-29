@@ -57,6 +57,10 @@ Factory.define :page do |f|
 	f.body_en  "Page Body"
 end
 
+Factory.define :photo do |f|
+	f.sequence(:title) { |n| "Title#{n}" }
+end
+
 Factory.define :post do |f|
 	f.association :topic
 	f.association :user
