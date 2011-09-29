@@ -1,0 +1,12 @@
+<h2>Editing Photo</h2>
+
+<% form_for(@photo,
+		:html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+  <%= render 'form',:f => f %>
+<p>
+<%= f.submit( "Update this Photo" )%>&nbsp;
+<%= button_link_to 'Show this Photo', @photo %>&nbsp;
+<%= button_link_to 'Back to Photos', photos_path %>
+</p>
+<% end %>

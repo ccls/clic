@@ -1,0 +1,11 @@
+<h2>New Photo</h2>
+
+<% form_for(@photo,
+		:html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+  <%= render 'form', :f => f %>
+  <p>
+    <%= f.submit( "Create Photo" )%>&nbsp;
+    <%= button_link_to "Cancel", photos_path %>
+  </p>
+<% end %>

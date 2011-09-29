@@ -14,6 +14,7 @@ Sorry, no pages yet.
 <% form_tag(order_pages_path, :method => :post, :id => 'order_pages') do -%>
 <%= hidden_field_tag :parent_id, params[:parent_id] %>
 <p>
+<%= link_to "View all pages", all_pages_path, :class => 'button' -%>&nbsp;
 <%= link_to "Create new page", 
 	new_page_path(:parent_id => params[:parent_id]),
 	:class => 'button' -%>&nbsp;

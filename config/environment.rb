@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
 
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic', :version => '~> 2'
+	config.gem 'jrails'	#	for jquery helpers
 	config.gem 'paperclip'
 	config.gem 'gravatar'	#	needed until removed from simply_pages	# TODO remove me
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
@@ -47,8 +48,6 @@ Rails::Initializer.run do |config|
 
 	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
 	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
-	config.gem 'jakewendt-simply_pages'		#	TODO remove me
-	config.gem 'jakewendt-simply_photos'		#	TODO remove me
 	config.gem 'jakewendt-ruby_extension'		#	TODO remove me
 	config.gem 'jakewendt-rails_extension'		#	TODO remove me
 

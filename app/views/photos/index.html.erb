@@ -1,0 +1,12 @@
+<% javascripts('simply_helpful') %>
+<% stylesheets('photos') %>
+<h2>Photos</h2>
+<% if @photos.length > 0 %>
+<table id='photos'><tbody>
+<%= render :partial => 'photo', :collection => @photos %>
+</tbody></table><!-- id='photos' -->
+<% else %>
+Sorry, but no photos yet.
+<% end %>
+
+<p><%= button_link_to 'Create New Photo', new_photo_path %></p>

@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+	map.resources :photos
 	map.resource  :directory, :only => :show
 	map.resources :questionnaires, :member => { :download => :get }
 
@@ -74,6 +75,11 @@ ActionController::Routing::Routes.draw do |map|
 	map.signout '/signout', :controller => 'user_sessions', :action => 'destroy'
 	map.logout  '/logout',  :controller => 'user_sessions', :action => 'destroy'
 
+
+	map.resources :pages, :collection => { 
+		:all => :get,
+		:translate => :get,
+		:order => :post }
 	map.root :controller => "pages", :action => "show", :path => [""]
 
 	#	TODO why do I still have this?
