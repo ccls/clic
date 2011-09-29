@@ -168,9 +168,11 @@ class User < ActiveRecord::Base
 	end
 
 	#	MUST come after simply_authorized call
-	load 'site_permissions.rb' unless defined?(SitePermissions);
+#	load 'site_permissions.rb' unless defined?(SitePermissions);
+	require_dependency 'site_permissions.rb' unless SitePermissions
 	include SitePermissions;
-	load 'group_permissions.rb' unless defined?(GroupPermissions);
+#	load 'group_permissions.rb' unless defined?(GroupPermissions);
+	require_dependency 'group_permissions.rb' unless GroupPermissions
 	include GroupPermissions;
 
 end
