@@ -39,20 +39,13 @@ Rails::Initializer.run do |config|
 	config.gem 'authlogic', :version => '~> 2'
 	config.gem 'jrails'	#	for jquery helpers
 	config.gem 'paperclip'
-#	config.gem 'gravatar'	#	needed until removed from simply_pages	# TODO remove me
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
 	config.gem "aws-s3", :lib => "aws/s3"
-
-	#	Without this, rake doesn't properly include that app/ paths?
-#	config.gem 'ccls-common_lib'
 
 	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
 	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
 	config.gem 'jakewendt-ruby_extension'		#	TODO remove me
 	config.gem 'jakewendt-rails_extension'		#	TODO remove me
-
-	#	require it, but don't load it		#	TODO remove me
-#	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
 
 	#		http://chronic.rubyforge.org/
 	config.gem "chronic"	#, :version => '= 0.5.0'
@@ -69,10 +62,6 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
-#
-#if RUBY_PLATFORM =~ /java/i
-#	require 'file_utils_extension'
-#end
 
 #	Don't know why I need this ...
 require 'acts_as_list'
