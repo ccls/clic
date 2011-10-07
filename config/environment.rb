@@ -38,7 +38,11 @@ Rails::Initializer.run do |config|
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic', :version => '~> 2'
 	config.gem 'jrails'	#	for jquery helpers
-	config.gem 'paperclip'
+
+	#	2.4.3 causes a lot of ...
+	#	NameError: `@[]' is not allowed as an instance variable name
+	config.gem 'paperclip', '=2.4.2'
+
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
 	config.gem "aws-s3", :lib => "aws/s3"
 
