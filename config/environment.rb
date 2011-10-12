@@ -46,10 +46,11 @@ Rails::Initializer.run do |config|
 	config.gem 'ruby-hmac', :lib => 'ruby_hmac'
 	config.gem "aws-s3", :lib => "aws/s3"
 
-	config.gem 'ccls-simply_helpful'
+#	config.gem 'ccls-simply_helpful'
 	config.gem 'ccls-simply_authorized'
-	config.gem 'ccls-ruby_extension'
-	config.gem 'ccls-rails_extension'
+	config.gem 'ccls-common_lib'
+#	config.gem 'ccls-ruby_extension'
+#	config.gem 'ccls-rails_extension'
 
 	#		http://chronic.rubyforge.org/
 	config.gem "chronic"	#, :version => '= 0.5.0'
