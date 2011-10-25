@@ -22,5 +22,10 @@
     <% else %>
       <span>Approved</span>
     <% end %>
+    <% destroy_link_to 'Destroy', user_path(user) do %>
+     <%= hidden_field_tag 'confirm', "Destroy user '#{h(user)}'?", 
+      :id => nil %>
+     <%= submit_link_to('Destroy') %>
+    <% end %>
   </td>
 <% end %>

@@ -51,7 +51,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :user_session
 	map.resource :members_only, :only => :show
 
-	map.resources :users, :except => :destroy,
+	map.resources :users,	#, :except => :destroy,
 #	will cause role route test failure
 #		:shallow => true,
 #		:member => { :approve => :put },

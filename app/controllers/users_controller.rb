@@ -5,11 +5,11 @@ class UsersController < ApplicationController
 #		:only => [:new, :create, :menu]
 
 	before_filter :no_current_user_required, :only => [:new, :create]
-	before_filter :id_required, :only => [:edit, :show, :update, :approve ]
+	before_filter :id_required, :only => [:edit, :show, :update, :approve, :destroy ]
 	before_filter :may_edit_user_required,  :only => [:edit,:update]
 	before_filter :may_view_user_required,  :only => [:show]
 	before_filter :may_view_users_required, :only => :index
-	before_filter :may_administrate_required, :only => :approve
+	before_filter :may_administrate_required, :only => [:approve,:destroy]
 
 	def new	
 		@user = User.new	
@@ -68,6 +68,11 @@ class UsersController < ApplicationController
 
 	def index
 		@users = User.search(params)
+	end
+
+	def destroy
+		@user.destroy
+		redirect_to users_path
 	end
 
 #	ssl_allowed :menu
