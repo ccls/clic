@@ -182,11 +182,17 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
  [jakewendt@ccls-01:~] > sudo /sbin/service tomcat5 start
  [jakewendt@ccls-01:~] > tail -f /var/log/tomcat5/catalina.out
 
+
+
+#	The CLIC site no longer uses this functionality, but it has not been 
+#	removed from the app.  Just the menu item.  Don't bother starting it.
+
  # start sunspot:solr server (sunspot:solr:start does not work in jruby)
  [jakewendt@ccls-01:~] > sudo su -l tomcat
  [tomcat@ccls-01:~] > cd /var/lib/tomcat5/webapps/clic/WEB-INF
  [tomcat@ccls-01:WEB-INF] > rake sunspot:solr:run RAILS_ENV=production &
  # log MAY BE at /var/lib/tomcat5/webapps/clic/WEB-INF/log/sunspot-solr-production.log
+
 
 
 {Kenai}[http://kenai.com/projects/warbler/pages/Home]

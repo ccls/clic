@@ -28,7 +28,6 @@ class ApplicationHelperTest < ActionView::TestCase
 #<li><a href="/login">Members Only Login</a></li>
 #</ul><!-- id='application_menu' -->
 		assert_select response, "ul#application_menu" do
-#	don't know what changed, but this is now 9 and not 10
 			assert_select "li", 9
 		end
 	end
@@ -58,7 +57,9 @@ class ApplicationHelperTest < ActionView::TestCase
 		login_as send(:reader)
 		response = HTML::Document.new(application_menu).root
 		assert_select response, "ul#application_menu" do
-			assert_select "li", 19
+#			assert_select "li", 19
+#	remove the Inventory link, so this'll now be 18
+			assert_select "li", 18
 		end
 	end
 
@@ -82,7 +83,9 @@ class ApplicationHelperTest < ActionView::TestCase
 		login_as send(:reader)
 		response = HTML::Document.new(application_menu).root
 		assert_select response, "ul#application_menu" do
-			assert_select "li.inventory", 1
+#			assert_select "li.inventory", 1
+#	remove the Inventory link, so this'll now be 0
+			assert_select "li.inventory", 0
 		end
 	end
 

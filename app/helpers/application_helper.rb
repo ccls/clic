@@ -24,8 +24,8 @@ module ApplicationHelper
 				"#{link_to( "Member Directory", directory_path )}</li>\n"
 			out << "<li class='members#{current_controller('contacts')}'>" <<
 				"#{link_to( "Study Contact Info", contacts_path )}</li>\n"
-			out << "<li class='inventory#{current_controller('inventories')}'>" <<
-				"#{link_to( "Inventory", inventory_path )}</li>\n"
+#			out << "<li class='inventory#{current_controller('inventories')}'>" <<
+#				"#{link_to( "Inventory", inventory_path )}</li>\n"
 
 			out << (( current_user.may_edit? ) ? "" <<
 				"<li class='user'>#{link_to( "Pages", pages_path )}</li>" << 
