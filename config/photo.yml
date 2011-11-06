@@ -27,6 +27,12 @@ app_name = ( defined?(RAILS_APP_NAME) ) ?
 	Rails.root.to_s.split('/').reject{|x|x ==  "WEB-INF"}.last 
 %>
 
+#	May want to include the url in these options to quell the following errors
+#	even though it is never actually used. (no direct access to these files)
+#[paperclip] Saving attachments.
+#[paperclip] Duplicate URL for document with /system/:attachment/:id/:style/:filename. This will clash with attachment defined in Document class
+#[paperclip] Duplicate URL for document with /system/:attachment/:id/:style/:filename. This will clash with attachment defined in GroupDocument class
+
 
 development:
   :url: <%= "/development/#{common}" %>
