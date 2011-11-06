@@ -143,7 +143,9 @@ class InventoriesControllerTest < ActionController::TestCase
 			test "should find sole subject ignoring blank param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = _random_subject()
-				subject.study.update_attribute(p,'Arbitrary')
+#	update_attribute SKIPS validations which may ignore errors
+#				subject.study.update_attribute(p,'Arbitrary')
+				subject.study.update_attributes(p => 'Arbitrary')
 				Subject.solr_reindex
 				get :show, p => ['']
 				assert_found_one(subject)
@@ -152,7 +154,9 @@ class InventoriesControllerTest < ActionController::TestCase
 			test "should find sole subject with matching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = _random_subject()
-				subject.study.update_attribute(p,'Arbitrary')
+#	update_attribute SKIPS validations which may ignore errors
+#				subject.study.update_attribute(p,'Arbitrary')
+				subject.study.update_attributes(p => 'Arbitrary')
 				Subject.solr_reindex
 				get :show, p => [subject.send(p)]
 				assert_found_one(subject)
@@ -161,7 +165,9 @@ class InventoriesControllerTest < ActionController::TestCase
 			test "should NOT find sole subject with mismatching param #{p} and #{cu} login" do
 				login_as send(cu)
 				subject = _random_subject()
-				subject.study.update_attribute(p,'Arbitrary')
+#	update_attribute SKIPS validations which may ignore errors
+#				subject.study.update_attribute(p,'Arbitrary')
+				subject.study.update_attributes(p => 'Arbitrary')
 				Subject.solr_reindex
 				get :show, p => ["some_bogus_value"]
 				assert_found_nothing

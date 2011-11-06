@@ -124,7 +124,9 @@ class UserSessionsControllerTest < ActionController::TestCase
 
 	test "should clear failed_login_count with successful login" do
 		user = unapproved_user
-		user.update_attribute(:failed_login_count, 5)
+#	update_attribute SKIPS validations which may ignore errors
+#		user.update_attribute(:failed_login_count, 5)
+		user.update_attributes(:failed_login_count => 5)
 		assert_equal 5, user.reload.failed_login_count
 		post :create, :user_session => {
 			:username => user.username,
@@ -136,7 +138,9 @@ class UserSessionsControllerTest < ActionController::TestCase
 
 	test "should NOT login with high failed_login_count" do
 		user = unapproved_user
-		user.update_attribute(:failed_login_count, 50)
+#	update_attribute SKIPS validations which may ignore errors
+#		user.update_attribute(:failed_login_count, 50)
+		user.update_attributes(:failed_login_count => 50)
 		assert_equal 50, user.reload.failed_login_count
 		post :create, :user_session => {
 			:username => user.username,

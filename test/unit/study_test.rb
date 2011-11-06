@@ -43,13 +43,17 @@ class StudyTest < ActiveSupport::TestCase
 	#	This won't work at create as the Factory gives it a name
 	test "updating study_name should set name" do
 		object = create_object
-		object.update_attribute(:study_name, 'Arbitrary')
+#	update_attribute SKIPS validations which may ignore errors
+#		object.update_attribute(:study_name, 'Arbitrary')
+		object.update_attributes(:study_name => 'Arbitrary')
 		assert_equal object.reload.name, 'Arbitrary'
 	end
 
 	test "updating study_design should set design" do
 		object = create_object
-		object.update_attribute(:study_design, 'Arbitrary')
+#	update_attribute SKIPS validations which may ignore errors
+#		object.update_attribute(:study_design, 'Arbitrary')
+		object.update_attributes(:study_design => 'Arbitrary')
 		assert_equal object.reload.design, 'Arbitrary'
 	end
 
