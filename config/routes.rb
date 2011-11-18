@@ -1,5 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
 
+#
+#	from simply_authorized
+#
+#	map.resources :users, :only => [:destroy,:show,:index],
+#		:collection => { :menu => :get } do |user|
+#		user.resources :roles, :only => [:update,:destroy]
+#	end
+
+
 	map.resources :photos
 	map.resource  :directory, :only => :show
 	map.resources :questionnaires, :member => { :download => :get }
