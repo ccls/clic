@@ -41,10 +41,15 @@ a.button {
 	color: black;
 
 	background-color: #DDDDDD;
+
+/*
+	background or background-image ???
+*/
 /* for webkit browsers */
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(#CCCCCC)); 
+	background: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(#CCCCCC)); 
 /* for firefox 3.6+  */
-	background-image: -moz-linear-gradient(top,  #EEEEEE,  #CCCCCC); 
+	background: -moz-linear-gradient(top,  #EEEEEE,  #CCCCCC); 
 /* for ie , but doesn't seem to work as expected despite other examples working */
 	filter: progid:DXImageTransform.Microsoft.gradient(StartColorStr='#EEEEEE', EndColorStr='#CCCCCC');
 }
+
