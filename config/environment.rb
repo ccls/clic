@@ -50,6 +50,7 @@ Rails::Initializer.run do |config|
 	config.gem 'ccls-common_lib'
 
 	#		http://chronic.rubyforge.org/
+	#	I'd really like to remove chronic, but it is actually used here.
 	config.gem "chronic"	#, :version => '= 0.5.0'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'

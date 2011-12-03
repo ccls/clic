@@ -187,8 +187,8 @@ class AnnouncementTest < ActiveSupport::TestCase
 	test "should allow ends_on be the same as begins_on" do
 		assert_difference( 'Announcement.count', 1 ) do
 			object = create_object(
-				:begins_on => Chronic.parse('yesterday'),
-				:ends_on   => Chronic.parse('yesterday')
+				:begins_on => Date.yesterday,
+				:ends_on   => Date.yesterday
 			)
 		end
 	end
@@ -196,11 +196,11 @@ class AnnouncementTest < ActiveSupport::TestCase
 	test "should allow ends_at be the same as begins_at" do
 		assert_difference( 'Announcement.count', 1 ) do
 			object = create_object(
-				:begins_on => Chronic.parse('yesterday'),
+				:begins_on => Date.yesterday,
 				:begins_at_hour => 5,
 				:begins_at_minute => 0,
 				:begins_at_meridiem => 'pm',
-				:ends_on   => Chronic.parse('yesterday'),
+				:ends_on   => Date.yesterday,
 				:ends_at_hour => 5,
 				:ends_at_minute => 0,
 				:ends_at_meridiem => 'pm'
@@ -211,8 +211,8 @@ class AnnouncementTest < ActiveSupport::TestCase
 	test "should require ends_on be on or after begins_on" do
 		assert_difference( 'Announcement.count', 0 ) do
 			object = create_object(
-				:begins_on => Chronic.parse('tomorrow'),
-				:ends_on   => Chronic.parse('yesterday')
+				:begins_on => Date.tomorrow,
+				:ends_on   => Date.yesterday
 			)
 			assert object.errors.on(:ends_on)
 			assert_match(/after begins_on/,
@@ -224,7 +224,7 @@ class AnnouncementTest < ActiveSupport::TestCase
 		assert_difference( 'Announcement.count', 0 ) do
 			object = create_object(
 				:begins_on => nil,
-				:ends_on   => Chronic.parse('yesterday')
+				:ends_on   => Date.yesterday
 			)
 			assert object.errors.on(:begins_on)
 			assert_match(/be blank/,

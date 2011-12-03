@@ -540,7 +540,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user when update fails" do
-		user = create_user(:updated_at => Chronic.parse('yesterday'))
+		user = create_user(:updated_at => ( Time.now - 1.day ) )
 		User.any_instance.stubs(:create_or_update).returns(false)
 		login_as user
 		deny_changes("User.find(#{user.id}).updated_at") {
@@ -553,7 +553,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user with invalid user" do
-		user = create_user(:updated_at => Chronic.parse('yesterday'))
+		user = create_user(:updated_at => ( Time.now - 1.day ) )
 		User.any_instance.stubs(:valid?).returns(false)
 		login_as user
 		deny_changes("User.find(#{user.id}).updated_at") {
