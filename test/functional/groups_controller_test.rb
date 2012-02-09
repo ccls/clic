@@ -8,8 +8,9 @@ class GroupsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
-	def factory_create
-		create_group
+	def factory_create(options={})
+#		create_group
+		Factory(:group,options)
 	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:group,options)

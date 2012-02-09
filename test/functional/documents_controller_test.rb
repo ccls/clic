@@ -9,11 +9,11 @@ class DocumentsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:document)
+	def factory_create(options={})
+		Factory(:document,options)
 	end
-	def factory_attributes
-		Factory.attributes_for(:document)
+	def factory_attributes(options={})
+		Factory.attributes_for(:document,options)
 	end
 
 	assert_access_with_https

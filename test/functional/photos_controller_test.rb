@@ -17,12 +17,13 @@ class PhotosControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_https
-	assert_access_with_login({
-		:logins => [:superuser,:administrator,:editor]})
+	assert_access_with_login({ :logins => site_editors })
 
 	assert_no_access_with_http 
-	assert_no_access_with_login({ 
-		:logins => [:interviewer,:reader,:active_user] })
+	assert_no_access_with_login({ :logins => non_site_editors })
 	assert_no_access_without_login
+
+	# a @membership is required so that those group roles will work
+	setup :create_a_membership
 
 end

@@ -9,8 +9,8 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:annual_meeting)
+	def factory_create(options={})
+		Factory(:annual_meeting,options)
 	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:annual_meeting,options)

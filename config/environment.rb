@@ -55,7 +55,7 @@ Rails::Initializer.run do |config|
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
 	config.gem 'hpricot'
-	config.gem 'RedCloth', '> 4.2.6'
+	config.gem 'RedCloth', '< 4.2.6'
 	config.gem "sunspot_rails"
 
 	config.frameworks -= [ :active_resource ]

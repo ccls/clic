@@ -83,7 +83,9 @@ gem "aws-s3"
 
 gem "authlogic", "~> 2"
 gem "ruby-hmac"
-gem "sunspot_rails"
+gem "rsolr", "=0.12.1"
+gem "sunspot", "=1.2.1"
+gem "sunspot_rails", "=1.2.1"
 
 
 #
@@ -132,7 +134,7 @@ gem "sunspot_rails"
 #	rake (0.8.7)
 #	rdoc (2.5.11)
 #	RedCloth (4.2.7 java)
-#	rsolr (1.0.6)
+#	rsolr (0.12.1)
 #	rspec (1.3.0)
 #	ruby-debug (0.10.3)
 #	ruby-debug-base (0.10.3.2 java)
@@ -144,8 +146,8 @@ gem "sunspot_rails"
 #	ryanb-acts-as-list (0.1.2)
 #	sources (0.0.1)
 #	ssl_requirement (0.1.0)
-#	sunspot (1.3.0)
-#	sunspot_rails (1.3.0)
+#	sunspot (1.2.1)
+#	sunspot_rails (1.2.1)
 #	ucb_ldap (1.4.2)
 #	warbler (1.3.2)
 #	will_paginate (2.3.16)

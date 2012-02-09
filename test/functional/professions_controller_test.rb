@@ -9,8 +9,8 @@ class ProfessionsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:profession)
+	def factory_create(options={})
+		Factory(:profession,options)
 	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:profession,options)

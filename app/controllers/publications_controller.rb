@@ -1,6 +1,25 @@
 class PublicationsController < ApplicationController
 
-	resourceful
+	before_filter :may_create_publications_required,
+		:only => [:new,:create]
+	before_filter :may_read_publications_required,
+		:only => [:show,:index]
+	before_filter :may_update_publications_required,
+		:only => [:edit,:update]
+	before_filter :may_destroy_publications_required,
+		:only => :destroy
+
+	before_filter :valid_id_required, 
+		:only => [:show,:edit,:update,:destroy]
+
+	def index
+		@publications = Publication.all
+	end
+
+	def new
+		#	could include study_ids, so had to make a special method
+		@publication = Publication.new(params[:publication])
+	end
 
 	def create
 		@publication = Publication.new(params[:publication])
@@ -29,11 +48,19 @@ class PublicationsController < ApplicationController
 		render :action => "edit"
 	end
 
+	def destroy
+		@publication.destroy
+		redirect_to publications_path
+	end
+
 protected
 
-	#	could include study_ids, so had to make a special method
-	def get_new
-		@publication = Publication.new(params[:publication])
+	def valid_id_required
+		if( !params[:id].blank? && Publication.exists?(params[:id]) )
+			@publication = Publication.find(params[:id])
+		else
+			access_denied("Valid id required!", publications_path)
+		end
 	end
 
 end

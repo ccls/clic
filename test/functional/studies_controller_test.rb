@@ -9,8 +9,8 @@ class StudiesControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:study)
+	def factory_create(options={})
+		Factory(:study,options)
 	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:study,options)

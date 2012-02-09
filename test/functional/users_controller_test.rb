@@ -40,11 +40,11 @@ class UsersControllerTest < ActionController::TestCase
 		:method_for_create => :factory_create
 	}
 
-	def factory_attributes
-		Factory.attributes_for(:user)
+	def factory_attributes(options={})
+		Factory.attributes_for(:user,options)
 	end
-	def factory_create
-		Factory(:user)
+	def factory_create(options={})
+		Factory(:user,options)
 	end
 
 	#	a @membership is required so that those group roles will work

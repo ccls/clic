@@ -9,8 +9,8 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:publication_subject)
+	def factory_create(options={})
+		Factory(:publication_subject,options)
 	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:publication_subject,options)

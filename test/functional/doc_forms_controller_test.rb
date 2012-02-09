@@ -9,8 +9,8 @@ class DocFormsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:doc_form)
+	def factory_create(options={})
+		Factory(:doc_form,options)
 	end
 	def factory_attributes(options={})
 		Factory.attributes_for(:doc_form,options)

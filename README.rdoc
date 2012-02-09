@@ -34,9 +34,7 @@ Childhood Leukemia International Consortium
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {ccls-rails_extension}[http://github.com/ccls/rails_extension]
-* {ccls-ruby_extension}[http://github.com/ccls/ruby_extension] - modifications, updates and patches for ruby.
-* {ccls-simply_helpful}[http://github.com/ccls/simply_helpful]
+* {ccls-common_lib}[http://github.com/ccls/common_lib]
 * {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
 
 

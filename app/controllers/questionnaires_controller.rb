@@ -1,12 +1,16 @@
 class QuestionnairesController < ApplicationController
 
-	resourceful
-
-	#	Can't add an action to actions for existing filter, so must redefine all
-	before_filter :valid_id_required, 
-		:only => [:show,:edit,:update,:destroy,:download]
+	before_filter :may_create_questionnaires_required,
+		:only => [:new,:create]
 	before_filter :may_read_questionnaires_required, 
 		:only => [:show,:index,:download]
+	before_filter :may_update_questionnaires_required,
+		:only => [:edit,:update]
+	before_filter :may_destroy_questionnaires_required,
+		:only => :destroy
+
+	before_filter :valid_id_required, 
+		:only => [:show,:edit,:update,:destroy,:download]
 
 	def download
 		if @questionnaire.document.path.blank?
@@ -26,10 +30,46 @@ class QuestionnairesController < ApplicationController
 		end
 	end
 
+	def index
+		@questionnaires = Questionnaire.all
+	end
+
+	def new
+		@questionnaire = Questionnaire.new(:study_id => params[:study_id])
+	end
+
+	def create
+		@questionnaire = Questionnaire.new(params[:questionnaire])
+		@questionnaire.save!
+		flash[:notice] = 'Success!'
+		redirect_to @questionnaire
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "There was a problem creating the questionnaire"
+		render :action => "new"
+	end 
+
+	def update
+		@questionnaire.update_attributes!(params[:questionnaire])
+		flash[:notice] = 'Success!'
+		redirect_to questionnaires_path
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+		flash.now[:error] = "There was a problem updating the questionnaire"
+		render :action => "edit"
+	end
+
+	def destroy
+		@questionnaire.destroy
+		redirect_to questionnaires_path
+	end
+
 protected
 
-	def get_new
-		@questionnaire = Questionnaire.new(:study_id => params[:study_id])
+	def valid_id_required
+		if( !params[:id].blank? && Questionnaire.exists?(params[:id]) )
+			@questionnaire = Questionnaire.find(params[:id])
+		else
+			access_denied("Valid id required!", questionnaires_path)
+		end
 	end
 
 end
