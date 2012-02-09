@@ -38,3 +38,6 @@ packages_updated.*
 development/
 test/documents/
 *.swp
+
+.bundle
+Gemfile.lock
