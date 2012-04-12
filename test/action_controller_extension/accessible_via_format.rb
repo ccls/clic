@@ -1,0 +1,2 @@
+module ActionControllerExtension::AccessibleViaFormat
+end

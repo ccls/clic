@@ -99,6 +99,10 @@ Factory.define :questionnaire do |f|
 	f.sequence(:title) { |n| "Title #{n}" }
 end
 
+Factory.define :role do |f|
+	f.sequence(:name) { |n| "name#{n}" }
+end
+
 Factory.define :study do |f|
 	f.sequence(:name) { |n| "Name #{n}" }
 end

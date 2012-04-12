@@ -8,6 +8,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 #require 'test/unit/testcase'
 
 require 'test_help'
+require 'action_controller_extension'
+require 'active_support_extension'
 require 'factory_test_helper'
 require 'group_test_helper'
 require 'orderable_test_helper'
@@ -18,6 +20,7 @@ require 'orderable_test_helper'
 #	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
 
 begin
+#	don't think that this works in the jruby world
 	Sunspot::Rails::Server.new.start
 rescue Sunspot::Server::AlreadyRunningError
 end
@@ -356,4 +359,10 @@ class ActionController::TestCase
 		@non_group_members ||= ( all_test_roles - group_members )
 	end
 
+end
+
+
+
+def brand	#	for auto-generated tests
+	"@@ "
 end

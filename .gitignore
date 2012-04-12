@@ -40,4 +40,3 @@ test/documents/
 *.swp
 
 .bundle
-Gemfile.lock

@@ -27,7 +27,10 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
+unless RUBY_PLATFORM =~ /java/
+#	won't install in jruby
 config.gem "rcov"
+end
 
 # need this here or will try to use built in test/unit
 #config.gem "test-unit", :lib => 'test/unit', :version => '~>2'
@@ -37,7 +40,7 @@ config.gem "mocha", :lib => false
 
 config.gem "autotest-rails", :lib => 'autotest/rails'
 
-config.gem "ZenTest"
+config.gem "ZenTest", :version => "4.5.0"
 
 config.gem "thoughtbot-factory_girl",
 	:lib    => "factory_girl",
