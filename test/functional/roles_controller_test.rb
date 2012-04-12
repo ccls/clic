@@ -6,6 +6,9 @@ class RolesControllerTest < ActionController::TestCase
 	assert_no_route(:put, :update, :id => 'reader')
 	assert_no_route(:delete, :destroy, :id => 'reader')
 
+	# a @membership is required so that those group roles will work
+	setup :create_a_membership
+
 #%w( super_user admin ).each do |cu|
 	site_administrators.each do |cu|
 

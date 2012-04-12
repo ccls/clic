@@ -38,14 +38,20 @@ module InventoriesHelper
 			next if row.value.blank?
 
 
+
+
+#	wrapped in [] and added flatten in case is nil as is in testing (20120412)
+
 			s << "<li>"
 			if options[:radio]
+#						params[facet.name].include?(row.value),
 				s << radio_button_tag( "#{facet.name}[]", row.value,
-						params[facet.name].include?(row.value),
+						[params[facet.name]].flatten.include?(row.value),
 						{ :id => "#{facet.name}_#{row.value.html_friendly}" } )
 			else
+#						params[facet.name].include?(row.value),
 				s << check_box_tag( "#{facet.name}[]", row.value, 
-						params[facet.name].include?(row.value),
+						[params[facet.name]].flatten.include?(row.value),
 						{ :id => "#{facet.name}_#{row.value.html_friendly}" } )
 			end
 			s << "<label for='#{facet.name}_#{row.value.html_friendly}'>"

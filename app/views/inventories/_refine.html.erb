@@ -6,15 +6,17 @@
    <% @search.facets.each do |facet| -%>
     <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
     <% next if facet.rows.empty? -%><%# don't show empty facets -%>
+
     <% if facet.name.to_s == 'study_name' %>
   </div><!-- class='facets' -->
   <h3>Study Characteristics</h3>
   <div class='facets'>
-    <% end %>
+    <% end %><%# if facet.name.to_s == 'study_name' %>
+
     <%= facet_for(facet,
        :multiselector => [:biospecimens,:genotypings].include?(facet.name),
        :facet_counts  => true ) %>
-   <% end -%>
+   <% end -%><%# @search.facets.each do |facet| -%>
   </div><!-- class='facets' -->
 
   <h3>Exposures</h3>
@@ -23,7 +25,7 @@
     <% next if facet.name.to_s == 'study_id' -%><%# don't show the study_id facet -%>
     <% next if facet.rows.empty? -%><%# don't show empty facets -%>
     <%= facet_for(facet, :radio => (facet.name.to_s == 'category') ) %>
-   <% end -%>
+   <% end -%><%# @exposure_search.facets.each do |facet| -%>
   </div><!-- class='facets' -->
- <% end -%>
+ <% end -%><%# form_tag( inventory_path, :method => :get ) do %>
 </div><!-- id='facets' -->
