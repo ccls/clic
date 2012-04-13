@@ -108,9 +108,9 @@ module SitePermissions
 		end
 		alias_method :may_view?, :may_read?
 
-		def may_view_user?(user=nil)
-			self.is_user?(user) || self.may_administrate?
-		end
+#		def may_view_user?(user=nil)
+#			self.is_user?(user) || self.may_administrate?
+#		end
 
 		def may_share_document?(document=nil)
 			document && ( 
