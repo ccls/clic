@@ -20,7 +20,6 @@
   <% destroy_link_to 'Destroy', post_path(post) do %>
    <%= hidden_field_tag 'confirm', "Destroy post '#{h Hpricot(post.body).to_plain_text}'?", 
      :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
 <% end %>
  </td>

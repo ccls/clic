@@ -17,7 +17,7 @@
 </div>
 
  <p>
-  <%= f.submit_link_to( ((@questionnaire.new_record?)?'Create':'Update')<<" Questionnaire" ) %>
+  <%= f.submit( ((@questionnaire.new_record?)?'Create':'Update')<<" Questionnaire" ) %>
   <% unless( @questionnaire.new_record? ) %>
     <%= link_to 'Cancel and Show Questionnaire', @questionnaire, :class => 'button' %>
   <% end %>

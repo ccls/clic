@@ -17,7 +17,7 @@
  <%= f.wrapped_text_area  :description,
 	:class => 'tinymce' %>
  <p>
-  <%= f.submit_link_to( (@group.new_record?)?'Create':'Update' ) %>&nbsp;
+  <%= f.submit( (@group.new_record?)?'Create':'Update' ) %>&nbsp;
   <%= link_to 'Cancel', members_only_path,
 		:class => 'button' %>
  </p>

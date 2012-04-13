@@ -15,7 +15,7 @@ Add "other_profession" string field to User model, required if "other" is select
 
 
  <p>
-  <%= f.submit_link_to( ((@profession.new_record?)?'Create':'Update')<<" Profession" ) %>
+  <%= f.submit( ((@profession.new_record?)?'Create':'Update')<<" Profession" ) %>
   <% unless( @profession.new_record? ) %>
     <%= link_to 'Cancel and Show Profession', @profession, :class => 'button' %>
   <% end %>

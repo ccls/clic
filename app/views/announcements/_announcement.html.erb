@@ -10,7 +10,6 @@
   <% destroy_link_to 'Destroy', announcement_path(announcement) do %>
    <%= hidden_field_tag 'confirm', "Destroy announcement '#{h(announcement)}'?", 
      :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %><!-- class='announcement row' -->

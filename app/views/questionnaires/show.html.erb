@@ -20,7 +20,6 @@
   <% destroy_link_to 'Destroy', questionnaire_path(@questionnaire) do %>
    <%= hidden_field_tag 'confirm', "Destroy questionnaire '#{h(@questionnaire)}'?", 
     :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
 <% end %>

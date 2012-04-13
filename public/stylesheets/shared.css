@@ -28,8 +28,8 @@ div.header {
 .row:nth-child(1) {
 	border-top: 1px solid silver;
 }
-.row:nth-child(2n)   { background-color: #FCF9EF; }
-.row:nth-child(2n+1) { background-color: #F5F1E8; }
+.row:nth-child(2n)   { background-color: #F0F0F0; }
+.row:nth-child(2n+1) { background-color: #F8F8F8; }
 
 table {
 	border-collapse:collapse;
@@ -90,7 +90,10 @@ th {
 .field_wrapper .label,
 .field_wrapper  label {
 	width: 10em;
+/*
 	font-size: 12pt;
+*/
+	font-size: 100%;
 	line-height: 12pt;
 	padding: 1px;
 }

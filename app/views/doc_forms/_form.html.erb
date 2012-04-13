@@ -8,7 +8,7 @@
   :locals => { :f => f } %>
 
  <p>
-  <%= f.submit_link_to( ((@doc_form.new_record?)?'Create':'Update')<<" Doc Form" ) %>
+  <%= f.submit( ((@doc_form.new_record?)?'Create':'Update')<<" Doc Form" ) %>
   <% unless( @doc_form.new_record? ) %>
     <%= link_to 'Cancel and Show Doc Form', @doc_form, :class => 'button' %>
   <% end %>

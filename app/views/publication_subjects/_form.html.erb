@@ -15,7 +15,7 @@ Add "other_publication_subject" string field to Publication model, required if "
 
 
  <p>
-  <%= f.submit_link_to( ((@publication_subject.new_record?)?'Create':'Update')<<" Publication Subject" ) %>
+  <%= f.submit( ((@publication_subject.new_record?)?'Create':'Update')<<" Publication Subject" ) %>
   <% unless( @publication_subject.new_record? ) %>
     <%= link_to 'Cancel and Show Publication Subject', @publication_subject, :class => 'button' %>
   <% end %>

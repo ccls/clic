@@ -29,7 +29,7 @@
  <% end %>
  <p><%= required('*&nbsp;-&nbsp;Required') -%> (times are optional)</p>
  <p>
-  <%= f.submit_link_to( ((@announcement.new_record?)?'Create':'Update')<<' Announcement' ) %>&nbsp;
+  <%= f.submit( ((@announcement.new_record?)?'Create':'Update')<<' Announcement' ) %>&nbsp;
   <% unless( @announcement.new_record? ) %>
     <%= link_to 'Cancel and Show This Announcement', @announcement, :class => 'button' %>&nbsp;
   <% end %>

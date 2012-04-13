@@ -47,7 +47,6 @@
   <% destroy_link_to 'Destroy', publication_path(@publication) do %>
    <%= hidden_field_tag 'confirm', "Destroy publication '#{h(@publication)}'?", 
     :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
 <% end %>

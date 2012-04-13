@@ -9,7 +9,6 @@
   <% destroy_link_to 'Destroy', profession_path(profession) do %>
    <%= hidden_field_tag 'confirm', "Destroy profession '#{h(profession)}'?", 
     :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %>

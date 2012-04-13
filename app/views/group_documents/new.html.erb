@@ -4,7 +4,7 @@
 	:url => group_documents_path(@group) ) do |f| %>
  <%= render :partial => 'form', :locals => { :f => f } %>
  <p>
-  <%= f.submit_link_to( 'Create' ) %>&nbsp;
+  <%= f.submit( 'Create' ) %>&nbsp;
   <%= link_to "Back to Group's Documents", group_documents_path(@group),
 		:class => 'button' %>
  </p>

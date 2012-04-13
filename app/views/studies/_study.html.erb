@@ -6,7 +6,6 @@
   <% destroy_link_to 'Destroy', study_path(study) do %>
    <%= hidden_field_tag 'confirm', "Destroy study '#{h(study)}'?",
     :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
  </td>
 <% end %>

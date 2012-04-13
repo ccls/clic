@@ -8,7 +8,7 @@
    :locals => { :f => f } %>
 
  <p>
-  <%= f.submit_link_to( ((@annual_meeting.new_record?)?'Create':'Update')<<" Annual Meeting" ) %>
+  <%= f.submit( ((@annual_meeting.new_record?)?'Create':'Update')<<" Annual Meeting" ) %>
   <% unless( @annual_meeting.new_record? ) %>
     <%= link_to 'Cancel and Show Annual Meeting', @annual_meeting, :class => 'button' %>
   <% end %>

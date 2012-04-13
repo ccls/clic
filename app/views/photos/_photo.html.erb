@@ -6,7 +6,7 @@
 <%= link_to photo.title, photo %>
 </td>
 <td class='manage'>
-<%= button_link_to 'Edit', edit_photo_path(photo) %>&nbsp;
+<%= link_to 'Edit', edit_photo_path(photo), :class => 'button' %>&nbsp;
 <% destroy_link_to 'Destroy', photo_path(photo) do %>
 <%= hidden_field_tag 'confirm', "Destroy photo '#{photo}'?", 
 	:id => nil %>

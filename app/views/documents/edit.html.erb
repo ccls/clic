@@ -5,7 +5,7 @@
  <%= f.error_messages %>
  <%= render 'form',:f => f %>
  <p>
-  <%= f.submit_link_to( "Update this Document" )%>&nbsp;
+  <%= f.submit( "Update this Document" )%>&nbsp;
   <%= link_to 'Preview this Document', 
    preview_document_path(@document), :class => 'button' %>&nbsp;
   <%= link_to 'Download this Document', @document, :class => 'button' %>&nbsp;

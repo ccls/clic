@@ -12,7 +12,7 @@
  <%= f.wrapped_text_area  :overview, :class => 'autosize' %>
 
  <p>
-  <%= f.submit_link_to( ((@study.new_record?)?'Create':'Update')<<" Study" ) %>
+  <%= f.submit( ((@study.new_record?)?'Create':'Update')<<" Study" ) %>
   <% unless( @study.new_record? ) %>
     <%= link_to 'Cancel and Show Study', @study, :class => 'button' %>
   <% end %>

@@ -6,7 +6,7 @@
   <%= render 'form',:f => f %>
 <p>
 <%= f.submit( "Update this Photo" )%>&nbsp;
-<%= button_link_to 'Show this Photo', @photo %>&nbsp;
-<%= button_link_to 'Back to Photos', photos_path %>
+<%= link_to 'Show this Photo', @photo, :class => 'button' %>&nbsp;
+<%= link_to 'Back to Photos', photos_path, :class => 'button' %>
 </p>
 <% end %>

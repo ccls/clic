@@ -6,7 +6,6 @@
   <% destroy_link_to 'Destroy', doc_form_path(doc_form) do %>
    <%= hidden_field_tag 'confirm', "Destroy doc form '#{h(doc_form)}'?", 
     :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
 <% else %>
 &nbsp;

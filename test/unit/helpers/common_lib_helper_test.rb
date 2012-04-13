@@ -72,13 +72,13 @@ class CommonLibHelperTest < ActionView::TestCase
 		end
 	end
 
-	test "button_link_to without block" do
-		response = HTML::Document.new(button_link_to('mytitle','/myurl')).root
-		assert_select response, 'a[href=/myurl]', 1 do
-			assert_select 'button[type=button]', 1
-		end
-#<a href="/myurl" style="text-decoration:none;"><button type="button">mytitle</button></a>
-	end
+#	test "button_link_to without block" do
+#		response = HTML::Document.new(button_link_to('mytitle','/myurl')).root
+#		assert_select response, 'a[href=/myurl]', 1 do
+#			assert_select 'button[type=button]', 1
+#		end
+##<a href="/myurl" style="text-decoration:none;"><button type="button">mytitle</button></a>
+#	end
 
 	test "aws_image_tag" do
 		response = HTML::Document.new(

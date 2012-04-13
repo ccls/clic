@@ -21,7 +21,6 @@
   <% destroy_link_to 'Destroy', annual_meeting_path(@annual_meeting) do %>
    <%= hidden_field_tag 'confirm', "Destroy annual meeting '#{h(@annual_meeting)}'?", 
     :id => nil %>
-   <%= submit_link_to('Destroy') %>
   <% end %>
 </div>
 <% end %>

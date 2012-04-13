@@ -53,7 +53,7 @@
   :locals => { :f => f } %>
 
  <p>
-  <%= f.submit_link_to( ((@publication.new_record?)?'Create':'Update')<<" Publication" ) %>
+  <%= f.submit( ((@publication.new_record?)?'Create':'Update')<<" Publication" ) %>
   <% unless( @publication.new_record? ) %>
     <%= link_to 'Cancel and Show This Publication', @publication, :class => 'button' %>
   <% end %>

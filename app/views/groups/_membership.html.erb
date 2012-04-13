@@ -12,14 +12,12 @@
   <% if current_user.may_edit_group_membership?(membership) %>
    <% form_link_to 'Approve', approve_group_membership_path(@group,membership), 
      'method' => 'put' do %>
-     <%= submit_link_to('Approve') %>
    <% end unless membership.approved? %>
    <%= link_to 'Edit', edit_group_membership_path(@group,membership), 
      :class => 'button' %>&nbsp;
    <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
      <%= hidden_field_tag 'confirm', "Destroy membership '#{h(membership)}'?",
        :id => nil %>
-     <%= submit_link_to('Destroy') %>
    <% end %>
   <% end %>
  </td>
