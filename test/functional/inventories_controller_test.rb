@@ -236,19 +236,19 @@ class InventoriesControllerTest < ActionController::TestCase
 				assert found.include?(s2)
 			end
 
-			test "should find neither subject with matching param #{p} and #{cu} login and operator AND" do
-				#	Can only really use the AND operator for items which a subject can have multiple
-				#	This used to be biospecimens, but now only exposures or study attributes will work.
-				#	study
-				#		principal_investigators	#	not used, so nothing for studies really
-				#	exposure
-				#		types
-				#		windows
-				#		assessments
-				#		forms_of_contact
-				#		locations_of_use
-				pending	#	TODO
-			end
+#			test "should find neither subject with matching param #{p} and #{cu} login and operator AND" do
+#				#	Can only really use the AND operator for items which a subject can have multiple
+#				#	This used to be biospecimens, but now only exposures or study attributes will work.
+#				#	study
+#				#		principal_investigators	#	not used, so nothing for studies really
+#				#	exposure
+#				#		types
+#				#		windows
+#				#		assessments
+#				#		forms_of_contact
+#				#		locations_of_use
+#				pending	#	TODO
+#			end
 
 		end
 

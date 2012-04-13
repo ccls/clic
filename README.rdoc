@@ -34,7 +34,6 @@ Childhood Leukemia International Consortium
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {ccls-common_lib}[http://github.com/ccls/common_lib]
 * {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
 
 
@@ -221,19 +220,6 @@ Inline documentation is sparse and incomplete, but I'm working on it.
 * Add to <tt>doc/README_FOR_APP</tt>
 * one of the images in rdoc isn't always the correct directory depth and will create a flash error showing this
 
-=== Vaguely related to dos
-
-* Make RDoc auto recognize the following rails commands and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)
-  * named_scope
-  * validate_*
-  * before_*
-  * after_*
-  * attr_protected
-  * attr_accessible
-* Make RDoc auto recognize these specific commands and group them together under user definable separate headings (like Public Instance Methods, Private Instance Methods, etc.)
-*	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
-* rdoc the rake tasks??
-* thickbox-compressed.js has relative location for image which isn't always correct.
 
 
 

@@ -337,24 +337,24 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	#		Self login (can show, but nothing else)
 	#
 
-	test "should show membership with self login" do
-		pending	#	TODO
-	end
-
-	test "should NOT get new membership with self login" do
-		#	already have one
-		pending	#	TODO
-	end
-
-	test "should NOT create new membership with self login" do
-		#	already have one
-		pending	#	TODO
-	end
-
-	test "should NOT get all memberships with self login" do
-		#	already have one
-		pending	#	TODO
-	end
+#	test "should show membership with self login" do
+#		pending	#	TODO
+#	end
+#
+#	test "should NOT get new membership with self login" do
+#		#	already have one
+#		pending	#	TODO
+#	end
+#
+#	test "should NOT create new membership with self login" do
+#		#	already have one
+#		pending	#	TODO
+#	end
+#
+#	test "should NOT get all memberships with self login" do
+#		#	already have one
+#		pending	#	TODO
+#	end
 
 	test "should NOT edit membership with self login" do
 		login_as @membership.user
@@ -363,9 +363,9 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path	#	members_only_path
 	end
 
-	test "should NOT approve membership with self login" do
-		pending	#	TODO
-	end
+#	test "should NOT approve membership with self login" do
+#		pending	#	TODO
+#	end
 
 	test "should NOT update membership with self login" do
 		login_as @membership.user
