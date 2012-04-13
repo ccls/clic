@@ -14,28 +14,6 @@ class ApplicationController < ActionController::Base
 
 protected	#	private #	(does it matter which or if neither?)
 
-
-#				alias_method_chain :inherited, :ccls_before_filters
-#
-#	private
-#
-#		def inherited_with_ccls_before_filters(base)
-#			identifier = 'ccls_ensure_proper_protocol'
-#			unless filter_chain.select(&:before?).map(&:identifier
-#				).include?(identifier)
-#				before_filter :ensure_proper_protocol,
-#					:identifier => identifier
-#			end
-##			identifier = 'ccls_build_menu_js'
-##			unless filter_chain.select(&:before?).map(&:identifier
-##				).include?(identifier)
-##				before_filter :build_menu_js,
-##					:identifier => identifier
-##			end
-#			inherited_without_ccls_before_filters(base)
-#		end
-
-
 		def ssl_required?
 			# Force https everywhere (that doesn't have ssl_allowed set)
 			true
@@ -55,10 +33,6 @@ protected	#	private #	(does it matter which or if neither?)
 			flash[:error] = message
 			redirect_to default
 		end
-
-
-
-
 
 	#	used in roles_controller
 	def may_not_be_user_required

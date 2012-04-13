@@ -15,27 +15,27 @@ class CommonLibFormHelperTest < ActionView::TestCase
 #	include CommonLib::ActionViewExtension::Base
 	include CommonLibHelper
 
-	test "sex_select" do
-		form_for(:some_model,SomeModel.new,:url => '/'){|f| 
-			concat f.sex_select(:some_attribute) }
-		expected = %{<form action="/" method="post"><select id="some_model_some_attribute" name="some_model[some_attribute]"><option value="">-select-</option>
-<option value="M">male</option>
-<option value="F">female</option>
-<option value="DK">don't know</option></select></form>}
-		assert_equal expected, output_buffer
-	end
-
-	test "wrapped_sex_select" do
-		form_for(:some_model,SomeModel.new,:url => '/'){|f| 
-			concat f.wrapped_sex_select(:some_attribute) }
-		expected = %{<form action="/" method="post"><div class='some_attribute sex_select field_wrapper'>
-<label for="some_model_some_attribute">Some attribute</label><select id="some_model_some_attribute" name="some_model[some_attribute]"><option value="">-select-</option>
-<option value="M">male</option>
-<option value="F">female</option>
-<option value="DK">don't know</option></select>
-</div><!-- class='some_attribute sex_select' --></form>}
-		assert_equal expected, output_buffer
-	end
+#	test "sex_select" do
+#		form_for(:some_model,SomeModel.new,:url => '/'){|f| 
+#			concat f.sex_select(:some_attribute) }
+#		expected = %{<form action="/" method="post"><select id="some_model_some_attribute" name="some_model[some_attribute]"><option value="">-select-</option>
+#<option value="M">male</option>
+#<option value="F">female</option>
+#<option value="DK">don't know</option></select></form>}
+#		assert_equal expected, output_buffer
+#	end
+#
+#	test "wrapped_sex_select" do
+#		form_for(:some_model,SomeModel.new,:url => '/'){|f| 
+#			concat f.wrapped_sex_select(:some_attribute) }
+#		expected = %{<form action="/" method="post"><div class='some_attribute sex_select field_wrapper'>
+#<label for="some_model_some_attribute">Some attribute</label><select id="some_model_some_attribute" name="some_model[some_attribute]"><option value="">-select-</option>
+#<option value="M">male</option>
+#<option value="F">female</option>
+#<option value="DK">don't know</option></select>
+#</div><!-- class='some_attribute sex_select' --></form>}
+#		assert_equal expected, output_buffer
+#	end
 
 	test "date_text_field" do
 		form_for(:some_model,SomeModel.new,:url => '/'){|f| 

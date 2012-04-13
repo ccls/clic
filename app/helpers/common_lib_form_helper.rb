@@ -58,16 +58,16 @@ module CommonLibFormHelper
 				{:include_blank => 'Meridiem'}.merge(options), html_options)
 		end
 
-		def sex_select(method,options={},html_options={})
-#			@template.sex_select(
-#				@object_name, method, 
-#					objectify_options(options),
-#					html_options)
-			@template.select(object_name, method,
-				[['-select-',''],['male','M'],['female','F'],["don't know",'DK']],
-				options, html_options)
-		end
-		alias_method :gender_select, :sex_select
+#		def sex_select(method,options={},html_options={})
+##			@template.sex_select(
+##				@object_name, method, 
+##					objectify_options(options),
+##					html_options)
+#			@template.select(object_name, method,
+#				[['-select-',''],['male','M'],['female','F'],["don't know",'DK']],
+#				options, html_options)
+#		end
+#		alias_method :gender_select, :sex_select
 
 		def date_text_field(method, options = {})
 #			@template.date_text_field(

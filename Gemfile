@@ -49,14 +49,32 @@ gem "will_paginate", "~>2"
 
 
 gem "warbler"
-#	jruby-jars-1.6.6 causes issues
-gem "jruby-jars", "=1.6.5"
-gem "jruby-openssl"
-gem "jruby-rack", "=1.0.10"
-gem "jdbc-mysql"
-gem "jdbc-sqlite3"
-gem "activerecord-jdbcsqlite3-adapter"
-gem "activerecord-jdbcmysql-adapter"
+
+
+
+#
+#	I'm surprise that this works with the creation of 
+#	the whole Gemfile.lock thing.
+#
+if RUBY_PLATFORM =~ /java/
+	#	jruby-jars-1.6.6 causes issues
+	gem "jruby-jars", "=1.6.5"
+	gem "jruby-openssl"
+	gem "jruby-rack", "=1.0.10"
+	gem "jdbc-mysql"
+	gem "jdbc-sqlite3"
+	gem "activerecord-jdbcsqlite3-adapter"
+	gem "activerecord-jdbcmysql-adapter"
+else
+	gem 'mysql'
+	gem "sqlite3"
+	gem 'rcov', :group => :test
+end
+
+
+
+
+
 
 #Java::JavaLang::ArrayIndexOutOfBoundsException: An error occured while installing rubyzip (0.9.5), and Bundler cannot continue.
 #	why
@@ -65,7 +83,8 @@ gem "activerecord-jdbcmysql-adapter"
 
 #	Used for cvs parsing on data import
 #	Also used to csv output.
-#gem "fastercsv"
+#	Not used in app, but used in rake tasks
+gem "fastercsv"
 
 #	2.4.3, 2.4.5 causes a lot of ...
 #	NameError: `@[]' is not allowed as an instance variable name
@@ -87,13 +106,10 @@ gem "sunspot_rails", "=1.2.1"
 
 group :test do
 	gem "ccls-html_test"
-
 	gem "mocha", :require => false
 	gem "autotest-rails", :require => 'autotest/rails'
 	gem 'ZenTest', '~>4.5.0'
-
 	gem "thoughtbot-factory_girl", :require => "factory_girl"
-
 end
 
 
