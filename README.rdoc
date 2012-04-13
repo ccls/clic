@@ -63,16 +63,22 @@ rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/in
  #	or
  sudo gem install rvm
  /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.27/bin/rvm-install
+ #
+ # rvm installation has changed now I believe
+ #
 
  # add ... 
  #	if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
  # to your .bashrc
  vi .bashrc
  bash
- rvm install jruby
- rvm use jruby
- # or perhaps
- rvm --default jruby
+ #
+ #	our server uses jruby 1.5.1 so we should dev and test on it as well.
+ #
+ rvm install jruby-1.5.1
+ rvm use jruby-1.5.1
+ # and perhaps
+ rvm --default jruby-1.5.1
 
 
 
