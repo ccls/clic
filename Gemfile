@@ -48,9 +48,12 @@ gem "ssl_requirement"
 gem "will_paginate", "~>2"
 
 
-gem "warbler"
-
-
+#	1.3.5 causes all kinds of 
+#	gems-gems-......jar
+#	files to be put in /lib/ which for whatever reasons
+#	causes a lot of errors.
+#	As I see no need for any upgrade, don't.
+gem "warbler", '=1.3.2'
 
 #
 #	I'm surprise that this works with the creation of 
@@ -70,9 +73,6 @@ else
 	gem "sqlite3"
 	gem 'rcov', :group => :test
 end
-
-
-
 
 
 
