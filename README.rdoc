@@ -112,16 +112,16 @@ Everybody join hands together now to install some gems ...
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
  sudo gem install bundler
+
+ # preferably use bunlder to install all specific gem versions
  sudo bundle install
 
- # OR
-
+ # OR with gem, which may not match versions
+ #
  sudo gem install hpricot
  sudo gem install rake -v '=0.8.7'
  sudo gem install rdoc -v '~> 2'
  sudo gem install rails -v '~> 2'
-
-
  #
  # The rest should actually install with ...
  #
@@ -164,6 +164,8 @@ then we continue ...
  rake app:deputize username=<Your Username>
 
 
+
+
 == Production Installation
 
 As this app is being installed on a VM Java jruby tomcat thing, we need special instructions.  Apparently, for Tomcat 5, we need to use jruby-rack-0.9.6.jar, which is included in lib/.
@@ -172,25 +174,33 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
 
  ( warble from a jruby environment to get the jruby specific gems )
 
- # prepare the war
+ # prepare the war file on a development machine
  [jakewendt@dev : clic ]> bash
  [jakewendt@dev : clic ]> rvm use jruby
  [jakewendt@dev : clic ]> warble
  [jakewendt@dev : clic ]> scp clic.war ccls.berkeley.edu:
 
+
  # stop tomcat as "jakewendt"
  [jakewendt@dev : clic ]> ssh ccls
  [jakewendt@ccls-01:~]> sudo /sbin/service tomcat5 stop
 
- # copy in new war file as "tomcat"
+
+ # copy in new war file as "tomcat" ( backup first? )
  [jakewendt@ccls-01:~] > sudo su -l tomcat
  [tomcat@ccls-01:~] > /bin/rm -rf /var/lib/tomcat5/webapps/clic
  [tomcat@ccls-01:~] > cp ~jakewendt/clic.war /var/lib/tomcat5/webapps/
  [tomcat@ccls-01:~] > exit
 
+
  # start tomcat as "jakewendt"
  [jakewendt@ccls-01:~] > sudo /sbin/service tomcat5 start
  [jakewendt@ccls-01:~] > tail -f /var/log/tomcat5/catalina.out
+
+
+
+
+
 
  #
  #
