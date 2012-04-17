@@ -1,11 +1,11 @@
-<% form_tag directory_path, :method => :get do %>
-
-<div style='display:inline-block;'>
+<% form_tag directory_path, :method => :get, 
+	:id => 'directory_search' do %>
+<div>
+<div class='name'>
 <%= label_tag :last_name %><br/>
 <%= text_field_tag :last_name, params[:last_name] %>
 </div>
-
-<div style='display:inline-block;'>
+<div class='name'>
 <%= label_tag :first_name %><br/>
 <%= text_field_tag :first_name, params[:first_name] %>
 </div>
@@ -16,7 +16,6 @@
 <%= select_tag(:profession_id,options_for_select([['select profession',nil]]+
 	Profession.all.collect{|p|[p.name,p.id]},params[:profession_id].to_i)) %>
 </div>
-
-<br/>
-<%= submit_tag 'Search Directory', :name => nil %>
+</div>
+<div><%= submit_tag 'Search Directory', :name => nil %></div>
 <% end %>

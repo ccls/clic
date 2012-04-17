@@ -1,0 +1,11 @@
+form#directory_search {
+	margin-bottom: 20px;
+}
+form#directory_search div.name {
+	display:inline-block; 
+}
+form#directory_search > div {
+	display:inline-block; 
+	vertical-align: middle;
+	margin-right: 20px;
+}
