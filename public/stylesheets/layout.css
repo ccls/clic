@@ -1,5 +1,3 @@
-/* CSS layout for clic, Buffler Center website */
-
 #container {
 	min-width: 1000px;
 	margin: 0 20px;
@@ -9,9 +7,6 @@
 
 #logo {
 	float: left;
-/*
-	width: 130px;
-*/
 	margin-bottom: 5px;
 }
 #logo a {
@@ -23,11 +18,6 @@
 	font-weight: bold;
 	font-size: 15pt;
 	margin-left: 15px;
-}
-#logo *{
-/*
-	vertical-align:middle;	
-*/
 }
 
 #cse-search-box {
@@ -156,9 +146,6 @@ h1 {
 
 h2 {
 	font: bold 1.4em Arial, Helvetica, sans-serif;
-/*
-	color: #99CC00;
-*/
 	color: #88BB00;
 }
 

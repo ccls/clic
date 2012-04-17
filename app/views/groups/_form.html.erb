@@ -1,7 +1,8 @@
+<% stylesheets(:group) %>
 <% javascripts('tiny_mce/jquery.tinymce.js') %>
 <h2>Group</h2>
 
-<% form_for(@group) do |f| %>
+<% form_for(@group,:html => { :class => 'edit_group' }) do |f| %>
  <%= f.error_messages %>
 
 <%# Don't allow self to be own parent.  Kinda makes finding group difficult. %>

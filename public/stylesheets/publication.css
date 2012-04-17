@@ -1,21 +1,32 @@
-form.edit_publication div.field_wrapper .label,
-form.edit_publication div.field_wrapper label {
+div.field_wrapper .label,
+div.field_wrapper label {
 	width: 12em;
 }
 
-form.edit_publication div.field_wrapper div.publication_subject_ids_wrapper,
-form.edit_publication div.field_wrapper div.study_ids_wrapper {
+div.field_wrapper div.publication_subject_ids_wrapper,
+div.field_wrapper div.study_ids_wrapper {
 	display:inline-block;
 }
-form.edit_publication div.field_wrapper div.publication_subject_ids_wrapper div.publication_subject_ids,
-form.edit_publication div.field_wrapper div.study_ids_wrapper div.study_ids {
+div.field_wrapper div.publication_subject_ids_wrapper div.publication_subject_ids,
+div.field_wrapper div.study_ids_wrapper div.study_ids {
 	margin-top:0;
 	margin-bottom:0;
 }
-form.edit_publication div.field_wrapper div.publication_subject_ids_wrapper div.study_ids input,
-form.edit_publication div.field_wrapper div.publication_subject_ids_wrapper div.study_ids label,
-form.edit_publication div.field_wrapper div.study_ids_wrapper div.study_ids input,
-form.edit_publication div.field_wrapper div.study_ids_wrapper div.study_ids label {
+div.field_wrapper div.publication_subject_ids_wrapper div.publication_subject_ids input,
+div.field_wrapper div.publication_subject_ids_wrapper div.publication_subject_ids label,
+div.field_wrapper div.study_ids_wrapper div.study_ids input,
+div.field_wrapper div.study_ids_wrapper div.study_ids label {
 	line-height: 20px;
 	padding:0;
+	width: auto;
 }
+
+/*
+form.edit_publication div.field_wrapper.other_publication_subject label {
+	float:none;
+	display:block;
+}
+div.field_wrapper.other_publication_subject label {
+	width: auto;
+}
+*/

@@ -44,7 +44,9 @@ form.edit_user div.membership_requests div.field_wrapper select {
 
 form.edit_user .label,
 form.edit_user label {
+/*
 	float: left;
+*/
 	width: 200px;
 }
 form.edit_user select,
@@ -69,4 +71,5 @@ form.edit_user div.field_wrapper div.profession_ids_wrapper div.profession_ids i
 form.edit_user div.field_wrapper div.profession_ids_wrapper div.profession_ids label {
 	line-height: 20px;
 	padding:0;
+	width: auto;
 }
