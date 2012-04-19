@@ -21,15 +21,15 @@ class Exposure < ActiveRecord::Base
 		self.locations_of_use = Array.new if self.locations_of_use.nil?
 	end
 
-	searchable do 
-		integer :study_id, :references => Study
-		string :category
-		string :relation_to_child
-		string :types, :multiple => true
-		string :windows, :multiple => true
-		string :assessments, :multiple => true
-		string :forms_of_contact, :multiple => true
-		string :locations_of_use, :multiple => true
-	end
+#	searchable do 
+#		integer :study_id, :references => Study
+#		string :category
+#		string :relation_to_child
+#		string :types, :multiple => true
+#		string :windows, :multiple => true
+#		string :assessments, :multiple => true
+#		string :forms_of_contact, :multiple => true
+#		string :locations_of_use, :multiple => true
+#	end
 
 end

@@ -99,9 +99,11 @@ gem "aws-s3"
 
 gem "authlogic", "~> 2"
 gem "ruby-hmac"
-gem "rsolr", "=0.12.1"
-gem "sunspot", "=1.2.1"
-gem "sunspot_rails", "=1.2.1"
+
+
+#gem "rsolr", "=0.12.1"
+#gem "sunspot", "=1.2.1"
+#gem "sunspot_rails", "=1.2.1"
 
 
 group :test do

@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :professions, :collection => { :order => :post }
 
-	map.resource  :inventory, :only => :show
+#	map.resource  :inventory, :only => :show
 	map.resources :editor_images, :only => :index
 	map.resources :editor_links,  :only => :index
 	map.resources :announcements

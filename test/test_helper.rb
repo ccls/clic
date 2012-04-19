@@ -1,11 +1,11 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
-#gem 'test-unit', :lib => 'test/unit', :version => '~>2'
-#require 'test/unit'
-#require 'test/unit/priority'
-#require 'test/unit/autorunner'
-#require 'test/unit/testcase'
+##gem 'test-unit', :lib => 'test/unit', :version => '~>2'
+##require 'test/unit'
+##require 'test/unit/priority'
+##require 'test/unit/autorunner'
+##require 'test/unit/testcase'
 
 require 'test_help'
 require 'action_controller_extension'
@@ -13,17 +13,20 @@ require 'active_support_extension'
 require 'factory_test_helper'
 require 'group_test_helper'
 require 'orderable_test_helper'
-#require 'test_startup_shutdown'
-#require 'test_sunspot'
-#TestSunspot.setup
-#	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x
-#	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
+##require 'test_startup_shutdown'
+##require 'test_sunspot'
+##TestSunspot.setup
+##	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x
+##	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
 
-begin
-#	don't think that this works in the jruby world
-	Sunspot::Rails::Server.new.start
-rescue Sunspot::Server::AlreadyRunningError
-end
+
+
+#begin
+##	don't think that this works in the jruby world
+#	Sunspot::Rails::Server.new.start
+#rescue Sunspot::Server::AlreadyRunningError
+#end
+
 
 
 class ActiveSupport::TestCase

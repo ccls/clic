@@ -50,9 +50,9 @@ class Study < ActiveRecord::Base
 		design
 	end
 
-#	searchable do
-#		string :name
-#	end
+##	searchable do
+##		string :name
+##	end
 
 	def principal_investigator_names
 		principal_investigators.join(', ')

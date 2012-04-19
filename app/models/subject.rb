@@ -17,41 +17,41 @@ class Subject < ActiveRecord::Base
 		:principal_investigators,
 		:recruitment, :to => :study, :allow_nil => true
 
-	searchable do 
-		integer :study_id, :references => Study
-		string :study_name
-		string :world_region
-		string :country
-		string :study_design
-		string :target_age_group
-		string :recruitment
-		string :principal_investigators,  :multiple => true
-
-#		integer :subid
-#		string :case_status
-#		string :subtype
-#		string :biospecimens, :multiple => true
-
-		string  :clic_id
-		string  :case_status
-		string  :leukemia_type
-		string  :immunophenotype
-		string  :interview_respondent
-		integer :reference_year, :trie => true
-		integer :birth_year, :trie => true
-		string  :gender
-		integer :age, :trie => true
-		string  :ethnicity
-		integer :mother_age, :trie => true
-		integer :father_age, :trie => true
-		string  :household_income
-		string  :down_syndrome
-		string  :mother_education
-		string  :father_education
-
-		time :created_at
-		time :updated_at
-	end
+#	searchable do 
+#		integer :study_id, :references => Study
+#		string :study_name
+#		string :world_region
+#		string :country
+#		string :study_design
+#		string :target_age_group
+#		string :recruitment
+#		string :principal_investigators,  :multiple => true
+#
+##		integer :subid
+##		string :case_status
+##		string :subtype
+##		string :biospecimens, :multiple => true
+#
+#		string  :clic_id
+#		string  :case_status
+#		string  :leukemia_type
+#		string  :immunophenotype
+#		string  :interview_respondent
+#		integer :reference_year, :trie => true
+#		integer :birth_year, :trie => true
+#		string  :gender
+#		integer :age, :trie => true
+#		string  :ethnicity
+#		integer :mother_age, :trie => true
+#		integer :father_age, :trie => true
+#		string  :household_income
+#		string  :down_syndrome
+#		string  :mother_education
+#		string  :father_education
+#
+#		time :created_at
+#		time :updated_at
+#	end
 
 	def to_s
 #		"Subject: #{subid} : #{case_status} : #{subtype}"

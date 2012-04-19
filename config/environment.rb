@@ -56,7 +56,10 @@ Rails::Initializer.run do |config|
 	config.gem 'fastercsv'
 	config.gem 'hpricot'
 	config.gem 'RedCloth', '< 4.2.6'
-	config.gem "sunspot_rails"
+
+
+#	config.gem "sunspot_rails"
+
 
 	config.frameworks -= [ :active_resource ]
 

@@ -4,7 +4,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_belong_to(:study)
-	assert_should_be_searchable
+#	assert_should_be_searchable
 
 #	TODO
 #	assert_not_required ...
@@ -26,14 +26,14 @@ class SubjectTest < ActiveSupport::TestCase
 			"Subject: #{object.clic_id} : #{object.case_status} : #{object.leukemia_type} : #{object.immunophenotype}"
 	end
 
-	test "should search" do
-		Subject.solr_reindex
-		search = Subject.search
-		assert search.hits.empty?
-		Factory(:subject)
-		Subject.solr_reindex
-		search = Subject.search
-		assert !search.hits.empty?
-	end
+#	test "should search" do
+#		Subject.solr_reindex
+#		search = Subject.search
+#		assert search.hits.empty?
+#		Factory(:subject)
+#		Subject.solr_reindex
+#		search = Subject.search
+#		assert !search.hits.empty?
+#	end
 
 end
