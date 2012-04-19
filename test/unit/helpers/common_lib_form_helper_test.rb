@@ -261,4 +261,11 @@ class CommonLibFormHelperTest < ActionView::TestCase
 		assert_equal expected, output_buffer
 	end
 
+	test "some missing method" do
+		assert_raises(NoMethodError) {
+			form_for(:some_model,SomeModel.new,:url => '/'){|f| 
+				concat f.this_method_does_not_exist }
+		}
+	end
+
 end

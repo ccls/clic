@@ -105,8 +105,8 @@ module CommonLibFormHelper
 							self.label( method, label_text ) <<
 							send("#{unwrapped_method_name}",*args,&block)
 						end
-					else
-						send("_#{method_name}",*args,&block)
+#					else
+#						send("_#{method_name}",*args,&block)
 					end
 					s << (( block_given? )? @template.capture(&block) : '')
 				end

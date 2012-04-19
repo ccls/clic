@@ -338,4 +338,21 @@ class CommonLibHelperTest < ActionView::TestCase
 #		end
 #	end
 
+
+	#	test wrapped_method where unwrapped method exists
+	#	I don't really do this. I use wrapped_date_spans
+	test "wrapped_mdy" do
+		date = Date.parse('Dec 5, 1971')
+		response = HTML::Document.new(
+			wrapped_mdy( date )).root
+		assert_select response, 'div.mdy.field_wrapper', '12/05/1971', 1
+	end
+
+
+	test "some missing method" do
+		assert_raises(NameError) {
+			this_method_does_not_exist
+		}
+	end
+
 end

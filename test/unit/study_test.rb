@@ -49,12 +49,22 @@ class StudyTest < ActiveSupport::TestCase
 		assert_equal object.reload.name, 'Arbitrary'
 	end
 
+	test "study_name should return study name" do
+		object = create_object(:name => 'Arbitrary')
+		assert_equal object.reload.study_name, 'Arbitrary'
+	end
+
 	test "updating study_design should set design" do
 		object = create_object
 #	update_attribute SKIPS validations which may ignore errors
 #		object.update_attribute(:study_design, 'Arbitrary')
 		object.update_attributes(:study_design => 'Arbitrary')
 		assert_equal object.reload.design, 'Arbitrary'
+	end
+
+	test "study_design should return study design" do
+		object = create_object(:design => 'Arbitrary')
+		assert_equal object.reload.study_design, 'Arbitrary'
 	end
 
 end

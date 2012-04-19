@@ -110,13 +110,13 @@ module CommonLibHelper
 				s = if respond_to?(unwrapped_method_name)
 					options    = args.detect{|i| i.is_a?(Hash) }
 					label_text = options.delete(:label_text) unless options.nil?
-					if unwrapped_method_name == 'check_box'
-						send("#{unwrapped_method_name}",*args,&block) <<
-						label( object_name, method, label_text )
-					else
+#					if unwrapped_method_name == 'check_box'
+#						send("#{unwrapped_method_name}",*args,&block) <<
+#						label( object_name, method, label_text )
+#					else
 						label( object_name, method, label_text ) <<
 						send("#{unwrapped_method_name}",*args,&block)
-					end
+#					end
 				else
 					send("_#{method_name}",*args,&block)
 				end
@@ -125,11 +125,11 @@ module CommonLibHelper
 	#				send("_#{method_name}",*args) << 
 	#					(( block_given? )? capture(&block) : '')
 			end
-			if block_called_from_erb?(block)
-				concat(content)
-			else
+#			if block_called_from_erb?(block)
+#				concat(content)
+#			else
 				content
-			end
+#			end
 		else
 			method_missing_without_wrapping(symb,*args, &block)
 		end
