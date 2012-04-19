@@ -108,78 +108,16 @@ gem "ruby-hmac"
 
 group :test do
 	gem "ccls-html_test"
-	gem "mocha", :require => false
+
+#	Its always something
+#Java::JavaLang::ArrayIndexOutOfBoundsException: An error occured while installing mocha (0.11.0), and Bundler cannot continue.
+#Make sure that `gem install mocha -v '0.11.0'` succeeds before bundling.
+	gem "mocha", '0.10.5', :require => false
+
 	gem "autotest-rails", :require => 'autotest/rails'
 	gem 'ZenTest', '~>4.5.0'
 	gem "thoughtbot-factory_girl", :require => "factory_girl"
 end
-
-
-#
-#	Everything seems to work with this ...
-#
-#	actionmailer (2.3.14)
-#	actionpack (2.3.14)
-#	activerecord (2.3.14)
-#	activerecord-jdbc-adapter (1.2.2)
-#	activerecord-jdbcmysql-adapter (1.2.2)
-#	activerecord-jdbcsqlite3-adapter (1.2.2)
-#	activeresource (2.3.14)
-#	activesupport (2.3.14)
-#	arel (2.0.2)
-#	authlogic (2.1.6)
-#	aws-s3 (0.6.2)
-#	bouncy-castle-java (1.5.0146.1)
-#	builder (3.0.0)
-#	bundler (1.0.22)
-#	ccls-calnet_authenticated (1.3.2)
-#	ccls-common_lib (0.1.7)
-#	ccls-simply_authorized (1.4.0)
-#	chronic (0.6.6)
-#	cocaine (0.2.1)
-#	columnize (0.3.1)
-#	escape (0.0.4)
-#	fastercsv (1.5.4)
-#	git (1.2.5)
-#	haml (3.1.4)
-#	hpricot (0.8.6 java)
-#	i18n (0.6.0)
-#	jdbc-mysql (5.1.13)
-#	jdbc-sqlite3 (3.7.2)
-#	jrails (0.6.0)
-#	jruby-jars (1.6.5)
-#	jruby-launcher (1.0.12 java)
-#	jruby-openssl (0.7.5, 0.7.4)
-#	jruby-rack (1.0.10)
-#	json (1.6.5 java)
-#	mime-types (1.17.2)
-#	nokogiri (1.5.0 java)
-#	paperclip (2.4.2)
-#	pr_geohash (1.0.0)
-#	rack (1.1.2)
-#	rails (2.3.14)
-#	rake (0.8.7)
-#	rdoc (2.5.11)
-#	RedCloth (4.2.7 java)
-#	rsolr (0.12.1)
-#	rspec (1.3.0)
-#	ruby-debug (0.10.3)
-#	ruby-debug-base (0.10.3.2 java)
-#	ruby-hmac (0.4.0)
-#	ruby-net-ldap (0.0.4)
-#	rubycas-client (2.3.8)
-#	rubygems-update (1.6.2)
-#	rubyzip (0.9.6.1)
-#	ryanb-acts-as-list (0.1.2)
-#	sources (0.0.1)
-#	ssl_requirement (0.1.0)
-#	sunspot (1.2.1)
-#	sunspot_rails (1.2.1)
-#	ucb_ldap (1.4.2)
-#	warbler (1.3.2)
-#	will_paginate (2.3.16)
-#	xml-simple (1.1.1)
-
 
 
 #	20120412 ...
