@@ -10,8 +10,9 @@ class UserSessionsController < ApplicationController
 	def create
 		@user_session = UserSession.new(params[:user_session])
 		if @user_session.save
-			redirect_to session[:return_to]||root_path
+			redirect_path = session[:return_to] || root_path
 			session[:return_to] = nil
+			redirect_to redirect_path
 		else
 #			#	The save will add errors to the object if login
 #			#	fails.  These errors will be shown on the login

@@ -1,23 +1,12 @@
 class PagesController < ApplicationController
 
-	before_filter :login_required
+	before_filter :login_required, :except => :show
 
-	#	calnet_authenticated
-	skip_before_filter :login_required, 
-		:only => [:show, :translate]
-
-#	removed method
-#	skip_before_filter :build_menu_js, 
-#		:only => [:translate]
-
-	#	simply_authorized
 	before_filter :may_maintain_pages_required, 
-		:except => [:show, :translate]
+		:except => :show
 
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 	before_filter :page_required, :only => :show
-#	removed method
-#	before_filter :build_submenu_js, :except => [:index, :order, :translate]
 
 #	caches partials from layout as well, which is too much
 #	caching still buggy
@@ -51,12 +40,6 @@ class PagesController < ApplicationController
 		redirect_to pages_path(:parent_id=>params[:parent_id])
 	end
 
-#	def translate
-#		respond_to do |format|
-#			format.js {}
-#		end
-#	end
-		
 	def show
 	end
 
@@ -132,29 +115,5 @@ protected
 		flash_message << (( params[:id].blank? ) ? "path '/#{params[:path].join('/')}'" : "ID #{params[:id]}")
 		flash.now[:error] = flash_message
 	end
-
-#	def build_submenu_js
-#		if @page && !@page.root.children.empty?
-#			js = "" <<
-#				"if ( typeof(translatables) == 'undefined' ){\n" <<
-#				"	var translatables = [];\n" <<
-#				"}\n"
-#			js << "tmp={tag:'#current_root',locales:{}};\n"
-#			%w( en es ).each do |locale|
-#				js << "tmp.locales['#{locale}']='#{@page.root.menu(locale)}'\n"
-#			end
-#			js << "translatables.push(tmp);\n"
-#			@page.root.children.each do |child|
-#				js << "tmp={tag:'#menu_#{dom_id(child)}',locales:{}};\n"
-#				%w( en es ).each do |locale|
-#					js << "tmp.locales['#{locale}']='#{child.menu(locale)}'\n"
-#				end
-#				js << "translatables.push(tmp);\n"
-#			end
-#			@template.content_for :head do
-#				@template.javascript_tag js
-#			end
-#		end
-#	end
 
 end

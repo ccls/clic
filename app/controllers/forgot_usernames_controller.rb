@@ -13,5 +13,4 @@ class ForgotUsernamesController < ApplicationController
 		end  
 	end
 
-
 end
