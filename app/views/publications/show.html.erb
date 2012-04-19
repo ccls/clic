@@ -34,12 +34,25 @@
   <% end %>
 </p>
 
-<% unless @publication.group_documents.empty? %>
+<p>
+  <b>URL:</b>
+  <%=h @publication.url %>
+</p>
+
+
+
+<!--
+<%# no more group documents attached to publications as potentially a copyright violation %>
+<%# unless @publication.group_documents.empty? %>
 <p><b>Attachment(s):</b></p>
-  <% @publication.group_documents.each do |document| %>
-    <p><%= link_to document.title, group_document_path(document) %></p>
-  <% end %>
-<% end %>
+  <%# @publication.group_documents.each do |document| %>
+    <p><%#= link_to document.title, group_document_path(document) %></p>
+  <%# end %>
+<%# end %>
+-->
+
+
+
 
 <% if current_user.may_edit_publications? %>
 <div class='manage'>
