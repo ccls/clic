@@ -3,6 +3,7 @@ require 'test_helper'
 class AnnualMeetingTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
+	assert_should_act_as_list
 	assert_should_require(:meeting, :abstract)
 	assert_should_require_attribute_length( :meeting,  :maximum => 250 )
 	assert_should_require_attribute_length( :abstract, :maximum => 65000 )

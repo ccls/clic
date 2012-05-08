@@ -1,6 +1,8 @@
 <% content_tag_for( :tr, profession, :class => "profession row" ) do %>
+<% if current_user.may_order? -%>
  <td><%= hidden_field_tag( 'ids[]', profession.id, :id => nil ) %>
   <%= image_tag 'drag.gif', :class => 'handle' %></td>
+<% end %>
  <td class='position'><%= profession.position -%></td>
  <td class='name'><%= link_to profession, profession %></td>
  <td class='manage'>

@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :studies
 	map.resources :contacts, :only => :index
 	map.resources :publication_subjects, :collection => { :order => :post }
-	map.resources :annual_meetings
+	map.resources :annual_meetings, :collection => { :order => :post }
 	map.resources :publications
 
 	map.resources :group_roles

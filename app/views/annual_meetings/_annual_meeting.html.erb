@@ -1,4 +1,9 @@
 <% content_tag_for( :tr, annual_meeting, :class => "annual_meeting row" ) do %>
+<% if current_user.may_order? -%>
+ <td><%= hidden_field_tag( 'ids[]', annual_meeting.id, :id => nil ) %>
+  <%= image_tag 'drag.gif', :class => 'handle' %></td>
+<% end %>
+ <td class='position'><%= annual_meeting.position -%></td>
  <td class='meeting'><%= link_to annual_meeting, annual_meeting %></td>
  <td class='manage'>
 <% if current_user.may_edit_annual_meetings? %>

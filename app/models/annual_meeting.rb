@@ -1,5 +1,8 @@
 class AnnualMeeting < ActiveRecord::Base
 
+	acts_as_list 
+	default_scope :order => 'position'
+
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable
 
 	accepts_nested_attributes_for :group_documents, 

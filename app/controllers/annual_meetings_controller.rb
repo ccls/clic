@@ -1,5 +1,13 @@
 class AnnualMeetingsController < ApplicationController
 
+#
+#	Annual Meetings are sorted newest first, so need to
+#	reverse them if going to use the same 'orderable' code.
+#
+	before_filter :reverse_ids_for_ordering, :only => :order
+
+	orderable
+
 	before_filter :may_create_annual_meetings_required,
 		:only => [:new,:create]
 	before_filter :may_read_annual_meetings_required,
@@ -13,7 +21,7 @@ class AnnualMeetingsController < ApplicationController
 		:only => [:show,:edit,:update,:destroy]
 
 	def index
-		@annual_meetings = AnnualMeeting.all
+		@annual_meetings = AnnualMeeting.all(:order => 'position DESC')
 	end
 
 	def new
@@ -37,9 +45,11 @@ class AnnualMeetingsController < ApplicationController
 	#	must be passed to it so that it can be added to the group_documents
 	#
 	def update
-		@annual_meeting.update_attributes(params[:annual_meeting])
+#		@annual_meeting.update_attributes(params[:annual_meeting])
+#		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
+#		@annual_meeting.save!
 		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
-		@annual_meeting.save!
+		@annual_meeting.update_attributes!(params[:annual_meeting])
 		flash[:notice] = 'Success!'
 		redirect_to annual_meetings_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -60,6 +70,14 @@ protected
 		else
 			access_denied("Valid id required!", annual_meetings_path)
 		end
+	end
+
+	def reverse_ids_for_ordering
+#		params[:ids] = (params[:ids]||[]).reverse
+#		if params[:ids]
+#			params[:ids] = params[:ids].reverse
+#		end
+		params[:ids].reverse! if params[:ids]
 	end
 
 end

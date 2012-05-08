@@ -18,7 +18,8 @@ module OrderableController
 #		particularly of the same name for different actions as it
 #		seems that before_filter will overwrite rather than append.
 #
-			before_filter :may_administrate_required, :only => :order
+#			before_filter :may_administrate_required, :only => :order
+			before_filter :may_order_required, :only => :order
 			include OrderableController::Actions
 		end
 

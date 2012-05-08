@@ -1,4 +1,4 @@
-<% javascripts('orderable') %>
+<% javascripts('orderable') if current_user.may_order? -%>
 
 <h2>Professions
 <% if current_user.may_create_professions? %>
@@ -8,16 +8,16 @@
 <% end %></h2>
 
 <% unless @professions.empty? %>
-  <table id='professions' class='orderable'><thead>
-    <tr><th>&nbsp;</th><th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>
+  <table id='professions' class='orderable'><thead><tr>
+<%= "<th>&nbsp;</th>" if current_user.may_order? -%>
+<th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'profession', :collection => @professions %>
   </tbody></table><!-- id='professions' -->
 <% else %>
   <p>Sorry, no professions yet.</p>
-<% end %>
-
+<% end -%>
 
 <% form_tag(order_professions_path, :method => :post, :id => 'order') do -%>
 <p><%= submit_tag 'Save profession order', :name => nil, :id => 'save_order' %></p>
-<% end %>
+<% end if current_user.may_order? %>

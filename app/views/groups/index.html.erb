@@ -1,4 +1,4 @@
-<% javascripts('orderable') %>
+<% javascripts('orderable') if current_user.may_order? -%>
 
 <h2>
 <% if @group %>
@@ -14,17 +14,17 @@ Groups
 </h2>
 
 <% if @groups.length > 0 %>
- <table id='groups' class='orderable'><thead>
- <tr><th>&nbsp;</th><th>&nbsp;</th><th>Group</th></tr>
+ <table id='groups' class='orderable'><thead><tr>
+<%= "<th>&nbsp;</th>" if current_user.may_order? -%>
+<th>&nbsp;</th><th>Group</th></tr>
  </thead><tbody>
  <%= render :partial => 'group', :collection => @groups %>
  </tbody></table><!-- id='groups' -->
 <% else %>
  <p>Sorry, but no groups yet.</p>
-<% end %>
-
+<% end -%>
 
 <% form_tag(order_groups_path, :method => :post, :id => 'order') do -%>
 <%= hidden_field_tag :parent_id, params[:parent_id] %>
 <p><%= submit_tag 'Save group order', :name => nil, :id => 'save_order' %></p>
-<% end %>
+<% end if current_user.may_order? %>

@@ -1,9 +1,9 @@
 <% content_tag_for( :tr, group, :class => 'row' ) do %>
+<% if current_user.may_order? -%>
  <td><%= hidden_field_tag( 'ids[]', group.id, :id => nil ) %>
   <%= image_tag 'drag.gif', :class => 'handle' %></td>
+<% end %>
  <td class='position'><%= group.position -%></td>
-
-
  <td><table><tbody><tr>
   <td class='name'>
    <%= link_to group.name, group %>

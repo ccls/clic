@@ -4,6 +4,8 @@
 
 	This is currently only used by professions and publication_subjects,
 	but would like to use it on others.
+
+	Also, annual_meetings and groups
 */
 var initial_order;
 jQuery(function(){

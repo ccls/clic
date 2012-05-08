@@ -360,3 +360,10 @@ div#group_role_definitions dl dd {
 div.modal_content {
 	display:none;
 }
+
+
+
+input:disabled {
+	background: white;
+	color: gray;
+}

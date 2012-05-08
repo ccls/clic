@@ -85,6 +85,7 @@ module SitePermissions
 		alias_method :may_create_user_invitations?, :may_administrate?
 		alias_method :may_view_users?,              :may_administrate?
 		alias_method :may_assign_roles?,            :may_administrate?
+		alias_method :may_order?,                   :may_administrate?
 
 		def may_edit?(*args)
 			(self.role_names & 

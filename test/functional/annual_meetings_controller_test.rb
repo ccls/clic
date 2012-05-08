@@ -30,6 +30,8 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 	assert_no_access_with_http 
 	assert_no_access_without_login
 
+	assert_orderable
+
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
