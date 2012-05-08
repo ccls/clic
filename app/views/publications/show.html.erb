@@ -36,7 +36,7 @@
 
 <p>
   <b>URL:</b>
-  <%=h @publication.url %>
+  <%= link_to @publication.url_with_prefix, @publication.url_with_prefix %>
 </p>
 
 

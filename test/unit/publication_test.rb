@@ -117,4 +117,19 @@ class PublicationTest < ActiveSupport::TestCase
 		}
 	end
 
+	test "should add http:// to url_with_prefix if missing" do
+		publication = Publication.new(:url => 'clic.berkeley.edu')
+		assert_equal publication.url_with_prefix, 'http://clic.berkeley.edu'
+	end
+
+	test "should NOT add http:// to url_with_prefix if NOT missing" do
+		publication = Publication.new(:url => 'http://clic.berkeley.edu')
+		assert_equal publication.url_with_prefix, 'http://clic.berkeley.edu'
+	end
+
+	test "should NOT add http:// to url_with_prefix if url blank" do
+		publication = Publication.new(:url => '')
+		assert publication.url_with_prefix.blank?
+	end
+
 end

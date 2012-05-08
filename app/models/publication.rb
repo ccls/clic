@@ -36,6 +36,11 @@ class Publication < ActiveRecord::Base
 		title
 	end
 
+	def url_with_prefix
+		( url.blank? ) ? '' :
+			( url.match(/^http(s)?:\/\//) ? url : "http://#{url}" )
+	end
+
 protected
 
 #	def set_group_documents_user
