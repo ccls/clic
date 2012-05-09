@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508222120) do
+ActiveRecord::Schema.define(:version => 20120509170547) do
 
   create_table "announcements", :force => true do |t|
     t.string   "title",              :null => false
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20120508222120) do
 
   create_table "group_documents", :force => true do |t|
     t.integer  "group_id"
-    t.integer  "user_id",                                   :null => false
+    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"

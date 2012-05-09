@@ -71,9 +71,8 @@ class PostTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			]})
-			assert object.errors.on_attr_and_type('group_documents.user',:blank)
+			assert object.errors.on_attr_and_type('group_documents.user_id',:blank)
 		} } } }
-		GroupDocument.destroy_all
 	end
 
 	test "should destroy group_document with post" do

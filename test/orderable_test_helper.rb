@@ -9,7 +9,10 @@ module OrderableTestHelper
 #		So far, this is alway the same so no real arguments
 #		Making a bunch of other conventional assumptions as well.
 		def assert_orderable(*args)
-#			options = args.extract_options!
+			options = {
+				:reverse => false
+			}
+			options.update(args.extract_options!)
 
 			resources = self.controller_class.controller_name
 			model = resources.camelize.singularize.constantize
@@ -23,9 +26,19 @@ module OrderableTestHelper
 model.destroy_all
 					orderable = []
 					3.times{ orderable.push(factory_create) }
-					before_ids = model.all.collect(&:id)
-					post :order, :ids => before_ids.reverse
-					after_ids = model.all.collect(&:id)
+					before_ids = model.all.collect(&:id)   #	assuming default_scope
+#					ids_param = before_ids.reverse
+#					#	on page in descending order (highest position at top) so re-reverse
+#					ids_param.reverse! if options[:reverse]
+					ids_param = if options[:reverse]
+						#	on page in descending order (highest position at top) so 
+						#	will already be sorted "reverse"
+						before_ids
+					else
+						before_ids.reverse
+					end
+					post :order, :ids => ids_param
+					after_ids = model.all.collect(&:id)    #	assuming default_scope
 					assert_equal after_ids, before_ids.reverse
 					assert_redirected_to :controller => resources, :action => 'index'
 				end

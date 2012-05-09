@@ -39,9 +39,8 @@ class DocFormTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			])
-			assert @object.errors.on_attr_and_type('group_documents.user',:blank)
+			assert @object.errors.on_attr_and_type('group_documents.user_id',:blank)
 		} } }
-		@object.destroy
 	end
 
 	test "should update doc_form with nested attributes for group_documents" do
@@ -71,7 +70,7 @@ class DocFormTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			])
-			assert object.errors.on_attr_and_type('group_documents.user',:blank)
+			assert object.errors.on_attr_and_type('group_documents.user_id',:blank)
 		} } }
 		object.destroy
 	end

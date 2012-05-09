@@ -31,7 +31,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 	end
 
 	test "should NOT create annual_meeting with nested attributes for group_documents" <<
-			"without user" do
+			" without user" do
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',0) {
 		assert_difference('AnnualMeeting.count',0) {
@@ -39,9 +39,11 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			])
-			assert @object.errors.on_attr_and_type('group_documents.user', :blank)
+			assert @object.errors.on_attr_and_type('group_documents.user_id', :blank)
 		} } }
-		@object.destroy
+#		@object.group_documents = []
+#	None created
+#		@object.destroy
 	end
 
 	test "should update annual_meeting with nested attributes for group_documents" do
@@ -62,7 +64,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 	end
 
 	test "should NOT update annual_meeting with nested attributes for group_documents" <<
-			"without user" do
+			" without user" do
 		object = create_annual_meeting
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',0) {
@@ -71,8 +73,13 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			])
-			assert object.errors.on_attr_and_type('group_documents.user', :blank)
+			assert object.errors.on_attr_and_type('group_documents.user_id', :blank)
 		} } }
+		#	acts_as_list's remove_from_list tries to save the object
+		#	again or something, with the invalid group documents and fails.
+		#	Removing the documents makes it happier.
+#	removed restriction from database, but left in app so all is ok now
+#		object.group_documents = []
 		object.destroy
 	end
 

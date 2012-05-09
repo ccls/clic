@@ -48,7 +48,10 @@ class AnnualMeetingsController < ApplicationController
 #		@annual_meeting.update_attributes(params[:annual_meeting])
 #		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
 #		@annual_meeting.save!
-		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
+#	won't current_user always be nil?
+#		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
+#		@annual_meeting.update_attributes!(params[:annual_meeting])
+		@annual_meeting.current_user = current_user
 		@annual_meeting.update_attributes!(params[:annual_meeting])
 		flash[:notice] = 'Success!'
 		redirect_to annual_meetings_path
