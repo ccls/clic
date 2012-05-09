@@ -36,6 +36,10 @@ class Publication < ActiveRecord::Base
 		title
 	end
 
+#
+#	Perhaps this would've been better to do in a before_save
+#	rather than having to compute this every time the page loads.
+#
 	def url_with_prefix
 		( url.blank? ) ? '' :
 			( url.match(/^http(s)?:\/\//) ? url : "http://#{url}" )
