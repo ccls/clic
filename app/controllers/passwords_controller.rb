@@ -27,8 +27,8 @@ class PasswordsController < ApplicationController
 #	comparison of the password to password_confirmation
 #	so probably want to find a better way!!!!
 #
-#			current_user = params[:user][:password]
-#			current_user = params[:user][:password_confirmation]
+#			current_user.password = params[:user][:password]
+#			current_user.password_confirmation = params[:user][:password_confirmation]
 #			current_user.save!(false) 
 #	no. save! doesn't take arguments
 #	and save(false) won't raise errors

@@ -33,8 +33,8 @@ class PasswordResetsController < ApplicationController
 #	comparison of the password to password_confirmation
 #	so probably want to find a better way!!!!
 #
-#			@user = params[:user][:password]
-#			@user = params[:user][:password_confirmation]
+#			@user.password = params[:user][:password]
+#			@user.password_confirmation = params[:user][:password_confirmation]
 #			@user.save!(false) 
 #	no. save! doesn't take arguments
 #	and save(false) won't raise errors
