@@ -350,7 +350,12 @@ class CommonLibHelperTest < ActionView::TestCase
 
 
 	test "some missing method" do
-		assert_raises(NameError) {
+#	this used to work somewhere
+#		assert_raises(NameError) {
+
+		#	testing in bash/rvm/jruby, now this is the error raised.
+		#	It does make more sense, but don't understand the change.
+		assert_raises(NoMethodError) {
 			this_method_does_not_exist
 		}
 	end
