@@ -33,7 +33,9 @@ class Autotest
 		#	perhaps set this flag in a file so that can be modified
 		#	without restarting autotest.
 
-		unless ENV['AUTOTEST_RERUN_ALL'] == 'false'
+#		unless ENV['AUTOTEST_RERUN_ALL'] == 'false'
+#	make not rerunning them all the default
+		if ENV['AUTOTEST_RERUN_ALL'] == 'true'
 			rerun_all_tests_without_flag
 		end
 	end
