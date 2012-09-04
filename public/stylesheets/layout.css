@@ -64,7 +64,9 @@
 
 
 #menu {
-	width: 175px;
+/* with just 'width', menu would squish with big images */
+	min-width: 175px;
+	width: 15%;
 	background:#BBBBBB;
 }
 #content{
