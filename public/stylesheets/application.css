@@ -334,9 +334,11 @@ form div.field_wrapper.ends_at_meridiem label {
 .field_wrapper .mceEditor {
 	width: 100%;
 }
+/*
 #page img {
 	width: 100%;
 }
+*/
 
 div#group_documents {
 	border: 1px solid silver;
