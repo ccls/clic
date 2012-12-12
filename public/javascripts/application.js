@@ -1,9 +1,12 @@
 var root = '';	// kinda global
 
 jQuery(function(){
-
-	root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
 /*
+	as CLIC is now the ROOT app, nothing special is required.
+*/
+/*
+	root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
+
 	jQuery.getScript(root + '/users/menu.js',
 		function(data,textStatus){
 			add_clic_prefix_to_links('#PrivateNav');
