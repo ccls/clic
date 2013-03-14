@@ -1,4 +1,4 @@
-require 'fastercsv'
+#require 'fastercsv'
 
 #	Copied from actionpack/lib/action_view/helpers/text_helper.rb
 def pluralize(count, singular, plural = nil)
@@ -44,7 +44,8 @@ namespace :subjects do
 
 		#	DO NOT COMMENT OUT THE HEADER LINE OR IT RAISES CRYPTIC ERROR
 #		(f=FasterCSV.open("CCLS_Aust_Covariate_sample.csv", 'rb',{
-		(f=FasterCSV.open("IndCovData_McCauley_Updated_083111.csv", 'rb',{
+#		(f=FasterCSV.open("IndCovData_McCauley_Updated_083111.csv", 'rb',{
+		(f=CSV.open("IndCovData_McCauley_Updated_083111.csv", 'rb',{
 			:headers => true })).each do |line|
 			study_name = line['study_name'].strip
 			puts "Processing subject line #{f.lineno}:#{study_name}"

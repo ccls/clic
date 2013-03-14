@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, photo, :class => 'row' ) do %>
+<%= content_tag_for( :tr, photo, :class => 'row' ) do %>
 <td class='thumb'>
 <%= image_tag(photo.image.url(:small)) %>
 </td>
@@ -7,7 +7,7 @@
 </td>
 <td class='manage'>
 <%= link_to 'Edit', edit_photo_path(photo), :class => 'button' %>&nbsp;
-<% destroy_link_to 'Destroy', photo_path(photo) do %>
+<%= destroy_link_to 'Destroy', photo_path(photo) do %>
 <%= hidden_field_tag 'confirm', "Destroy photo '#{photo}'?", 
 	:id => nil %>
 <% end %>

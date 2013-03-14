@@ -99,4 +99,15 @@ class TopicTest < ActiveSupport::TestCase
 		GroupDocument.destroy_all
 	end
 
+	test "should have a last_post" do
+		post = Factory(:post)
+		assert_equal post, post.topic.last_post
+	end
+
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_topic
+
 end

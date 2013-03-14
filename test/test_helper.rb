@@ -1,5 +1,8 @@
+require 'simplecov_test_helper'	#	should be first for some reason
+
 ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
 
 ##gem 'test-unit', :lib => 'test/unit', :version => '~>2'
 ##require 'test/unit'
@@ -7,7 +10,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 ##require 'test/unit/autorunner'
 ##require 'test/unit/testcase'
 
-require 'test_help'
+#require 'test_help'
+require 'active_model_extension'
 require 'action_controller_extension'
 require 'active_support_extension'
 require 'factory_test_helper'
@@ -55,23 +59,23 @@ class ActiveSupport::TestCase
 		assert_nil UserSession.find
 	end
 
-	def self.assert_should_create_default_object
-		#       It appears that model_name is a defined class method already in ...
-		#       activesupport-####/lib/active_support/core_ext/module/model_naming.rb
-		test "should create default #{model_name.sub(/Test$/,'').underscore}" do
-			assert_difference( "#{model_name}.count", 1 ) do
-				object = create_object
-				assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-			end
-		end
-	end
+#	def self.assert_should_create_default_object
+#		#       It appears that model_name is a defined class method already in ...
+#		#       activesupport-####/lib/active_support/core_ext/module/model_naming.rb
+#		test "should create default #{model_name.sub(/Test$/,'').underscore}" do
+#			assert_difference( "#{model_name}.count", 1 ) do
+#				object = create_object
+#				assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#			end
+#		end
+#	end
 
 end
 
 require 'authlogic/test_case'
 class ActionController::TestCase
-	setup :turn_https_on
+#	setup :turn_https_on
 #	include Authlogic::TestCase
 	setup :activate_authlogic
 

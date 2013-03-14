@@ -1,7 +1,8 @@
-<% javascripts('tiny_mce/jquery.tinymce.js') %>
+<%# javascripts('tiny_mce/jquery.tinymce.js') %>
+<% javascripts('tinymce-jquery.js') %>
 <h2>Editting reply to ... &nbsp;&raquo;&nbsp;<%= link_to @post.topic.title, @post.topic %></h2>
 
-<% form_for @post do |f| %>
+<%= form_for @post do |f| %>
   <%= f.error_messages %>
   <%= f.text_area :body, :class => 'tinymce' %>
   <p>

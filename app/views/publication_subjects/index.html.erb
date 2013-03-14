@@ -11,7 +11,7 @@
 
 <% unless @publication_subjects.empty? %>
   <table id='publication_subjects' class='orderable'><thead><tr>
-<%= "<th>&nbsp;</th>" if current_user.may_order? -%>
+<%= "<th>&nbsp;</th>".html_safe if current_user.may_order? -%>
 <th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'publication_subject', :collection => @publication_subjects %>
@@ -20,6 +20,6 @@
   <p>Sorry, no publication_subjects yet.</p>
 <% end -%>
 
-<% form_tag(order_publication_subjects_path, :method => :post, :id => 'order') do -%>
+<%= form_tag(order_publication_subjects_path, :method => :post, :id => 'order') do -%>
 <p><%= submit_tag 'Save publication subjects order', :name => nil, :id => 'save_order' %></p>
 <% end if current_user.may_order? %>

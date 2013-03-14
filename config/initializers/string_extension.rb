@@ -5,13 +5,13 @@
 #end
 
 module StringExtension	#	:nodoc:
-  def self.included(base)
-    base.instance_eval do
-      include InstanceMethods
-    end
-  end
-
-  module InstanceMethods
+#	def self.included(base)
+#		base.instance_eval do
+#			include InstanceMethods
+#		end
+#	end
+#
+#  module InstanceMethods
 #
 #		#	Convert a query string like that in a URL
 #		#	to a Hash
@@ -29,7 +29,7 @@ module StringExtension	#	:nodoc:
 #			self
 #		end
 #
-  end
-
+#  end
+#
 end
 String.send( :include, StringExtension )

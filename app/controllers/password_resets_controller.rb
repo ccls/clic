@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
 		@user = User.find_by_email(params[:email])  
 		if @user  
 			@user.reset_perishable_token!
-			UserMailer.deliver_forgot_password(@user)
+			UserMailer.forgot_password(@user).deliver
 			flash[:notice] = "Instructions to reset your password have been emailed to you. " <<
 				"Please check your email."  
 			redirect_to root_url  

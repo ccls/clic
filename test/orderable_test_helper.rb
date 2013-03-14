@@ -26,7 +26,12 @@ module OrderableTestHelper
 model.destroy_all
 					orderable = []
 					3.times{ orderable.push(factory_create) }
-					before_ids = model.all.collect(&:id)   #	assuming default_scope
+#
+#	DO NOT ASSUME DEFAULT SCOPE
+#	ASSUME THAT position is the ordered attribute
+#
+#					before_ids = model.all.collect(&:id)   #	assuming default_scope
+					before_ids = model.order(:position).all.collect(&:id)
 #					ids_param = before_ids.reverse
 #					#	on page in descending order (highest position at top) so re-reverse
 #					ids_param.reverse! if options[:reverse]
@@ -38,7 +43,12 @@ model.destroy_all
 						before_ids.reverse
 					end
 					post :order, :ids => ids_param
-					after_ids = model.all.collect(&:id)    #	assuming default_scope
+#
+#	DO NOT ASSUME DEFAULT SCOPE
+#	ASSUME THAT position is the ordered attribute
+#
+#					after_ids = model.all.collect(&:id)    #	assuming default_scope
+					after_ids = model.order(:position).all.collect(&:id)
 					assert_equal after_ids, before_ids.reverse
 					assert_redirected_to :controller => resources, :action => 'index'
 				end

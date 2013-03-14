@@ -71,7 +71,7 @@ class PostTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			]})
-			assert object.errors.on_attr_and_type('group_documents.user_id',:blank)
+			assert object.errors.matching?('group_documents.user_id',:blank)
 		} } } }
 	end
 
@@ -87,5 +87,10 @@ class PostTest < ActiveSupport::TestCase
 			object.destroy
 		} } } }
 	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_post
 
 end

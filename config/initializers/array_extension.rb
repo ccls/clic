@@ -1,11 +1,11 @@
 module ArrayExtension	#	:nodoc:
-	def self.included(base)
-		base.instance_eval do
-			include InstanceMethods
-		end
-	end
-
-	module InstanceMethods
+#	def self.included(base)
+#		base.instance_eval do
+#			include InstanceMethods
+#		end
+#	end
+#
+#	module InstanceMethods
 #
 #		#	['a','b','c'].arrange([2,0,1]) => ['c','a','b']
 #		def arrange(new_array_index=[])
@@ -131,6 +131,6 @@ module ArrayExtension	#	:nodoc:
 #			contains_true ^ contains_false
 #		end
 #
-	end
+#	end
 end
 Array.send(:include, ArrayExtension)

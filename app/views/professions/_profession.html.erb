@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, profession, :class => "profession row" ) do %>
+<%= content_tag_for( :tr, profession, :class => "profession row" ) do %>
 <% if current_user.may_order? -%>
  <td><%= hidden_field_tag( 'ids[]', profession.id, :id => nil ) %>
   <%= image_tag 'drag.gif', :class => 'handle' %></td>
@@ -8,7 +8,7 @@
  <td class='manage'>
   <%= link_to 'Edit', edit_profession_path(profession), 
    :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', profession_path(profession) do %>
+  <%= destroy_link_to 'Destroy', profession_path(profession) do %>
    <%= hidden_field_tag 'confirm', "Destroy profession '#{h(profession)}'?", 
     :id => nil %>
   <% end %>

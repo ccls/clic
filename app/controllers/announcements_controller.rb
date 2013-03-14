@@ -16,8 +16,7 @@ class AnnouncementsController < ApplicationController
 		:only => [:edit,:update,:show,:destroy]
 
 	def index
-		@announcements = Announcement.find(:all, :conditions => {
-			:group_id => nil })
+		@announcements = Announcement.where(:group_id => nil ).order('created_at DESC, begins_on DESC').all
 	end
 
 	def new

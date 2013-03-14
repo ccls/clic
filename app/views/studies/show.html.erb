@@ -6,7 +6,7 @@
 
 <div style='float:right;'>
   <%= link_to 'Edit', edit_study_path(@study), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', study_path(@study) do %>
+  <%= destroy_link_to 'Destroy', study_path(@study) do %>
    <%= hidden_field_tag 'confirm', "Destroy study '#{h(@study)}'?",
     :id => nil %>
   <% end %>

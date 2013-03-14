@@ -1,19 +1,16 @@
-# Be sure to restart your server when you modify this file
+# Load the rails application
+require File.expand_path('../application', __FILE__)
 
-# Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
+# Initialize the rails application
+Clic::Application.initialize!
 
-#	I really shouldn't need this.
-#ENV['RAILS_ENV'] ||= 'production'
 
-#	In production, using script/console does not properly
-#	set a GEM_PATH, so gems aren't loaded correctly.
-if ENV['RAILS_ENV'] == 'production'
-ENV['GEM_PATH'] = File.expand_path(File.join(File.dirname(__FILE__),'..','gems'))
-end
 
-# Bootstrap the Rails environment, frameworks, and default configuration
-require File.join(File.dirname(__FILE__), 'boot')
+
+
+
+__END__
+
 
 #	This constant is used in the ucb_ccls_engine#Document
 #	and other places like Amazon buckets
@@ -22,18 +19,18 @@ RAILS_APP_NAME = 'clic'
 
 Rails::Initializer.run do |config|
 
-	if RUBY_PLATFORM =~ /java/
-		config.gem 'activerecord-jdbcsqlite3-adapter',
-			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
-		config.gem 'activerecord-jdbcmysql-adapter',
-			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
-		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
-		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
-		config.gem 'jruby-openssl', :lib => 'openssl'
-	else
+#	if RUBY_PLATFORM =~ /java/
+#		config.gem 'activerecord-jdbcsqlite3-adapter',
+#			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
+#		config.gem 'activerecord-jdbcmysql-adapter',
+#			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+#		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
+#		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
+#		config.gem 'jruby-openssl', :lib => 'openssl'
+#	else
 		config.gem 'mysql'
 		config.gem "sqlite3"
-	end
+#	end
 
 	config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list'
 	config.gem 'authlogic', :version => '~> 2'
@@ -53,7 +50,7 @@ Rails::Initializer.run do |config|
 	#	I'd really like to remove chronic, but it is actually used here.
 	config.gem "chronic"	#, :version => '= 0.5.0'
 	config.gem 'will_paginate'
-	config.gem 'fastercsv'
+#	config.gem 'fastercsv'
 	config.gem 'hpricot'
 	config.gem 'RedCloth', '< 4.2.6'
 
@@ -87,8 +84,4 @@ ActionView::Base.field_error_proc = Proc.new { |html_tag, instance|
 HWIA = HashWithIndifferentAccess
 
 
-
 HTML::WhiteListSanitizer.allowed_attributes.merge(%w( id class style ))
-
-
-__END__

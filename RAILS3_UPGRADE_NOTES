@@ -1,0 +1,79 @@
+
+
+created new rails 3 app with "rails new clic" in separate directory
+then copied in new files and cut-n-paste modifications to existing
+
+
+
+about to change <% to <%= in block tags like 
+	form_tag
+	form_for
+	fields_for
+	content_tag_for
+
+
+removing ssl_requirement gem as is forced through server
+
+
+changed database adapter to mysql2 to stop the ...
+/opt/local/lib/ruby1.9/gems/1.9.1/gems/bundler-1.1.4/lib/bundler/rubygems_integration.rb:157:in `block in replace_gem': Please install the mysql adapter: `gem install activerecord-mysql-adapter` (can't activate mysql (~> 2.8.1), already activated mysql-2.9.1. Make sure all dependencies are added to Gemfile.) (LoadError)
+
+
+
+"rails c" works !
+
+"rails s" doesn't
+
+need to rewrite routes
+
+
+REMOVE any default_scope stuff, but will need to compensate
+
+
+
+
+routes written.  time to tackle the big stuff
+	
+	named_scope
+	html_safe
+	method_missing_without_wrapping in form builder
+	removed before_validation_on_create
+	validations
+	testing mods
+	authlogic
+		Need to ... to play in console
+		 Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
+	active record errors
+	replace on_attr_and_type
+	remove http/https tests
+	replaced RAILS_ROOT with Rails.root
+	block_called_from_erb
+I think that these were removed in ODMS upgrade
+	destroy_link_to
+	form_link_to
+
+slowly
+
+something is forcing me to add "attr_protected" to models
+	as all attributes are being treated as protected
+	commented out "whitelist" in application.rb
+
+
+tinymce replaced with gem which is so much cleaner
+
+The whole relative root thing should be able to be removed now that clic
+won't be a "sub app"
+
+
+
+
+	update all finders to rails 3 / arel / active relation
+
+
+
+
+Will need to add .html_safe to a lot of stuff
+
+
+everything appears to be working, fingers crossed.
+

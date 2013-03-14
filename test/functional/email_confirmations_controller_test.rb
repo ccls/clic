@@ -2,11 +2,15 @@ require 'test_helper'
 
 class EmailConfirmationsControllerTest < ActionController::TestCase
 
-	test "should NOT confirm email without perishable_token" do
-		get :confirm
-		assert_not_nil flash[:error]
-		assert_redirected_to_login
-	end
+	assert_no_route :get, :confirm
+	assert_no_route :get, :resend
+
+#	test "should NOT confirm email without perishable_token" do
+#		assert_raises
+#		get :confirm
+#		assert_not_nil flash[:error]
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT confirm email without valid perishable_token" do
 		get :confirm, :id => "some random invalid perishable_token"
@@ -43,13 +47,13 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 		User.perishable_token_valid_for = remember
 	end
 
-	test "should NOT resend confirm email without perishable_token" do
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-			get :resend
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to_login
-	end
+#	test "should NOT resend confirm email without perishable_token" do
+#		assert_difference('ActionMailer::Base.deliveries.length',0) {
+#			get :resend
+#		}
+#		assert_not_nil flash[:error]
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT resend confirm email without valid perishable_token" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {

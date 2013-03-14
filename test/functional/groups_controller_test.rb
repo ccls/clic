@@ -26,8 +26,8 @@ class GroupsControllerTest < ActionController::TestCase
 #		but was a redirect to <https://test.host:80/groups/1018266145/memberships/new>.
 #		:redirect => new_group_membership_path(@membership.group) })
 	assert_no_access_without_login
-	assert_access_with_https
-	assert_no_access_with_http
+#	assert_access_with_https
+#	assert_no_access_with_http
 	assert_orderable
 
 	site_administrators.each do |cu|

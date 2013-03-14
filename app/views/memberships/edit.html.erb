@@ -1,6 +1,6 @@
 <h2>Editing membership</h2>
 
-<% form_for(@membership) do |f| %>
+<%= form_for(@membership) do |f| %>
  <%= f.error_messages %>
  <h4>User</h4>
  <%= link_to @membership.user, @membership.user %><br/>

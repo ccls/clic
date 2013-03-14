@@ -23,12 +23,17 @@ class RoleTest < ActiveSupport::TestCase
 		end 
 	end
 
+#protected
+#
+#	def create_object(options = {})
+#		record = Factory.build(:role,options)
+#		record.save
+#		record
+#	end
+
 protected
 
-	def create_object(options = {})
-		record = Factory.build(:role,options)
-		record.save
-		record
-	end
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_role
 
 end

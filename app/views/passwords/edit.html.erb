@@ -1,7 +1,7 @@
 <% stylesheets('user') %>
 
 <h2>Edit Password</h2>
-<% form_for( current_user, :url => password_path,
+<%= form_for( current_user, :url => password_path,
 	:method => :put,
 	:class => 'edit_user' ) do |f| %>
 

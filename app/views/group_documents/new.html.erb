@@ -1,6 +1,6 @@
 <h2>New group document</h2>
 
-<% form_for( @document, 
+<%= form_for( @document, 
 	:url => group_documents_path(@group) ) do |f| %>
  <%= render :partial => 'form', :locals => { :f => f } %>
  <p>

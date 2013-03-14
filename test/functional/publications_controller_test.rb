@@ -24,8 +24,8 @@ class PublicationsControllerTest < ActionController::TestCase
 		o.assert_access_with_login({    :logins => approved_users })
 		o.assert_no_access_with_login({ :logins => unapproved_users })
 	end
-	assert_access_with_https
-	assert_no_access_with_http 
+#	assert_access_with_https
+#	assert_no_access_with_http 
 	assert_no_access_without_login
 
 	# a @membership is required so that those group roles will work

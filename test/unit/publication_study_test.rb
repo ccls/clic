@@ -10,4 +10,9 @@ class PublicationStudyTest < ActiveSupport::TestCase
 	assert_should_protect( :publication_id )
 	assert_should_protect( :study_id )
 
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_publication_study
+
 end

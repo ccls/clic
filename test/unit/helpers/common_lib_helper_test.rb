@@ -12,6 +12,41 @@ end
 
 class CommonLibHelperTest < ActionView::TestCase
 
+
+
+
+#	copied from ODMS
+        setup :enable_content_for_usage
+        def enable_content_for_usage
+#
+# the following raises NoMethodError: undefined method `append' for nil:NilClass ????
+# I really don't understand.  I use content_for in other places just like this?
+# Actually, the other tests may be failing before the content_for call
+#
+# what is nil? This works in reality, but not in testing
+# wouldn't be surprised if this is controller related.
+#
+#   in rails 3, there is something called "@view_flow"
+# 
+# adding '_prepare_context' before the call fixes the nil, but then there's another error
+#
+# NoMethodError: undefined method `encoding_aware?' for nil:NilClass
+#    test/unit/helpers/action_view_base_helper_test.rb:340:in `new'
+#
+# don't use @content_for_head anymore.  Just use content_for(:head)
+#
+
+#       Is this the best way?  Doubt it, but it works.
+
+                _prepare_context        #       need this to set @view_flow so content_for works
+        end
+
+
+
+
+
+
+
 	def flash
 		{:notice => "Hello There"}
 	end
@@ -26,15 +61,15 @@ class CommonLibHelperTest < ActionView::TestCase
 #<input id="apple" name="apple" type="hidden" value="orange" />
 #<input type="submit" value="mytitle" />
 #</form>
-		assert_select response, 'form.form_link_to[action=/myurl]', 1 do
-			assert_select 'input', 2
+		assert_select response, 'form.form_link_to[action=/myurl]', :count => 1 do
+			assert_select 'input', :count => 3
 		end
 	end
 
 	test "form_link_to without block" do
 		response = HTML::Document.new(form_link_to('mytitle','/myurl')).root
-		assert_select response, 'form.form_link_to[action=/myurl]', 1 do
-			assert_select 'input', 1
+		assert_select response, 'form.form_link_to[action=/myurl]', :count => 1 do
+			assert_select 'input', :count => 2
 		end
 #<form class="form_link_to" action="/myurl" method="post">
 #<input type="submit" value="mytitle" />
@@ -50,11 +85,19 @@ class CommonLibHelperTest < ActionView::TestCase
 #<div style="margin:0;padding:0;display:inline"><input name="_method" type="hidden" value="delete" /></div>
 #<input id="apple" name="apple" type="hidden" value="orange" /><input type="submit" value="mytitle" />
 #</form>
-		assert_select response, 'form.destroy_link_to[action=/myurl]', 1 do
-			assert_select 'div', 1 do
-				assert_select 'input[name=_method][value=delete]',1
+
+#<form class="destroy_link_to" action="/myurl" method="post">
+#<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="delete" /></div>
+#<input id="apple" name="apple" type="hidden" value="orange" /><input type="submit" value="mytitle" />
+#</form>
+
+#	rails 3 adds hidden utf8 tag to form_tag
+
+		assert_select response, 'form.destroy_link_to[action=/myurl]', :count => 1 do
+			assert_select 'div', :count => 1 do
+				assert_select 'input[name=_method][value=delete]',:count => 1
 			end
-			assert_select 'input', 3
+			assert_select 'input', :count => 4
 		end
 	end
 
@@ -64,11 +107,12 @@ class CommonLibHelperTest < ActionView::TestCase
 #<div style="margin:0;padding:0;display:inline"><input name="_method" type="hidden" value="delete" /></div>
 #<input type="submit" value="mytitle" />
 #</form>
-		assert_select response, 'form.destroy_link_to[action=/myurl]', 1 do
-			assert_select 'div', 1 do
-				assert_select 'input[name=_method][value=delete]',1
+
+		assert_select response, 'form.destroy_link_to[action=/myurl]', :count => 1 do
+			assert_select 'div', :count => 1 do
+				assert_select 'input[name=_method][value=delete]',:count => 1
 			end
-			assert_select 'input', 2
+			assert_select 'input', :count => 3
 		end
 	end
 
@@ -86,7 +130,7 @@ class CommonLibHelperTest < ActionView::TestCase
 		).root
 		bucket = ( defined?(RAILS_APP_NAME) && RAILS_APP_NAME ) || 'ccls'
 #<img alt="myimage" src="http://s3.amazonaws.com/ccls/images/myimage" />
-		assert_select response, "img[src=http://s3.amazonaws.com/#{bucket}/images/myimage]", 1
+		assert_select response, "img[src=http://s3.amazonaws.com/#{bucket}/images/myimage]", :count => 1
 	end
 
 	test "flasher" do
@@ -111,7 +155,7 @@ class CommonLibHelperTest < ActionView::TestCase
 		javascripts('myjavascript')
 		assert_equal 1, @javascripts.length
 #<script src="/javascripts/myjavascript.js" type="text/javascript"></script>
-		response = HTML::Document.new( @content_for_head).root
+		response = HTML::Document.new( content_for(:head) ).root
 		assert_select response, 'script[src=/javascripts/myjavascript.js]'
 	end
 
@@ -123,7 +167,7 @@ class CommonLibHelperTest < ActionView::TestCase
 		stylesheets('mystylesheet')
 		assert_equal 1, @stylesheets.length
 #<link href="/stylesheets/mystylesheet.css" media="screen" rel="stylesheet" type="text/css" />
-		response = HTML::Document.new( @content_for_head).root
+		response = HTML::Document.new( content_for(:head) ).root
 		assert_select response, 'link[href=/stylesheets/mystylesheet.css]'
 	end
 
@@ -146,10 +190,10 @@ class CommonLibHelperTest < ActionView::TestCase
 #<span class="label">name</span>
 #<span class="value">&nbsp;</span>
 #</div><!-- class='name' -->
-		assert_select response, 'div.name.field_wrapper', 1 do
-			assert_select 'label', 0
-			assert_select 'span.label', 1
-			assert_select 'span.value', 1
+		assert_select response, 'div.name.field_wrapper', :count => 1 do
+			assert_select 'label', :count => 0
+			assert_select 'span.label', :count => 1
+			assert_select 'span.value', :count => 1
 		end
 	end
 
@@ -162,9 +206,9 @@ class CommonLibHelperTest < ActionView::TestCase
 #<span class="value">&nbsp;</span>
 #</div><!-- class='dob date_spans' -->
 		assert_select response, 'div.dob.date_spans.field_wrapper' do
-			assert_select 'label', 0
-			assert_select 'span.label','dob',1
-			assert_select 'span.value','&nbsp;',1
+			assert_select 'label', :count => 0
+			assert_select 'span.label', :text => 'dob',:count => 1
+			assert_select 'span.value', :text => '&nbsp;',:count => 1
 		end
 	end
 
@@ -177,9 +221,9 @@ class CommonLibHelperTest < ActionView::TestCase
 #<span class="value">12/05/1971</span>
 #</div><!-- class='dob date_spans' -->
 		assert_select response, 'div.dob.date_spans.field_wrapper' do
-			assert_select 'label', 0
-			assert_select 'span.label','dob',1
-			assert_select 'span.value','12/05/1971',1
+			assert_select 'label', :count => 0
+			assert_select 'span.label', :text => 'dob',:count => 1
+			assert_select 'span.value', :text => '12/05/1971',:count => 1
 		end
 	end
 
@@ -192,9 +236,9 @@ class CommonLibHelperTest < ActionView::TestCase
 #<span class="value">no</span>
 #</div><!-- class='yes_or_no' -->
 		assert_select response, 'div.yes_or_no.field_wrapper' do
-			assert_select 'label', 0
-			assert_select 'span.label','yes_or_no',1
-			assert_select 'span.value','No',1
+			assert_select 'label', :count => 0
+			assert_select 'span.label', :text => 'yes_or_no',:count => 1
+			assert_select 'span.value', :text => 'No',:count => 1
 		end
 	end
 
@@ -207,9 +251,9 @@ class CommonLibHelperTest < ActionView::TestCase
 #<span class="value">yes</span>
 #</div><!-- class='yes_or_no' -->
 		assert_select response, 'div.yes_or_no.field_wrapper' do
-			assert_select 'label', 0
-			assert_select 'span.label','yes_or_no',1
-			assert_select 'span.value','Yes',1
+			assert_select 'label', :count => 0
+			assert_select 'span.label', :text => 'yes_or_no',:count => 1
+			assert_select 'span.value', :text => 'Yes',:count => 1
 		end
 	end
 
@@ -222,9 +266,9 @@ class CommonLibHelperTest < ActionView::TestCase
 #<span class="value">no</span>
 #</div><!-- class='yes_or_no' -->
 		assert_select response, 'div.yes_or_no.field_wrapper' do
-			assert_select 'label', 0
-			assert_select 'span.label','yes_or_no',1
-			assert_select 'span.value','No',1
+			assert_select 'label', :count => 0
+			assert_select 'span.label', :text => 'yes_or_no',:count => 1
+			assert_select 'span.value', :text => 'No',:count => 1
 		end
 	end
 
@@ -345,17 +389,17 @@ class CommonLibHelperTest < ActionView::TestCase
 		date = Date.parse('Dec 5, 1971')
 		response = HTML::Document.new(
 			wrapped_mdy( date )).root
-		assert_select response, 'div.mdy.field_wrapper', '12/05/1971', 1
+		assert_select response, 'div.mdy.field_wrapper',  :text => '12/05/1971', :count => 1
 	end
 
 
 	test "some missing method" do
-#	this used to work somewhere
-#		assert_raises(NameError) {
+#	this used to work somewhere (regular ruby)
+		assert_raises(NameError) {
 
 		#	testing in bash/rvm/jruby, now this is the error raised.
 		#	It does make more sense, but don't understand the change.
-		assert_raises(NoMethodError) {
+#		assert_raises(NoMethodError) {
 			this_method_does_not_exist
 		}
 	end

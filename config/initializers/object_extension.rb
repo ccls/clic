@@ -9,13 +9,13 @@ end
 
 
 module ObjectExtension	#	:nodoc:
-	def self.included(base)
-		base.instance_eval do
-			include InstanceMethods
-		end
-	end
-
-	module InstanceMethods
+#	def self.included(base)
+#		base.instance_eval do
+#			include InstanceMethods
+#		end
+#	end
+#
+#	module InstanceMethods
 ##
 ##		#	originally from ActiveSupport::Callbacks::Callback
 ###	needs modified to actually work the way I'd like
@@ -66,7 +66,7 @@ module ObjectExtension	#	:nodoc:
 #				( self.is_a?(String) ) ? self.downcase : self )
 #		end
 #
-	end
-
+#	end
+#
 end
 Object.send(:include, ObjectExtension)

@@ -1,5 +1,12 @@
 class Announcement < ActiveRecord::Base
-	default_scope :order => 'created_at DESC, begins_on DESC'
+
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => 'created_at DESC, begins_on DESC'
+
+
 	belongs_to :user
 	belongs_to :group
 
@@ -18,8 +25,8 @@ class Announcement < ActiveRecord::Base
 
 	attr_protected :group_id, :user_id
 
-	named_scope :groupless, :conditions => {
-		:group_id => nil }
+#	scope :groupless, :conditions => { :group_id => nil }
+	scope :groupless, where( :group_id => nil )
 
 	validate :begins_at_is_before_ends_at
 

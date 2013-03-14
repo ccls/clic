@@ -15,7 +15,7 @@ Groups
 
 <% if @groups.length > 0 %>
  <table id='groups' class='orderable'><thead><tr>
-<%= "<th>&nbsp;</th>" if current_user.may_order? -%>
+<%= "<th>&nbsp;</th>".html_safe if current_user.may_order? -%>
 <th>&nbsp;</th><th>Group</th></tr>
  </thead><tbody>
  <%= render :partial => 'group', :collection => @groups %>
@@ -24,7 +24,7 @@ Groups
  <p>Sorry, but no groups yet.</p>
 <% end -%>
 
-<% form_tag(order_groups_path, :method => :post, :id => 'order') do -%>
+<%= form_tag(order_groups_path, :method => :post, :id => 'order') do -%>
 <%= hidden_field_tag :parent_id, params[:parent_id] %>
 <p><%= submit_tag 'Save group order', :name => nil, :id => 'save_order' %></p>
 <% end if current_user.may_order? %>

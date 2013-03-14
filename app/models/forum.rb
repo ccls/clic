@@ -8,11 +8,15 @@ class Forum < ActiveRecord::Base
 	#	using allow_blank => true removes the "too long" error when it is blank
 	validates_length_of     :name, :maximum => 250, :allow_blank => true
 
-	named_scope :groupless, :conditions => {
-		:group_id => nil }
+#	scope :groupless, :conditions => { :group_id => nil }
+	scope :groupless, where( :group_id => nil )
 
-	has_one :last_post, :class_name => 'Post',
-		:through => :topics, :order => 'created_at DESC'
+#	has_one :last_post, :class_name => 'Post',
+#		:through => :topics, :order => 'created_at DESC'
+	has_many :posts, :through => :topics
+	def last_post
+		posts.order('created_at DESC').first
+	end
 
 	attr_protected :group_id
 

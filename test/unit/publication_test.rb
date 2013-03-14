@@ -94,7 +94,8 @@ class PublicationTest < ActiveSupport::TestCase
 	test "should require publication_year after 1899" do
 		assert_difference('Publication.count',0) {
 			object = create_object(:publication_year => 1899)
-			assert object.errors.on_attr_and_type(:publication_year, :inclusion)
+			assert object.errors.matching?(:publication_year,
+				'should be between 1900 and ')
 		}
 	end
 
@@ -107,7 +108,8 @@ class PublicationTest < ActiveSupport::TestCase
 	test "should require publication_year before #{Chronic.parse('next year').year}" do
 		assert_difference('Publication.count',0) {
 			object = create_object(:publication_year => Chronic.parse('next year').year)
-			assert object.errors.on_attr_and_type(:publication_year, :inclusion)
+			assert object.errors.matching?(:publication_year, 
+				'should be between 1900 and ')
 		}
 	end
 
@@ -131,5 +133,10 @@ class PublicationTest < ActiveSupport::TestCase
 		publication = Publication.new(:url => '')
 		assert publication.url_with_prefix.blank?
 	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_publication
 
 end

@@ -12,10 +12,10 @@
   </tr>
  </thead><tbody>
  <% @pages.each do |page| %>
-  <% content_tag_for( :tr, page, :class => 'row' ) do %>
+  <%= content_tag_for( :tr, page, :class => 'row' ) do %>
    <td class='path'>
-    <%= link_to page.path, 
-     ActionController::Base.relative_url_root.to_s + page.path -%>
+    <%#= link_to page.path, ActionController::Base.relative_url_root.to_s + page.path -%>
+    <%= link_to page.path, page.path -%>
    </td>
    <td class='menu'>
     <%= link_to page.menu(session[:locale]), page -%>
@@ -25,7 +25,7 @@
    </td>
    <td class='manage'>
     <%= link_to "Edit", edit_page_path(page), :class => 'button' -%>&nbsp;
-    <% destroy_link_to "Destroy", page_path(page) do %>
+    <%= destroy_link_to "Destroy", page_path(page) do %>
      <%= hidden_field_tag 'confirm', "Destroy page '#{page}'?", 
 	   :id => nil %>
     <% end %>

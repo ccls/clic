@@ -1,4 +1,4 @@
-require 'fastercsv'
+#require 'fastercsv'
 
 def arrayify(value)
 	#	to_s in case is nil
@@ -20,7 +20,8 @@ namespace :exposures do
 		Dir['DB_Mid-level Groupings_*_08-09-2011_NF*.csv'].each do |csv|
 			puts "Processing file:#{csv}"
 			category = csv.match(/DB_Mid-level Groupings_(.*)_08-09-2011_NF/)[1]
-			(f=FasterCSV.open(csv, 'rb',{ :headers => true })).each do |line|
+#			(f=FasterCSV.open(csv, 'rb',{ :headers => true })).each do |line|
+			(f=CSV.open(csv, 'rb',{ :headers => true })).each do |line|
 				study_name = line['Study'].strip
 				puts "Processing exposure line #{f.lineno}:#{study_name}"
 

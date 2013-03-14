@@ -1,0 +1,41 @@
+
+How to re-enable the inventory searching
+
+jruby 1.5.1
+rails 2.3.14
+
+gem install rsolr -v=0.12.1
+gem install sunspot_rails -v=1.2.1
+
+
+Uncomment ......
+
+
+searchable block in ...
+	app/models/exposure.rb
+	app/models/subject.rb
+
+sunspot_rails line in ...
+	config/environment.rb
+
+inventory line in
+	config/routes.rb
+
+may_read_inventory? method in 
+	app/models/group_permissions.rb
+
+has_many   :group_documents line in ...
+	app/models/publication.rb
+
+All lines in ...
+	lib/tasks/sunspot.rake
+	app/controllers/inventories_controller.rb
+	app/helpers/inventories_helper.rb
+
+
+
+re-import data from IndCovData_McCauley_Updated_083111.csv
+
+	rake app:exposures:import
+	rake app:subjects:import
+

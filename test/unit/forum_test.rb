@@ -45,4 +45,14 @@ class ForumTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have a last_post" do
+		post = Factory(:post)
+		assert_equal post, post.topic.forum.last_post
+	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_forum
+
 end

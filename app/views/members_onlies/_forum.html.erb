@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, forum, :class => 'row' ) do %>
+<%= content_tag_for( :tr, forum, :class => 'row' ) do %>
  <td class='name'>
   <%= link_to forum.name, forum %>
  </td>
@@ -18,7 +18,7 @@
 <% if current_user.may_edit_forum?(forum) %>
   <%= link_to 'Edit', edit_forum_path(forum), :class => 'button' %>&nbsp;
 <% if current_user.may_moderate_forum?(forum) %>
-  <% destroy_link_to 'Destroy', forum_path(forum) do %>
+  <%= destroy_link_to 'Destroy', forum_path(forum) do %>
    <%= hidden_field_tag 'confirm', "Destroy forum '#{h(forum)}'?", 
      :id => nil %>
   <% end %>

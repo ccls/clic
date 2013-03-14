@@ -12,9 +12,9 @@ class GroupsController < ApplicationController
 
 	def index
 		@groups = if @group
-			@group.children
+			@group.children.order('parent_id,position')
 		else
-			Group.roots
+			Group.roots.order('parent_id,position')
 		end
 	end
 

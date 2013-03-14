@@ -26,4 +26,9 @@ class GroupRoleTest < ActiveSupport::TestCase
 		assert object.is_a?(GroupRole)
 	end
 
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_group_role
+
 end

@@ -1,10 +1,10 @@
-<% content_tag_for( :tr, document, :class => 'row' ) do %>
+<%= content_tag_for( :tr, document, :class => 'row' ) do %>
  <td class='title'>
   <%= link_to document.title, preview_document_path(document) %>
  </td>
  <td class='manage'>
   <%= link_to 'Edit', edit_document_path(document), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', document_path(document) do %>
+  <%= destroy_link_to 'Destroy', document_path(document) do %>
    <%= hidden_field_tag 'confirm', "Destroy document '#{h(document)}'?", 
     :id => nil %>
   <% end %>

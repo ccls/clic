@@ -1,5 +1,11 @@
 class Study < ActiveRecord::Base
-	default_scope :order => 'name ASC'
+
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => 'name ASC'
+
 	acts_as_list
 
 	has_many :publication_studies

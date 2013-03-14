@@ -15,7 +15,7 @@ class ProfessionsController < ApplicationController
 		:only => [:show,:edit,:update,:destroy]
 
 	def index
-		@professions = Profession.all
+		@professions = Profession.order(:position).all
 	end
 
 	def new

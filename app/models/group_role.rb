@@ -1,6 +1,13 @@
 class GroupRole < ActiveRecord::Base
+
 	acts_as_list
-	default_scope :order => :position
+
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => :position
+
 #	has_and_belongs_to_many :users, :uniq => true
 	has_many :memberships
 	has_many :users,  :through => :memberships

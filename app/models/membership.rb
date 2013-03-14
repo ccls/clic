@@ -1,5 +1,10 @@
 class Membership < ActiveRecord::Base
-	default_scope :order => 'approved'
+
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => 'approved'
 
 	belongs_to :user
 	belongs_to :group

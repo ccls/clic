@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, document, :class => 'row' ) do %>
+<%= content_tag_for( :tr, document, :class => 'row' ) do %>
 <%# TODO link to group and whatever the document might be attached to %>
  <td class='group'>
   <%= ( document.group.nil? ) ? nil : link_to( document.group, group_path(document.group) ) %>

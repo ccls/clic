@@ -28,4 +28,9 @@ class PublicationSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_publication_subject
+
 end

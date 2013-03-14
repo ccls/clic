@@ -24,7 +24,7 @@ class PagesController < ApplicationController
 #	caches_page :show	#, :layout => false
 	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
-	ssl_allowed :show, :translate
+#	ssl_allowed :show, :translate
 
 	def order
 #		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
@@ -51,7 +51,7 @@ class PagesController < ApplicationController
 	def index
 		@page_title = "CCLS Pages"
 		params[:parent_id] = nil if params[:parent_id].blank?
-		@pages = Page.all(:conditions => { :parent_id => params[:parent_id] })
+		@pages = Page.where( :parent_id => params[:parent_id] ).order(:position)
 	end
 
 	def new
@@ -100,19 +100,36 @@ protected
 	#	Put this in a separate before_filter so that
 	#	another before_filter can access @page
 	def page_required
-		if params[:path]
- 			@page = Page.by_path("/#{params[:path].join('/')}")
-			raise ActiveRecord::RecordNotFound if @page.nil?
-		else
+#
+#		if params[:path]
+## 			@page = Page.by_path("/#{params[:path].join('/')}")
+##	rails 3 routing is weird here
+#			@page = Page.by_path("/#{[params[:path]].flatten.join('/')}")
+#			raise ActiveRecord::RecordNotFound if @page.nil?
+#		else
+#			@page = Page.find(params[:id])
+#		end
+#
+#	inverted
+
+		if params[:id]
 			@page = Page.find(params[:id])
+		else
+# 			@page = Page.by_path("/#{params[:path].join('/')}")
+#	rails 3 routing is weird here
+			@page = Page.by_path("/#{[params[:path]].flatten.join('/')}")
+			raise ActiveRecord::RecordNotFound if @page.nil?
 		end
+
 		@page_title = @page.title(session[:locale])
 #		if @page.is_home? && class_exists?('HomePagePic')
 #			@hpp = HomePagePic.random_active()
 #		end
 	rescue ActiveRecord::RecordNotFound
 		flash_message = "Page not found with "
-		flash_message << (( params[:id].blank? ) ? "path '/#{params[:path].join('/')}'" : "ID #{params[:id]}")
+#		flash_message << (( params[:id].blank? ) ? "path '/#{params[:path].join('/')}'" : "ID #{params[:id]}")
+		flash_message << (( params[:id].blank? ) ? "path '/#{[params[:path]].flatten.join('/')}'" : "ID #{params[:id]}")
+
 		flash.now[:error] = flash_message
 	end
 

@@ -24,4 +24,9 @@ class MembershipTest < ActiveSupport::TestCase
 		assert  object.user.approved?
 	end
 
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_membership
+
 end

@@ -40,6 +40,11 @@ class StudyTest < ActiveSupport::TestCase
 		}
 	end
 
+	test "principal_investigators should be an array" do
+		study = Factory.build(:study)
+		assert study.principal_investigators.is_a?(Array)
+	end
+
 	#	This won't work at create as the Factory gives it a name
 	test "updating study_name should set name" do
 		object = create_object
@@ -66,5 +71,10 @@ class StudyTest < ActiveSupport::TestCase
 		object = create_object(:design => 'Arbitrary')
 		assert_equal object.reload.study_design, 'Arbitrary'
 	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_study
 
 end

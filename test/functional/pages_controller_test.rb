@@ -17,8 +17,8 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	with_options :actions => [:show] do |show|
-		show.assert_access_with_http
-		show.assert_access_with_https
+#		show.assert_access_with_http
+#		show.assert_access_with_https
 		show.assert_access_with_login({
 			:logins => all_test_roles,
 			:skip_show_failure => true })
@@ -28,7 +28,7 @@ class PagesControllerTest < ActionController::TestCase
 	assert_access_with_login({    :logins => site_editors })
 	assert_no_access_with_login({ :logins => non_site_editors })
 	assert_no_access_without_login
-	assert_no_access_with_http 
+#	assert_no_access_with_http 
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
@@ -114,9 +114,9 @@ class PagesControllerTest < ActionController::TestCase
 	#ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
 			pages = []
 			3.times{ pages.push(factory_create) }
-			before_page_ids = Page.all.collect(&:id)
+			before_page_ids = Page.order(:position).all.collect(&:id)
 			post :order, :pages => before_page_ids.reverse
-			after_page_ids = Page.all.collect(&:id)
+			after_page_ids = Page.order(:position).all.collect(&:id)
 			assert_equal after_page_ids, before_page_ids.reverse
 			assert_redirected_to pages_path
 		end
@@ -134,9 +134,9 @@ class PagesControllerTest < ActionController::TestCase
 			pages = []
 			3.times{ pages.push(factory_create(:parent_id => parent.id)) }
 			assert_equal [1,2,3], pages.collect(&:position)
-			before_page_ids = parent.reload.children.collect(&:id)
+			before_page_ids = parent.reload.children.order(:position).collect(&:id)
 			post :order,:parent_id => parent.id, :pages => before_page_ids.reverse
-			after_page_ids = parent.reload.children.collect(&:id)
+			after_page_ids = parent.reload.children.order(:position).collect(&:id)
 			assert_equal after_page_ids, before_page_ids.reverse
 			assert_redirected_to pages_path(:parent_id => parent.id)
 		end

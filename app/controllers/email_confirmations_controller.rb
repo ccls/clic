@@ -17,7 +17,7 @@ class EmailConfirmationsController < ApplicationController
 	def resend
 #		user = User.find_using_perishable_token(params[:id])
 		@user.reset_perishable_token!
-		UserMailer.deliver_confirm_email(@user)
+		UserMailer.confirm_email(@user).deliver
 		flash[:notice] = "Confirmation email resent. Please check your email to complete."
 		redirect_to login_path
 	end

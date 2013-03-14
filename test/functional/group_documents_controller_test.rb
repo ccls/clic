@@ -18,8 +18,10 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 	def create_group_document(options={})
 		document = Factory(:group_document, {
-				:document => File.open(File.dirname(__FILE__) + 
-				'/../assets/edit_save_wireframe.pdf')
+				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
+					'/../assets/edit_save_wireframe.pdf')
+#				:document => File.open(File.dirname(__FILE__) + 
+#				'/../assets/edit_save_wireframe.pdf')
 			}.merge(options))
 		assert_not_nil document.id
 		document
@@ -97,9 +99,14 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			document = create_group_document
 			assert_nil document.group
-			get :show, :id => document.id
-			assert_not_nil @response.headers['Content-disposition'].match(
+			get :show, :id => document.reload.id
+
+			assert_response :success
+
+			#	reload is important or the content disposition will be blank
+			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+#pending	# TODO confirm success. Content Disposition doesn't exist anymore
 			assigns(:group_document).destroy
 		end
 
@@ -115,12 +122,16 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
 	
-			AWS::S3::S3Object.stubs(:exists?).returns(true)
+			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
+assert document.document.exists?
+
 	
 			login_as send(cu)
 			get :show, :id => document.id
+#puts @response.inspect
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
+			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications
 			Rails.unstub(:env)
@@ -136,8 +147,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			document = create_group_document
 			assert_nil document.group
 			get :show, :id => document.id
-#			assert_not_nil @response.headers['Content-disposition'].match(
-#				/attachment;.*pdf/)
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 			assigns(:group_document).destroy
@@ -162,9 +171,14 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			document = create_group_document(:group => @membership.group)
 			assert_not_nil document.group
-			get :show, :id => document.id
-			assert_not_nil @response.headers['Content-disposition'].match(
+			get :show, :id => document.reload.id
+
+			assert_response :success
+
+			#	reload is important or the content disposition will be blank
+			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+#pending	#	TODO confirm success
 			assigns(:group_document).destroy
 		end
 
@@ -181,12 +195,15 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
 	
-			AWS::S3::S3Object.stubs(:exists?).returns(true)
+			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
+assert document.document.exists?
+
 	
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirected_to
+#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
+			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications
 			Rails.unstub(:env)

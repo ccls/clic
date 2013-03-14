@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, user, :class => "#{user.role_names.join(' ')} user row" ) do %>
+<%= content_tag_for( :tr, user, :class => "#{user.role_names.join(' ')} user row" ) do %>
   <td class='avatar'>
     <%= image_tag(user.avatar.url(:xtiny)) %>
   </td>
@@ -15,13 +15,12 @@
   </td>
   <td class='manage'>
     <% unless user.approved? %>
-      <% form_link_to 'Approve', approve_user_path(user),
-        'method' => 'put' do %>
-      <% end %>
+      <%= form_link_to 'Approve', approve_user_path(user),
+        'method' => 'put' %>
     <% else %>
       <span>Approved</span>
     <% end %>
-    <% destroy_link_to 'Destroy', user_path(user) do %>
+    <%= destroy_link_to 'Destroy', user_path(user) do %>
      <%= hidden_field_tag 'confirm', "Destroy user '#{h(user)}'?", 
       :id => nil %>
     <% end %>

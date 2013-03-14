@@ -1,27 +1,28 @@
-<% javascripts('tiny_mce/jquery.tinymce.js') %>
+<%# javascripts('tiny_mce/jquery.tinymce.js') %>
+<% javascripts('tinymce-jquery.js') %>
 <%= f.error_messages %>
 <%= f.wrapped_text_field :title,
-	:label_text => "Title #{required('*')}",
+	:label_text => "Title #{required('*')}".html_safe,
 	:class => 'autosize' %>
  <%= f.wrapped_text_field :location,
 	:class => 'autosize' %>
 <%= f.wrapped_text_area :content,
-	:label_text => "Content #{required('*')}",
+	:label_text => "Content #{required('*')}".html_safe,
 	:class => 'tinymce' %>
-<% f.wrapped_date_text_field :begins_on do %>
+<%= f.wrapped_date_text_field :begins_on do %>
  <%= f.wrapped_hour_select(:begins_at_hour,
-	:label_text => '&nbsp;&nbsp;at&nbsp;') %>
+	:label_text => '&nbsp;&nbsp;at&nbsp;'.html_safe) %>
  <%= f.wrapped_minute_select(:begins_at_minute, 
-	:label_text => '&nbsp;:&nbsp;') %>
+	:label_text => '&nbsp;:&nbsp;'.html_safe) %>
  <%= f.wrapped_meridiem_select(:begins_at_meridiem,
-	:label_text => '&nbsp;&nbsp;') %>
+	:label_text => '&nbsp;&nbsp;'.html_safe) %>
 <% end %>
-<% f.wrapped_date_text_field :ends_on do %>
+<%= f.wrapped_date_text_field :ends_on do %>
  <%= f.wrapped_hour_select(:ends_at_hour,
-	:label_text => '&nbsp;&nbsp;at&nbsp;') %>
+	:label_text => '&nbsp;&nbsp;at&nbsp;'.html_safe) %>
  <%= f.wrapped_minute_select(:ends_at_minute,
-	:label_text => '&nbsp;:&nbsp;') %>
+	:label_text => '&nbsp;:&nbsp;'.html_safe) %>
  <%= f.wrapped_meridiem_select(:ends_at_meridiem,
-	:label_text => '&nbsp;&nbsp;') %>
+	:label_text => '&nbsp;&nbsp;'.html_safe) %>
 <% end %>
 <p><%= required('*&nbsp;-&nbsp;Required') -%> (times are optional)</p>

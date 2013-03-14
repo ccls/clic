@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, publication_subject, :class => "publication_subject row" ) do %>
+<%= content_tag_for( :tr, publication_subject, :class => "publication_subject row" ) do %>
 <% if current_user.may_order? -%>
  <td><%= hidden_field_tag( 'ids[]', publication_subject.id, :id => nil ) %>
   <%= image_tag 'drag.gif', :class => 'handle' %></td>
@@ -8,7 +8,7 @@
  <td class='manage'>
   <%= link_to 'Edit', edit_publication_subject_path(publication_subject), 
    :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', publication_subject_path(publication_subject) do %>
+  <%= destroy_link_to 'Destroy', publication_subject_path(publication_subject) do %>
    <%= hidden_field_tag 'confirm', "Destroy publication subject '#{h(publication_subject)}'?", 
     :id => nil %>
   <% end %>

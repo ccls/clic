@@ -1,11 +1,11 @@
 module IntegerExtension	#	:nodoc:
-	def self.included(base)
-		base.instance_eval do
-			include InstanceMethods
-		end
-	end
-
-	module InstanceMethods
+#	def self.included(base)
+#		base.instance_eval do
+#			include InstanceMethods
+#		end
+#	end
+#
+#	module InstanceMethods
 #
 #		#	Return n!
 #		def factorial
@@ -14,7 +14,7 @@ module IntegerExtension	#	:nodoc:
 #			return f
 #		end
 #
-	end
-
+#	end
+#
 end
 Integer.send( :include, IntegerExtension )

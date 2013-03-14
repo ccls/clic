@@ -1,103 +1,192 @@
-ActionController::Routing::Routes.draw do |map|
+Clic::Application.routes.draw do
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
-#
-#	from simply_authorized
-#
-#	map.resources :users, :only => [:destroy,:show,:index],
-#		:collection => { :menu => :get } do |user|
-#		user.resources :roles, :only => [:update,:destroy]
-#	end
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
 
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
 
-	map.resources :photos
-	map.resource  :directory, :only => :show
-	map.resources :questionnaires, :member => { :download => :get }
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
-	map.resources :professions, :collection => { :order => :post }
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
-#	map.resource  :inventory, :only => :show
-	map.resources :editor_images, :only => :index
-	map.resources :editor_links,  :only => :index
-	map.resources :announcements
-	map.resources :documents, :member => { :preview => :get }
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
 
-	map.resources :doc_forms
-	map.resources :studies
-	map.resources :contacts, :only => :index
-	map.resources :publication_subjects, :collection => { :order => :post }
-	map.resources :annual_meetings, :collection => { :order => :post }
-	map.resources :publications
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
 
-	map.resources :group_roles
-	map.resources :memberships, :only => [:index,:update,:destroy,:edit],
-		:member => { :approve => :put }
-	map.resources :groups, :collection => { :order => :post } do |group|
-		group.resources :memberships,
-			:controller => 'group_memberships',
-			:member => { :approve => :put }
-		group.resources :announcements, 
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
+
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
+#end
+
+#ActionController::Routing::Routes.draw do |map|
+
+	resources :photos
+	resource  :directory, :only => :show
+	resources :questionnaires do
+		member { get :download }
+	end
+
+	resources :professions do
+		collection { post :order }
+	end
+
+#	resource  :inventory, :only => :show
+	resources :editor_images, :only => :index
+	resources :editor_links,  :only => :index
+	resources :announcements
+	resources :documents do
+		member { get :preview }
+	end
+
+	resources :doc_forms
+	resources :studies
+	resources :contacts, :only => :index
+	resources :publication_subjects do
+		collection { post :order }
+	end
+	resources :annual_meetings do
+		collection { post :order }
+	end
+	resources :publications
+
+	resources :group_roles
+	resources :memberships, :only => [:index,:update,:destroy,:edit] do
+		member { put :approve }
+	end
+	resources :groups do
+		collection { post :order }
+		resources :memberships,
+			:controller => 'group_memberships' do
+			member { put :approve }
+		end
+		resources :announcements, 
 			:controller => 'group_announcements'
 	end
 
 #	may want to create a group_forums controller to clarify things
 
-	map.resources :forums, :except => [:index]
-	map.resources :groups, :shallow => true do |group|
-		group.resources :forums, :only => [:new,:create] do |forum|
-			forum.resources :topics, :except => [:index] do |topic|
-				topic.resources :posts, :except => [:show,:index]
+	resources :forums, :except => [:index]
+	resources :groups, :shallow => true do
+		resources :forums, :only => [:new,:create] do
+			resources :topics, :except => [:index] do
+				resources :posts, :except => [:show,:index]
 			end
 		end
 	end
 
-	map.resources :group_documents, :only => [:show,:index]
+	resources :group_documents, :only => [:show,:index]
 
-	map.confirm_email 'confirm_email/:id', 
-		:controller => 'email_confirmations', :action => 'confirm'
-	map.resend_confirm_email 'resend_confirm_email/:id', 
-		:controller => 'email_confirmations', :action => 'resend'
+#	confirm_email 'confirm_email/:id', 
+#		:controller => 'email_confirmations', :action => 'confirm'
+#	resend_confirm_email 'resend_confirm_email/:id', 
+#		:controller => 'email_confirmations', :action => 'resend'
+	resources :email_confirmations, :only => [] do
+		member do
+			get :confirm
+			get :resend
+		end
+	end
+	match 'confirm_email/:id' => 'email_confirmations#confirm',
+		:as => :confirm_email
+	match 'resend_confirm_email/:id' => 'email_confirmations#resend',
+		:as => :resend_confirm_email
+
 	
-	map.resource :user_session
-	map.resource :members_only, :only => :show
+	resource :user_session
+	resource :members_only, :only => :show
 
-	map.resources :users,	#, :except => :destroy,
+#	resources :users,	#, :except => :destroy,
 #	will cause role route test failure
 #		:shallow => true,
 #		:member => { :approve => :put },
 #		:collection => { :menu => :get } do |user|
-		:member => { :approve => :put }  do |user|
-		user.resources :roles, :only => [:update,:destroy]
+	resources :users do
+		member { put :approve }
+		resources :roles, :only => [:update,:destroy]
 		#	separated from user#edit 
 	end
-	map.resource :password, :only => [:edit,:update]
+	resource :password, :only => [:edit,:update]
 
 	#	:new => initiate reset form gets username or email? (not_logged_in_required)
 	#	:create => if user found, sends email with link to show (not_logged_in_required)
 	#	:show => confirms reset and shows password edit (not_logged_in_required)
 	#	:update => updates password
 	#	MUST be plural, otherwise no :id param
-	map.resources :password_resets, :only => [:new,:create,:edit,:update]
-	map.resource  :forgot_username, :only => [:new,:create]
+	resources :password_resets, :only => [:new,:create,:edit,:update]
+	resource  :forgot_username, :only => [:new,:create]
 
-	map.signup  '/signup',  :controller => 'users',         :action => 'new'
-	map.signin  '/signin',  :controller => 'user_sessions', :action => 'new'
-	map.login   '/login',   :controller => 'user_sessions', :action => 'new'
-	map.signout '/signout', :controller => 'user_sessions', :action => 'destroy'
-	map.logout  '/logout',  :controller => 'user_sessions', :action => 'destroy'
+#	signup  '/signup',  :controller => 'users',         :action => 'new'
+#	signin  '/signin',  :controller => 'user_sessions', :action => 'new'
+#	login   '/login',   :controller => 'user_sessions', :action => 'new'
+#	signout '/signout', :controller => 'user_sessions', :action => 'destroy'
+#	logout  '/logout',  :controller => 'user_sessions', :action => 'destroy'
+	match 'signup' =>  'users#new',
+		:as => :signup
+	match 'signin' =>  'user_sessions#new',
+		:as => :signin
+	match 'login' =>   'user_sessions#new',
+		:as => :login
+	match 'signout' => 'user_sessions#destroy',
+		:as => :signout
+	match 'logout' =>  'user_sessions#destroy',
+		:as => :logout
 
-	map.resources :locales, :only => :show
-	map.resources :pages, :collection => { 
-		:all => :get,
-#		:translate => :get,
-		:order => :post }
-	map.root :controller => "pages", :action => "show", :path => [""]
+	resources :locales, :only => :show
+	resources :pages do
+		collection do 
+			get :all
+			post :order
+		end
+	end
+	root :to => 'pages#show'
+#	root :controller => "pages", :action => "show", :path => [""]
 
 	#	TODO why do I still have this?
-	map.resource  :calendar,       :only => [ :show ]
-	map.resources :search_results, :only => [ :index ]
+	resource  :calendar,       :only => [ :show ]
+	resources :search_results, :only => [ :index ]
 
 	#	MUST BE LAST OR WILL BLOCK ALL OTHER ROUTES!
 	#	catch all route to manage admin created pages.
-	map.connect   '*path', :controller => 'pages', :action => 'show'
+	#connect   '*path', :controller => 'pages', :action => 'show'
+	get '*path' => 'pages#show'
 
 end

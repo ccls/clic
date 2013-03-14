@@ -6,7 +6,7 @@ versions/
 /config/database.yml
 /config/fed_ex.yml
 /config/initializers/mail.rb
-/config/initializers/session_store.rb
+/config/initializers/secret_token.rb
 /config/s3.yml
 /coverage.data
 /coverage/

@@ -1,11 +1,15 @@
 module CommonLibHelper
 
+	def nbsp
+		"&nbsp;".html_safe
+	end
+
 	def mdy(date)
-		( date.nil? ) ? '&nbsp;' : date.strftime("%m/%d/%Y")
+		( date.nil? ) ? nbsp : date.strftime("%m/%d/%Y")
 	end
 
 	def time_mdy(time)
-		( time.nil? ) ? '&nbsp;' : time.strftime("%I:%M %p %m/%d/%Y")
+		( time.nil? ) ? nbsp : time.strftime("%I:%M %p %m/%d/%Y")
 	end
 
 	def field_wrapper(method,options={},&block)
@@ -23,7 +27,7 @@ module CommonLibHelper
 		else
 			object = instance_variable_get("@#{object_name}")
 			value = object.send(method)
-			value = (value.to_s.blank?)?'&nbsp;':value
+			value = (value.to_s.blank?)? nbsp : value
 		end
 		s << "<span class='value'>#{value}</span>"
 	end
@@ -122,6 +126,8 @@ module CommonLibHelper
 				end
 
 				s << (( block_given? )? capture(&block) : '')
+#				s << (( block_given? )? @template.capture(&block) : '')
+
 	#				send("_#{method_name}",*args) << 
 	#					(( block_given? )? capture(&block) : '')
 			end
@@ -161,13 +167,14 @@ module CommonLibHelper
 			"method='#{options.delete('method')}'>\n" <<
 			extra_tags << "\n"
 		s << (( block_given? )? capture(&block) : '')
+#		s << (( block_given? )? @template.capture(&block) : '')
 		s << submit_tag(title, :name => nil ) << "\n" <<
 			"</form>\n"
-		if block_called_from_erb?(block)
-			concat(s)
-		else
-			s
-		end
+#		if block_called_from_erb?(block)
+#			concat(s)
+#		else
+			s.html_safe
+#		end
 	end
 
 	def destroy_link_to( title, url, options={}, &block )
@@ -232,6 +239,7 @@ module CommonLibHelper
 		s << "<noscript><p id='noscript' class='flash'>\n"
 		s << "Javascript is required for this site to be fully functional.\n"
 		s << "</p></noscript>\n"
+		s.html_safe
 	end
 
 	#	Created to stop multiple entries of same stylesheet

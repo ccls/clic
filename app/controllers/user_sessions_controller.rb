@@ -42,8 +42,11 @@ class UserSessionsController < ApplicationController
 #../../jakewendt/_OLD_AND_RENAMED_/ucb_ccls_auth_engine/app/controllers/user_sessions_controller.rb
 
 end
-class ActiveRecord::Errors
-	def delete(key)
-		@errors.delete(key.to_s)
-	end
-end
+#
+#	Not needed any longer? 20130314
+#
+#class ActiveRecord::Errors
+#	def delete(key)
+#		@errors.delete(key.to_s)
+#	end
+#end

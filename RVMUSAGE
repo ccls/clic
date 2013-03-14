@@ -1,5 +1,11 @@
 
 
+As I no longer require jruby, I don't use rvm or bash 
+
+
+
+
+
 bash-3.2$ rvm list
 
 rvm rubies

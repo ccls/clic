@@ -33,7 +33,11 @@ class User < ActiveRecord::Base
 		approve! unless approved?
 	end
 
-	default_scope :order => :username
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => :username
 
 	has_many :memberships
 	has_many :approved_memberships, 

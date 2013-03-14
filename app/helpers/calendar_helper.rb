@@ -49,6 +49,7 @@ module CalendarHelper
 		#	this_month and prev_month will change on last week
 		end while( prev_month.nil? || this_month == prev_month )
 		out << "</tbody></table></div>"
+		out.html_safe
 	end
 
 	def calendar_start_day(options={})
@@ -68,21 +69,22 @@ module CalendarHelper
 	end
 
 	def cal_title_bar
-		"<div class='cal_title_bar'>" <<
-			link_to('&laquo; Prev', params.merge(
+		out = "<div class='cal_title_bar'>" <<
+			link_to('&laquo; Prev'.html_safe, params.merge(
 				:month => calendar_month.prev_month), :class => 'prev' ) <<
 			"<span class='cal_title'>" <<
 				"#{Date::MONTHNAMES[calendar_month.month]} #{calendar_month.year} Calendar</span>" <<
-			link_to('Next &raquo;', params.merge(
+			link_to('Next &raquo;'.html_safe, params.merge(
 				:month => calendar_month.next_month), :class => 'next' ) <<
 		"</div>"
+		out.html_safe
 	end
 
 	def cal_day_names
 		names = Date::ABBR_DAYNAMES.collect do |wday|
 			"<th>#{wday}</th>"
 		end
-		"<tr>#{names.join()}</tr>"
+		"<tr>#{names.join()}</tr>".html_safe
 	end
 
 end

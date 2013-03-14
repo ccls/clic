@@ -1,4 +1,4 @@
-<% javascripts('jquery.simplemodal.1.4.1.min.js') %>
+<% javascripts('jquery.simplemodal.1.4.4.min.js') %>
 <% stylesheets('simple_modal_basic.css') %>
 <h2>Request membership&nbsp;<span id='membership_help' class='modal_trigger'>help?</span></h2>
 <div id='membership_help_content' class='modal_content'>
@@ -6,7 +6,7 @@
 <%= render 'memberships/definitions' %>
 </div>
 
-<% form_for([@group,@membership]) do |f| %>
+<%= form_for([@group,@membership]) do |f| %>
  <h4>Group</h4>
  <div class='field_wrapper'><span class='label'><%= @group.name %></span></div>
  <h4>Role</h4>

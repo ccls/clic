@@ -2,7 +2,7 @@
 
 <% url = ( @group ) ? group_forums_path(@group) : forums_path %>
 
-<% form_for(@forum, :url => url ) do |f| %>
+<%= form_for(@forum, :url => url ) do |f| %>
  <%= f.error_messages %>
 
  <p>Name MUST be unique</p>

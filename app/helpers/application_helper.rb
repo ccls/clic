@@ -49,12 +49,13 @@ module ApplicationHelper
 			out << "<li>#{link_to( "Members Only Login", login_path )}</li>\n"
 		end
 		out << "</ul><!-- id='application_menu' -->\n"
+		out.html_safe
 	end
 
 	#	Just a simple method to wrap the passed text in a span
 	#	with class='required'
 	def required(text)
-		"<span class='required'>#{text}</span>"
+		"<span class='required'>#{text}</span>".html_safe
 	end
 
 	def current_controller(name)
@@ -74,13 +75,15 @@ module ApplicationHelper
 				public_page_li(page)
 			end
 		end
-		page_menu.join()
+		page_menu.join().html_safe
 	end
 
 	def public_page_li(page)
 		current = (page == @page) ? " class='current'" : nil
-		"<li#{current}>" << link_to( page.menu(session[:locale]), 
-			ActionController::Base.relative_url_root.to_s + page.path,
+#		"<li#{current}>" << link_to( page.menu(session[:locale]), 
+#			ActionController::Base.relative_url_root.to_s + page.path,
+#			:id => "menu_#{dom_id(page)}" ) << "</li>\n"
+		"<li#{current}>" << link_to( page.menu(session[:locale]), page.path,
 			:id => "menu_#{dom_id(page)}" ) << "</li>\n"
 	end
 
@@ -104,12 +107,12 @@ module ApplicationHelper
 				group_li(group)
 			end
 		end
-		group_menu.join()
+		group_menu.join().html_safe
 	end
 
 	def group_li(group)
 		current = ( group == @group ) ? ' current' : nil
-		"<li class='members#{current}'>#{link_to(group.name,group)}</li>\n"
+		"<li class='members#{current}'>#{link_to(group.name,group)}</li>\n".html_safe
 	end
 
 	#	&uarr; and &darr;
@@ -131,8 +134,32 @@ module ApplicationHelper
 		s << link_to(link_text,params.merge(:order => order,:dir => dir))
 		s << arrow unless arrow.blank?
 		s << "</div>"
-		s
+		s.html_safe
 	end
+
+#	def user_roles
+#		s = ''
+#		if current_user.may_administrate?
+#			s << "<ul>"
+#			@roles.each do |role|
+#				s << "<li>"
+#				if @user.role_names.include?(role.name)
+#					s << link_to( "Remove user role of '#{role.name}'", 
+#						user_role_path(@user,role.name),
+#						:method => :delete )
+#				else
+#					s << link_to( "Assign user role of '#{role.name}'", 
+#						user_role_path(@user,role.name),
+#						:method => :put )
+#				end
+#				s << "</li>\n"
+#			end
+#			s << "</ul>\n"
+#		end
+#		s.html_safe
+#	end
+
+
 
 	def user_roles
 		s = ''
@@ -141,11 +168,17 @@ module ApplicationHelper
 			@roles.each do |role|
 				s << "<li>"
 				if @user.role_names.include?(role.name)
-					s << link_to( "Remove user role of '#{role.name}'", 
+#	TODO rails 3 does some new stuff for links with methods?
+#	data-method, etc.
+#					s << link_to( "Remove user role of '#{role.name}'", 
+					s << button_to( "Remove user role of '#{role.name}'", 
 						user_role_path(@user,role.name),
 						:method => :delete )
 				else
-					s << link_to( "Assign user role of '#{role.name}'", 
+#	TODO rails 3 does some new stuff for links with methods?
+#	data-method, etc.
+#					s << link_to( "Assign user role of '#{role.name}'", 
+					s << button_to( "Assign user role of '#{role.name}'", 
 						user_role_path(@user,role.name),
 						:method => :put )
 				end
@@ -153,7 +186,8 @@ module ApplicationHelper
 			end
 			s << "</ul>\n"
 		end
-		s
+		s.html_safe
 	end
+
 
 end

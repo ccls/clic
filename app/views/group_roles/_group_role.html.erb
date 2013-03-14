@@ -1,10 +1,10 @@
-<% content_tag_for( :tr, group_role, :class => 'row' ) do %>
+<%= content_tag_for( :tr, group_role, :class => 'row' ) do %>
  <td class='name'>
   <%= link_to group_role.name, group_role %>
  </td>
  <td class='manage'>
   <%= link_to 'Edit', edit_group_role_path(group_role), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', group_role_path(group_role) do %>
+  <%= destroy_link_to 'Destroy', group_role_path(group_role) do %>
    <%= hidden_field_tag 'confirm', "Destroy group_role '#{h(group_role)}'?", 
      :id => nil %>
   <% end %>

@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, membership, :class => 'row' ) do %>
+<%= content_tag_for( :tr, membership, :class => 'row' ) do %>
  <td class='user'>
   <%= membership.user %>
  </td>
@@ -9,11 +9,10 @@
   <%= (membership.approved?)?'Yes':'No' %>
  </td>
  <td class='manage'>
-  <% form_link_to 'Approve', approve_group_membership_path(@group,membership),
-		'method' => 'put' do %>
-  <% end unless membership.approved? %>
+  <%= form_link_to( 'Approve', approve_group_membership_path(@group,membership),
+		'method' => 'put' ) unless membership.approved? %>
   <%= link_to 'Edit', edit_group_membership_path(@group,membership), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
+  <%= destroy_link_to 'Destroy', group_membership_path(@group,membership) do %>
    <%= hidden_field_tag 'confirm', "Destroy membership '#{h(membership)}'?", 
     :id => nil %>
   <% end %>

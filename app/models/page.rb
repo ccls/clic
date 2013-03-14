@@ -4,7 +4,7 @@
 #	*	title ( > 3 chars )
 #	*	body ( > 3 chars )
 #
-#	==	named_scope(s)
+#	==	scope(s)
 #	*	not_home (returns those pages where path is not just '/')
 #	*	roots
 #
@@ -13,7 +13,12 @@
 #	were to get any deeper, the list should probably be changed
 #	to something like a nested set.
 class Page < ActiveRecord::Base
-	default_scope :order => :position
+
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => :position
 
 	acts_as_list :scope => :parent_id
 #	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= parent_id'} AND locale = '\#{locale}'"
@@ -34,13 +39,12 @@ class Page < ActiveRecord::Base
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id',
 		:dependent => :nullify
 	
-	named_scope :roots, :conditions => { 
-		:parent_id => nil, :hide_menu => false }
-
-	named_scope :hidden, :conditions => { 
-		:hide_menu => true }
-
-	named_scope :not_home, :conditions => [ "path != '/'" ]
+#	scope :roots, :conditions => { :parent_id => nil, :hide_menu => false }
+#	scope :hidden, :conditions => { :hide_menu => true }
+#	scope :not_home, :conditions => [ "path != '/'" ] 
+	scope :roots, where( :parent_id => nil, :hide_menu => false )
+	scope :hidden, where( :hide_menu => true )
+	scope :not_home, where( "path != '/'" )
 
 	attr_accessible :path, :parent_id, :hide_menu,
 		:menu,  :menu_en,  :menu_es, 
@@ -65,16 +69,13 @@ class Page < ActiveRecord::Base
 		end
 	end
 
-	#	named_scopes ALWAYS return an "Array"
+	#	scopes ALWAYS return an "Array"
 	#	so if ONLY want one, MUST use a method.
 	#	by_path returns the one(max) page that
 	#	matches the given path.
 	def self.by_path(path)
-		page = find(:first,
-			:conditions => {
-				:path   => path.downcase
-			}
-		)
+#		page = find(:first, :conditions => { :path   => path.downcase })
+		page = where( :path => path.downcase ).first
 	end
 
 	def root

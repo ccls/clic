@@ -28,6 +28,7 @@ String.class_eval do
 		s = self.dup
 		s.gsub!(/'/,'')     #	remove apostrophes altogether
 		s.gsub!(/\W+/,'_')  #	replace all non-alphanumerics with underscores
+		s.gsub!(/_+/,'_')  #	replace all duplicate underscores with underscores
 		s
 	end
 end

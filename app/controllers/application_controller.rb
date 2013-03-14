@@ -1,10 +1,10 @@
-require 'ssl_requirement'
+#require 'ssl_requirement'
 class ApplicationController < ActionController::Base
-	include SslRequirement
+#	include SslRequirement
 
 	before_filter :login_required
 
-	filter_parameter_logging :password, :password_confirmation, :current_password
+#	filter_parameter_logging :password, :password_confirmation, :current_password
 
 	helper :all # include all helpers, all the time
 	helper_method :current_user_session, :current_user, :logged_in?
@@ -14,10 +14,10 @@ class ApplicationController < ActionController::Base
 
 protected	#	private #	(does it matter which or if neither?)
 
-	def ssl_required?
-		# Force https everywhere (that doesn't have ssl_allowed set)
-		true
-	end
+#	def ssl_required?
+#		# Force https everywhere (that doesn't have ssl_allowed set)
+#		true
+#	end
 
 	def redirect_to_referer_or_default(default)
 		redirect_to( session[:refer_to] || 
@@ -29,7 +29,7 @@ protected	#	private #	(does it matter which or if neither?)
 	def access_denied( 
 			message="You don't have permission to complete that action.", 
 			default=root_path )
-		session[:return_to] = request.request_uri unless params[:format] == 'js'
+		session[:return_to] = request.url unless params[:format] == 'js'
 		flash[:error] = message
 		redirect_to default
 	end

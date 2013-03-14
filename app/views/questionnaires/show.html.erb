@@ -17,7 +17,7 @@
 <% if current_user.may_edit_questionnaires? %>
 <div class='manage'>
   <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', questionnaire_path(@questionnaire) do %>
+  <%= destroy_link_to 'Destroy', questionnaire_path(@questionnaire) do %>
    <%= hidden_field_tag 'confirm', "Destroy questionnaire '#{h(@questionnaire)}'?", 
     :id => nil %>
   <% end %>

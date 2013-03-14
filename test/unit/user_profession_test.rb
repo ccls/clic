@@ -10,4 +10,9 @@ class UserProfessionTest < ActiveSupport::TestCase
 	assert_should_protect( :profession_id )
 	assert_should_protect( :user_id )
 
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_user_profession
+
 end

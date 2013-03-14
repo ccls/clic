@@ -1,9 +1,9 @@
-<% content_tag_for( :tr, study, :class => "study row" ) do %>
+<%= content_tag_for( :tr, study, :class => "study row" ) do %>
  <td class='name'><%= link_to study, study %></td>
  <td class='country'><%= study.country %></td>
  <td class='manage'>
   <%= link_to 'Edit', edit_study_path(study), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', study_path(study) do %>
+  <%= destroy_link_to 'Destroy', study_path(study) do %>
    <%= hidden_field_tag 'confirm', "Destroy study '#{h(study)}'?",
     :id => nil %>
   <% end %>

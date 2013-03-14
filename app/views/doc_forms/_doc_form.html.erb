@@ -1,9 +1,9 @@
-<% content_tag_for( :tr, doc_form, :class => "doc_form row" ) do %>
+<%= content_tag_for( :tr, doc_form, :class => "doc_form row" ) do %>
  <td class='title'><%= link_to doc_form, doc_form %></td>
  <td class='manage'>
 <% if current_user.may_edit_doc_forms? %>
   <%= link_to 'Edit', edit_doc_form_path(doc_form), :class => 'button' %>&nbsp;
-  <% destroy_link_to 'Destroy', doc_form_path(doc_form) do %>
+  <%= destroy_link_to 'Destroy', doc_form_path(doc_form) do %>
    <%= hidden_field_tag 'confirm', "Destroy doc form '#{h(doc_form)}'?", 
     :id => nil %>
   <% end %>

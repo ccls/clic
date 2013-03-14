@@ -43,7 +43,8 @@ class GroupTest < ActiveSupport::TestCase
 			object.update_attributes(:parent_id => object.id)
 #			object.parent_id = object.id
 #			object.save
-			assert object.errors.on(:parent_id)
+#			assert object.errors.include?(:parent_id)
+			assert object.errors.matching?(:parent_id,'cannot be own child')
 		} }
 		object.reload
 		assert_nil object.parent
@@ -55,11 +56,16 @@ class GroupTest < ActiveSupport::TestCase
 		deny_changes("Group.find(#{object.id}).parent_id") {
 		deny_changes("Group.find(#{object.id}).groups_count") {
 			object.children << object
-			assert object.errors.on(:parent_id)
+			assert object.errors.matching?(:parent_id,'cannot be own child')
 		} }
 		object.reload
 		assert_nil object.parent
 		assert object.children.empty?
 	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_group
 
 end

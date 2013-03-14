@@ -22,8 +22,8 @@ class UsersController < ApplicationController
 		@user.save!
 		flash[:notice] = "Registration successful. Please check your email to complete."
 		@user.reset_perishable_token!
-		UserMailer.deliver_new_user_email(@user) unless Rails.env == 'development'
-		UserMailer.deliver_confirm_email(@user)
+		UserMailer.new_user_email(@user).deliver unless Rails.env == 'development'
+		UserMailer.confirm_email(@user).deliver
 		redirect_to login_url	
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		@groups = Group.joinable
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 			@user.email_confirmed_at = nil
 			@user.save!
 			flash_notice << " Please check your email to complete email change."
-			UserMailer.deliver_confirm_email(@user)
+			UserMailer.confirm_email(@user).deliver
 		end
 		flash[:notice] = flash_notice
 		redirect_to user_path(@user)

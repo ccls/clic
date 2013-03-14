@@ -7,7 +7,8 @@ class UserSessionsControllerTest < ActionController::TestCase
 		user = unapproved_user(:email_confirmed_at => nil)
 		assert_not_logged_in
 		user_session = UserSession.create(user)
-		assert user_session.errors.on_attr_and_type(:base, :unconfirmed_email)
+		assert user_session.errors.matching?(:unconfirmed_email, 
+			"You have not yet confirmed your email address")
 		assert_nil UserSession.find
 		assert_not_logged_in
 	end
@@ -147,7 +148,8 @@ class UserSessionsControllerTest < ActionController::TestCase
 			:password => Factory.attributes_for(:user)[:password]
 		}
 		assert_equal 50, user.reload.failed_login_count
-		assert assigns(:user_session).errors.on(:base)
+		assert assigns(:user_session).errors.matching?(:base,
+			'Consecutive failed logins limit exceeded, account has been temporarily disabled')
 		assert_not_logged_in
 	end
 

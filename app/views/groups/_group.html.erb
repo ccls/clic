@@ -1,4 +1,4 @@
-<% content_tag_for( :tr, group, :class => 'row' ) do %>
+<%= content_tag_for( :tr, group, :class => 'row' ) do %>
 <% if current_user.may_order? -%>
  <td><%= hidden_field_tag( 'ids[]', group.id, :id => nil ) %>
   <%= image_tag 'drag.gif', :class => 'handle' %></td>
@@ -16,7 +16,7 @@
 <%= link_to "Order", groups_path(:parent_id => group.id), :class => 'button' -%>&nbsp;
 <% end %>
   <%= link_to 'Edit', edit_group_path(group), :class => 'button' %>
-  <% destroy_link_to 'Destroy', group_path(group) do %>
+  <%= destroy_link_to 'Destroy', group_path(group) do %>
    <%= hidden_field_tag 'confirm', "Destroy group '#{h(group)}'?", 
      :id => nil %>
   <% end %>

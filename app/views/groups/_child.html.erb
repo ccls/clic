@@ -1,11 +1,11 @@
-<% content_tag_for( :tr, child ) do %>
+<%= content_tag_for( :tr, child ) do %>
  <td>&nbsp;</td>
  <td class='name'>
   <%= link_to child, child -%>
  </td>
  <td class='manage'>
   <%= link_to "Edit", edit_group_path(child), :class => 'button' -%>&nbsp;
-  <% destroy_link_to 'Destroy', group_path(child) do %> 
+  <%= destroy_link_to 'Destroy', group_path(child) do %> 
    <%= hidden_field_tag 'confirm', "Destroy group '#{h(child)}'?", :id => nil %>
   <% end %>
  </td>

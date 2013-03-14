@@ -39,7 +39,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			])
-			assert @object.errors.on_attr_and_type('group_documents.user_id', :blank)
+			assert @object.errors.matching?('group_documents.user_id', :blank)
 		} } }
 #		@object.group_documents = []
 #	None created
@@ -73,7 +73,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 				:group_documents_attributes => [
 					group_doc_attributes_with_attachment
 			])
-			assert object.errors.on_attr_and_type('group_documents.user_id', :blank)
+			assert object.errors.matching?('group_documents.user_id', :blank)
 		} } }
 		#	acts_as_list's remove_from_list tries to save the object
 		#	again or something, with the invalid group documents and fails.
@@ -82,5 +82,10 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 #		object.group_documents = []
 		object.destroy
 	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_annual_meeting
 
 end

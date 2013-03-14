@@ -11,7 +11,7 @@
 
 <% unless @annual_meetings.empty? %>
   <table id='annual_meetings' class='orderable'><thead><tr>
-<%= "<th>&nbsp;</th>" if current_user.may_order? -%>
+<%= "<th>&nbsp;</th>".html_safe if current_user.may_order? -%>
 <th>&nbsp;</th><th>Meeting</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'annual_meeting', :collection => @annual_meetings %>
@@ -20,6 +20,6 @@
   <p>Sorry, no annual_meetings yet.</p>
 <% end -%>
 
-<% form_tag(order_annual_meetings_path, :method => :post, :id => 'order') do -%>
+<%= form_tag(order_annual_meetings_path, :method => :post, :id => 'order') do -%>
 <p><%= submit_tag 'Save Annual Meetings order', :name => nil, :id => 'save_order' %></p>
 <% end if current_user.may_order? %>

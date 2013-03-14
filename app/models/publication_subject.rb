@@ -1,5 +1,11 @@
 class PublicationSubject < ActiveRecord::Base
-	default_scope :order => :position
+
+#	default scopes are EVIL.  They seem to take precedence
+#	over you actual query which seems really stupid
+#	removing all in rails 3 which will probably require
+#	modifications to compensate in the methods that expected them
+#	default_scope :order => :position
+
 	acts_as_list
 
 	has_many :publication_publication_subjects

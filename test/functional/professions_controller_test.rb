@@ -16,9 +16,9 @@ class ProfessionsControllerTest < ActionController::TestCase
 		Factory.attributes_for(:profession,options)
 	end
 
-	assert_access_with_https
+#	assert_access_with_https
 	assert_access_with_login({ :logins => site_administrators })
-	assert_no_access_with_http 
+#	assert_no_access_with_http 
 	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
 	assert_orderable

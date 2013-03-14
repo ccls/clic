@@ -1,15 +1,18 @@
 require 'test_helper'
+
 #	for assert_select
-require 'action_controller/assertions/selector_assertions'
+#require 'action_controller/assertions/selector_assertions'
+require 'action_dispatch/testing/assertions/selector'
 
 class UserMailerTest < ActionMailer::TestCase
 	#	for assert_select
-	include ActionController::Assertions::SelectorAssertions
+#	include ActionController::Assertions::SelectorAssertions
+	include ActionDispatch::Assertions::SelectorAssertions
 
 	test "confirm_email" do
 		user = Factory(:user)
-		email = UserMailer.create_confirm_email(user)
-		html = HTML::Document.new(email.body).root
+		email = UserMailer.confirm_email(user)
+		html = HTML::Document.new(email.body.encoded).root
 		assert_select html, 'a', :count => 1,
 			:text => /http.*confirm_email\/#{user.perishable_token}$/,
 			:href => /http.*confirm_email\/#{user.perishable_token}$/
@@ -17,8 +20,8 @@ class UserMailerTest < ActionMailer::TestCase
 
 	test "forgot_password" do
 		user = Factory(:user)
-		email = UserMailer.create_forgot_password(user)
-		html = HTML::Document.new(email.body).root
+		email = UserMailer.forgot_password(user)
+		html = HTML::Document.new(email.body.encoded).root
 		assert_select html, 'a', :count => 1,
 			:text => /http.*password_resets\/#{user.perishable_token}\/edit/,
 			:href => /http.*password_resets\/#{user.perishable_token}\/edit/
@@ -26,8 +29,8 @@ class UserMailerTest < ActionMailer::TestCase
 
 	test "new_user_email" do
 		user = Factory(:user)
-		email = UserMailer.create_new_user_email(user)
-		html = HTML::Document.new(email.body).root
+		email = UserMailer.new_user_email(user)
+		html = HTML::Document.new(email.body.encoded).root
 		assert_select html, 'a', :count => 1, 
 			:text => user.username,
 			:href => /http.*users\/#{user.id}$/

@@ -9,7 +9,7 @@
 
 <% unless @professions.empty? %>
   <table id='professions' class='orderable'><thead><tr>
-<%= "<th>&nbsp;</th>" if current_user.may_order? -%>
+<%= "<th>&nbsp;</th>".html_safe if current_user.may_order? -%>
 <th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>
   </thead><tbody>
   <%= render :partial => 'profession', :collection => @professions %>
@@ -18,6 +18,6 @@
   <p>Sorry, no professions yet.</p>
 <% end -%>
 
-<% form_tag(order_professions_path, :method => :post, :id => 'order') do -%>
+<%= form_tag(order_professions_path, :method => :post, :id => 'order') do -%>
 <p><%= submit_tag 'Save profession order', :name => nil, :id => 'save_order' %></p>
 <% end if current_user.may_order? %>

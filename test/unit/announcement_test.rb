@@ -116,35 +116,39 @@ class AnnouncementTest < ActiveSupport::TestCase
 	test "should require begins_at_hour greater than 0" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:begins_at_hour => 0)
-			assert object.errors.on_attr_and_type(:begins_at_hour,:inclusion)
+			assert object.errors.matching?(:begins_at_hour,
+				'is not included in the list')
 		end
 	end
 
 	test "should require begins_at_hour less than 13" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:begins_at_hour => 13)
-			assert object.errors.on_attr_and_type(:begins_at_hour,:inclusion)
+			assert object.errors.matching?(:begins_at_hour,
+				'is not included in the list')
 		end
 	end
 
 	test "should require begins_at_minute greater than -1" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:begins_at_minute => -1)
-			assert object.errors.on_attr_and_type(:begins_at_minute,:inclusion)
+			assert object.errors.matching?(:begins_at_minute,
+				'is not included in the list')
 		end
 	end
 
 	test "should require begins_at_minute less than 60" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:begins_at_minute => 60)
-			assert object.errors.on_attr_and_type(:begins_at_minute,:inclusion)
+			assert object.errors.matching?(:begins_at_minute,
+				'is not included in the list')
 		end
 	end
 
 	test "should require begins_at_meridiem is AM or PM" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:begins_at_meridiem => "MM")
-			assert object.errors.on_attr_and_type(:begins_at_meridiem,:invalid)
+			assert object.errors.matching?(:begins_at_meridiem,:invalid)
 		end
 	end
 
@@ -152,35 +156,39 @@ class AnnouncementTest < ActiveSupport::TestCase
 	test "should require ends_at_hour greater than 0" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:ends_at_hour => 0)
-			assert object.errors.on_attr_and_type(:ends_at_hour,:inclusion)
+			assert object.errors.matching?(:ends_at_hour,
+				'is not included in the list')
 		end
 	end
 
 	test "should require ends_at_hour less than 13" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:ends_at_hour => 13)
-			assert object.errors.on_attr_and_type(:ends_at_hour,:inclusion)
+			assert object.errors.matching?(:ends_at_hour,
+				'is not included in the list')
 		end
 	end
 
 	test "should require ends_at_minute greater than -1" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:ends_at_minute => -1)
-			assert object.errors.on_attr_and_type(:ends_at_minute,:inclusion)
+			assert object.errors.matching?(:ends_at_minute,
+				'is not included in the list')
 		end
 	end
 
 	test "should require ends_at_minute less than 60" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:ends_at_minute => 60)
-			assert object.errors.on_attr_and_type(:ends_at_minute,:inclusion)
+			assert object.errors.matching?(:ends_at_minute,
+				'is not included in the list')
 		end
 	end
 
 	test "should require ends_at_meridiem is AM or PM" do
 		assert_difference( "Announcement.count", 0 ) do
 			object = create_announcement_with_times(:ends_at_meridiem => "MM")
-			assert object.errors.on_attr_and_type(:ends_at_meridiem,:invalid)
+			assert object.errors.matching?(:ends_at_meridiem,:invalid)
 		end
 	end
 
@@ -214,9 +222,8 @@ class AnnouncementTest < ActiveSupport::TestCase
 				:begins_on => Date.tomorrow,
 				:ends_on   => Date.yesterday
 			)
-			assert object.errors.on(:ends_on)
-			assert_match(/after begins_on/,
-				object.errors.on(:ends_on) )
+			assert object.errors.include?(:ends_on)
+			assert object.errors.matching?(:ends_on, 'after begins_on')
 		end
 	end
 
@@ -226,9 +233,8 @@ class AnnouncementTest < ActiveSupport::TestCase
 				:begins_on => nil,
 				:ends_on   => Date.yesterday
 			)
-			assert object.errors.on(:begins_on)
-			assert_match(/be blank/,
-				object.errors.on(:begins_on) )
+			assert object.errors.include?(:begins_on)
+			assert object.errors.matching?(:begins_on, 'be blank')
 		end
 	end
 
@@ -244,5 +250,8 @@ protected
 			:ends_at_meridiem => 'pm' }.merge(options))
 		object
 	end
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_announcement
 
 end

@@ -4,7 +4,7 @@
 module SitePermissions
 
 	def self.included(base)
-		base.send(:include, InstanceMethods)
+#		base.send(:include, InstanceMethods)
 		base.class_eval do
 			#	may_edit? isn't defined in this module so these need class_eval'd
 			#	unless I completely redefine them all here (probably best if i did)
@@ -31,7 +31,7 @@ module SitePermissions
 		end
 	end
 
-	module InstanceMethods
+#	module InstanceMethods
 
 		def may?
 			may_read? || approved?
@@ -137,6 +137,6 @@ module SitePermissions
 			is_user?(user) || may_administrate?
 		end
 
-	end	#	module InstanceMethods
+#	end	#	module InstanceMethods
 
 end

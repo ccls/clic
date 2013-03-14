@@ -19,7 +19,8 @@ class PageTest < ActiveSupport::TestCase
 	test "should require path begin with slash" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:path => 'Hey')
-			assert page.errors.on(:path)
+			assert page.errors.include?(:path)
+			assert page.errors.matching?(:path,'is invalid')
 		end
 	end
 
@@ -163,5 +164,10 @@ class PageTest < ActiveSupport::TestCase
 		p = create_page(:body_es => '')
 		assert_equal p.body('es'), p.body_en
 	end
+
+protected
+
+	#	create_object is called from within the common class tests
+	alias_method :create_object, :create_page
 
 end

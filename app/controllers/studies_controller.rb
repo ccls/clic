@@ -13,7 +13,7 @@ class StudiesController < ApplicationController
 		:only => [:show,:edit,:update,:destroy]
 
 	def index
-		@studies = Study.all
+		@studies = Study.order('name ASC').all
 	end
 
 	def new

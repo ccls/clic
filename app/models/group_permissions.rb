@@ -4,7 +4,7 @@
 module GroupPermissions
 
 	def self.included(base)
-		base.send(:include, InstanceMethods)
+#		base.send(:include, InstanceMethods)
 #		base.class_eval do
 #			#	may_edit? isn't defined in this module so these need class_eval'd
 #			#	unless I completely redefine them all here (probably best if i did)
@@ -15,7 +15,7 @@ module GroupPermissions
 #		end
 	end
 
-	module InstanceMethods
+#	module InstanceMethods
 
 		def group_membership_roles(group)
 			approved_memberships.select{|m| m.group_id == group.id }.collect(&:group_role).compact
@@ -175,6 +175,6 @@ module GroupPermissions
 #			may_administrate? || is_group_reader?(Group.find_by_name('Coordination Group'))
 #		end
 
-	end	#	module InstanceMethods
+#	end	#	module InstanceMethods
 
 end

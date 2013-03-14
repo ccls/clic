@@ -1,5 +1,5 @@
 <h2>User</h2>
-<% form_for( @user, :html => { 
+<%= form_for( @user, :html => { 
 	:multipart => true, :class => 'edit_user' } ) do |f| %>
 
 <%= render :partial => 'form1', :locals => { :f => f } %>
