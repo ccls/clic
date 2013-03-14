@@ -5,14 +5,17 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 Childhood Leukemia International Consortium
 
 
+
+The following needs updating to match the recent upgrade to regular ruby and rails 3.
+
+
+
+
 == Requirements
 
-* ruby >= 1.8.7 - primarily due to the liberal use of #inject
-* ruby <= 1.8.7 - primarily due to 1.9.1 differences
-* rubygems
+* ruby >= 1.9
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
-* curl - for the installation of rvm (which isn't really a requirement)
 
 
 == Required Gem Sources
@@ -26,15 +29,12 @@ Childhood Leukemia International Consortium
 * {RedCloth}[http://redcloth.org] - textile parser. (moving away from this using TinyMCE instead)
 * {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
-* {rcov}[http://github.com/relevance/rcov] - testing
 * {mocha}[http://github.com/floehopper/mocha] - testing
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
-* {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
 
 
 == IMPORTANT NOTES
@@ -46,14 +46,18 @@ Childhood Leukemia International Consortium
 
 == Installation 
 
- #	Copy session file.
- cp config/initializers/session_store.rb.example config/initializers/session_store.rb
+ #	Copy secret_token file.
+ cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
 
  #	Copy and setup database file.
  cp config/database.yml.example config/database.yml
 
  #	Copy and add your own gmail credentials.
  cp config/initializers/mail.rb.example config/initializers/mail.rb
+
+
+Not using jruby any longer.  YAY!
+
 
 
 
