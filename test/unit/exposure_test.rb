@@ -15,6 +15,31 @@ class ExposureTest < ActiveSupport::TestCase
 #		assert !search.hits.empty?
 #	end
 
+	test "types should be an array" do
+		exposure = Factory.build(:exposure)
+		assert exposure.types.is_a?(Array)
+	end
+
+	test "windows should be an array" do
+		exposure = Factory.build(:exposure)
+		assert exposure.windows.is_a?(Array)
+	end
+
+	test "assessments should be an array" do
+		exposure = Factory.build(:exposure)
+		assert exposure.assessments.is_a?(Array)
+	end
+
+	test "forms_of_contact should be an array" do
+		exposure = Factory.build(:exposure)
+		assert exposure.forms_of_contact.is_a?(Array)
+	end
+
+	test "locations_of_use should be an array" do
+		exposure = Factory.build(:exposure)
+		assert exposure.locations_of_use.is_a?(Array)
+	end
+
 protected
 
 	#	create_object is called from within the common class tests
