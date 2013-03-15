@@ -86,6 +86,7 @@ GEM
       treetop (~> 1.4.8)
     metaclass (0.0.1)
     mime-types (1.21)
+    minitest (4.6.2)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
     multi_json (1.6.1)
@@ -142,6 +143,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
+    test-unit (2.5.4)
     thor (0.17.0)
     tilt (1.3.5)
     tinymce-rails (3.5.8.1)
@@ -176,6 +178,7 @@ DEPENDENCIES
   factory_girl_rails
   hpricot
   jquery-rails
+  minitest
   mocha (= 0.10.5)
   mysql
   mysql2
@@ -187,6 +190,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simplecov
   sqlite3
+  test-unit
   tinymce-rails
   uglifier (>= 1.0.3)
   will_paginate

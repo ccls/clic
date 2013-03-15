@@ -120,8 +120,6 @@ gem "will_paginate"	#, "~>2"
 	gem 'mysql2'
 #	gem "sqlite3"
 #	gem 'rcov', :group => :test
-# This does not work as well as rcov used to, imo.
-gem "simplecov", :require => false
 
 #end
 
@@ -159,8 +157,21 @@ gem "ruby-hmac"
 #gem "sunspot_rails", "=1.2.1"
 
 
+# apparently required on new production server for some reason??
+# Otherwise ...
+#jwendt@n1 : odms 504> script/rails console
+#/my/ruby/gems/1.9/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require': can    not load such file -- minitest/unit (LoadError)
+# from /my/ruby/gems/1.9/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `block i    n require'
+
+gem 'minitest'
+
 group :test do
 	gem "ccls-html_test"
+
+	# This does not work as well as rcov used to, imo.
+	gem "simplecov", :require => false
+
+	gem 'test-unit'
 
 #	Its always something
 #Java::JavaLang::ArrayIndexOutOfBoundsException: An error occured while installing mocha (0.11.0), and Bundler cannot continue.
