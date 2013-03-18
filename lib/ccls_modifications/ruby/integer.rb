@@ -1,4 +1,4 @@
-module IntegerExtension	#	:nodoc:
+#module IntegerExtension	#	:nodoc:
 #	def self.included(base)
 #		base.instance_eval do
 #			include InstanceMethods
@@ -16,5 +16,5 @@ module IntegerExtension	#	:nodoc:
 #
 #	end
 #
-end
-Integer.send( :include, IntegerExtension )
+#end
+#Integer.send( :include, IntegerExtension )

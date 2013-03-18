@@ -1,0 +1,8 @@
+require 'ccls_modifications/ruby/array'
+require 'ccls_modifications/ruby/fixnum'
+require 'ccls_modifications/ruby/hash'
+require 'ccls_modifications/ruby/integer'
+require 'ccls_modifications/ruby/nil_class'
+#require 'ccls_modifications/ruby/numeric'
+require 'ccls_modifications/ruby/object'
+require 'ccls_modifications/ruby/string'

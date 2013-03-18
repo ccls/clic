@@ -1,4 +1,4 @@
-module ArrayExtension	#	:nodoc:
+#module ArrayExtension	#	:nodoc:
 #	def self.included(base)
 #		base.instance_eval do
 #			include InstanceMethods
@@ -132,5 +132,5 @@ module ArrayExtension	#	:nodoc:
 #		end
 #
 #	end
-end
-Array.send(:include, ArrayExtension)
+#end
+#Array.send(:include, ArrayExtension)

@@ -8,7 +8,7 @@ Object.class_eval do
 end
 
 
-module ObjectExtension	#	:nodoc:
+#module ObjectExtension	#	:nodoc:
 #	def self.included(base)
 #		base.instance_eval do
 #			include InstanceMethods
@@ -68,5 +68,5 @@ module ObjectExtension	#	:nodoc:
 #
 #	end
 #
-end
-Object.send(:include, ObjectExtension)
+#end
+#Object.send(:include, ObjectExtension)

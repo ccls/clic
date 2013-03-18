@@ -6,35 +6,11 @@ Childhood Leukemia International Consortium
 
 
 
-The following needs updating to match the recent upgrade to regular ruby and rails 3.
-
-
-
-
 == Requirements
 
 * ruby >= 1.9
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
-
-
-== Required Gem Sources
-
- gem sources -a http://rubygems.org
- gem sources -a http://gems.github.com
-
-== Required Gems
-
-* {sunspot}[http://github.com/outoftime/sunspot] - Sunspot for solr gem usage
-* {RedCloth}[http://redcloth.org] - textile parser. (moving away from this using TinyMCE instead)
-* {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
-* {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
-* {mocha}[http://github.com/floehopper/mocha] - testing
-* {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
-* {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
-* {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
-* {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
-* {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 
 
 == IMPORTANT NOTES
@@ -56,37 +32,10 @@ The following needs updating to match the recent upgrade to regular ruby and rai
  cp config/initializers/mail.rb.example config/initializers/mail.rb
 
 
-Not using jruby any longer.  YAY!
 
 
 
-
-rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/install/] ) ...
-
- curl http://rvm.beginrescueend.com/releases/rvm-install-head | bash
- #	or
- sudo gem install rvm
- /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.27/bin/rvm-install
- #
- # rvm installation has changed now I believe
- #
-
- # add ... 
- #	if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
- # to your .bashrc
- vi .bashrc
- bash
- #
- #	our server uses jruby 1.5.1 so we should dev and test on it as well.
- #
- rvm install jruby-1.5.1
- rvm use jruby-1.5.1
- # and perhaps
- rvm --default jruby-1.5.1
-
-
-
-
+Possible
 For standard ruby users, install mysql gem ...
 
  #	If using mysql ...
@@ -117,40 +66,15 @@ Everybody join hands together now to install some gems ...
  gem source -a http://gems.github.com
  sudo gem install bundler
 
- # preferably use bunlder to install all specific gem versions
+ # preferably use bundler to install all specific gem versions
  sudo bundle install
-
- # OR with gem, which may not match versions
- #
- sudo gem install hpricot
- sudo gem install rake -v '=0.8.7'
- sudo gem install rdoc -v '~> 2'
- sudo gem install rails -v '~> 2'
- #
- # The rest should actually install with ...
- #
- sudo rake gems:install
- #
- # This eventually crashed with ...
- #
- #	Error: Your application used more memory than the safety cap of 500m.
- #	Specify -J-Xmx####m to increase it (#### = cap size in MB).
- #	Specify -w for full OutOfMemoryError stack trace
- #
- # ... but a rerun continued and completed.
- #
- sudo rake gems:install
- #
- # Some gems are defined in the environments/test.rb file
- #
- sudo rake gems:install RAILS_ENV=test
 
 
 
  
 then we continue ...
 
- #	Add your own session secret to config/initializers/session_store.rb
+ #	Add your own session secret to config/initializers/secret_token.rb
  #	generate a 128 character hex string perfect for using as your secret.
  rake secret
 
@@ -159,49 +83,13 @@ then we continue ...
  #	add some expected items (loads fixtures OVERWRITING some db data)
  rake app:setup
 
- script/server
+ script/rails s
 
  #	login to your app
  #	The first administrator/deputy must be created via the command line.
  #	Others can be created via the command line or web app.
  #
  rake app:deputize username=<Your Username>
-
-
-
-
-== Production Installation
-
-As this app is being installed on a VM Java jruby tomcat thing, we need special instructions.  Apparently, for Tomcat 5, we need to use jruby-rack-0.9.6.jar, which is included in lib/.
-
-Tomcat will unarchive the war file and DESTROY the existing unarchived version!  Any file uploads will need to be kept elsewhere.  This is also true for the db, if using sqlite.
-
- ( warble from a jruby environment to get the jruby specific gems )
-
- # prepare the war file on a development machine
- [jakewendt@dev : clic ]> bash
- [jakewendt@dev : clic ]> rvm use jruby
- [jakewendt@dev : clic ]> warble
- [jakewendt@dev : clic ]> scp clic.war ccls.berkeley.edu:
-
-
- # stop tomcat as "jakewendt"
- [jakewendt@dev : clic ]> ssh ccls
- [jakewendt@ccls-01:~]> sudo /sbin/service tomcat5 stop
-
-
- # copy in new war file as "tomcat" ( backup first? )
- [jakewendt@ccls-01:~] > sudo su -l tomcat
- [tomcat@ccls-01:~] > /bin/rm -rf /var/lib/tomcat5/webapps/clic
- [tomcat@ccls-01:~] > cp ~jakewendt/clic.war /var/lib/tomcat5/webapps/
- [tomcat@ccls-01:~] > exit
-
-
- # start tomcat as "jakewendt"
- [jakewendt@ccls-01:~] > sudo /sbin/service tomcat5 start
- [jakewendt@ccls-01:~] > tail -f /var/log/tomcat5/catalina.out
-
-
 
 
 

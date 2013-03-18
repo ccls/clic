@@ -1,4 +1,4 @@
-module HashExtension	#	:nodoc:
+#module HashExtension	#	:nodoc:
 #	def self.included(base)
 #		base.instance_eval do
 #			include InstanceMethods
@@ -56,5 +56,5 @@ module HashExtension	#	:nodoc:
 #
 #	end
 #
-end
-Hash.send( :include, HashExtension )
+#end
+#Hash.send( :include, HashExtension )

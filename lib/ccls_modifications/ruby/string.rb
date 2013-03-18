@@ -4,7 +4,7 @@
 #	end
 #end
 
-module StringExtension	#	:nodoc:
+#module StringExtension	#	:nodoc:
 #	def self.included(base)
 #		base.instance_eval do
 #			include InstanceMethods
@@ -31,5 +31,5 @@ module StringExtension	#	:nodoc:
 #
 #  end
 #
-end
-String.send( :include, StringExtension )
+#end
+#String.send( :include, StringExtension )

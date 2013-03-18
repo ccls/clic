@@ -1,4 +1,4 @@
-module NilClassExtension	#	:nodoc:
+#module NilClassExtension	#	:nodoc:
 #	def self.included(base)
 #		base.instance_eval do
 #			include InstanceMethods
@@ -18,5 +18,5 @@ module NilClassExtension	#	:nodoc:
 #
 #	end
 #
-end
-NilClass.send( :include, NilClassExtension )
+#end
+#NilClass.send( :include, NilClassExtension )

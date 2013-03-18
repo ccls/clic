@@ -1,7 +1,7 @@
-require 'redcloth'
-module RedCloth::Formatters::HTML
+#require 'redcloth'
+#module RedCloth::Formatters::HTML
 #
-#	Don't think that this is needed any longer now that not a subapp
+#	Don't think that this is needed any longer now that not a subapp. 20130314
 #
 #	def link_with_prefix(opts)
 #		if opts[:href] =~ /^\//
@@ -22,4 +22,4 @@ module RedCloth::Formatters::HTML
 #	end
 #	alias_method_chain :image, :prefix unless self.instance_methods.include?('image_without_prefix')
 #
-end
+#end
