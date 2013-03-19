@@ -52,11 +52,11 @@ module ApplicationHelper
 		out.html_safe
 	end
 
-	#	Just a simple method to wrap the passed text in a span
-	#	with class='required'
-	def required(text)
-		"<span class='required'>#{text}</span>".html_safe
-	end
+#	#	Just a simple method to wrap the passed text in a span
+#	#	with class='required'
+#	def required(text)
+#		"<span class='required'>#{text}</span>".html_safe
+#	end
 
 	def current_controller(name)
 		(controller.controller_name == name) ? ' current' : nil

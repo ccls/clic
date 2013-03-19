@@ -186,3 +186,12 @@ group :test do
 	gem "factory_girl_rails"
 end
 
+
+
+
+
+
+
+gem "ccls-common_lib", ">0.9"
+
+
