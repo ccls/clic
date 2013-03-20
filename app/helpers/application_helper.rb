@@ -52,12 +52,6 @@ module ApplicationHelper
 		out.html_safe
 	end
 
-#	#	Just a simple method to wrap the passed text in a span
-#	#	with class='required'
-#	def required(text)
-#		"<span class='required'>#{text}</span>".html_safe
-#	end
-
 	def current_controller(name)
 		(controller.controller_name == name) ? ' current' : nil
 	end
@@ -137,30 +131,6 @@ module ApplicationHelper
 		s.html_safe
 	end
 
-#	def user_roles
-#		s = ''
-#		if current_user.may_administrate?
-#			s << "<ul>"
-#			@roles.each do |role|
-#				s << "<li>"
-#				if @user.role_names.include?(role.name)
-#					s << link_to( "Remove user role of '#{role.name}'", 
-#						user_role_path(@user,role.name),
-#						:method => :delete )
-#				else
-#					s << link_to( "Assign user role of '#{role.name}'", 
-#						user_role_path(@user,role.name),
-#						:method => :put )
-#				end
-#				s << "</li>\n"
-#			end
-#			s << "</ul>\n"
-#		end
-#		s.html_safe
-#	end
-
-
-
 	def user_roles
 		s = ''
 		if current_user.may_administrate?
@@ -188,6 +158,5 @@ module ApplicationHelper
 		end
 		s.html_safe
 	end
-
 
 end
