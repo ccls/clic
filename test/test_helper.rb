@@ -4,16 +4,6 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
-##gem 'test-unit', :lib => 'test/unit', :version => '~>2'
-##require 'test/unit'
-##require 'test/unit/priority'
-##require 'test/unit/autorunner'
-##require 'test/unit/testcase'
-
-#require 'test_help'
-#require 'active_model_extension'
-#require 'action_controller_extension'
-#require 'active_support_extension'
 require 'factory_test_helper'
 require 'group_test_helper'
 require 'orderable_test_helper'
@@ -39,8 +29,8 @@ class ActiveSupport::TestCase
 			assert_not_logged_in
 		end
 	end
-	alias :login  :login_as
-	alias :log_in :login_as
+#	alias :login  :login_as
+#	alias :log_in :login_as
 
 	def assert_redirected_to_login
 		assert_not_nil flash[:error]
@@ -59,24 +49,11 @@ class ActiveSupport::TestCase
 		assert_nil UserSession.find
 	end
 
-#	def self.assert_should_create_default_object
-#		#       It appears that model_name is a defined class method already in ...
-#		#       activesupport-####/lib/active_support/core_ext/module/model_naming.rb
-#		test "should create default #{model_name.sub(/Test$/,'').underscore}" do
-#			assert_difference( "#{model_name}.count", 1 ) do
-#				object = create_object
-#				assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#			end
-#		end
-#	end
-
 end
 
 require 'authlogic/test_case'
 class ActionController::TestCase
-#	setup :turn_https_on
-#	include Authlogic::TestCase
+
 	setup :activate_authlogic
 
 	def create_a_membership
@@ -269,86 +246,84 @@ class ActionController::TestCase
 		nil
 	end
 
-	def self.site_administrators
-		@site_administrators ||= %w( superuser administrator )
+	class << self
+
+		def site_administrators
+			@site_administrators ||= %w( superuser administrator )
+		end
+
+		def non_site_administrators
+			@non_site_administrators ||= ( all_test_roles - site_administrators )
+		end
+
+		def site_editors
+			@site_editors ||= ( site_administrators + %w( editor ) )
+		end
+
+		def non_site_editors
+			@non_site_editors ||= ( all_test_roles - site_editors )
+		end
+
+		def site_readers
+			@site_readers ||= ( site_editors + %w( interviewer reader ) )
+		end
+
+		def non_site_readers
+			@non_site_readers ||= ( all_test_roles - site_readers )
+		end
+
+		def unapproved_users
+			@unapproved_users ||= %w( 
+				unapproved_group_moderator 
+				unapproved_nonmember_moderator
+				unapproved_user )
+		end
+
+		def approved_users
+			@approved_users ||= ( all_test_roles - unapproved_users )
+		end
+
+		def all_test_roles
+			@all_test_roles ||= %w( superuser administrator editor
+				interviewer reader approved_user unapproved_user
+	 			unapproved_group_moderator 
+	 			group_moderator group_editor group_reader group_roleless
+	 			unapproved_nonmember_moderator nonmember_moderator
+	 			nonmember_editor nonmember_reader nonmember_roleless )
+		end
+
+		def group_readers
+			@group_readers ||= ( group_editors + %w( group_reader ) )
+		end
+
+		def non_group_readers
+			@non_group_readers ||= ( all_test_roles - group_readers )
+		end
+
+		def group_editors
+			@group_editors ||= ( group_moderators + %w( group_editor ) )
+		end
+
+		def non_group_editors
+			@non_group_editors ||= ( all_test_roles - group_editors )
+		end
+
+		def group_moderators
+			@group_moderators ||= ( site_administrators + %w( group_moderator ) )
+		end
+
+		def non_group_moderators
+			@non_group_moderators ||= ( all_test_roles - group_moderators )
+		end
+
+		def group_members
+			@group_members ||= %w( group_moderator group_editor group_reader )
+		end
+
+		def non_group_members
+			@non_group_members ||= ( all_test_roles - group_members )
+		end
+
 	end
 
-	def self.non_site_administrators
-		@non_site_administrators ||= ( all_test_roles - site_administrators )
-	end
-
-	def self.site_editors
-		@site_editors ||= ( site_administrators + %w( editor ) )
-	end
-
-	def self.non_site_editors
-		@non_site_editors ||= ( all_test_roles - site_editors )
-	end
-
-	def self.site_readers
-		@site_readers ||= ( site_editors + %w( interviewer reader ) )
-	end
-
-	def self.non_site_readers
-		@non_site_readers ||= ( all_test_roles - site_readers )
-	end
-
-	def self.unapproved_users
-		@unapproved_users ||= %w( 
-			unapproved_group_moderator 
-			unapproved_nonmember_moderator
-			unapproved_user )
-	end
-
-	def self.approved_users
-		@approved_users ||= ( all_test_roles - unapproved_users )
-	end
-
-	def self.all_test_roles
-		@all_test_roles ||= %w( superuser administrator editor
-			interviewer reader approved_user unapproved_user
- 			unapproved_group_moderator 
- 			group_moderator group_editor group_reader group_roleless
- 			unapproved_nonmember_moderator nonmember_moderator
- 			nonmember_editor nonmember_reader nonmember_roleless )
-	end
-
-	def self.group_readers
-		@group_readers ||= ( group_editors + %w( group_reader ) )
-	end
-
-	def self.non_group_readers
-		@non_group_readers ||= ( all_test_roles - group_readers )
-	end
-
-	def self.group_editors
-		@group_editors ||= ( group_moderators + %w( group_editor ) )
-	end
-
-	def self.non_group_editors
-		@non_group_editors ||= ( all_test_roles - group_editors )
-	end
-
-	def self.group_moderators
-		@group_moderators ||= ( site_administrators + %w( group_moderator ) )
-	end
-
-	def self.non_group_moderators
-		@non_group_moderators ||= ( all_test_roles - group_moderators )
-	end
-
-	def self.group_members
-		@group_members ||= %w( group_moderator group_editor group_reader )
-	end
-
-	def self.non_group_members
-		@non_group_members ||= ( all_test_roles - group_members )
-	end
-
-end
-
-
-
-def brand	#	for auto-generated tests
-	"@@ "
 end

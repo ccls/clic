@@ -105,17 +105,20 @@ class ApplicationHelperTest < ActionView::TestCase
 		end
 	end
 	
+#
+#	This is available, but has been moved to a gem so can't test here
+#
 #	def required(text)
-
-	test "should respond_to required" do
-		assert respond_to?(:required)
-	end
-	
-	test "required(text) should" do
-		response = HTML::Document.new(required('something')).root
-		#"<span class='required'>something</span>"
-		assert_select response, 'span.required', :text => 'something', :count => 1
-	end
+#
+#	test "should respond_to required" do
+#		assert respond_to?(:required)
+#	end
+#	
+#	test "required(text) should" do
+#		response = HTML::Document.new(required('something')).root
+#		#"<span class='required'>something</span>"
+#		assert_select response, 'span.required', :text => 'something', :count => 1
+#	end
 
 #	def current_controller(name)
 
