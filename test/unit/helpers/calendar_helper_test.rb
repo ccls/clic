@@ -58,7 +58,7 @@ class CalendarHelperTest < ActionView::TestCase
 	end
 
 	test "should return calendar with an announcement" do
-		@cal_events << create_announcement(:begins_on => Date.today)
+		@cal_events << create_announcement(:begins_on => Date.current)
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
 			assert_select "table#calendar" do
@@ -91,8 +91,8 @@ class CalendarHelperTest < ActionView::TestCase
 	end
 
 	test "should return calendar with multiple announcements on single day" do
-		@cal_events << create_announcement(:begins_on => Date.today)
-		@cal_events << create_announcement(:begins_on => Date.today)
+		@cal_events << create_announcement(:begins_on => Date.current)
+		@cal_events << create_announcement(:begins_on => Date.current)
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
 			assert_select "table#calendar" do
@@ -108,7 +108,7 @@ class CalendarHelperTest < ActionView::TestCase
 	test "should return calendar with a group announcement" do
 		@group = create_group
 		self.params = HWIA.new( :controller => 'groups', :action => 'show', :id => @group.id )
-		@group.announcements << create_announcement(:begins_on => Date.today)
+		@group.announcements << create_announcement(:begins_on => Date.current)
 		@cal_events = @group.announcements #	@cal_events expected by calendar
 		response = HTML::Document.new(calendar).root
 		assert_select response, "div" do
@@ -143,7 +143,7 @@ class CalendarHelperTest < ActionView::TestCase
 	test "should return calendar_month date" do
 		response = calendar_month
 		assert response.is_a?(Date)
-		assert_equal Date.today.beginning_of_month, response
+		assert_equal Date.current.beginning_of_month, response
 	end
 
 protected

@@ -3,7 +3,8 @@ module CalendarHelper
 	def calendar
 		stylesheets('calendar')
 		javascripts('calendar')
-		today = Date.today	#	TODO this will be the server's today, not necessarily the user's
+#		today = Date.today	#	TODO this will be the server's today, not necessarily the user's
+		today = Date.current #	this should be correct
 		calday = calendar_start_day()	
 		out =  "<div>"
 		out << cal_title_bar
@@ -65,7 +66,7 @@ module CalendarHelper
 		#	Date.parse() returns => Mon, 01 Jan -4712 which we don't want
 		Date.parse(params[:month]||'').beginning_of_month
 	rescue
-		Date.today.beginning_of_month
+		Date.current.beginning_of_month
 	end
 
 	def cal_title_bar
