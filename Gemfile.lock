@@ -50,7 +50,7 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     builder (3.0.4)
-    ccls-common_lib (1.0.12)
+    ccls-common_lib (1.0.13)
       american_date
       hpricot
       jeweler
