@@ -14,7 +14,7 @@ class PostsControllerTest < ActionController::TestCase
 	assert_no_route(:delete, :destroy)
 
 	def factory_attributes(options={})
-		Factory.attributes_for(:post,options)
+		FactoryGirl.attributes_for(:post,options)
 	end
 
 	# a @membership is required so that those group roles will work
@@ -528,14 +528,14 @@ class PostsControllerTest < ActionController::TestCase
 protected
 
 	def create_group_forum(group)
-		forum = Factory(:forum, :group => group)
+		forum = FactoryGirl.create(:forum, :group => group)
 		assert_not_nil forum.id
 		assert_not_nil forum.group
 		forum
 	end
 
 	def create_forum_topic(forum)
-		topic = Factory(:topic, :forum => forum)
+		topic = FactoryGirl.create(:topic, :forum => forum)
 		assert_not_nil topic.id 
 		assert_not_nil topic.forum
 		assert_not_nil topic.user
@@ -543,7 +543,7 @@ protected
 	end
 
 	def create_forum_topic_post(topic)
-		post = Factory(:post, :topic => topic)
+		post = FactoryGirl.create(:post, :topic => topic)
 		assert_not_nil post.id 
 		assert_not_nil post.topic
 		assert_not_nil post.user

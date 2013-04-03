@@ -14,7 +14,7 @@ module FactoryTestHelper
 		#
 		define_method "create_#{object}" do |*args|
 			options = args.extract_options!
-			new_object = Factory.build(object,options)
+			new_object = FactoryGirl.build(object,options)
 			new_object.save
 			new_object
 		end
@@ -23,7 +23,7 @@ module FactoryTestHelper
 
 
 	def group_doc_attributes_with_attachment(options={})
-		Factory.attributes_for(:group_document,{
+		FactoryGirl.attributes_for(:group_document,{
 			:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) +
 				'/assets/edit_save_wireframe.pdf')
 		}.merge(options))
@@ -32,7 +32,7 @@ module FactoryTestHelper
 	end
 
 	def active_user(options={})
-		u = Factory(:user, options)
+		u = FactoryGirl.create(:user, options)
 		#	leave this special save here just in case I change things.
 		#	although this would need changed for UCB CAS.
 		#	u.save_without_session_maintenance

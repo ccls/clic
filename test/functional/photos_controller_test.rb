@@ -10,10 +10,10 @@ class PhotosControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:photo,options)
+		FactoryGirl.create(:photo,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:photo,options)
+		FactoryGirl.attributes_for(:photo,options)
 	end
 
 #	assert_access_with_https

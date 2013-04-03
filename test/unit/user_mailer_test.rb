@@ -10,7 +10,7 @@ class UserMailerTest < ActionMailer::TestCase
 	include ActionDispatch::Assertions::SelectorAssertions
 
 	test "confirm_email" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		email = UserMailer.confirm_email(user)
 		html = HTML::Document.new(email.body.encoded).root
 		assert_select html, 'a', :count => 1,
@@ -19,7 +19,7 @@ class UserMailerTest < ActionMailer::TestCase
 	end
 
 	test "forgot_password" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		email = UserMailer.forgot_password(user)
 		html = HTML::Document.new(email.body.encoded).root
 		assert_select html, 'a', :count => 1,
@@ -28,7 +28,7 @@ class UserMailerTest < ActionMailer::TestCase
 	end
 
 	test "new_user_email" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		email = UserMailer.new_user_email(user)
 		html = HTML::Document.new(email.body.encoded).root
 		assert_select html, 'a', :count => 1, 

@@ -16,7 +16,7 @@ class ForumTest < ActiveSupport::TestCase
 	end
 
 	test "should return only those not associated to a group" do
-		create_object(:group => Factory(:group))
+		create_object(:group => FactoryGirl.create(:group))
 		create_object(:group => nil)
 		assert Forum.groupless.length > 0
 		Forum.groupless.each do |groupless|
@@ -27,10 +27,10 @@ class ForumTest < ActiveSupport::TestCase
 	test "should increment posts_count with post creation" do
 		forum = create_forum
 		topic = create_topic(:forum => forum)
-		post = Factory(:post, :topic => topic)
+		post = FactoryGirl.create(:post, :topic => topic)
 		assert_equal 1, post.topic.forum.reload.posts_count
 		assert_difference("Forum.find(#{post.topic.forum.id}).posts_count",1) do
-			Factory(:post, :topic => post.topic)
+			FactoryGirl.create(:post, :topic => post.topic)
 		end
 		assert_equal 2, post.topic.forum.reload.posts_count
 	end
@@ -38,7 +38,7 @@ class ForumTest < ActiveSupport::TestCase
 	test "should decrement posts_count with post destruction" do
 		forum = create_forum
 		topic = create_topic(:forum => forum)
-		post = Factory(:post, :topic => topic)
+		post = FactoryGirl.create(:post, :topic => topic)
 		assert_equal 1, post.topic.forum.reload.posts_count
 		assert_difference("Forum.find(#{post.topic.forum.id}).posts_count",-1) do
 			post.destroy
@@ -46,7 +46,7 @@ class ForumTest < ActiveSupport::TestCase
 	end
 
 	test "should have a last_post" do
-		post = Factory(:post)
+		post = FactoryGirl.create(:post)
 		assert_equal post, post.topic.forum.last_post
 	end
 

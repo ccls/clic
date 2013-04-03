@@ -10,10 +10,10 @@ class DocumentsControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:document,options)
+		FactoryGirl.create(:document,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:document,options)
+		FactoryGirl.attributes_for(:document,options)
 	end
 
 #	assert_access_with_https
@@ -33,7 +33,7 @@ class DocumentsControllerTest < ActionController::TestCase
 ##	which isn't really gonna work
 #	test "should get redirect to public s3 document with #{cu} login" do
 #		Document.any_instance.stubs(:s3_public?).returns(true)
-#		document = Factory(:document, :document_file_name => 'bogus_file_name')
+#		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 #		assert !File.exists?(document.document.path)
 #		login_as send(cu)
 #		get :show, :id => document.id
@@ -42,7 +42,7 @@ class DocumentsControllerTest < ActionController::TestCase
 #
 #	test "should get redirect to private s3 document with #{cu} login" do
 #		Document.any_instance.stubs(:s3_private?).returns(true)
-#		document = Factory(:document, :document_file_name => 'bogus_file_name')
+#		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 #		assert !File.exists?(document.document.path)
 #		login_as send(cu)
 #		get :show, :id => document.id
@@ -53,7 +53,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
 #	test "should get redirect to public s3 document with #{cu} login" do
 #		Document.any_instance.stubs(:s3_public?).returns(true)
-#		document = Factory(:document, :document_file_name => 'bogus_file_name')
+#		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 #		assert !File.exists?(document.document.path)
 #		login_as send(cu)
 #		get :show, :id => document.id
@@ -66,7 +66,7 @@ class DocumentsControllerTest < ActionController::TestCase
 			Rails.stubs(:env).returns('production')
 			load 'document.rb'
 
-			document = Factory(:document, :document_file_name => 'bogus_file_name')
+			document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
 
@@ -85,7 +85,7 @@ assert document.document.exists?
 		end
 
 		test "should NOT download document with nil document and #{cu} login" do
-			document = Factory(:document)
+			document = FactoryGirl.create(:document)
 			assert document.document.path.blank?
 			login_as send(cu)
 			get :show, :id => document.id
@@ -94,7 +94,7 @@ assert document.document.exists?
 		end
 
 		test "should NOT download document with no document and #{cu} login" do
-			document = Factory(:document, :document_file_name => 'bogus_file_name')
+			document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 			assert !File.exists?(document.document.path)
 			login_as send(cu)
 			get :show, :id => document.id
@@ -111,7 +111,7 @@ assert document.document.exists?
 		end
 
 		test "should preview document with document and #{cu} login" do
-			document = Factory(:document)
+			document = FactoryGirl.create(:document)
 			login_as send(cu)
 			get :preview, :id => document.id
 			assert_response :success
@@ -119,7 +119,7 @@ assert document.document.exists?
 		end
 
 		test "should download document by id with document and #{cu} login" do
-			document = Document.create!(Factory.attributes_for(:document, 
+			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
 #				:document => File.open(File.dirname(__FILE__) + 
@@ -134,7 +134,7 @@ assert document.document.exists?
 		end
 
 		test "should download document by name with document and #{cu} login" do
-			document = Document.create!(Factory.attributes_for(:document, 
+			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
 #				:document => File.open(File.dirname(__FILE__) + 
@@ -158,7 +158,7 @@ assert document.document.exists?
 			Rails.stubs(:env).returns('production')
 			load 'document.rb'
 
-			document = Factory(:document, :document_file_name => 'bogus_file_name')
+			document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 			assert !document.document.exists?
 			assert !File.exists?(document.document.path)
 
@@ -177,7 +177,7 @@ assert document.document.exists?
 		end
 
 		test "should NOT download document with nil document and #{cu} login" do
-			document = Factory(:document)
+			document = FactoryGirl.create(:document)
 			assert document.document.path.blank?
 			login_as send(cu) #unless cu == 'NOLOGIN'
 			get :show, :id => document.id
@@ -186,7 +186,7 @@ assert document.document.exists?
 		end
 
 		test "should NOT download document with no document and #{cu} login" do
-			document = Factory(:document, :document_file_name => 'bogus_file_name')
+			document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 			assert !File.exists?(document.document.path)
 			login_as send(cu) #unless cu == 'NOLOGIN'
 			get :show, :id => document.id
@@ -203,7 +203,7 @@ assert document.document.exists?
 		end
 
 		test "should preview document with document and #{cu} login" do
-			document = Factory(:document)
+			document = FactoryGirl.create(:document)
 			login_as send(cu) #unless cu == 'NOLOGIN'
 			get :preview, :id => document.id
 			assert_response :success
@@ -211,7 +211,7 @@ assert document.document.exists?
 		end
 
 		test "should download document by id with document and #{cu} login" do
-			document = Document.create!(Factory.attributes_for(:document, 
+			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
 #				:document => File.open(File.dirname(__FILE__) + 
@@ -226,7 +226,7 @@ assert document.document.exists?
 		end
 
 		test "should download document by name with document and #{cu} login" do
-			document = Document.create!(Factory.attributes_for(:document, 
+			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
 #				:document => File.open(File.dirname(__FILE__) + 

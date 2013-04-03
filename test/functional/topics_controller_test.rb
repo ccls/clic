@@ -20,7 +20,7 @@ class TopicsControllerTest < ActionController::TestCase
 		:method_for_create => :create_topic
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:topic,options)
+		FactoryGirl.attributes_for(:topic,options)
 	end
 
 	assert_access_with_login({    :logins => approved_users })
@@ -92,7 +92,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Topic.count',1) {
 			assert_difference('GroupDocument.count',1) {
 				post :create, :forum_id => forum.id, :topic => factory_attributes(
-					:posts_attributes => [Factory.attributes_for(:post,
+					:posts_attributes => [FactoryGirl.attributes_for(:post,
 						:group_documents_attributes => [
 							group_doc_attributes_with_attachment
 						])])
@@ -306,7 +306,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_difference('Post.count',1) {
 			assert_difference('GroupDocument.count',1) {
 				post :create, :forum_id => forum.id, :topic => factory_attributes(
-					:posts_attributes => [Factory.attributes_for(:post,
+					:posts_attributes => [FactoryGirl.attributes_for(:post,
 						:group_documents_attributes => [
 							group_doc_attributes_with_attachment
 						])])
@@ -475,14 +475,14 @@ class TopicsControllerTest < ActionController::TestCase
 protected
 
 	def create_group_forum(group)
-		forum = Factory(:forum, :group => group)
+		forum = FactoryGirl.create(:forum, :group => group)
 		assert_not_nil forum.id
 		assert_not_nil forum.group
 		forum
 	end
 
 	def create_forum_topic(forum)
-		topic = Factory(:topic, :forum => forum)
+		topic = FactoryGirl.create(:topic, :forum => forum)
 		assert_not_nil topic.id 
 		assert_not_nil topic.forum
 		assert_not_nil topic.user
@@ -491,7 +491,7 @@ protected
 
 	def post_create(forum_id)
 		post :create, :forum_id => forum_id, :topic => factory_attributes(
-			:posts_attributes => [Factory.attributes_for(:post)])
+			:posts_attributes => [FactoryGirl.attributes_for(:post)])
 	end
 
 end

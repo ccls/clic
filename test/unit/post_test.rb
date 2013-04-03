@@ -39,7 +39,7 @@ class PostTest < ActiveSupport::TestCase
 	end
 
 	test "should create post with nested attributes for group_documents" do
-		topic = Factory(:topic)
+		topic = FactoryGirl.create(:topic)
 		assert_difference('Topic.count',0) {
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
@@ -60,7 +60,7 @@ class PostTest < ActiveSupport::TestCase
 
 	test "should NOT create post with nested attributes for group_documents" <<
 			" without user" do
-		topic = Factory(:topic)
+		topic = FactoryGirl.create(:topic)
 		assert_difference('Topic.count',0) {
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',0) {

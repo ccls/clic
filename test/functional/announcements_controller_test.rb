@@ -9,7 +9,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 		:method_for_create => :create_announcement
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:announcement,options)
+		FactoryGirl.attributes_for(:announcement,options)
 	end
 
 	# a @membership is required so that those group roles will work

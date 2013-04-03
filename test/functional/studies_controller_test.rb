@@ -10,10 +10,10 @@ class StudiesControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:study,options)
+		FactoryGirl.create(:study,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:study,options)
+		FactoryGirl.attributes_for(:study,options)
 	end
 
 	assert_access_with_login({    :logins => site_administrators })

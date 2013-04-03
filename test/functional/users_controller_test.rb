@@ -41,10 +41,10 @@ class UsersControllerTest < ActionController::TestCase
 	}
 
 	def factory_attributes(options={})
-		Factory.attributes_for(:user,options)
+		FactoryGirl.attributes_for(:user,options)
 	end
 	def factory_create(options={})
-		Factory(:user,options)
+		FactoryGirl.create(:user,options)
 	end
 
 	#	a @membership is required so that those group roles will work
@@ -165,7 +165,7 @@ class UsersControllerTest < ActionController::TestCase
 	#	not really a controller test
 	test "should NOT automatically log in new user with create" do
 		assert_difference('User.count',1) do
-			User.create(Factory.attributes_for(:user))
+			User.create(FactoryGirl.attributes_for(:user))
 		end
 		assert_equal Hash.new, session
 		assert_nil UserSession.find
@@ -189,7 +189,7 @@ class UsersControllerTest < ActionController::TestCase
 		#	confirm_email and new_user_email
 		assert_difference('ActionMailer::Base.deliveries.length',2) {
 		assert_difference('User.count',1) {
-			post :create, :user => Factory.attributes_for(:user)
+			post :create, :user => FactoryGirl.attributes_for(:user)
 		} }
 		assert_match /#{assigns(:user).reload.perishable_token}/,
 			ActionMailer::Base.deliveries.detect{|m| m.subject =~ /CLIC Email Confirmation/ }.to_s
@@ -204,7 +204,7 @@ class UsersControllerTest < ActionController::TestCase
 		assert_difference('ActionMailer::Base.deliveries.length',2) {
 		assert_difference('Membership.count',3) {
 		assert_difference('User.count',1) {
-			post :create, :user => Factory.attributes_for(:user,{
+			post :create, :user => FactoryGirl.attributes_for(:user,{
 				:membership_requests => {
 					Group['Ethics'].id   => { :group_role_id => GroupRole['editor'].id },
 					Group['Methods'].id  => { :group_role_id => GroupRole['editor'].id },
@@ -231,7 +231,7 @@ class UsersControllerTest < ActionController::TestCase
 		login_as unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user)
+			post :create, :user => FactoryGirl.attributes_for(:user)
 		} }
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -240,7 +240,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without username" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user, :username => nil)
+			post :create, :user => FactoryGirl.attributes_for(:user, :username => nil)
 		} }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -251,7 +251,7 @@ class UsersControllerTest < ActionController::TestCase
 		u = unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user, :username => u.username)
+			post :create, :user => FactoryGirl.attributes_for(:user, :username => u.username)
 		} }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -261,7 +261,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without complex password" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user,
+			post :create, :user => FactoryGirl.attributes_for(:user,
 				:password              => 'mybigbadpassword',
 				:password_confirmation => 'mybigbadpassword'
 			)
@@ -274,7 +274,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without password" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user, :password => nil)
+			post :create, :user => FactoryGirl.attributes_for(:user, :password => nil)
 		} }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -284,7 +284,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without password confirmation" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user, :password_confirmation => nil)
+			post :create, :user => FactoryGirl.attributes_for(:user, :password_confirmation => nil)
 		} }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -294,7 +294,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without matching password and confirmation" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user,
+			post :create, :user => FactoryGirl.attributes_for(:user,
 				:password => 'alpha',
 				:password_confirmation => 'beta')
 		} }
@@ -306,7 +306,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without email" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user,
+			post :create, :user => FactoryGirl.attributes_for(:user,
 				:email => nil)
 		} }
 		assert_not_nil flash[:error]
@@ -317,7 +317,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user without formatted email" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user,
+			post :create, :user => FactoryGirl.attributes_for(:user,
 				:email => 'blah blah blah')
 		} }
 		assert_not_nil flash[:error]
@@ -328,7 +328,7 @@ class UsersControllerTest < ActionController::TestCase
 		u = unapproved_user
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user,
+			post :create, :user => FactoryGirl.attributes_for(:user,
 				:email => u.email)
 		} }
 		assert_not_nil flash[:error]
@@ -412,7 +412,7 @@ class UsersControllerTest < ActionController::TestCase
 		login_as u
 		#	email address will change here triggering email confirmation email
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
-			put :update, :id => u.id, :user => Factory.attributes_for(:user)
+			put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user)
 		}
 		assert_equal u, assigns(:user)
 		assert_redirected_to user_path(assigns(:user))
@@ -424,7 +424,7 @@ class UsersControllerTest < ActionController::TestCase
 		login_as admin
 		#	email address will change here triggering email confirmation email
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
-			put :update, :id => u.id, :user => Factory.attributes_for(:user)
+			put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user)
 		}
 		assert_equal u, assigns(:user)
 		assert_redirected_to user_path(assigns(:user))
@@ -434,14 +434,14 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user with just login" do
 		u = user
 		login_as user
-		put :update, :id => u.id, :user => Factory.attributes_for(:user)
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user)
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
 
 	test "should NOT update user without login" do
 		u = user
-		put :update, :id => u.id, :user => Factory.attributes_for(:user)
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user)
 		assert_redirected_to_login
 		assert_not_nil flash[:error]
 	end
@@ -449,7 +449,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without valid id" do
 		u = user
 		login_as admin
-		put :update, :id => 0, :user => Factory.attributes_for(:user)
+		put :update, :id => 0, :user => FactoryGirl.attributes_for(:user)
 		assert_redirected_to users_path
 		assert_not_nil flash[:error]
 	end
@@ -458,7 +458,7 @@ class UsersControllerTest < ActionController::TestCase
 		u = user
 		login_as admin
 		assert_raise(ActionController::RoutingError){
-			put :update, :user => Factory.attributes_for(:user)
+			put :update, :user => FactoryGirl.attributes_for(:user)
 		}
 	end
 
@@ -475,7 +475,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without username" do
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user,
 			:username => nil)
 		assert_response :success
 		assert_template 'edit'
@@ -483,10 +483,10 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update user without unique username" do
-		u1 = Factory(:user)
+		u1 = FactoryGirl.create(:user)
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user,
 			:username => u1.username)
 		assert_response :success
 		assert_template 'edit'
@@ -500,7 +500,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should update user without password" do
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user,
 			:password => nil, :password_confirmation => nil)
 		assert_equal u, assigns(:user)
 		assert_redirected_to user_path(assigns(:user))
@@ -510,7 +510,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without complex password" do
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user,
 			:password              => 'mybigbadpassword',
 			:password_confirmation => 'mybigbadpassword')
 		assert_response :success
@@ -521,7 +521,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without matching password and confirmation" do
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user,
 			:password => 'alphaV@1!d', 
 			:password_confirmation => 'betaV@1!d')
 		assert_response :success
@@ -532,7 +532,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without password confirmation" do
 		u = user
 		login_as admin
-		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+		put :update, :id => u.id, :user => FactoryGirl.attributes_for(:user,
 			:password_confirmation => nil)
 		assert_response :success
 		assert_template 'edit'

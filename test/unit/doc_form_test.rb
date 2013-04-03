@@ -15,7 +15,7 @@ class DocFormTest < ActiveSupport::TestCase
 	end
 
 	test "should create doc_form with nested attributes for group_documents" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('DocForm.count',1) {
@@ -44,7 +44,7 @@ class DocFormTest < ActiveSupport::TestCase
 	end
 
 	test "should update doc_form with nested attributes for group_documents" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		object = create_doc_form
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {

@@ -53,7 +53,7 @@ class UserTest < ActiveSupport::TestCase
 	test "should accept attributes for membership requests" do
 		assert_difference("Membership.count", 1){
 		assert_difference("User.count", 1){
-			@new_object = Factory(:user,{
+			@new_object = FactoryGirl.create(:user,{
 				:membership_requests => { 
 					Group.joinable.first.id.to_s => {
 						:group_role_id => GroupRole['editor'].id }
@@ -65,7 +65,7 @@ class UserTest < ActiveSupport::TestCase
 	test "should NOT create approved memberships" do
 		assert_difference("Membership.count", 1){
 		assert_difference("User.count", 1){
-			@new_object = Factory(:user,{
+			@new_object = FactoryGirl.create(:user,{
 				:membership_requests => { 
 					Group.joinable.first.id.to_s => {
 						:group_role_id => GroupRole['editor'].id,
@@ -80,7 +80,7 @@ class UserTest < ActiveSupport::TestCase
 		#	Primarily because its a hash and the second key overwrites the first
 		assert_difference("Membership.count", 1){
 		assert_difference("User.count", 1){
-			@new_object = Factory(:user,{
+			@new_object = FactoryGirl.create(:user,{
 				:membership_requests => { 
 					Group.joinable.first.id.to_s => {
 						:group_role_id => GroupRole['editor'].id },
@@ -97,7 +97,7 @@ class UserTest < ActiveSupport::TestCase
 	test "should NOT create memberships for requests without a role" do
 		assert_difference("Membership.count", 0){
 		assert_difference("User.count", 1){
-			@new_object = Factory(:user,{
+			@new_object = FactoryGirl.create(:user,{
 				:membership_requests => { 
 					Group.joinable.first.id.to_s => {
 						:group_role_id => '' }
@@ -108,14 +108,14 @@ class UserTest < ActiveSupport::TestCase
 
 	test "should be unapproved after create" do
 		assert_difference("User.count",1) do
-			@user = Factory(:user)
+			@user = FactoryGirl.create(:user)
 		end
 		assert !@user.reload.approved?
 	end
 
 	test "should be approved after assigned role" do
 		assert_difference("User.count",1) do
-			@user = Factory(:user)
+			@user = FactoryGirl.create(:user)
 		end
 		assert !@user.reload.approved?
 		assert_difference("User.find(#{@user.id}).roles.length",1) do
@@ -126,13 +126,13 @@ class UserTest < ActiveSupport::TestCase
 
 	test "should be approved after membership approved" do
 		assert_difference("User.count",1) do
-			@user = Factory(:user)
+			@user = FactoryGirl.create(:user)
 		end
 		assert !@user.reload.approved?
 		deny_changes("User.find(#{@user.id}).perishable_token") {
 			assert_difference("User.find(#{@user.id}).memberships.length",1) {
 			assert_difference("Membership.count",1) {
-				@m = Factory(:membership, :user => @user)
+				@m = FactoryGirl.create(:membership, :user => @user)
 			} }
 			assert_equal @user, @m.user
 			assert !@m.reload.approved?

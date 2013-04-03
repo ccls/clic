@@ -30,7 +30,7 @@ class SubjectTest < ActiveSupport::TestCase
 #		Subject.solr_reindex
 #		search = Subject.search
 #		assert search.hits.empty?
-#		Factory(:subject)
+#		FactoryGirl.create(:subject)
 #		Subject.solr_reindex
 #		search = Subject.search
 #		assert !search.hits.empty?

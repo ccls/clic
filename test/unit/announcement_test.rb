@@ -29,7 +29,7 @@ class AnnouncementTest < ActiveSupport::TestCase
 	end
 
 	test "should return only those not associated to a group" do
-		create_object(:group => Factory(:group))
+		create_object(:group => FactoryGirl.create(:group))
 		create_object(:group => nil)
 		assert Announcement.groupless.length > 0
 		Announcement.groupless.each do |groupless|

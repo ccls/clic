@@ -10,10 +10,10 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:publication_subject,options)
+		FactoryGirl.create(:publication_subject,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:publication_subject,options)
+		FactoryGirl.attributes_for(:publication_subject,options)
 	end
 
 #	assert_access_with_https

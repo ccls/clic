@@ -15,7 +15,7 @@ class ForumsControllerTest < ActionController::TestCase
 		:method_for_create => :create_forum
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:forum,options)
+		FactoryGirl.attributes_for(:forum,options)
 	end
 
 	# a @membership is required so that those group roles will work
@@ -50,7 +50,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should destroy topics and posts with forum destruction and #{cu} login" do
 			login_as send(cu)
-			post = Factory(:post)
+			post = FactoryGirl.create(:post)
 			assert_difference("Forum.count", -1){
 			assert_difference("Topic.count", -1){
 			assert_difference("Post.count", -1){
@@ -67,7 +67,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should NOT show group forum with #{cu} login and invalid id" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			assert_not_nil forum.id
 			assert_not_nil forum.group
 			get :show, :id => 0
@@ -77,7 +77,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should show group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			assert_not_nil forum.id
 			assert_not_nil forum.group
 			get :show, :id => forum.id
@@ -91,7 +91,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should NOT show group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			assert_not_nil forum.group
 			get :show, :id => forum.id
 			assert_redirected_to root_path
@@ -144,7 +144,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should edit group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			get :edit, :id => forum.id
 			assert_response :success
 			assert_template 'edit'
@@ -152,7 +152,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should update group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			sleep 1
 			assert_changes("Forum.find(#{forum.id}).updated_at") {
 				put :update, :id => forum.id, :forum => factory_attributes
@@ -163,7 +163,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should not update group forum with #{cu} login and invalid forum" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			Forum.any_instance.stubs(:valid?).returns(false)
 			deny_changes("Forum.find(#{forum.id}).updated_at") {
 				put :update, :id => forum.id, :forum => factory_attributes
@@ -175,7 +175,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should not update group forum with #{cu} login and forum save fails" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			Forum.any_instance.stubs(:create_or_update).returns(false)
 			deny_changes("Forum.find(#{forum.id}).updated_at") {
 				put :update, :id => forum.id, :forum => factory_attributes
@@ -207,7 +207,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should NOT edit group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			get :edit, :id => forum.id
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path	#	forum
@@ -215,7 +215,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should NOT update group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			deny_changes("Forum.find(#{forum.id}).updated_at"){
 				put :update, :id => forum.id, :forum => factory_attributes
 			}
@@ -229,7 +229,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should destroy group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			assert_difference("Forum.count", -1){
 				delete :destroy, :id => forum.id
 			}
@@ -242,7 +242,7 @@ class ForumsControllerTest < ActionController::TestCase
 
 		test "should NOT destroy group forum with #{cu} login" do
 			login_as send(cu)
-			forum = Factory(:forum, :group => @membership.group)
+			forum = FactoryGirl.create(:forum, :group => @membership.group)
 			assert_difference("Forum.count",0){
 				delete :destroy, :id => forum.id
 			}

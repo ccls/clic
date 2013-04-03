@@ -41,7 +41,7 @@ class StudyTest < ActiveSupport::TestCase
 	end
 
 	test "principal_investigators should be an array" do
-		study = Factory.build(:study)
+		study = FactoryGirl.build(:study)
 		assert study.principal_investigators.is_a?(Array)
 	end
 

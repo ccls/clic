@@ -10,10 +10,10 @@ class GroupsControllerTest < ActionController::TestCase
 	}
 	def factory_create(options={})
 #		create_group
-		Factory(:group,options)
+		FactoryGirl.create(:group,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:group,options)
+		FactoryGirl.attributes_for(:group,options)
 	end
 
 	# a @membership is required so that those group roles will work

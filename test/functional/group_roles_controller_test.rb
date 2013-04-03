@@ -9,7 +9,7 @@ class GroupRolesControllerTest < ActionController::TestCase
 		:method_for_create => :create_group_role
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:group_role,options)
+		FactoryGirl.attributes_for(:group_role,options)
 	end
 
 	# a @membership is required so that those group roles will work

@@ -26,7 +26,7 @@ class RoleTest < ActiveSupport::TestCase
 #protected
 #
 #	def create_object(options = {})
-#		record = Factory.build(:role,options)
+#		record = FactoryGirl.build(:role,options)
 #		record.save
 #		record
 #	end

@@ -9,7 +9,7 @@ class MembershipsControllerTest < ActionController::TestCase
 		:method_for_create => :create_membership
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:membership, {
+		FactoryGirl.attributes_for(:membership, {
 			:group_role_id => GroupRole['editor'].id }.merge(options))
 	end
 

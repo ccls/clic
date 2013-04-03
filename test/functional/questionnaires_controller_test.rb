@@ -10,10 +10,10 @@ class QuestionnairesControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:questionnaire,options)
+		FactoryGirl.create(:questionnaire,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:questionnaire,{
+		FactoryGirl.attributes_for(:questionnaire,{
 			:study_id => Study.first.id
 		}.merge(options))
 	end
@@ -83,7 +83,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			Rails.stubs(:env).returns('production')
 			load 'questionnaire.rb'
 
-			questionnaire = Factory(:questionnaire, :document_file_name => 'bogus_file_name')
+			questionnaire = FactoryGirl.create(:questionnaire, :document_file_name => 'bogus_file_name')
 			assert !questionnaire.document.exists?
 			assert !File.exists?(questionnaire.document.path)
 

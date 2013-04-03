@@ -3,7 +3,7 @@ require 'test_helper'
 class InventoriesControllerTest < ActionController::TestCase
 #
 #	def inventory_reader
-#		Factory(:membership,
+#		FactoryGirl.create(:membership,
 #			:group      => Group.find_by_name('Coordination Group'),
 #			:approved   => true,
 #			:group_role => GroupRole['reader']
@@ -315,7 +315,7 @@ class InventoriesControllerTest < ActionController::TestCase
 #	end
 #
 #	def _random_subject(options={})
-#		Factory(:subject, { 
+#		FactoryGirl.create(:subject, { 
 #			:study                => Study.random,
 #			:case_status          => random_case_status,
 #			:leukemia_type        => random_leukemia_type,

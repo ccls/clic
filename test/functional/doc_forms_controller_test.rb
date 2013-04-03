@@ -10,10 +10,10 @@ class DocFormsControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:doc_form,options)
+		FactoryGirl.create(:doc_form,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:doc_form,options)
+		FactoryGirl.attributes_for(:doc_form,options)
 	end
 
 	with_options :actions => [:new,:create,:edit,:update,:destroy] do |o|
@@ -49,7 +49,7 @@ class DocFormsControllerTest < ActionController::TestCase
 			assert_response :success
 			assert_template 'new'
 		end
-#						Factory.attributes_for(:group_document,
+#						FactoryGirl.attributes_for(:group_document,
 #							:title => nil,
 #							:document => File.open(File.dirname(__FILE__) + 
 #								'/../assets/edit_save_wireframe.pdf') )])

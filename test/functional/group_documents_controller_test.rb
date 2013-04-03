@@ -13,11 +13,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 	assert_no_route(:delete, :destroy)
 
 	def factory_attributes(options={})
-		Factory.attributes_for(:group_document,options)
+		FactoryGirl.attributes_for(:group_document,options)
 	end
 
 	def create_group_document(options={})
-		document = Factory(:group_document, {
+		document = FactoryGirl.create(:group_document, {
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')
 #				:document => File.open(File.dirname(__FILE__) + 
@@ -87,7 +87,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT download document with no document and #{cu} login" do
-			document = Factory(:group_document, :document_file_name => 'bogus_file_name')
+			document = FactoryGirl.create(:group_document, :document_file_name => 'bogus_file_name')
 			assert !File.exists?(document.document.path)
 			login_as send(cu)
 			get :show, :id => document.id
@@ -116,7 +116,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			Rails.stubs(:env).returns('production')
 			load 'group_document.rb'
 
-			document = Factory(:group_document, :document_file_name => 'bogus_file_name')
+			document = FactoryGirl.create(:group_document, :document_file_name => 'bogus_file_name')
 			assert_not_nil document.id
 			assert_nil     document.group
 			assert !document.document.exists?
@@ -188,7 +188,7 @@ assert document.document.exists?
 			Rails.stubs(:env).returns('production')
 			load 'group_document.rb'
 
-			document = Factory(:group_document, :document_file_name => 'bogus_file_name',
+			document = FactoryGirl.create(:group_document, :document_file_name => 'bogus_file_name',
 				:group => @membership.group)
 			assert_not_nil document.id
 			assert_not_nil document.group

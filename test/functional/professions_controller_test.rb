@@ -10,10 +10,10 @@ class ProfessionsControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:profession,options)
+		FactoryGirl.create(:profession,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:profession,options)
+		FactoryGirl.attributes_for(:profession,options)
 	end
 
 #	assert_access_with_https

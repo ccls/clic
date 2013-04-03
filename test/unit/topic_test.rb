@@ -26,13 +26,13 @@ class TopicTest < ActiveSupport::TestCase
 	end
 
 	test "should create topic with nested attributes for posts" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		assert_difference('Topic.count',1) {
 		assert_difference('User.count',0) {
 		assert_difference('Post.count',1) {
-			object = Factory(:topic, {
+			object = FactoryGirl.create(:topic, {
 				:user => user,
-				:posts_attributes => [ Factory.attributes_for(:post) ]
+				:posts_attributes => [ FactoryGirl.attributes_for(:post) ]
 			})
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -44,14 +44,14 @@ class TopicTest < ActiveSupport::TestCase
 
 	test "should create topic with nested attributes for posts and " <<
 			"nested attributes for group_documents" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		assert_difference('Topic.count',1) {
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('Post.count',1) {
-			object = Factory(:topic, {
+			object = FactoryGirl.create(:topic, {
 				:user => user,
-				:posts_attributes => [Factory.attributes_for(:post,
+				:posts_attributes => [FactoryGirl.attributes_for(:post,
 					:group_documents_attributes => [
 						group_doc_attributes_with_attachment
 					])
@@ -69,18 +69,18 @@ class TopicTest < ActiveSupport::TestCase
 
 	test "should create topic with nested attributes for posts and " <<
 			"nested attributes for group_documents with group" do
-		group = Factory(:group)
-		forum = Factory(:forum, :group => group)
+		group = FactoryGirl.create(:group)
+		forum = FactoryGirl.create(:forum, :group => group)
 		assert_not_nil forum.group
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		assert_difference('Topic.count',1) {
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('Post.count',1) {
-			object = Factory(:topic, {
+			object = FactoryGirl.create(:topic, {
 				:forum => forum,
 				:user => user,
-				:posts_attributes => [Factory.attributes_for(:post,
+				:posts_attributes => [FactoryGirl.attributes_for(:post,
 					:group_documents_attributes => [
 						group_doc_attributes_with_attachment
 					])
@@ -100,7 +100,7 @@ class TopicTest < ActiveSupport::TestCase
 	end
 
 	test "should have a last_post" do
-		post = Factory(:post)
+		post = FactoryGirl.create(:post)
 		assert_equal post, post.topic.last_post
 	end
 

@@ -22,7 +22,7 @@ class PublicationTest < ActiveSupport::TestCase
 	end
 
 #	test "should create publication with nested attributes for group_documents" do
-#		user = Factory(:user)
+#		user = FactoryGirl.create(:user)
 #		assert_difference('User.count',0) {
 #		assert_difference('GroupDocument.count',1) {
 #		assert_difference('Publication.count',1) {
@@ -53,7 +53,7 @@ class PublicationTest < ActiveSupport::TestCase
 #
 #	test "should update publication with nested attributes for group_documents" do
 #		object = create_publication
-#		user = Factory(:user)
+#		user = FactoryGirl.create(:user)
 #		assert_difference('User.count',0) {
 #		assert_difference('GroupDocument.count',1) {
 #		assert_difference('Publication.count',0) {

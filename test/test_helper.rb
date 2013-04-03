@@ -61,7 +61,7 @@ class ActionController::TestCase
 	end
 
 	def create_membership(options={})
-		m = Factory(:membership,{
+		m = FactoryGirl.create(:membership,{
 			:approved   => true,
 			:group_role => GroupRole['reader']}.merge(options))
 		m.reload

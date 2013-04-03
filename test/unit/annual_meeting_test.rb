@@ -15,7 +15,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 	end
 
 	test "should create annual_meeting with nested attributes for group_documents" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {
 		assert_difference('AnnualMeeting.count',1) {
@@ -47,7 +47,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 	end
 
 	test "should update annual_meeting with nested attributes for group_documents" do
-		user = Factory(:user)
+		user = FactoryGirl.create(:user)
 		object = create_annual_meeting
 		assert_difference('User.count',0) {
 		assert_difference('GroupDocument.count',1) {

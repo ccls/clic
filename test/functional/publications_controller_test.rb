@@ -10,10 +10,10 @@ class PublicationsControllerTest < ActionController::TestCase
 	}
 
 	def factory_create(options={})
-		Factory(:publication,options)
+		FactoryGirl.create(:publication,options)
 	end
 	def factory_attributes(options={})
-		Factory.attributes_for(:publication,options)
+		FactoryGirl.attributes_for(:publication,options)
 	end
 
 	with_options :actions => [:new,:create,:edit,:update,:destroy] do |o|
@@ -47,7 +47,7 @@ class PublicationsControllerTest < ActionController::TestCase
 #			assert_response :success
 #			assert_template 'new'
 #		end
-##						Factory.attributes_for(:group_document,
+##						FactoryGirl.attributes_for(:group_document,
 ##							:title => nil,
 ##							:document => File.open(File.dirname(__FILE__) + 
 ##								'/../assets/edit_save_wireframe.pdf') )])

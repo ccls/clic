@@ -14,7 +14,7 @@ class GroupMembershipsControllerTest < ActionController::TestCase
 	assert_no_route(:delete, :destroy)
 
 	def factory_attributes(options={})
-		Factory.attributes_for(:membership)
+		FactoryGirl.attributes_for(:membership)
 	end
 
 	# a @membership is required so that those group roles will work
