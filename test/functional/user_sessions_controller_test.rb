@@ -37,7 +37,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 		user = unapproved_user
 		post :create, :user_session => {
 			:username => user.username,
-			:password => FactoryGirlGirl.attributes_for(:user)[:password]
+			:password => FactoryGirl.attributes_for(:user)[:password]
 		}
 		assert_redirected_to root_path
 	end
@@ -47,7 +47,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 		user = unapproved_user
 		post :create, :user_session => {
 			:username => user.username,
-			:password => FactoryGirlGirl.attributes_for(:user)[:password]
+			:password => FactoryGirl.attributes_for(:user)[:password]
 		}
 		assert_redirected_to "http://www.google.com"
 		assert_nil session[:return_to]
@@ -58,7 +58,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 		user = unapproved_user
 		post :create, :user_session => {
 			:username => user.username,
-			:password => FactoryGirlGirl.attributes_for(:user)[:password]
+			:password => FactoryGirl.attributes_for(:user)[:password]
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -84,7 +84,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 	test "should NOT create session without username" do
 		user = unapproved_user
 		post :create, :user_session => {
-			:password => FactoryGirlGirl.attributes_for(:user)[:password]
+			:password => FactoryGirl.attributes_for(:user)[:password]
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -95,7 +95,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 		user = unapproved_user
 		post :create, :user_session => {
 			:username => 'fake_username',
-			:password => FactoryGirlGirl.attributes_for(:user)[:password]
+			:password => FactoryGirl.attributes_for(:user)[:password]
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
