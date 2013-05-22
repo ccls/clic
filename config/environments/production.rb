@@ -11,11 +11,24 @@ Clic::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
+
+
+
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+#	config.assets.compress = true
+#	raises ...
+#	Error compiling asset jquery.js:
+#	ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime. See https://github.com/sstephenson/execjs for a list of available runtimes.
+	config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+#	config.assets.compile = false
+#	raises many ....
+#		ActionView::Template::Error (jquery.js isn't precompiled):
+	config.assets.compile = true
+
+
+
 
   # Generate digests for assets URLs
   config.assets.digest = true
