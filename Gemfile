@@ -65,15 +65,11 @@ group :test do
 
 	gem 'test-unit'
 
-#	gem "mocha", '0.10.5', :require => false
-	gem "mocha", :require => false
+	gem "mocha", '0.13.3', :require => false
 
 	gem "autotest-rails", :require => 'autotest/rails'
-	gem 'ZenTest', '=4.8.3'	#	'~>4.5.0'
+	gem 'ZenTest'
 
-	#	gem "thoughtbot-factory_girl", :require => "factory_girl"
-#	gem "factory_girl"	#, "~> 2.6.0"
-	# rails 3 version
 	gem "factory_girl_rails"
 end
 
