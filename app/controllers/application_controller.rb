@@ -76,7 +76,7 @@ protected	#	private #	(does it matter which or if neither?)
 		%w( dir order ).map(&:to_sym).each do |param|
 			if params[param].blank? && !session[param].blank?
 				params[param] = session[param]	#	recall
-			elsif !params[param].blank?
+			elsif params[param].present?
 				session[param] = params[param]	#	record
 			end
 		end

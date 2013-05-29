@@ -46,7 +46,7 @@ protected
 	end
 
 	def group_role_required
-		if params[:membership] && params[:membership][:group_role_id] &&
+		if params[:membership].present? && params[:membership][:group_role_id].present? &&
 				GroupRole.exists?(params[:membership][:group_role_id])
 			@group_role = GroupRole.find(params[:membership][:group_role_id])
 		else

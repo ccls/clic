@@ -55,7 +55,7 @@ class GroupsController < ApplicationController
 protected
 
 	def valid_parent_id_required
-		if( !params[:parent_id].blank? && Group.exists?(params[:parent_id]) )
+		if( params[:parent_id].present? && Group.exists?(params[:parent_id]) )
 			@group = Group.find(params[:parent_id])
 #		else
 #			access_denied("Valid parent_id required!", groups_path)

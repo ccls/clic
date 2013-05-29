@@ -24,7 +24,7 @@ class GroupMembershipsController < ApplicationController
 
 	def create
 		@membership = @group.memberships.new
-		if( params[:membership] && 
+		if( params[:membership].present? && 
 				params[:membership][:group_role_id] &&
 				GroupRole.exists?(params[:membership][:group_role_id]) )
 			@membership.group_role = GroupRole.find(params[:membership][:group_role_id])

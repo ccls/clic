@@ -6,15 +6,15 @@ class DirectoriesController < ApplicationController
 		recall_or_record_sort_order
 		conditions = [[]]
 		joins = []
-		if params[:first_name] and !params[:first_name].blank?
+		if params[:first_name].present?	# and !params[:first_name].blank?
 			conditions[0] << 'users.first_name LIKE ?'
 			conditions << "%#{params[:first_name]}%"
 		end
-		if params[:last_name] and !params[:last_name].blank?
+		if params[:last_name].present?	# and !params[:last_name].blank?
 			conditions[0] << 'users.last_name LIKE ?'
 			conditions << "%#{params[:last_name]}%"
 		end
-		if params[:profession_id] and !params[:profession_id].blank?
+		if params[:profession_id].present?	# and !params[:profession_id].blank?
 #	Sqlite quoting does not work on mysql
 #			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
 #			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
@@ -42,7 +42,7 @@ protected
 	end
 
 	def search_order
-		if valid_orders.has_key?(params[:order])
+		if params[:order].present? and valid_orders.has_key?(params[:order])
 			order_string = if valid_orders[params[:order]].blank?
 				params[:order]
 #	Only used when order is part of a join.

@@ -49,7 +49,7 @@ class PublicationSubjectsController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && PublicationSubject.exists?(params[:id]) )
+		if( params[:id].present? && PublicationSubject.exists?(params[:id]) )
 			@publication_subject = PublicationSubject.find(params[:id])
 		else
 			access_denied("Valid id required!", publication_subjects_path)

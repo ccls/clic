@@ -36,7 +36,7 @@ class PhotosController < ApplicationController
 protected
 
 	def id_required
-		if !params[:id].blank? and Photo.exists?(params[:id])
+		if params[:id].present? and Photo.exists?(params[:id])
 			@photo = Photo.find(params[:id])
 		else
 			access_denied("Valid photo id required!", photos_path)

@@ -72,7 +72,7 @@ class DocumentsController < ApplicationController
 protected
 
 	def id_required
-		if !params[:id].blank? and Document.exists?(params[:id])
+		if params[:id].present? and Document.exists?(params[:id])
 			@document = Document.find(params[:id])
 		else
 			access_denied("Valid document id required!", documents_path)
@@ -80,9 +80,9 @@ protected
 	end
 
 	def document_required
-		if !params[:id].blank? and Document.exists?(params[:id])
+		if params[:id].present? and Document.exists?(params[:id])
 			@document = Document.find(params[:id])
-		elsif !params[:id].blank? and Document.exists?(
+		elsif params[:id].present? and Document.exists?(
 			:document_file_name => "#{params[:id]}.#{params[:format]}")
 			documents = Document.find(:all, :conditions => {
 			:document_file_name => "#{params[:id]}.#{params[:format]}"})

@@ -16,7 +16,8 @@ class AnnouncementsController < ApplicationController
 		:only => [:edit,:update,:show,:destroy]
 
 	def index
-		@announcements = Announcement.where(:group_id => nil ).order('created_at DESC, begins_on DESC').all
+		@announcements = Announcement.where(:group_id => nil )
+			.order('created_at DESC, begins_on DESC').all
 	end
 
 	def new
@@ -55,7 +56,7 @@ class AnnouncementsController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && Announcement.exists?(params[:id]) )
+		if( params[:id].present? && Announcement.exists?(params[:id]) )
 			@announcement = Announcement.find(params[:id])
 		else
 			access_denied("Valid id required!", announcements_path)

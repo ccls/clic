@@ -65,7 +65,7 @@ class QuestionnairesController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && Questionnaire.exists?(params[:id]) )
+		if( params[:id].present? && Questionnaire.exists?(params[:id]) )
 			@questionnaire = Questionnaire.find(params[:id])
 		else
 			access_denied("Valid id required!", questionnaires_path)

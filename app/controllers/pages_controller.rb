@@ -31,7 +31,7 @@ class PagesController < ApplicationController
 #	this doesn't even check for parents or anything
 #	making it faster, but potentially error prone.
 
-		if params[:pages] && params[:pages].is_a?(Array)
+		if params[:pages].present? && params[:pages].is_a?(Array)
 			params[:pages].each_with_index { |id,index| 
 				Page.find(id).update_attribute(:position, index+1 ) }
 		else
@@ -90,7 +90,7 @@ class PagesController < ApplicationController
 protected
 
 	def id_required
-		if !params[:id].blank? and Page.exists?(params[:id])
+		if params[:id].present? and Page.exists?(params[:id])
 			@page = Page.find(params[:id])
 		else
 			access_denied("Valid page id required!", pages_path)
@@ -112,7 +112,7 @@ protected
 #
 #	inverted
 
-		if params[:id]
+		if params[:id].present?
 			@page = Page.find(params[:id])
 		else
 # 			@page = Page.by_path("/#{params[:path].join('/')}")

@@ -7,7 +7,7 @@ class PasswordsController < ApplicationController
 	before_filter :validate_current_password, :only => :update
 
 	def update
-		if params[:user] && 
+		if params[:user].present? && 
 				params[:user][:password].blank? &&
 				params[:user][:password_confirmation].blank?
 			flash[:warn] = "Password was NOT provided so NOT updated."

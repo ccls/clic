@@ -47,7 +47,7 @@ class GroupRolesController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && GroupRole.exists?(params[:id]) )
+		if( params[:id].present? && GroupRole.exists?(params[:id]) )
 			@group_role = GroupRole.find(params[:id])
 		else
 			access_denied("Valid id required!", group_roles_path)

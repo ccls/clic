@@ -86,7 +86,7 @@ class UsersController < ApplicationController
 protected
 
 	def id_required
-		if !params[:id].blank? and User.exists?(params[:id])
+		if params[:id].present? and User.exists?(params[:id])
 			@user = User.find(params[:id])
 		else
 			access_denied("user id required!", users_path)

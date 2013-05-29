@@ -68,7 +68,7 @@ class AnnualMeetingsController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && AnnualMeeting.exists?(params[:id]) )
+		if( params[:id].present? && AnnualMeeting.exists?(params[:id]) )
 			@annual_meeting = AnnualMeeting.find(params[:id])
 		else
 			access_denied("Valid id required!", annual_meetings_path)

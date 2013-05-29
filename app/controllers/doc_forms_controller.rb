@@ -55,7 +55,7 @@ class DocFormsController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && DocForm.exists?(params[:id]) )
+		if( params[:id].present? && DocForm.exists?(params[:id]) )
 			@doc_form = DocForm.find(params[:id])
 		else
 			access_denied("Valid id required!", doc_forms_path)

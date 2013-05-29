@@ -20,7 +20,7 @@ class RolesController < ApplicationController
 protected
 
 	def user_id_required
-		if !params[:user_id].blank? and User.exists?(params[:user_id])
+		if params[:user_id].present? and User.exists?(params[:user_id])
 			@user = User.find(params[:user_id])
 		else
 			access_denied("user id required!", users_path)
@@ -28,7 +28,7 @@ protected
 	end
 
 	def id_required
-		if !params[:id].blank? and Role.exists?(:name => params[:id])
+		if params[:id].present? and Role.exists?(:name => params[:id])
 			@role = Role.find_by_name(params[:id])
 		else
 			access_denied("id required!", @user)

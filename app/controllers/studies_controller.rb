@@ -47,7 +47,7 @@ class StudiesController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && Study.exists?(params[:id]) )
+		if( params[:id].present? && Study.exists?(params[:id]) )
 			@study = Study.find(params[:id])
 		else
 			access_denied("Valid id required!", studies_path)

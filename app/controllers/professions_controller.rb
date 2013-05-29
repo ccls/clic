@@ -49,7 +49,7 @@ class ProfessionsController < ApplicationController
 protected
 
 	def valid_id_required
-		if( !params[:id].blank? && Profession.exists?(params[:id]) )
+		if( params[:id].present? && Profession.exists?(params[:id]) )
 			@profession = Profession.find(params[:id])
 		else
 			access_denied("Valid id required!", professions_path)
