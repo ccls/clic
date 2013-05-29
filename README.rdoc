@@ -214,5 +214,29 @@ Use DateTime.current or Time.zone.now
 
 
 
+---
+== Quick Development Notes
+
+ c ; /bin/rm -rf coverage* ; bundle exec rake ; mv coverage coverage-one-run ; open coverage-one-run/index.html ; nice +20 bundle exec autotest
+
+
+---
+== Quick Production Notes
+
+Unfortunately, killing the server could result in lost data that
+may be cached in memory.  At least in theory.  I don't think that
+rails really caches like that.
+
+CLIC IS ON PORT 3001 !!!!
+
+ cd /my/ruby/clic
+ kill -9 `cat tmp/pids/server.pid`
+ git pull
+ bundle install
+ rake db:migrate
+ script/rails server -d -p 3001 -e production
+
+
+
 
 
