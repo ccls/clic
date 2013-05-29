@@ -44,7 +44,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.10.0)
+    aws-sdk (1.11.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -76,9 +76,6 @@ GEM
     hpricot (0.8.6-java)
     i18n (0.6.1)
     journey (1.0.4)
-    jquery-rails (2.2.1)
-      railties (>= 3.0, < 5.0)
-      thor (>= 0.14, < 2.0)
     json (1.8.0)
     json (1.8.0-java)
     mail (2.5.4)
@@ -89,7 +86,7 @@ GEM
     minitest (5.0.2)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
-    multi_json (1.7.3)
+    multi_json (1.7.4)
     mysql (2.9.1)
     mysql2 (0.3.11)
     nokogiri (1.5.9)
@@ -177,7 +174,6 @@ DEPENDENCIES
   coffee-rails
   factory_girl_rails
   hpricot
-  jquery-rails
   minitest
   mocha (= 0.13.3)
   mysql
