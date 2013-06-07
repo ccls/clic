@@ -63,7 +63,33 @@ group :test do
 	gem "mocha", '0.13.3', :require => false
 
 	gem "autotest-rails", :require => 'autotest/rails'
-	gem 'ZenTest'
+
+
+	#	try upgrading ZenTest (4.9.0 still has "illformed" gemspec (problem with old rubygems))
+	gem 'ZenTest', '=4.9.1'
+	#	ZenTest 4.9.2 always ends tests with ...
+	#Run options: --seed 6126
+	#
+	## Running:
+	#
+	#
+	#
+	#Finished in 0.001282s, 0.0000 runs/s, 0.0000 assertions/s.
+	#
+	#0 runs, 0 assertions, 0 failures, 0 errors, 0 skips
+	#
+	#	and uses minitest/autorun rather that test/unit
+	#
+	#	/opt/local/bin/ruby1.9 -I.:lib:test -rubygems -e "%w[minitest/autorun 
+	#		test/integration/addressing_integration_test.rb].each { |f| require f }"
+	#	
+	#	/opt/local/bin/ruby1.9 -I.:lib:test -rubygems -e "%w[test/unit 
+	#		test/integration/addressing_integration_test.rb].each { |f| require f }"
+	#
+	#	... and also does not summarize errors and failures at the end??
+	#
+
+
 
 	gem "factory_girl_rails"
 end
