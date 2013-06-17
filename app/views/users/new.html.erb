@@ -8,10 +8,10 @@
 <%= render :partial => 'form1', :locals => { :f => f } %>
 
  <%= f.wrapped_password_field :password,
-		:label_text => "Password #{required('*&nbsp;**')}",
+		:label_text => "Password #{required('*&nbsp;**')}".html_safe,
     :class => 'autosize' %>
  <%= f.wrapped_password_field :password_confirmation,
-		:label_text => "Password Confirmation #{required('*&nbsp;**')}",
+		:label_text => "Password Confirmation #{required('*&nbsp;**')}".html_safe,
     :class => 'autosize' %>
 
 <%= render :partial => 'form2', :locals => { :f => f } %>

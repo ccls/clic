@@ -7,10 +7,10 @@
 
  <%= f.error_messages %>
  <%= f.wrapped_password_field :password,
-		:label_text => "Password #{required('*')}",
+		:label_text => "Password #{required('*')}".html_safe,
     :class => 'autosize' %>
  <%= f.wrapped_password_field :password_confirmation,
-		:label_text => "Password Confirmation #{required('*')}",
+		:label_text => "Password Confirmation #{required('*')}".html_safe,
     :class => 'autosize' %>
 
 <p>

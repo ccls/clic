@@ -10,10 +10,10 @@
 <label for="user_current_password">Current Password</label><input class="autosize" id="user_current_password" name="user[current_password]" size="30" type="password" />
 </div><!-- class='current_password' -->
  <%= f.wrapped_password_field :password,
-		:label_text => "Password #{required('*')}",
+		:label_text => "Password #{required('*')}".html_safe,
     :class => 'autosize' %>
  <%= f.wrapped_password_field :password_confirmation,
-		:label_text => "Password Confirmation #{required('*')}",
+		:label_text => "Password Confirmation #{required('*')}".html_safe,
     :class => 'autosize' %>
 
 <p>

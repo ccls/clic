@@ -3,8 +3,8 @@
 <%= f.error_messages %>
 <%#= hidden_field_tag( :token, params[:token] ) if( params[:token] ) %>
 <%= f.wrapped_text_field :username,
-	:label_text => "Username #{required('*')}",
+	:label_text => "Username #{required('*')}".html_safe,
 	:class => 'autosize' %>
 <%= f.wrapped_text_field :email,
-	:label_text => "Email #{required('*&nbsp;***')}",
+	:label_text => "Email #{required('*&nbsp;***')}".html_safe,
 	:class => 'autosize' %>
