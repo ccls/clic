@@ -87,8 +87,10 @@ config.log_level = :debug
 	config.action_mailer.delivery_method = :smtp
 
 	config.action_mailer.default_url_options = { 
-		:protocol => "https",
 		:host => "clic.berkeley.edu" }
+
+#	not really necessary, and causes issues in emails sent.
+#		:protocol => "https",
 
 
 end
