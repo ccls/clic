@@ -10,7 +10,7 @@ source "http://gems.github.com"
 
 
 
-gem 'rails'
+gem 'rails', '~> 3.2'
 
 gem 'sqlite3'
 
