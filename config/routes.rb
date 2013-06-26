@@ -125,9 +125,9 @@ Clic::Application.routes.draw do
 			get :resend
 		end
 	end
-	match 'confirm_email/:id' => 'email_confirmations#confirm',
+	get 'confirm_email/:id' => 'email_confirmations#confirm',
 		:as => :confirm_email
-	match 'resend_confirm_email/:id' => 'email_confirmations#resend',
+	get 'resend_confirm_email/:id' => 'email_confirmations#resend',
 		:as => :resend_confirm_email
 
 	
@@ -159,15 +159,15 @@ Clic::Application.routes.draw do
 #	login   '/login',   :controller => 'user_sessions', :action => 'new'
 #	signout '/signout', :controller => 'user_sessions', :action => 'destroy'
 #	logout  '/logout',  :controller => 'user_sessions', :action => 'destroy'
-	match 'signup' =>  'users#new',
+	get 'signup' =>  'users#new',
 		:as => :signup
-	match 'signin' =>  'user_sessions#new',
+	get 'signin' =>  'user_sessions#new',
 		:as => :signin
-	match 'login' =>   'user_sessions#new',
+	get 'login' =>   'user_sessions#new',
 		:as => :login
-	match 'signout' => 'user_sessions#destroy',
+	delete 'signout' => 'user_sessions#destroy',
 		:as => :signout
-	match 'logout' =>  'user_sessions#destroy',
+	delete 'logout' =>  'user_sessions#destroy',
 		:as => :logout
 
 	resources :locales, :only => :show
