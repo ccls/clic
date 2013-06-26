@@ -21,12 +21,9 @@ class Group < ActiveRecord::Base
 	has_many :users, :through => :memberships
 	has_many :forums
 	
-#	scope :joinable, :conditions => { :groups_count => 0 }
-#	scope :roots, :conditions => { :parent_id => nil }
-#	scope :not_roots, :conditions => [ 'groups.parent_id IS NOT NULL' ]
-	scope :joinable, where( :groups_count => 0 )
-	scope :roots, where( :parent_id => nil )
-	scope :not_roots, where( 'groups.parent_id IS NOT NULL' )
+	scope :joinable,  ->{ where( :groups_count => 0 ) }
+	scope :roots,     ->{ where( :parent_id => nil ) }
+	scope :not_roots, ->{ where( 'groups.parent_id IS NOT NULL' ) }
 
 	validates_presence_of   :name
 	validates_uniqueness_of :name

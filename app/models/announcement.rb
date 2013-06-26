@@ -25,8 +25,7 @@ class Announcement < ActiveRecord::Base
 
 	attr_protected :group_id, :user_id
 
-#	scope :groupless, :conditions => { :group_id => nil }
-	scope :groupless, where( :group_id => nil )
+	scope :groupless, ->{ where( :group_id => nil ) }
 
 	validate :begins_at_is_before_ends_at
 
