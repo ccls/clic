@@ -9,7 +9,7 @@ versions/
 /config/initializers/secret_token.rb
 /config/s3.yml
 /coverage.data
-/coverage/
+/coverage*/
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /db/pages.yml
