@@ -8,23 +8,23 @@ class PagesController < ApplicationController
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 	before_filter :page_required, :only => :show
 
-#	caches partials from layout as well, which is too much
-#	caching still buggy
-#	if do cache layout, contains user links
-#	if don't cache layout, submenu goes missing
-
-#	caches_action saves to memory
-#	caches_page generates an actual file in public/
-#	it would probably require modifications to the
-#	page_sweeper's expire calls
-
-	#	This will also cache the flash output so don't cache layout
-	caches_action :show, :layout => false
-
-#	caches_page :show	#, :layout => false
-	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
-
-#	ssl_allowed :show, :translate
+##	caches partials from layout as well, which is too much
+##	caching still buggy
+##	if do cache layout, contains user links
+##	if don't cache layout, submenu goes missing
+#
+##	caches_action saves to memory
+##	caches_page generates an actual file in public/
+##	it would probably require modifications to the
+##	page_sweeper's expire calls
+#
+#	#	This will also cache the flash output so don't cache layout
+#	caches_action :show, :layout => false
+#
+##	caches_page :show	#, :layout => false
+#	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
+#
+##	ssl_allowed :show, :translate
 
 	def order
 #		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
