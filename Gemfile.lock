@@ -44,12 +44,12 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.11.3)
+    aws-sdk (1.12.0)
       json (~> 1.4)
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
     builder (3.0.4)
-    ccls-common_lib (1.2.5)
+    ccls-common_lib (1.2.7)
     ccls-html_test (0.3.5)
     chronic (0.9.1)
     climate_control (0.0.3)
@@ -88,7 +88,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.7)
     mysql (2.9.1)
-    mysql2 (0.3.11)
+    mysql2 (0.3.12)
     nokogiri (1.5.10)
     nokogiri (1.5.10-java)
     paperclip (3.4.2)
@@ -149,7 +149,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
-    uglifier (2.1.1)
+    uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     uuidtools (2.1.4)
