@@ -20,8 +20,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		document = FactoryGirl.create(:group_document, {
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')
-#				:document => File.open(File.dirname(__FILE__) + 
-#				'/../assets/edit_save_wireframe.pdf')
 			}.merge(options))
 		assert_not_nil document.id
 		document
@@ -106,7 +104,6 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
-#pending	# TODO confirm success. Content Disposition doesn't exist anymore
 			assigns(:group_document).destroy
 		end
 
@@ -123,14 +120,11 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			assert !File.exists?(document.document.path)
 	
 			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
-assert document.document.exists?
-
+			assert document.document.exists?
 	
 			login_as send(cu)
 			get :show, :id => document.id
-#puts @response.inspect
 			assert_response :redirect
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications
@@ -178,7 +172,6 @@ assert document.document.exists?
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
-#pending	#	TODO confirm success
 			assigns(:group_document).destroy
 		end
 
@@ -196,13 +189,11 @@ assert document.document.exists?
 			assert !File.exists?(document.document.path)
 	
 			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
-assert document.document.exists?
-
+			assert document.document.exists?
 	
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications

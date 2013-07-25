@@ -12,17 +12,11 @@ class PhotoTest < ActiveSupport::TestCase
 		end
 	end
 
-
 	test "should use local filesystem to store attachment in test" do
 		photo = FactoryGirl.create(:photo, :image_file_name => 'bogus_file_name')
 		assert !photo.image.exists?
 		assert !File.exists?(photo.image.path)
-
 		assert_equal :filesystem, photo.image.options[:storage]
-#puts 'expiring_url'
-#puts document.document.expiring_url
-#	/system/documents/documents/000/001/149/original/bogus_file_name
-
 	end
 
 	test "should use amazon to store attachment in production" do

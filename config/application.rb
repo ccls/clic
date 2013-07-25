@@ -61,25 +61,4 @@ module Clic
     config.assets.version = '1.0'
   end
 end
-
-#
-#	This constant is used in the ucb_ccls_engine#Document
-#	and other places like Amazon buckets
-#	for controlling the path to documents.
-#
-#	Now that the root app is a defined class ...
-#
-#	irb(main):003:0> Rails.application.class
-#	=> Clic::Application
-#
-#	it could be parsed and used rather than setting this constant.
-#
-#	TODO stop using RAILS_APP_NAME
-#
-#	irb(main):009:0> Rails.application.class.parent.to_s.downcase
-#	=> "clic"
-#
-#RAILS_APP_NAME = 'clic'
-
-
 __END__

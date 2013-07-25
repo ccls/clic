@@ -43,8 +43,6 @@ class QuestionnairesControllerTest < ActionController::TestCase
 				post :create, :questionnaire => factory_attributes(
 					:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 						'/../assets/edit_save_wireframe.pdf'))
-#					:document => File.open(File.dirname(__FILE__) + 
-#						'/../assets/edit_save_wireframe.pdf'))
 			}
 			assert_nil flash[:error]
 			assert_not_nil flash[:notice]
@@ -61,8 +59,6 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			questionnaire = factory_create(
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf'))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf'))
 			login_as send(cu)
 			get :download, :id => questionnaire.reload.id
 			assert_nil flash[:error]
@@ -72,7 +68,6 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
-#pending # TODO confirm success. Content Disposition doesn't exist anymore
 			#	we must clean up after ourselves to remove the upload
 			questionnaire.destroy
 		end
@@ -88,12 +83,11 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert !File.exists?(questionnaire.document.path)
 
 			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
-assert questionnaire.document.exists?
+			assert questionnaire.document.exists?
 
 			login_as send(cu)
 			get :download, :id => questionnaire.id
 			assert_response :redirect
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications
@@ -113,8 +107,6 @@ assert questionnaire.document.exists?
 			questionnaire = factory_create(
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf'))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf'))
 			File.delete(questionnaire.document.path)
 			login_as send(cu)
 			get :download, :id => questionnaire.id
@@ -130,8 +122,6 @@ assert questionnaire.document.exists?
 			questionnaire = factory_create(
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf'))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf'))
 			login_as send(cu)
 			get :download, :id => questionnaire.id
 			assert_not_nil flash[:error]
@@ -146,8 +136,6 @@ assert questionnaire.document.exists?
 		questionnaire = factory_create(
 			:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 				'/../assets/edit_save_wireframe.pdf'))
-#			:document => File.open(File.dirname(__FILE__) + 
-#				'/../assets/edit_save_wireframe.pdf'))
 		get :download, :id => questionnaire.id
 		assert_redirected_to_login
 		#	we must clean up after ourselves to remove the upload

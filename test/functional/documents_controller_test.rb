@@ -71,12 +71,11 @@ class DocumentsControllerTest < ActionController::TestCase
 			assert !File.exists?(document.document.path)
 
 			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
-assert document.document.exists?
+			assert document.document.exists?
 
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications
@@ -122,8 +121,6 @@ assert document.document.exists?
 			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf')))
 			login_as send(cu)
 			get :show, :id => document.reload.id
 			assert_nil flash[:error]
@@ -137,8 +134,6 @@ assert document.document.exists?
 			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf')))
 			login_as send(cu)
 			get :show, :id => 'edit_save_wireframe',
 				:format => 'pdf'
@@ -163,12 +158,11 @@ assert document.document.exists?
 			assert !File.exists?(document.document.path)
 
 			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
-assert document.document.exists?
+			assert document.document.exists?
 
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-#			assert_match %r{\Ahttp(s)?://s3.amazonaws.com/clic/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
 
 			#	WE MUST UNDO these has_attached_file modifications
@@ -214,8 +208,6 @@ assert document.document.exists?
 			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf')))
 			login_as send(cu) #unless cu == 'NOLOGIN'
 			get :show, :id => document.reload.id
 			assert_nil flash[:error]
@@ -229,8 +221,6 @@ assert document.document.exists?
 			document = Document.create!(FactoryGirl.attributes_for(:document, 
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')))
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf')))
 			login_as send(cu) #unless cu == 'NOLOGIN'
 			get :show, :id => 'edit_save_wireframe',
 				:format => 'pdf'

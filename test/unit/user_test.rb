@@ -150,10 +150,6 @@ class UserTest < ActiveSupport::TestCase
 		document.close
 	end
 
-#end
-#__END__
-
-
 	test "should create user" do
 		assert_difference 'User.count' do
 			user = create_object
@@ -288,12 +284,7 @@ class UserTest < ActiveSupport::TestCase
 		user = FactoryGirl.create(:user, :avatar_file_name => 'bogus_file_name')
 		assert !user.avatar.exists?
 		assert !File.exists?(user.avatar.path)
-
 		assert_equal :filesystem, user.avatar.options[:storage]
-#puts 'expiring_url'
-#puts document.document.expiring_url
-#	/system/documents/documents/000/001/149/original/bogus_file_name
-
 	end
 
 	test "should use amazon to store attachment in production" do
@@ -314,7 +305,6 @@ class UserTest < ActiveSupport::TestCase
 		Rails.unstub(:env)
 		load 'user.rb'
 	end
-
 
 protected
 

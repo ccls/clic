@@ -18,8 +18,6 @@ class QuestionnaireTest < ActiveSupport::TestCase
 			@object = create_object(
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf')
-#				:document => File.open(File.dirname(__FILE__) + 
-#					'/../assets/edit_save_wireframe.pdf')
 			)
 		}
 		@object.destroy
@@ -37,12 +35,7 @@ class QuestionnaireTest < ActiveSupport::TestCase
 		questionnaire = FactoryGirl.create(:questionnaire, :document_file_name => 'bogus_file_name')
 		assert !questionnaire.document.exists?
 		assert !File.exists?(questionnaire.document.path)
-
 		assert_equal :filesystem, questionnaire.document.options[:storage]
-#puts 'expiring_url'
-#puts document.document.expiring_url
-#	/system/documents/documents/000/001/149/original/bogus_file_name
-
 	end
 
 	test "should use amazon to store attachment in production" do

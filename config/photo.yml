@@ -46,19 +46,6 @@ DEFAULTS: &DEFAULTS
 
 <% common = "photos/:id/:style/:filename" %>
 
-#>> Rails.root.to_s.split('/')
-#=> ["", "var", "lib", "tomcat5", "webapps", "clic", "WEB-INF"]
-#
-#>> Rails.root.to_s.split('/')
-#=> ["", "Users", "jakewendt", "github_repo", "jakewendt", "clic"]
-#
-<% 
-app_name = ( defined?(RAILS_APP_NAME) ) ? 
-	RAILS_APP_NAME :
-	Rails.root.to_s.split('/').reject{|x|x ==  "WEB-INF"}.last 
-%>
-
-
 development:
   :url: <%= "/development/#{common}" %>
   :path: <%= "#{Rails.root}/public/development/#{common}" %>
@@ -80,7 +67,6 @@ production:
   :s3_protocol: https
   :s3_credentials: <%="#{Rails.root}/config/s3.yml" %>
   :bucket: clic
-#<%= app_name %>
   :path: <%= common %>
   # S3 must have a defined path or will generate
   # "Stack level too deep" errors
