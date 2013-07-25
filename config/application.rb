@@ -79,7 +79,7 @@ end
 #	irb(main):009:0> Rails.application.class.parent.to_s.downcase
 #	=> "clic"
 #
-RAILS_APP_NAME = 'clic'
+#RAILS_APP_NAME = 'clic'
 
 
 __END__

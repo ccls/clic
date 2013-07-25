@@ -33,6 +33,35 @@ class QuestionnaireTest < ActiveSupport::TestCase
 		document.close
 	end
 
+	test "should use local filesystem to store attachment in test" do
+		questionnaire = FactoryGirl.create(:questionnaire, :document_file_name => 'bogus_file_name')
+		assert !questionnaire.document.exists?
+		assert !File.exists?(questionnaire.document.path)
+
+		assert_equal :filesystem, questionnaire.document.options[:storage]
+#puts 'expiring_url'
+#puts document.document.expiring_url
+#	/system/documents/documents/000/001/149/original/bogus_file_name
+
+	end
+
+	test "should use amazon to store attachment in production" do
+		Rails.stubs(:env).returns('production')
+		load 'questionnaire.rb'
+		questionnaire = FactoryGirl.create(:questionnaire, :document_file_name => 'bogus_file_name')
+		assert !questionnaire.document.exists?
+		assert !File.exists?(questionnaire.document.path)
+
+		assert_equal :s3, questionnaire.document.options[:storage]
+		assert_equal :private, questionnaire.document.options[:s3_permissions]
+
+ 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, questionnaire.document.expiring_url
+
+		# WE MUST UNDO these has_attached_file modifications
+		Rails.unstub(:env)
+		load 'questionnaire.rb'
+	end
+
 protected
 
 	#	create_object is called from within the common class tests
