@@ -74,7 +74,8 @@ production:
   :storage: :s3
   :s3_protocol: https
   :s3_credentials: <%="#{Rails.root}/config/s3.yml" %>
-  :bucket: <%= app_name %>
+  :bucket: clic
+#<%= app_name %>
   # S3 must have a defined path or will generate
   # "Stack level too deep" errors
   :path: <%= common %>
