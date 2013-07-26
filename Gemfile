@@ -20,7 +20,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'tinymce-rails'
+gem 'tinymce-rails', '~> 3'		#	the 4.* versions are for rails 4
 
 gem "RedCloth"
 
