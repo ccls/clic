@@ -49,7 +49,7 @@ GEM
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
     builder (3.0.4)
-    ccls-common_lib (1.2.9)
+    ccls-common_lib (1.2.10)
     ccls-html_test (0.3.5)
     chronic (0.9.1)
     climate_control (0.0.3)
