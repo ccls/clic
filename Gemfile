@@ -1,6 +1,10 @@
 # A sample Gemfile
 source "http://rubygems.org"
-source "http://gems.rubyforge.org"
+
+#	Fetching source index from http://gems.rubyforge.org/
+#	Could not fetch specs from http://gems.rubyforge.org/
+#source "http://gems.rubyforge.org"
+
 source "http://gemcutter.org"
 
 #	I don't believe that this source is active any longer.
