@@ -1,6 +1,5 @@
 GEM
   remote: http://rubygems.org/
-  remote: http://gems.rubyforge.org/
   remote: http://gemcutter.org/
   remote: http://gems.github.com/
   specs:
@@ -91,7 +90,7 @@ GEM
     mysql2 (0.3.13)
     nokogiri (1.5.10)
     nokogiri (1.5.10-java)
-    paperclip (3.5.0)
+    paperclip (3.5.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
