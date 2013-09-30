@@ -11,6 +11,7 @@ class QuestionnaireTest < ActiveSupport::TestCase
 	test "should return title as to_s" do
 		object = create_object
 		assert_equal object.title, "#{object}"
+		assert_equal object.title, object.to_s
 	end
 
 	test "should create with attachment" do

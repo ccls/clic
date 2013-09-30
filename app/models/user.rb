@@ -168,7 +168,9 @@ class User < ActiveRecord::Base
 	#	Treats the class a bit like a Hash and
 	#	searches for a record with a matching name.
 	def self.[](username)
-		find_by_username(username.to_s) #|| raise(NotFound)
+#	for some reason this doesn't show as tested in coverage (also the find_by_* methods are old)
+#		find_by_username(username.to_s) #|| raise(NotFound)
+		where(self.arel_table[:username].matches(username.to_s)).first
 	end
 
 	#	MUST come after simply_authorized call
