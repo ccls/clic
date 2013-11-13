@@ -60,7 +60,8 @@ group :test do
 	gem "ccls-html_test"
 
 	# This does not work as well as rcov used to, imo.
-	gem "simplecov", :require => false
+	#	simplecov-0.8.1 or one of its dependencies causes autotest to not actually run tests?
+	gem "simplecov", '0.7.1', :require => false
 
 	gem 'test-unit'
 
