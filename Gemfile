@@ -97,6 +97,7 @@ group :test do
 
 
 	gem "factory_girl_rails"
+	gem "jakewendt-test_with_verbosity"
 end
 
 gem "ccls-common_lib", ">0.9"
