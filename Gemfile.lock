@@ -43,7 +43,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.31.3)
+    aws-sdk (1.32.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -80,13 +80,13 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    metaclass (0.0.1)
+    metaclass (0.0.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (5.2.1)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     mysql (2.9.1)
     mysql2 (0.3.14)
     nokogiri (1.6.1)
