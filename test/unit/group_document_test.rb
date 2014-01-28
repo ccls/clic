@@ -24,7 +24,11 @@ class GroupDocumentTest < ActiveSupport::TestCase
 					'/../assets/edit_save_wireframe.pdf')
 			)
 		}
-		@object.destroy
+#		document_path = @object.document.path
+#		@object.document.destroy
+#		@object.destroy	#	doesn't actually delete file in testing?
+#		assert !@object.document.exists?
+#		assert !File.exists?(document_path)
 	end
 
 	test "should cleanup attachment file name" do
@@ -34,7 +38,6 @@ class GroupDocumentTest < ActiveSupport::TestCase
 		assert_equal "ITs_1234_UPPERCASE_.PNG", record.document_file_name
 		document.close
 	end
-
 
 	test "should use local filesystem to store attachment in test" do
 		group_document = FactoryGirl.create(:group_document, :document_file_name => 'bogus_file_name')

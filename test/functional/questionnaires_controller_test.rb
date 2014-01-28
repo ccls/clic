@@ -18,8 +18,6 @@ class QuestionnairesControllerTest < ActionController::TestCase
 		}.merge(options))
 	end
 
-#	assert_access_with_https
-#	assert_no_access_with_http 
 	assert_no_access_without_login
 
 	with_options :actions => [:new,:create,:edit,:update,:destroy] do |o|
@@ -48,7 +46,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:questionnaire)
 			#	we must clean up after ourselves to remove the upload
-			assigns(:questionnaire).destroy
+			remove_questionnaire(assigns(:questionnaire))
 		end
 
 	end
@@ -69,7 +67,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
 			#	we must clean up after ourselves to remove the upload
-			questionnaire.destroy
+			remove_questionnaire(questionnaire)
 		end
 
 		test "should download S3 questionnaire with #{cu} login" do
@@ -107,11 +105,15 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			questionnaire = factory_create(
 				:document => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + 
 					'/../assets/edit_save_wireframe.pdf'))
-			File.delete(questionnaire.document.path)
+
+			File.delete(questionnaire.document.path)	#	leaves empty dir
+			Dir.delete(File.dirname(questionnaire.document.path))
+
 			login_as send(cu)
 			get :download, :id => questionnaire.id
 			assert_not_nil flash[:error]
 			assert_redirected_to questionnaire
+			remove_questionnaire(questionnaire)
 		end
 
 	end
@@ -127,7 +129,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 			#	we must clean up after ourselves to remove the upload
-			questionnaire.destroy
+			remove_questionnaire(questionnaire)
 		end
 
 	end
@@ -139,7 +141,16 @@ class QuestionnairesControllerTest < ActionController::TestCase
 		get :download, :id => questionnaire.id
 		assert_redirected_to_login
 		#	we must clean up after ourselves to remove the upload
+		remove_questionnaire(questionnaire)
+	end
+
+protected
+
+	def remove_questionnaire(questionnaire)
+		document_path = questionnaire.document.path
+		questionnaire.document.destroy
 		questionnaire.destroy
+		assert !File.exists?(document_path)
 	end
 
 end

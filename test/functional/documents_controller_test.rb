@@ -127,6 +127,7 @@ class DocumentsControllerTest < ActionController::TestCase
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+			document.document.destroy
 			document.destroy
 		end
 
@@ -140,6 +141,7 @@ class DocumentsControllerTest < ActionController::TestCase
 			assert_nil flash[:error]
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+			document.document.destroy
 			document.destroy
 		end
 
@@ -214,6 +216,7 @@ class DocumentsControllerTest < ActionController::TestCase
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+			document.document.destroy
 			document.destroy
 		end
 
@@ -227,6 +230,7 @@ class DocumentsControllerTest < ActionController::TestCase
 			assert_nil flash[:error]
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+			document.document.destroy
 			document.destroy
 		end
 

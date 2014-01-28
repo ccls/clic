@@ -32,6 +32,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		}
 		document_path = @document.document.path
 		assert File.exists?(document_path)
+		@document.document.destroy
 		@document.destroy
 		assert !File.exists?(document_path)
 	end
@@ -104,6 +105,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+			assigns(:group_document).document.destroy
 			assigns(:group_document).destroy
 		end
 
@@ -143,6 +145,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			get :show, :id => document.id
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
+			assigns(:group_document).document.destroy
 			assigns(:group_document).destroy
 		end
 
@@ -172,6 +175,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			#	reload is important or the content disposition will be blank
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
+			assigns(:group_document).document.destroy
 			assigns(:group_document).destroy
 		end
 
@@ -211,6 +215,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			assert_not_nil document.group
 			get :show, :id => document.id
 			assert_redirected_to root_path
+			assigns(:group_document).document.destroy
 			assigns(:group_document).destroy
 		end
 
@@ -225,12 +230,15 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		document = create_group_document
 		get :show, :id => document.id
 		assert_redirected_to_login
+		document.document.destroy
+		document.destroy
 	end
 
 	test "should NOT download group's document without login" do
 		document = create_group_document(:group => @membership.group)
 		get :show, :id => document.id
 		assert_redirected_to_login
+		document.document.destroy
 		document.destroy
 	end
 
