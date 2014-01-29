@@ -64,7 +64,7 @@ class TopicTest < ActiveSupport::TestCase
 			assert_equal user, object.posts.first.group_documents.first.user
 			assert_equal    1, object.posts.first.group_documents.length
 		} } } }
-		GroupDocument.destroy_all
+		remove_object_with_group_documents(user.posts.first)
 	end
 
 	test "should create topic with nested attributes for posts and " <<
@@ -96,7 +96,7 @@ class TopicTest < ActiveSupport::TestCase
 			assert_equal group, object.posts.first.group_documents.first.group
 			assert_equal     1, object.posts.first.group_documents.length
 		} } } }
-		GroupDocument.destroy_all
+		remove_object_with_group_documents(user.posts.first)
 	end
 
 	test "should have a last_post" do

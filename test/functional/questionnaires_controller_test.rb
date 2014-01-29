@@ -46,7 +46,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:questionnaire)
 			#	we must clean up after ourselves to remove the upload
-			remove_questionnaire(assigns(:questionnaire))
+			remove_object_and_document_attachment(assigns(:questionnaire))
 		end
 
 	end
@@ -67,7 +67,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert_not_nil @response.headers['Content-Disposition'].match(
 				/attachment;.*pdf/)
 			#	we must clean up after ourselves to remove the upload
-			remove_questionnaire(questionnaire)
+			remove_object_and_document_attachment(questionnaire)
 		end
 
 		test "should download S3 questionnaire with #{cu} login" do
@@ -113,7 +113,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			get :download, :id => questionnaire.id
 			assert_not_nil flash[:error]
 			assert_redirected_to questionnaire
-			remove_questionnaire(questionnaire)
+			remove_object_and_document_attachment(questionnaire)
 		end
 
 	end
@@ -129,7 +129,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 			assert_redirected_to root_path
 			#	we must clean up after ourselves to remove the upload
-			remove_questionnaire(questionnaire)
+			remove_object_and_document_attachment(questionnaire)
 		end
 
 	end
@@ -141,16 +141,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 		get :download, :id => questionnaire.id
 		assert_redirected_to_login
 		#	we must clean up after ourselves to remove the upload
-		remove_questionnaire(questionnaire)
-	end
-
-protected
-
-	def remove_questionnaire(questionnaire)
-		document_path = questionnaire.document.path
-		questionnaire.document.destroy
-		questionnaire.destroy
-		assert !File.exists?(document_path)
+		remove_object_and_document_attachment(questionnaire)
 	end
 
 end

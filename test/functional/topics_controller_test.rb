@@ -103,7 +103,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert !assigns(:topic).posts.first.group_documents.empty?
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
-			GroupDocument.destroy_all	#	gotta cleanup ourselves
+			remove_object_with_group_documents(assigns(:topic).posts.first)
 		end
 
 		test "should NOT create new topic with #{cu} login and invalid forum_id" do
@@ -318,7 +318,7 @@ class TopicsControllerTest < ActionController::TestCase
 			assert_equal assigns(:topic).posts.first.group_documents.first.group, @membership.group
 			assert_not_nil flash[:notice]
 			assert_redirected_to forum_path(forum)
-			GroupDocument.destroy_all	#	gotta cleanup ourselves
+			remove_object_with_group_documents(assigns(:topic).posts.first)
 		end
 
 		test "should NOT create new group topic with #{cu} login when create fails" do

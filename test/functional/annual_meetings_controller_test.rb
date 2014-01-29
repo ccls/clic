@@ -72,7 +72,7 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:annual_meeting)
-			assigns(:annual_meeting).destroy
+			remove_object_with_group_documents(assigns(:annual_meeting))
 		end
 
 		test "should create annual_meeting with multiple attachments and #{cu} login" do
@@ -88,7 +88,7 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:annual_meeting)
-			assigns(:annual_meeting).destroy
+			remove_object_with_group_documents(assigns(:annual_meeting))
 		end
 
 		test "should add attachment on update with #{cu} login" do
@@ -102,7 +102,7 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 			} #}
 			assert_not_nil flash[:notice]
 			assert_redirected_to annual_meetings_path
-			assigns(:annual_meeting).destroy	
+			remove_object_with_group_documents(assigns(:annual_meeting))
 		end
 
 	end

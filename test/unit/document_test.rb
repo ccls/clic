@@ -20,11 +20,7 @@ class DocumentTest < ActiveSupport::TestCase
 					'/../assets/edit_save_wireframe.pdf')
 			)
 		}
-		document_path = @object.document.path
-		@object.document.destroy
-		@object.destroy	#	doesn't actually delete file in testing?
-		assert !@object.document.exists?
-		assert !File.exists?(document_path)
+		remove_object_and_document_attachment(@object)
 	end
 
 	test "should cleanup attachment file name" do

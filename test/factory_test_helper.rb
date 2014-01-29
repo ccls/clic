@@ -21,6 +21,18 @@ module FactoryTestHelper
 	end
 
 
+	def remove_object_with_group_documents(object)
+		object.group_documents.each {|gdoc| 
+			remove_object_and_document_attachment(gdoc)
+		}
+	end
+
+	def remove_object_and_document_attachment(object)
+		document_path = object.document.path
+		object.document.destroy
+		object.destroy
+		assert !File.exists?(document_path)
+	end
 
 	def group_doc_attributes_with_attachment(options={})
 		FactoryGirl.attributes_for(:group_document,{

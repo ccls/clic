@@ -63,7 +63,7 @@ class DocFormsControllerTest < ActionController::TestCase
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:doc_form)
-			assigns(:doc_form).destroy
+			remove_object_with_group_documents(assigns(:doc_form))
 		end
 
 		test "should create doc_form with multiple attachments and #{cu} login" do
@@ -79,7 +79,7 @@ class DocFormsControllerTest < ActionController::TestCase
 			} }
 			assert_not_nil flash[:notice]
 			assert_redirected_to assigns(:doc_form)
-			assigns(:doc_form).destroy
+			remove_object_with_group_documents(assigns(:doc_form))
 		end
 
 		test "should add attachment on update with #{cu} login" do
@@ -93,7 +93,7 @@ class DocFormsControllerTest < ActionController::TestCase
 			} #}
 			assert_not_nil flash[:notice]
 			assert_redirected_to doc_forms_path
-			assigns(:doc_form).destroy	
+			remove_object_with_group_documents(assigns(:doc_form))
 		end
 
 	end

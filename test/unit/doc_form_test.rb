@@ -27,7 +27,7 @@ class DocFormTest < ActiveSupport::TestCase
 			assert !@object.new_record?, 
 				"#{@object.errors.full_messages.to_sentence}"
 		} } }
-		@object.destroy
+		remove_object_with_group_documents(@object)
 	end
 
 	test "should NOT create doc_form with nested attributes for group_documents" <<
@@ -57,7 +57,7 @@ class DocFormTest < ActiveSupport::TestCase
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		} } }
-		object.destroy
+		remove_object_with_group_documents(object)
 	end
 
 	test "should NOT update doc_form with nested attributes for group_documents" <<
@@ -72,7 +72,6 @@ class DocFormTest < ActiveSupport::TestCase
 			])
 			assert object.errors.matching?('group_documents.user_id',:blank)
 		} } }
-		object.destroy
 	end
 
 protected

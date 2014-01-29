@@ -213,7 +213,7 @@ class PostsControllerTest < ActionController::TestCase
 			end	
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
-			GroupDocument.destroy_all	#	gotta cleanup ourselves
+			remove_object_with_group_documents(assigns(:post))
 		end
 
 		test "should NOT create new post with #{cu} login and invalid topic_id" do
@@ -464,7 +464,7 @@ class PostsControllerTest < ActionController::TestCase
 			end
 			assert_not_nil flash[:notice]
 			assert_redirected_to topic_path(topic)
-			GroupDocument.destroy_all	#	gotta cleanup ourselves
+			remove_object_with_group_documents(assigns(:post))
 		end
 
 		test "should NOT create new group post with #{cu} login when create fails" do

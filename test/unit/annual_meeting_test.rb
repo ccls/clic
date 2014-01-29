@@ -27,7 +27,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 			assert !@object.new_record?, 
 				"#{@object.errors.full_messages.to_sentence}"
 		} } }
-		@object.destroy
+		remove_object_with_group_documents(@object)
 	end
 
 	test "should NOT create annual_meeting with nested attributes for group_documents" <<
@@ -60,7 +60,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		} } }
-		object.destroy
+		remove_object_with_group_documents(object)
 	end
 
 	test "should NOT update annual_meeting with nested attributes for group_documents" <<
@@ -80,7 +80,7 @@ class AnnualMeetingTest < ActiveSupport::TestCase
 		#	Removing the documents makes it happier.
 #	removed restriction from database, but left in app so all is ok now
 #		object.group_documents = []
-		object.destroy
+		remove_object_with_group_documents(object)
 	end
 
 protected

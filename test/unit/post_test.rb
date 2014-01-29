@@ -55,7 +55,7 @@ class PostTest < ActiveSupport::TestCase
 			assert_equal topic.user, object.group_documents.first.user
 			assert_equal          1, object.group_documents.length
 		} } } }
-		GroupDocument.destroy_all
+		remove_object_with_group_documents(topic.reload.posts.first)
 	end
 
 	test "should NOT create post with nested attributes for group_documents" <<
@@ -75,7 +75,7 @@ class PostTest < ActiveSupport::TestCase
 		} } } }
 	end
 
-	test "should destroy group_document with post" do
+	test "should destroy group_document with post" do	#	doesn't really do it in testing anymore?
 		object = create_post( {
 			:group_documents_attributes => [
 				group_doc_attributes_with_attachment
@@ -84,6 +84,7 @@ class PostTest < ActiveSupport::TestCase
 		assert_difference("Topic.find(#{object.topic.id}).posts_count",-1) {
 		assert_difference('GroupDocument.count',-1) {
 		assert_difference('Post.count',-1) {
+			remove_object_with_group_documents(object)
 			object.destroy
 		} } } }
 	end
