@@ -45,7 +45,7 @@ gem "will_paginate"
 gem 'mysql'
 gem 'mysql2'
 
-gem "paperclip"
+gem "paperclip", "~> 3.0"
 
 gem "rdoc"
 gem "aws-s3"

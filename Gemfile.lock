@@ -43,7 +43,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.32.0)
+    aws-sdk (1.33.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -180,7 +180,7 @@ DEPENDENCIES
   mocha (= 0.13.3)
   mysql
   mysql2
-  paperclip
+  paperclip (~> 3.0)
   rack-ssl
   rails (~> 3.2)
   rdoc
