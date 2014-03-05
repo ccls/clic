@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
 
 		#	default is just 10.minutes
 		c.perishable_token_valid_for = 12.hours
+
+		#	authlogic 3.4.0 will require something like ...
+		c.crypto_provider = Authlogic::CryptoProviders::Sha512
+		#	due to changes.  Not sure what repercussions there are.
+
 	end
 
 #	the above adds some validations, some of which I'd like to remove
