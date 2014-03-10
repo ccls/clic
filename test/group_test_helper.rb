@@ -244,7 +244,7 @@ module ClassMethods
 			end
 	
 			test "should update #{options[:attributes_key]} with #{cu} login" do
-				object = send(options[:create_method],:group => @membership.group)
+				object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				assert_equal object.group, @membership.group
 				sleep 1
@@ -257,7 +257,7 @@ module ClassMethods
 			end
 	
 			test "should NOT update groupless #{options[:attributes_key]} with #{cu} login" do
-				object = send(options[:create_method],:group => nil)
+				object = send(options[:create_method],:group => nil,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				assert_nil object.reload.group
 				login_as send(cu)
@@ -271,7 +271,7 @@ module ClassMethods
 	
 			test "should NOT update #{options[:attributes_key]} with #{cu} login " <<
 					"when update fails" do
-				object = send(options[:create_method],:group => @membership.group)
+				object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				options[:model].constantize.any_instance.stubs(:create_or_update).returns(false)
 				login_as send(cu)
@@ -286,7 +286,7 @@ module ClassMethods
 	
 			test "should NOT update #{options[:attributes_key]} with #{cu} login " <<
 					"and invalid #{options[:attributes_key]}" do
-				object = send(options[:create_method],:group => @membership.group)
+				object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				options[:model].constantize.any_instance.stubs(:valid?).returns(false)
 				login_as send(cu)
@@ -310,7 +310,7 @@ module ClassMethods
 
 			test "should update #{options[:attributes_key]} with #{cu} login " <<
 					"and ignore group_id change" do
-				object = send(options[:create_method],:group => @membership.group)
+				object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				assert_equal object.group, @membership.group
 				sleep 1
@@ -329,7 +329,7 @@ module ClassMethods
 	
 			test "should update #{options[:attributes_key]} with #{cu} login " <<
 					"and ignore user_id change" do
-				object = send(options[:create_method],:group => @membership.group)
+				object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				assert_equal object.group, @membership.group
 				sleep 1
@@ -379,7 +379,7 @@ module ClassMethods
 			end
 	
 			test "should NOT update #{options[:attributes_key]} with #{cu} login" do
-				object = send(options[:create_method],:group => @membership.group)
+				object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 				assert object.is_a?(options[:model].constantize)
 				login_as send(cu)
 				deny_changes("#{options[:model]}.find(#{object.id}).updated_at") {
@@ -472,7 +472,7 @@ module ClassMethods
 		end
 	
 		test "should NOT update #{options[:attributes_key]} without login" do
-			object = send(options[:create_method],:group => @membership.group)
+			object = send(options[:create_method],:group => @membership.group,:updated_at => Date.yesterday)
 			assert object.is_a?(options[:model].constantize)
 			sleep 1
 			deny_changes("#{options[:model]}.find(#{object.id}).updated_at") {
