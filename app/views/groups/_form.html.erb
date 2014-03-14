@@ -17,7 +17,7 @@
  <%= f.wrapped_text_field :name,
 	:class => 'autosize' %>
  <%= f.wrapped_text_area  :description,
-	:class => 'tinymce' %>
+	:cols => 40, :rows => 20, :class => 'tinymce' %>
  <p>
   <%= f.submit( (@group.new_record?)?'Create':'Update' ) %>&nbsp;
   <%= link_to 'Cancel', members_only_path,

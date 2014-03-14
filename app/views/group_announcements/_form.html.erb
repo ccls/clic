@@ -8,7 +8,7 @@
 	:class => 'autosize' %>
 <%= f.wrapped_text_area :content,
 	:label_text => "Content #{required('*')}".html_safe,
-	:class => 'tinymce' %>
+	:cols => 40, :rows => 20, :class => 'tinymce' %>
 <%= f.wrapped_date_text_field :begins_on do %>
  <%= f.wrapped_hour_select(:begins_at_hour,
 	:label_text => '&nbsp;&nbsp;at&nbsp;'.html_safe) %>

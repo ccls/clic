@@ -21,7 +21,7 @@ class AnnualMeetingsController < ApplicationController
 		:only => [:show,:edit,:update,:destroy]
 
 	def index
-		@annual_meetings = AnnualMeeting.order('position DESC').all
+		@annual_meetings = AnnualMeeting.order('position DESC')
 	end
 
 	def new

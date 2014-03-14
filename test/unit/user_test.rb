@@ -119,7 +119,7 @@ class UserTest < ActiveSupport::TestCase
 		end
 		assert !@user.reload.approved?
 		assert_difference("User.find(#{@user.id}).roles.length",1) do
-			@user.roles << Role.find_or_create_by_name('editor')
+			@user.roles << Role.find_or_create_by(name: 'editor')
 		end
 		assert @user.reload.approved?
 	end

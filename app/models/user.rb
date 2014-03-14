@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 #		find_by_login(login) || find_by_email(login) #|| find_by_id(login)
 #	end
 
-	has_and_belongs_to_many :roles,  :uniq => true, 
+	has_and_belongs_to_many :roles,  ->{ uniq },
 		:after_add  => :after_add_role
 
 	def after_add_role(role)
@@ -45,9 +45,7 @@ class User < ActiveRecord::Base
 #	default_scope :order => :username
 
 	has_many :memberships
-	has_many :approved_memberships, 
-		:class_name => 'Membership', 
-		:conditions => { :approved => true }
+	has_many :approved_memberships, ->{ where( approved: true ) }, class_name: 'Membership'
 	has_many :group_documents
 	has_many :announcements
 	has_many :topics
@@ -98,6 +96,11 @@ class User < ActiveRecord::Base
 			File.join(File.dirname(__FILE__),'../..','config/user_avatar.yml')
 		))).result)[Rails.env]
 
+	#	to avoid the following error
+	#	Paperclip::Errors::MissingRequiredValidatorError
+	do_not_validate_attachment_file_type :avatar
+
+
 	def nullify_blank_avatar_file_name
 		self.avatar_file_name = nil if avatar_file_name.blank?
 	end
@@ -116,22 +119,32 @@ class User < ActiveRecord::Base
 		end 
 	end
 
-
-	def self.search(options={})
-		conditions = {}
-		includes = joins = []
+	def self.search(options={})	#	rails 4
+		users = User.all
 		if !options[:role_name].blank?
-			includes = [:roles]
+			users = users.includes(:roles)	#	can't remember why I do this
 			if Role.all.collect(&:name).include?(options[:role_name])
-				joins = [:roles]
-				conditions = ["roles.name = ?",options[:role_name]]
+				users = users.joins(:roles).where('roles.name' => options[:role_name])
 			end 
 		end 
-		self.all( 
-			:joins => joins, 
-			:include => includes,
-			:conditions => conditions )
-	end 
+		users
+	end
+
+#	def self.search(options={})	#	rails 3
+#		conditions = {}
+#		includes = joins = []
+#		if !options[:role_name].blank?
+#			includes = [:roles]
+#			if Role.all.collect(&:name).include?(options[:role_name])
+#				joins = [:roles]
+#				conditions = ["roles.name = ?",options[:role_name]]
+#			end 
+#		end 
+#		self.all( 
+#			:joins => joins, 
+#			:include => includes,
+#			:conditions => conditions )
+#	end 
 
 	def email_confirmed?
 #	this attribute should probably be protected to avoid user

@@ -22,7 +22,7 @@ Creating new discussion topic</h2>
   <% @topic.posts.build if @topic.posts.empty? %>
   <%= f.fields_for :posts do |p| %>
     <%= p.wrapped_text_area :body,
-      :class => 'tinymce' %>
+      :cols => 40, :rows => 20, :class => 'tinymce' %>
     <% p.object.group_documents.build if p.object.group_documents.empty? %>
     <%= p.fields_for :group_documents do |d| %>
       <p>Optional File Attachment ...</p>

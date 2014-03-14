@@ -158,7 +158,8 @@ class UsersControllerTest < ActionController::TestCase
 		assert_difference('User.count',1) do
 			unapproved_user
 		end
-		assert_equal Hash.new, session
+		assert session.empty?
+#		assert_equal Hash.new, session
 		assert_nil UserSession.find
 	end
 
@@ -167,7 +168,8 @@ class UsersControllerTest < ActionController::TestCase
 		assert_difference('User.count',1) do
 			User.create(FactoryGirl.attributes_for(:user))
 		end
-		assert_equal Hash.new, session
+		assert session.empty?
+#		assert_equal Hash.new, session
 		assert_nil UserSession.find
 	end
 
@@ -402,7 +404,8 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT edit user without id" do
 		u = user
 		login_as admin
-		assert_raise(ActionController::RoutingError){
+#		assert_raise(ActionController::RoutingError){	#	rails 3
+		assert_raise(ActionController::UrlGenerationError){	#	rails 4
 			get :edit
 		}
 	end
@@ -457,7 +460,8 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without id" do
 		u = user
 		login_as admin
-		assert_raise(ActionController::RoutingError){
+#		assert_raise(ActionController::RoutingError){	#	rails 3
+		assert_raise(ActionController::UrlGenerationError){	#	rails 4
 			put :update, :user => FactoryGirl.attributes_for(:user)
 		}
 	end

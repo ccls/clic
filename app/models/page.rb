@@ -25,7 +25,7 @@ class Page < ActiveRecord::Base
 
 	validates_presence_of :path
 	validates_length_of :path,  :minimum => 1
-	validates_format_of :path,  :with => /^\//
+	validates_format_of :path,  :with => /\A\//
 #	validates_presence_of :menu_en
 	validates_length_of :menu_en,  :minimum => 4
 #	validates_presence_of :title_en

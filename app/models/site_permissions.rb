@@ -43,7 +43,7 @@ module SitePermissions
 		end
 
 		def deputize
-			roles << Role.find_or_create_by_name('administrator')
+			roles << Role.find_or_create_by(name: 'administrator')
 		end
 
 		#	The 4 common CCLS roles are ....

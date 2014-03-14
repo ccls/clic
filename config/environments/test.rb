@@ -12,7 +12,7 @@ Clic::Application.configure do
   config.static_cache_control = "public, max-age=3600"
 
   # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
+#  config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -48,5 +48,7 @@ Clic::Application.configure do
 	#	whilst we don't email, this is used in the content
 	config.action_mailer.default_url_options = { 
 		:host => "dev.sph.berkeley.edu:3000" }
+
+	config.eager_load = false
 end
 __END__

@@ -9,13 +9,8 @@ require 'group_test_helper'
 require 'orderable_test_helper'
 require 'sunspot_test_helper'
 
-##require 'test_startup_shutdown'
-##require 'test_sunspot'
-##TestSunspot.setup
-##	TestSunspot uses startup and shutdown, which are callbacks in test-unit 2.x
-##	test-unit 2.x seems to be incompatible with ruby 1.8 and rails 2.3.12
-
 class ActiveSupport::TestCase
+	#ActiveRecord::Migration.check_pending!	#	rails 4	#	WOW, autotest does not like this line!
 
 	fixtures :all
 
@@ -29,8 +24,6 @@ class ActiveSupport::TestCase
 			assert_not_logged_in
 		end
 	end
-#	alias :login  :login_as
-#	alias :log_in :login_as
 
 	def assert_redirected_to_login
 		assert_not_nil flash[:error]

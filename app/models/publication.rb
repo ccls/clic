@@ -1,5 +1,10 @@
 class Publication < ActiveRecord::Base
 
+
+	attr_protected		#	I really shouldn't do this
+
+
+
 #	belongs_to :publication_subject
 #	belongs_to :study
 #	has_many   :group_documents, :dependent => :destroy, :as => :attachable

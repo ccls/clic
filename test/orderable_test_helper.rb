@@ -31,7 +31,7 @@ model.destroy_all
 #	ASSUME THAT position is the ordered attribute
 #
 #					before_ids = model.all.collect(&:id)   #	assuming default_scope
-					before_ids = model.order(:position).all.collect(&:id)
+					before_ids = model.order(:position).to_a.collect(&:id)
 #					ids_param = before_ids.reverse
 #					#	on page in descending order (highest position at top) so re-reverse
 #					ids_param.reverse! if options[:reverse]
@@ -48,7 +48,7 @@ model.destroy_all
 #	ASSUME THAT position is the ordered attribute
 #
 #					after_ids = model.all.collect(&:id)    #	assuming default_scope
-					after_ids = model.order(:position).all.collect(&:id)
+					after_ids = model.order(:position).to_a.collect(&:id)
 					assert_equal after_ids, before_ids.reverse
 					assert_redirected_to :controller => resources, :action => 'index'
 				end

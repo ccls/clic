@@ -3,13 +3,13 @@
  <%= f.wrapped_text_field :name, :class => 'autosize' %>
  <%= f.wrapped_text_field :principal_investigator_names, 
 		:label_text => 'Principal Investigators', :class => 'autosize' %>
- <%= f.wrapped_text_area  :contact_info, :class => 'autosize' %>
+ <%= f.wrapped_text_area  :contact_info, :cols => 40, :rows => 20, :class => 'autosize' %>
  <%= f.wrapped_text_field :world_region, :class => 'autosize' %>
  <%= f.wrapped_text_field :country, :class => 'autosize' %>
  <%= f.wrapped_text_field :design, :class => 'autosize' %>
  <%= f.wrapped_text_field :target_age_group, :class => 'autosize' %>
  <%= f.wrapped_text_field :recruitment, :class => 'autosize' %>
- <%= f.wrapped_text_area  :overview, :class => 'autosize' %>
+ <%= f.wrapped_text_area  :overview, :cols => 40, :rows => 20, :class => 'autosize' %>
 
  <p>
   <%= f.submit( ((@study.new_record?)?'Create':'Update')<<" Study" ) %>

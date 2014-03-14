@@ -1,6 +1,11 @@
 #	Group class
 class Group < ActiveRecord::Base
 
+
+	attr_protected		#	I really shouldn't do this
+
+
+
 	acts_as_list :scope => :parent_id
 
 #	default scopes are EVIL.  They seem to take precedence

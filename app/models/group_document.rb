@@ -26,6 +26,10 @@ class GroupDocument < ActiveRecord::Base
 			File.join(File.dirname(__FILE__),'../..','config/group_document.yml')
 		))).result)[Rails.env]
 
+	#	to avoid the following error
+	#	Paperclip::Errors::MissingRequiredValidatorError
+	do_not_validate_attachment_file_type :document
+
 	def nullify_blank_document_file_name
 		self.document_file_name = nil if document_file_name.blank?
 	end

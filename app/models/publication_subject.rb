@@ -1,5 +1,10 @@
 class PublicationSubject < ActiveRecord::Base
 
+
+	attr_protected		#	I really shouldn't do this
+
+
+
 #	default scopes are EVIL.  They seem to take precedence
 #	over you actual query which seems really stupid
 #	removing all in rails 3 which will probably require

@@ -15,13 +15,13 @@ class ProfessionTest < ActiveSupport::TestCase
 	end
 
 	test "should be 'other' for profession 'other'" do
-		ps = Profession.find(:all, :conditions =>  { :name => 'Other' })
+		ps = Profession.where( :name => 'Other' )
 		assert_equal 1, ps.length
 		assert ps.first.is_other?
 	end
 
 	test "should NOT be 'other' for profession NOT 'other'" do
-		pss = Profession.find(:all, :conditions =>  "name !=  'Other'" )
+		pss = Profession.where( "name !=  'Other'" )
 		assert pss.length > 1
 		pss.each do |ps|
 			assert !ps.is_other?

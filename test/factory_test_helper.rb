@@ -54,14 +54,14 @@ module FactoryTestHelper
 
 	def superuser(options={})
 		u = active_user(options)
-		u.roles << Role.find_or_create_by_name('superuser')
+		u.roles << Role.find_or_create_by(name: 'superuser')
 		u
 	end
 	alias_method :super_user, :superuser
 
 	def admin_user(options={})
 		u = active_user(options)
-		u.roles << Role.find_or_create_by_name('administrator')
+		u.roles << Role.find_or_create_by(name: 'administrator')
 		u
 	end
 	alias_method :admin, :admin_user
@@ -69,20 +69,20 @@ module FactoryTestHelper
 
 	def interviewer(options={})
 		u = active_user(options)
-		u.roles << Role.find_or_create_by_name('interviewer')
+		u.roles << Role.find_or_create_by(name: 'interviewer')
 		u
 	end
 
 	def reader(options={})
 		u = active_user(options)
-		u.roles << Role.find_or_create_by_name('reader')
+		u.roles << Role.find_or_create_by(name: 'reader')
 		u
 	end
 #	alias_method :employee, :reader
 
 	def editor(options={})
 		u = active_user(options)
-		u.roles << Role.find_or_create_by_name('editor')
+		u.roles << Role.find_or_create_by(name: 'editor')
 		u
 	end
 

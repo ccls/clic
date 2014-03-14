@@ -15,7 +15,7 @@ class PublicationSubjectsController < ApplicationController
 		:only => [:show,:edit,:update,:destroy]
 
 	def index
-		@publication_subjects = PublicationSubject.order(:position).all
+		@publication_subjects = PublicationSubject.order(:position)
 	end
 
 	def new

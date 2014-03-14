@@ -17,7 +17,7 @@ class AnnouncementsController < ApplicationController
 
 	def index
 		@announcements = Announcement.where(:group_id => nil )
-			.order('created_at DESC, begins_on DESC').all
+			.order('created_at DESC, begins_on DESC').load
 	end
 
 	def new

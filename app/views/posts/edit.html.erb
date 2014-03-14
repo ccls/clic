@@ -4,7 +4,7 @@
 
 <%= form_for @post do |f| %>
   <%= f.error_messages %>
-  <%= f.text_area :body, :class => 'tinymce' %>
+  <%= f.text_area :body, :cols => 40, :rows => 20, :class => 'tinymce' %>
   <p>
     <%= f.submit 'Submit' %>&nbsp;
     <%= link_to 'Cancel and return to Topic', @post.topic, :class => 'button' %>

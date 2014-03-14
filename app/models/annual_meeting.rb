@@ -1,5 +1,11 @@
 class AnnualMeeting < ActiveRecord::Base
 
+
+
+	attr_protected		#	I really shouldn't do this
+
+
+
 	acts_as_list 
 
 #	default scopes are EVIL.  They seem to take precedence

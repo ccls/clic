@@ -34,7 +34,12 @@ class Role < ActiveRecord::Base
 #	modifications to compensate in the methods that expected them
 #	default_scope :order => :position
 
-	has_and_belongs_to_many :users, :uniq => true
+
+	attr_protected		#	I really shouldn't do this
+
+
+
+	has_and_belongs_to_many :users, ->{ uniq }
 	validates_presence_of   :name
 	validates_uniqueness_of :name
 end

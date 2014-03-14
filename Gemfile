@@ -14,7 +14,10 @@ source "http://gems.github.com"
 
 
 
-gem 'rails', '~> 3.2'
+gem 'rails'	#, '~> 3.2'
+gem 'protected_attributes'	#	to keep rails 3 style
+
+
 
 gem 'sqlite3'
 
@@ -24,7 +27,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'tinymce-rails', '~> 3'		#	the 4.* versions are for rails 4
+gem 'tinymce-rails'	#, '~> 3'		#	the 4.* versions are for rails 4
 
 gem "RedCloth"
 
@@ -38,14 +41,15 @@ gem "hpricot"
 #gem "rack", "=1.1.2"
 gem 'rack-ssl', :require => 'rack/ssl'
 
-gem "ryanb-acts-as-list", :require => 'acts_as_list'
+#gem "ryanb-acts-as-list", :require => 'acts_as_list'
+gem "acts_as_list"
 
 gem "will_paginate"
 
 gem 'mysql'
 gem 'mysql2'
 
-gem "paperclip", "~> 3.0"
+gem "paperclip"	#, "~> 3.0"
 
 gem "rdoc"
 gem "aws-s3"

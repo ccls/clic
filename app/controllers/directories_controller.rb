@@ -24,12 +24,17 @@ class DirectoriesController < ApplicationController
 			conditions << params[:profession_id]
 		end
 		conditions[0] = conditions[0].join(' AND ')
-		@members = User.find(:all,
-			:select     => 'DISTINCT users.*',
-			:conditions => conditions,
-			:joins      => joins,
-			:include    => :professions,
-			:order      => search_order )
+#		@members = User.find(:all,
+#			:select     => 'DISTINCT users.*',
+#			:conditions => conditions,
+#			:joins      => joins,
+#			:include    => :professions,
+#			:order      => search_order )
+		@members = User.select('DISTINCT users.*')
+			.joins(joins)
+			.where(conditions)
+			.includes(:professions)
+			.order(search_order)
 	end
 
 protected

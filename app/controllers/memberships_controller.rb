@@ -9,7 +9,7 @@ class MembershipsController < ApplicationController
 		:only => :update
 
 	def index
-		@memberships = Membership.order(:approved).all
+		@memberships = Membership.order(:approved)
 	end
 
 	def update

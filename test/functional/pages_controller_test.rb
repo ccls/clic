@@ -114,9 +114,9 @@ class PagesControllerTest < ActionController::TestCase
 	#ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
 			pages = []
 			3.times{ pages.push(factory_create) }
-			before_page_ids = Page.order(:position).all.collect(&:id)
+			before_page_ids = Page.order(:position).to_a.collect(&:id)
 			post :order, :pages => before_page_ids.reverse
-			after_page_ids = Page.order(:position).all.collect(&:id)
+			after_page_ids = Page.order(:position).to_a.collect(&:id)
 			assert_equal after_page_ids, before_page_ids.reverse
 			assert_redirected_to pages_path
 		end

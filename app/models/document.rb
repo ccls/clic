@@ -3,6 +3,7 @@ require 'hmac-sha1'
 #	http://amazon.rubyforge.org/
 #
 class Document < ActiveRecord::Base
+	attr_accessible :title, :document
 
 #	polymorphism is unecessary now that GroupDocument is its own class
 	belongs_to :owner, :polymorphic => true
@@ -19,6 +20,10 @@ class Document < ActiveRecord::Base
 		YAML::load(ERB.new(IO.read(File.expand_path(
 			File.join(File.dirname(__FILE__),'../..','config/document.yml')
 		))).result)[Rails.env]
+
+	#	to avoid the following error
+	#	Paperclip::Errors::MissingRequiredValidatorError
+	do_not_validate_attachment_file_type :document
 
 	def nullify_blank_document_file_name
 		self.document_file_name = nil if document_file_name.blank?

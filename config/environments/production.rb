@@ -94,5 +94,6 @@ config.log_level = :debug
 #		:protocol => "https",
 
 
+	config.eager_load = true
 end
 __END__

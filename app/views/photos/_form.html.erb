@@ -5,4 +5,4 @@
 	<%= image_tag(@photo.image.url(:full))%>
 </div>
 <% end %>
-<%= f.wrapped_text_area :caption, :class => 'autosize'  %>
+<%= f.wrapped_text_area :caption, :cols => 40, :rows => 20, :class => 'autosize'  %>

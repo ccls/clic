@@ -1,4 +1,9 @@
 class Subject < ActiveRecord::Base
+
+
+	attr_protected		#	I really shouldn't do this
+
+
 	belongs_to :study
 
 #	serialize( :biospecimens, Array )

@@ -6,7 +6,7 @@
   :html => { :multipart => true } do |f| %>
   <%= f.error_messages %>
   <%= f.wrapped_text_area :body,
-    :class => 'tinymce' %>
+    :cols => 40, :rows => 20, :class => 'tinymce' %>
 
   <% @post.group_documents.build if @post.group_documents.empty? %>
   <%= f.fields_for :group_documents do |d| %>
