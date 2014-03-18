@@ -5,12 +5,6 @@ gem 'protected_attributes'	#	to keep rails 3 style
 
 gem 'sqlite3'
 
-#group :assets do
-#  gem 'sass-rails'
-#  gem 'coffee-rails'
-#  gem 'uglifier', '>= 1.0.3'
-#end
-
 gem 'tinymce-rails'
 
 gem "RedCloth"
@@ -46,17 +40,19 @@ group :test do
 
 	# This does not work as well as rcov used to, imo.
 	#	simplecov-0.8.1 or one of its dependencies causes autotest to not actually run tests?
-	gem "simplecov", '0.7.1', :require => false
+#	gem "simplecov", '0.7.1', :require => false
+	gem "simplecov", :require => false
 
 	gem 'test-unit'
 
-	gem "mocha", '0.13.3', :require => false
+#	gem "mocha", '0.13.3', :require => false
+	gem "mocha", :require => false
 
 	gem "autotest-rails", :require => 'autotest/rails'
 
 
 	#	try upgrading ZenTest (4.9.0 still has "illformed" gemspec (problem with old rubygems))
-	gem 'ZenTest', '=4.9.1'
+	gem 'ZenTest'	#, '=4.9.1'
 	#	ZenTest 4.9.2 always ends tests with ...
 	#Run options: --seed 6126
 	#
