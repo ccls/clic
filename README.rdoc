@@ -237,6 +237,6 @@ CLIC IS ON PORT 3001 !!!!
  script/rails server -d -p 3001 -e production
 
 
-
+FYI web admin pings this site every 5-10 seconds which will make the log pretty big.
 
 
