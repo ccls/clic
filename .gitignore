@@ -8,6 +8,7 @@ versions/
 /config/initializers/mail.rb
 /config/initializers/secret_token.rb
 /config/s3.yml
+/config/secrets.yml
 /coverage.data
 /coverage*/
 /db/*.sqlite3
