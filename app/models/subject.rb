@@ -1,8 +1,9 @@
 class Subject < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
+	attr_accessible :study_id, :clic_id, :case_status, :leukemia_type, :immunophenotype, 
+		:interview_respondent, :reference_year, :birth_year, :gender, :age, :ethnicity, 
+		:mother_age, :father_age, :household_income, :down_syndrome, 
+		:mother_education, :father_education
 
 	belongs_to :study
 

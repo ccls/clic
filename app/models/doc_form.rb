@@ -1,9 +1,6 @@
 class DocForm < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :title, :abstract
 
 	validates_presence_of :title, :abstract
 	validates_length_of   :title,    :maximum => 250

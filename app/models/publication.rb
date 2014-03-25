@@ -1,9 +1,7 @@
 class Publication < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :author_last_name, :publication_year, :journal, :title, 
+		:other_publication_subject, :url
 
 #	belongs_to :publication_subject
 #	belongs_to :study

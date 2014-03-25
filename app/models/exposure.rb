@@ -1,8 +1,7 @@
 class Exposure < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
+	attr_accessible :study_id, :category, :relation_to_child, :windows, :types, :assessments, 
+		:forms_of_contact, :locations_of_use
 
 	belongs_to :study
 

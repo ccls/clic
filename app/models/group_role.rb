@@ -1,9 +1,6 @@
 class GroupRole < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :name
 
 	acts_as_list
 

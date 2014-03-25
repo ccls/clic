@@ -1,9 +1,6 @@
 class Profession < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :name
 
 #	default scopes are EVIL.  They seem to take precedence
 #	over you actual query which seems really stupid

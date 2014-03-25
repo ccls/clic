@@ -1,9 +1,7 @@
 class Photo < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :title, :caption, :image_file_name
+#, :image_content_type, :image_file_size, :image_updated_at
 
 	validates_presence_of :title
 	validates_length_of :title, :minimum => 4

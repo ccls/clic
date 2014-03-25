@@ -1,10 +1,7 @@
 #	Group class
 class Group < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :name, :description, :parent_id
 
 	acts_as_list :scope => :parent_id
 

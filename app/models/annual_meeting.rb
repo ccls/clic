@@ -1,10 +1,6 @@
 class AnnualMeeting < ActiveRecord::Base
 
-
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :meeting, :abstract
 
 	acts_as_list 
 

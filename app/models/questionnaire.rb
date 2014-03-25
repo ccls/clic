@@ -1,9 +1,7 @@
 class Questionnaire < ActiveRecord::Base
 
-
-	attr_protected		#	I really shouldn't do this
-
-
+	attr_accessible :study_id, :title, :document_file_name
+#, :document_content_type, :document_file_size, :document_updated_at]
 
 	belongs_to :study
 
