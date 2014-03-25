@@ -1,38 +1,6 @@
 var root = '';	// kinda global
 
 jQuery(function(){
-/*
-	as CLIC is now the ROOT app, nothing special is required.
-*/
-/*
-	root = (location.host == 'ccls.berkeley.edu')?'/clic':'';
-
-	jQuery.getScript(root + '/users/menu.js',
-		function(data,textStatus){
-			add_clic_prefix_to_links('#PrivateNav');
-		}
-	);
-*/
-
-/*
-http://www.google.com/cse/docs/cref.html
-*/
-
-//	if( ! jQuery.browser.msie ){
-/* 
-	IE will always complain as this is http and not https
-	I could do this server-side, but isn't really worth it
-	Its just some style and a background image.
-*/
-//	(function(){
-//		var ga = document.createElement('script'); 
-//		ga.type = 'text/javascript';
-//		ga.async = true;
-//		ga.src = "http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en";
-//		var s = document.getElementsByTagName('script')[0]; 
-//		s.parentNode.insertBefore(ga, s);
-//	})();
-//	}
 
 /*
 	If a user make many multiple searches, the siteurl will
@@ -60,48 +28,45 @@ http://www.google.com/cse/docs/cref.html
 		return false;
 	});
 
+	//	New RAILS 4 style
+	if( typeof(tinymce) == 'object' ){	// don't do this unless a page loaded tinymce.js
+		tinymce.init({
+			selector:'textarea.tinymce',
+			plugins: [
+				"advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+				"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+				"table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+			],
 
-	if( typeof jQuery('textarea.tinymce').tinymce == 'function' ){
-		jQuery('textarea.tinymce').tinymce({
-			// Location of TinyMCE script
-			script_url : root + '/javascripts/tiny_mce/tiny_mce.js',
-	
-			// General options
-			theme : "advanced",
-			plugins : "spellchecker",
-	
-			// Theme options
-			theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor",
-			theme_advanced_buttons2 : 'bullist,numlist,|,outdent,indent,|,undo,redo,|,sub,sup,|,link,unlink,|,image,hr,|,charmap,spellchecker',	// otherwise will use defaults
-			theme_advanced_buttons3 : '',	// otherwise will use defaults
-			theme_advanced_statusbar_location : "bottom",
-			theme_advanced_toolbar_location : "top",
-			theme_advanced_toolbar_align : "left",
-//			theme_advanced_resizing : true,
-	
-//			width: '710px',
-//			width : '710',
+			toolbar1 : "newdocument | bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull formatselect fontselect fontsizeselect | forecolor backcolor",
+			toolbar2 : 'bullist numlist | outdent indent | undo redo | subscript superscript | link unlink | image hr | charmap spellchecker',	// otherwise will use defaults
+			toolbar3 : '',	// otherwise will use defaults
+
+			menubar: false,
+			toolbar_items_size: 'small',
+
 			width : '100%',
 
-//		stops any url modification
+			style_formats: [
+				{title: 'Bold text', inline: 'b'},
+				{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+				{title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+				{title: 'Example 1', inline: 'span', classes: 'example1'},
+				{title: 'Example 2', inline: 'span', classes: 'example2'},
+				{title: 'Table styles'},
+				{title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+			],
+
+			link_list :  "/editor_links.js",
+			image_list : "/editor_images.js",
+
+			//		stops any url modification
 			convert_urls : false,
-
-/*
-	This doesn't work as advertised
-			relative_urls : false,
-			remove_script_host : true,
-			document_base_url : "http://ccls.berkeley.edu/path1/",
-*/
-
-			external_link_list_url :  root + "/editor_links.js",
-			external_image_list_url : root + "/editor_images.js",
-
-
 			// Example content CSS (should be your site CSS)
-//			content_css : root + "/stylesheets/layout.css"
 			content_css : root + "/assets/layout.css"
 		});
 	}
+
 
 	jQuery('a#add_attachment').click(function(){
 		name = jQuery("input[name*='[group_documents_attributes]['][name$='][document]']").last().attr('name')
@@ -133,7 +98,9 @@ http://www.google.com/cse/docs/cref.html
 		}
 	});
 
+/*
 	add_clic_prefix_to_links();
+*/
 });
 
 /*
@@ -142,6 +109,7 @@ http://www.google.com/cse/docs/cref.html
 	Until then, ensure that the links contain the /clic/ prefix
 
 */
+/*
 function add_clic_prefix_to_links(container) {
 	if(location.host == 'ccls.berkeley.edu') {
 		a_tags = ( typeof(container) == 'undefined' ) ? 'a' : container + ' a';
@@ -153,3 +121,4 @@ function add_clic_prefix_to_links(container) {
 		});
 	}
 }
+*/

@@ -1,3 +1,3 @@
-var tinyMCEImageList = new Array(
-<%= @photos.collect{|p| "[\"#{p.title}\",\"#{p.image.url()}\"]" }.join(",\n") %>
-);
+[
+<%= @photos.collect{|p| "{title: \"#{p.title}\", value:\"#{p.image.url()}\"}" }.join(",\n").html_safe %>
+]

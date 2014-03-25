@@ -1,3 +1,3 @@
-var tinyMCELinkList = new Array(
-<%= @pages.collect{|p| "[\"#{p.title}\",\"#{p.path}\"]" }.join(",\n") %>
-);
+[
+<%= @pages.collect{|p| "{title:\"#{p.title}\",value:\"#{p.path}\"}" }.join(",\n").html_safe %>
+]

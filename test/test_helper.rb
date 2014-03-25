@@ -45,7 +45,8 @@ class ActiveSupport::TestCase
 end
 
 require 'authlogic/test_case'
-class ActionController::TestCase
+#class ActionController::TestCase
+class ActiveSupport::TestCase
 
 	setup :activate_authlogic
 

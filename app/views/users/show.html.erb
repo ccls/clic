@@ -2,7 +2,7 @@
 
 <div class='user'>
  <div class='user_avatar'>
-   <%= image_tag(@user.avatar.url(:medium)) %>
+   <%= image_tag(@user.avatar.url(:medium)) unless ( @user.avatar.path(:medium).present? and !File.exists?(@user.avatar.path(:medium).to_s ) )  %>
  </div><!-- class='user_avatar' -->
 
   <div class='person'>

@@ -1,5 +1,4 @@
-<%# javascripts('tiny_mce/jquery.tinymce.js') %>
-<% javascripts('tinymce-jquery.js') %>
+<% javascripts("//tinymce.cachefly.net/4.0/tinymce.min.js") %>
 <%= f.error_messages %>
 <%= f.wrapped_text_field :title,
 	:label_text => "Title #{required('*')}".html_safe,
