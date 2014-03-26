@@ -25,8 +25,6 @@ class InventoriesControllerTest < ActionController::TestCase
 #	assert_access_with_login({    :logins => inventory_readers })
 #	assert_no_access_with_login({ :logins => non_site_administrators })
 #	assert_no_access_without_login
-#	assert_access_with_https
-#	assert_no_access_with_http
 #
 #	inventory_readers.each do |cu|
 #

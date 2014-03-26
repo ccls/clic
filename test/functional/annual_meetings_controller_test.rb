@@ -26,8 +26,6 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 		o.assert_no_access_with_login({ :logins => unapproved_users })
 	end
 
-#	assert_access_with_https
-#	assert_no_access_with_http 
 	assert_no_access_without_login
 
 

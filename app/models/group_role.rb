@@ -27,7 +27,8 @@ class GroupRole < ActiveRecord::Base
 	#	Treats the class a bit like a Hash and
 	#	searches for a record with a matching name.
 	def self.[](name)
-		find_by_name(name.to_s) #|| raise(NotFound)
+#		find_by_name(name.to_s) #|| raise(NotFound)
+		where(name:name.to_s).first #|| raise(NotFound)
 	end
 
 end

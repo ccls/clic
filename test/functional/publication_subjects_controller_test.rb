@@ -16,9 +16,7 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 		FactoryGirl.attributes_for(:publication_subject,options)
 	end
 
-#	assert_access_with_https
 	assert_access_with_login({ :logins => site_administrators })
-#	assert_no_access_with_http 
 	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
 	assert_orderable

@@ -21,7 +21,12 @@ class EditorImagesControllerTest < ActionController::TestCase
 			assert_response :success
 			assert_template 'index'
 			assert assigns(:photos)
-			assert_match /var tinyMCEImageList = new Array/, @response.body
+#			assert_match /var tinyMCEImageList = new Array/, @response.body	#	rails 3 style
+#puts @response.body
+#Editor Images Controller should return index.js with unapproved_user login: [
+#{title: "CLIC Studies", value:"/test/photos/2/original/CLICStudies_113010_studies_only_no_PI.jpg?1291673380"}
+#]
+			assert_match /^\[.*title.*value.*\]$/m, @response.body
 	  end
 
   end

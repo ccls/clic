@@ -16,10 +16,8 @@ class PhotosControllerTest < ActionController::TestCase
 		FactoryGirl.attributes_for(:photo,options)
 	end
 
-#	assert_access_with_https
 	assert_access_with_login({ :logins => site_editors })
 
-#	assert_no_access_with_http 
 	assert_no_access_with_login({ :logins => non_site_editors })
 	assert_no_access_without_login
 

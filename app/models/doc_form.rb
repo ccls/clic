@@ -1,6 +1,6 @@
 class DocForm < ActiveRecord::Base
 
-	attr_accessible :title, :abstract
+	attr_accessible :title, :abstract, :group_documents_attributes, :current_user
 
 	validates_presence_of :title, :abstract
 	validates_length_of   :title,    :maximum => 250

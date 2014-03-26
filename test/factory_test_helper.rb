@@ -29,6 +29,7 @@ module FactoryTestHelper
 
 	def remove_object_and_document_attachment(object)
 		document_path = object.document.path
+		assert document_path.present?
 		object.document.destroy
 		object.destroy
 		assert !File.exists?(document_path)

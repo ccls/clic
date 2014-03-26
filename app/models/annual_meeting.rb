@@ -1,6 +1,6 @@
 class AnnualMeeting < ActiveRecord::Base
 
-	attr_accessible :meeting, :abstract
+	attr_accessible :meeting, :abstract, :group_documents_attributes, :current_user
 
 	acts_as_list 
 

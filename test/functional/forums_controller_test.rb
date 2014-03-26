@@ -43,8 +43,6 @@ class ForumsControllerTest < ActionController::TestCase
 	end
 
 	assert_no_access_without_login
-#	assert_access_with_https
-#	assert_no_access_with_http
 
 	site_administrators.each do |cu|
 

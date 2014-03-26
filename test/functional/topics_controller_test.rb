@@ -39,8 +39,6 @@ class TopicsControllerTest < ActionController::TestCase
 	end
 
 	assert_no_access_without_login
-#	assert_access_with_https
-#	assert_no_access_with_http
 
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership

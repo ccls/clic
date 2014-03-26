@@ -7,7 +7,8 @@ require 'rails/test_help'
 require 'factory_test_helper'
 require 'group_test_helper'
 require 'orderable_test_helper'
-require 'sunspot_test_helper'
+
+require 'authlogic/test_case'
 
 class ActiveSupport::TestCase
 	#ActiveRecord::Migration.check_pending!	#	rails 4	#	WOW, autotest does not like this line!
@@ -42,19 +43,14 @@ class ActiveSupport::TestCase
 		assert_nil UserSession.find
 	end
 
-end
-
-require 'authlogic/test_case'
+#end
 #class ActionController::TestCase
-class ActiveSupport::TestCase
-
-	setup :activate_authlogic
 
 	def create_a_membership
-		@membership = create_membership
+		@membership = create_full_membership
 	end
 
-	def create_membership(options={})
+	def create_full_membership(options={})		#	different name
 		m = FactoryGirl.create(:membership,{
 			:approved   => true,
 			:group_role => GroupRole['reader']}.merge(options))
@@ -74,7 +70,7 @@ class ActiveSupport::TestCase
 	end
 
 	def group_roleless
-		m = create_membership(
+		m = create_full_membership(
 			:group      => @membership.group,
 			:group_role => nil )
 		assert_equal @membership.group, m.group
@@ -85,7 +81,7 @@ class ActiveSupport::TestCase
 	end
 
 	def group_reader
-		m = create_membership(
+		m = create_full_membership(
 			:group => @membership.group )
 		assert_not_nil m.group_role_id
 		assert_equal @membership.group, m.group
@@ -95,7 +91,7 @@ class ActiveSupport::TestCase
 	end
 
 	def group_editor
-		m = create_membership(
+		m = create_full_membership(
 			:group      => @membership.group,
 			:group_role => GroupRole['editor'] )
 		assert_not_nil m.group_role_id
@@ -106,7 +102,7 @@ class ActiveSupport::TestCase
 	end
 
 	def group_moderator
-		m = create_membership(
+		m = create_full_membership(
 			:group      => @membership.group,
 			:group_role => GroupRole['moderator'] )
 		assert_not_nil m.group_role_id
@@ -117,7 +113,7 @@ class ActiveSupport::TestCase
 	end
 
 	def unapproved_group_moderator
-		m = create_membership(
+		m = create_full_membership(
 			:approved   => false,
 			:group      => @membership.group,
 			:group_role => GroupRole['moderator'] )
@@ -129,7 +125,7 @@ class ActiveSupport::TestCase
 	end
 
 #	def group_administrator
-#		m = create_membership(
+#		m = create_full_membership(
 #			:group      => @membership.group,
 #			:group_role => GroupRole['administrator'] )
 #		assert_not_nil m.group_role_id
@@ -140,7 +136,7 @@ class ActiveSupport::TestCase
 #	end
 #
 #	def unapproved_group_administrator
-#		m = create_membership(
+#		m = create_full_membership(
 #			:approved   => false,
 #			:group      => @membership.group,
 #			:group_role => GroupRole['administrator'] )
@@ -154,7 +150,7 @@ class ActiveSupport::TestCase
 #	the following "nonmembers" mean that they are "not members of @membership.group"
 
 	def nonmember_roleless
-		m = create_membership(
+		m = create_full_membership(
 			:group_role => nil )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
@@ -163,7 +159,7 @@ class ActiveSupport::TestCase
 	end
 
 	def nonmember_reader
-		m = create_membership()
+		m = create_full_membership()
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
 		assert m.user.approved?
@@ -171,7 +167,7 @@ class ActiveSupport::TestCase
 	end
 
 	def nonmember_editor
-		m = create_membership(
+		m = create_full_membership(
 			:group_role => GroupRole['editor'] )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
@@ -180,7 +176,7 @@ class ActiveSupport::TestCase
 	end
 
 	def nonmember_moderator
-		m = create_membership(
+		m = create_full_membership(
 			:group_role => GroupRole['moderator'] )
 		assert_not_equal @membership.group, m.group
 		assert m.approved?
@@ -189,7 +185,7 @@ class ActiveSupport::TestCase
 	end
 
 	def unapproved_nonmember_moderator
-		m = create_membership(
+		m = create_full_membership(
 			:approved   => false,
 			:group_role => GroupRole['moderator'] )
 		assert_not_equal @membership.group, m.group
@@ -199,7 +195,7 @@ class ActiveSupport::TestCase
 	end
 
 #	def nonmember_administrator
-#		m = create_membership(
+#		m = create_full_membership(
 #			:group_role => GroupRole['administrator'] )
 #		assert_not_equal @membership.group, m.group
 #		assert m.approved?
@@ -208,7 +204,7 @@ class ActiveSupport::TestCase
 #	end
 #
 #	def unapproved_nonmember_administrator
-#		m = create_membership(
+#		m = create_full_membership(
 #			:approved   => false,
 #			:group_role => GroupRole['administrator'] )
 #		assert_not_equal @membership.group, m.group
@@ -319,5 +315,10 @@ class ActiveSupport::TestCase
 		end
 
 	end
+
+end
+class ActionController::TestCase
+
+	setup :activate_authlogic
 
 end

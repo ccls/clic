@@ -54,8 +54,6 @@ class UsersControllerTest < ActionController::TestCase
 	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
 	assert_access_without_login({ :actions => [:new, :create] })
-#	assert_access_with_https
-#	assert_no_access_with_http
 
 	#	These NEED to be that actual role names and not aliases
 	#	as the strings are compared

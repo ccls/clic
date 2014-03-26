@@ -13,7 +13,8 @@ class PhotoTest < ActiveSupport::TestCase
 	end
 
 	test "should use local filesystem to store attachment in test" do
-		photo = FactoryGirl.create(:photo, :image_file_name => 'bogus_file_name')
+		photo = FactoryGirl.create(:photo)
+		photo.update_attribute(:image_file_name, 'bogus_file_name')
 		assert !photo.image.exists?
 		assert !File.exists?(photo.image.path)
 		assert_equal :filesystem, photo.image.options[:storage]
@@ -22,7 +23,8 @@ class PhotoTest < ActiveSupport::TestCase
 	test "should use amazon to store attachment in production" do
 		Rails.stubs(:env).returns('production')
 		load 'photo.rb'
-		photo = FactoryGirl.create(:photo, :image_file_name => 'bogus_file_name')
+		photo = FactoryGirl.create(:photo)
+		photo.update_attribute(:image_file_name, 'bogus_file_name')
 		assert !photo.image.exists?
 		assert !File.exists?(photo.image.path)
 

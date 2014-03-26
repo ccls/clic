@@ -25,7 +25,8 @@ class Group < ActiveRecord::Base
 	
 	scope :joinable,  ->{ where( :groups_count => 0 ) }
 	scope :roots,     ->{ where( :parent_id => nil ) }
-	scope :not_roots, ->{ where( 'groups.parent_id IS NOT NULL' ) }
+#	scope :not_roots, ->{ where( 'groups.parent_id IS NOT NULL' ) }
+	scope :not_roots, ->{ where( Group.arel_table[:parent_id].not_eq(nil) ) }
 
 	validates_presence_of   :name
 	validates_uniqueness_of :name
@@ -41,7 +42,8 @@ class Group < ActiveRecord::Base
 	#	Treats the class a bit like a Hash and
 	#	searches for a record with a matching name.
 	def self.[](name)
-		find_by_name(name.to_s) #|| raise(NotFound)
+#		find_by_name(name.to_s) #|| raise(NotFound)
+		where(name:name.to_s).first #|| raise(NotFound)
 	end
 
 protected

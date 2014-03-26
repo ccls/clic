@@ -1,7 +1,8 @@
 class Publication < ActiveRecord::Base
 
 	attr_accessible :author_last_name, :publication_year, :journal, :title, 
-		:other_publication_subject, :url
+		:publication_subject_ids, :study_ids,
+		:other_publication_subject, :url, :current_user
 
 #	belongs_to :publication_subject
 #	belongs_to :study
