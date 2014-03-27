@@ -1,0 +1,11 @@
+-
+  :attributes: :title
+  :presence: true
+  :length:
+    :maximum: 250
+
+-
+  :attributes: :abstract
+  :presence: true
+  :length:
+    :maximum: 65000

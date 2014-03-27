@@ -1,0 +1,24 @@
+-
+  :attribute: :name
+  :presence: true
+  :uniqueness: true
+  :length:
+    :maximum: 250
+
+-
+  :attributes:
+  - :world_region
+  - :country
+  - :design
+  - :recruitment
+  - :target_age_group
+  :length:
+    :maximum: 250
+  :allow_nil: true
+-
+  :attributes:
+  - :overview
+  :length:
+    :maximum: 65000
+  :allow_nil: true
+

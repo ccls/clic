@@ -1,0 +1,22 @@
+-
+  :attribute: :path
+  :presence: true
+  :uniqueness: true
+  :length:
+    :minimum: 1
+  :format:
+    :with: !ruby/regexp /\A\//
+
+-
+  :attribute: :menu_en
+  :uniqueness: true
+  :length:
+    :minimum: 4
+
+-
+  :attributes: 
+  - :title_en
+  - :body_en
+  :length:
+    :minimum: 4
+

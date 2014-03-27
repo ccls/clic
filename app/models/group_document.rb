@@ -11,12 +11,14 @@ class GroupDocument < ActiveRecord::Base
 
 	attr_protected :user_id, :group_id
 
-	validates_presence_of :user_id
-	validates_presence_of :user, :if => :user_id
+#	validates_presence_of :user_id
+#	validates_presence_of :user, :if => :user_id
+#
+#	validates_presence_of :title
+#	validates_length_of :title,       :maximum => 250
+#	validates_length_of :description, :maximum => 65000, :allow_blank => true
 
-	validates_presence_of :title
-	validates_length_of :title,       :maximum => 250
-	validates_length_of :description, :maximum => 65000, :allow_blank => true
+	validations_from_yaml_file
 
 #	WHY? (blank creates an error, nil does not)
 	before_validation :nullify_blank_document_file_name

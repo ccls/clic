@@ -4,8 +4,10 @@ class Photo < ActiveRecord::Base
 #:image_file_name
 #, :image_content_type, :image_file_size, :image_updated_at
 
-	validates_presence_of :title
-	validates_length_of :title, :minimum => 4
+#	validates_presence_of :title
+#	validates_length_of :title, :minimum => 4
+
+	validations_from_yaml_file
 
 	has_attached_file :image,
 		YAML::load(ERB.new(IO.read(File.expand_path(

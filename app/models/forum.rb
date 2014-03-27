@@ -3,10 +3,12 @@ class Forum < ActiveRecord::Base
 
 	belongs_to :group
 	has_many :topics, :dependent => :destroy
-	validates_presence_of   :name
-	validates_uniqueness_of :name, :scope => :group_id
-	#	using allow_blank => true removes the "too long" error when it is blank
-	validates_length_of     :name, :maximum => 250, :allow_blank => true
+#	validates_presence_of   :name
+#	validates_uniqueness_of :name, :scope => :group_id
+#	#	using allow_blank => true removes the "too long" error when it is blank
+#	validates_length_of     :name, :maximum => 250, :allow_blank => true
+
+	validations_from_yaml_file
 
 	scope :groupless, ->{ where( :group_id => nil ) }
 

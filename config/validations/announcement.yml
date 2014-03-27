@@ -1,0 +1,52 @@
+-
+  :attributes: :user
+  :presence: true
+
+-
+  :attributes:
+  - :title
+  :presence: true
+  :length:
+    :maximum: 250
+
+-
+  :attributes:
+  - :content
+  :presence: true
+  :length:
+    :maximum: 65000
+
+-
+  :attributes: :begins_on
+  :presence: true
+  :if: :ends_on
+-
+  :attributes: 
+  - :begins_on
+  - :ends_on
+  :complete_date: true
+  :allow_nil: true
+
+-
+  :attributes:
+  - :begins_at_hour
+  - :ends_at_hour
+  :inclusion:
+    :in: !ruby/range 1..12
+  :allow_blank: true
+
+-
+  :attributes:
+  - :begins_at_minute
+  - :ends_at_minute
+  :inclusion:
+    :in: !ruby/range 0..59
+  :allow_blank: true
+
+-
+  :attributes:
+  - :begins_at_meridiem
+  - :ends_at_meridiem
+  :format:
+    :with: !ruby/regexp /\A(AM|PM)\z/i
+  :allow_blank: true

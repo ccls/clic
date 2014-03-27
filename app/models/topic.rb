@@ -10,9 +10,11 @@ class Topic < ActiveRecord::Base
 	belongs_to :forum, :counter_cache => true
 	belongs_to :user,  :counter_cache => true
 	has_many :posts, :dependent => :destroy
-	validates_presence_of :title
-#	validates_uniqueness_of :title
-	validates_length_of :title, :maximum => 250
+#	validates_presence_of :title
+##	validates_uniqueness_of :title
+#	validates_length_of :title, :maximum => 250
+
+	validations_from_yaml_file
 
 	accepts_nested_attributes_for :posts
 

@@ -13,9 +13,11 @@ class PublicationSubject < ActiveRecord::Base
 	has_many :publication_publication_subjects
 	has_many :publications, :through => :publication_publication_subjects
 
-	validates_presence_of   :name
-	validates_uniqueness_of :name
-	validates_length_of     :name,  :maximum => 250
+#	validates_presence_of   :name
+#	validates_uniqueness_of :name
+#	validates_length_of     :name,  :maximum => 250
+
+	validations_from_yaml_file
 
 	def to_s
 		name

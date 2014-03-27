@@ -1,0 +1,8 @@
+-
+  :attribute: :user
+  :presence: true
+-
+  :attribute: :body
+  :presence: true
+  :length:
+    :maximum: 65000

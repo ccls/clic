@@ -13,8 +13,10 @@ class Post < ActiveRecord::Base
 
 #	can't validate presence of topic when using nested_attributes
 #	validates_presence_of :topic, :user, :body
-	validates_presence_of :user, :body
-	validates_length_of   :body, :maximum => 65000
+#	validates_presence_of :user, :body
+#	validates_length_of   :body, :maximum => 65000
+
+	validations_from_yaml_file
 
 	attr_protected :user_id, :topic_id
 

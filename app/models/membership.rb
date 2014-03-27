@@ -9,7 +9,9 @@ class Membership < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :group
 	belongs_to :group_role
-	validates_presence_of :user, :group
+#	validates_presence_of :user, :group
+
+	validations_from_yaml_file
 
 #	Is this really needed????
 #	Let's see!

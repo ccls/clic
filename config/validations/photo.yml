@@ -1,0 +1,4 @@
+-
+  :attribute: :title
+  :length:
+    :minimum: 4

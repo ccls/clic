@@ -15,9 +15,11 @@ class AnnualMeeting < ActiveRecord::Base
 	accepts_nested_attributes_for :group_documents, 
 		:reject_if => proc{|attributes| attributes['document'].blank? }
 
-	validates_presence_of :meeting, :abstract
-	validates_length_of :meeting,  :maximum => 250
-	validates_length_of :abstract, :maximum => 65000
+#	validates_presence_of :meeting, :abstract
+#	validates_length_of :meeting,  :maximum => 250
+#	validates_length_of :abstract, :maximum => 65000
+
+	validations_from_yaml_file
 
 	#	solely used to pass the current_user to the group documents
 	attr_accessor :current_user

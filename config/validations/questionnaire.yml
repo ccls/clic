@@ -1,0 +1,8 @@
+-
+  :attribute: :study_id
+  :presence: true
+-
+  :attribute: :title
+  :presence: true
+  :length:
+    :in: !ruby/range 4..250

@@ -1,0 +1,7 @@
+-
+  :attribute: :name
+  :presence: true
+  :uniqueness: true
+  :length:
+    :maximum: 250
+

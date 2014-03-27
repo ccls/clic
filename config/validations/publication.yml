@@ -1,0 +1,27 @@
+-
+  :attributes: 
+  - :publication_subject_ids
+  - :study_ids
+  - :title
+  - :journal
+  - :publication_year
+  - :author_last_name
+  :presence: true
+
+-
+  :attributes:
+  - :title
+  - :journal
+  - :author_last_name
+  - :other_publication_subject
+  - :url
+  :length:
+    :maximum: 250
+  :allow_blank: true
+
+#- 
+#  :attribute: :publication_year
+#  :inclusion:
+#    :in: !ruby/range 1900..Time.now.year
+#  :message: "should be between 1900 and #{Time.now.year}"
+

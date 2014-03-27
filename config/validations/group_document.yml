@@ -1,0 +1,20 @@
+-
+  :attribute: :user_id
+  :presence: true
+
+-
+  :attribute: :user
+  :presence: true
+  :if: :user_id
+
+-
+  :attribute: :title
+  :presence: true
+  :length:
+    :maximum: 250
+
+-
+  :attribute: :description
+  :length:
+    :maximum: 65000
+  :allow_blank: true

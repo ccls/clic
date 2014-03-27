@@ -1,0 +1,6 @@
+-
+  :attribute: :title
+  :presence: true
+  :length:
+    :maximum: 250
+

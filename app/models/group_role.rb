@@ -14,9 +14,11 @@ class GroupRole < ActiveRecord::Base
 	has_many :memberships
 	has_many :users,  :through => :memberships
 	has_many :groups, :through => :memberships
-	validates_presence_of   :name
-	validates_uniqueness_of :name
-	validates_length_of     :name,  :maximum => 250
+#	validates_presence_of   :name
+#	validates_uniqueness_of :name
+#	validates_length_of     :name,  :maximum => 250
+
+	validations_from_yaml_file
 
 	def to_s
 		name

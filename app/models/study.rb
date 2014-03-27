@@ -26,15 +26,17 @@ class Study < ActiveRecord::Base
 #		self.principal_investigators = Array.new if self.principal_investigators.nil?
 #	end
 
-	validates_presence_of   :name
-	validates_uniqueness_of :name
-	validates_length_of     :name, :maximum => 250
-	validates_length_of     :world_region, :maximum => 250, :allow_nil => true
-	validates_length_of     :country, :maximum => 250, :allow_nil => true
-	validates_length_of     :design, :maximum => 250, :allow_nil => true
-	validates_length_of     :recruitment, :maximum => 250, :allow_nil => true
-	validates_length_of     :target_age_group, :maximum => 250, :allow_nil => true
-	validates_length_of     :overview, :maximum => 65000, :allow_nil => true
+#	validates_presence_of   :name
+#	validates_uniqueness_of :name
+#	validates_length_of     :name, :maximum => 250
+#	validates_length_of     :world_region, :maximum => 250, :allow_nil => true
+#	validates_length_of     :country, :maximum => 250, :allow_nil => true
+#	validates_length_of     :design, :maximum => 250, :allow_nil => true
+#	validates_length_of     :recruitment, :maximum => 250, :allow_nil => true
+#	validates_length_of     :target_age_group, :maximum => 250, :allow_nil => true
+#	validates_length_of     :overview, :maximum => 65000, :allow_nil => true
+
+	validations_from_yaml_file
 
 	def to_s
 		name

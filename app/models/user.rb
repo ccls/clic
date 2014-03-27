@@ -59,35 +59,39 @@ class User < ActiveRecord::Base
 #	validates_length_of :password, :minimum => 8, 
 #		:if => :password_changed?
 
-	validates_format_of :password,
-		:with => Regexp.new(
-			'(?=.*[a-z])' <<
-			'(?=.*[A-Z])' <<
-			'(?=.*\d)' <<
-			# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-			# '(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
-			#	this probably includes control chars
-			'(?=.*\W)' ), 
-		:message => 'requires at least one lowercase and one uppercase ' <<
-			'letter, one number and one special character',
-		:if => :valid_password_required?
-#		:if => :password_changed?
-#		:unless => :password_blank?
 	def valid_password_required?
 		password_changed? || !password_confirmation.blank?
 	end
 
-	validates_presence_of :title
-#	validates_presence_of :profession
-	validates_presence_of :profession_ids
-	validates_presence_of :organization
-	validates_presence_of :first_name
-	validates_presence_of :last_name
-	validates_presence_of :degrees
-	validates_presence_of :address
-	validates_presence_of :phone_number
+#	validates_format_of :password,
+#		:with => Regexp.new(
+#			'(?=.*[a-z])' <<
+#			'(?=.*[A-Z])' <<
+#			'(?=.*\d)' <<
+#			# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+#			# '(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
+#			#	this probably includes control chars
+#			'(?=.*\W)' ), 
+#		:message => 'requires at least one lowercase and one uppercase ' <<
+#			'letter, one number and one special character',
+#		:if => :valid_password_required?
+#
+##		:if => :password_changed?
+##		:unless => :password_blank?
+##	validates_presence_of :profession
+#
+#	validates_presence_of :title
+#	validates_presence_of :profession_ids
+#	validates_presence_of :organization
+#	validates_presence_of :first_name
+#	validates_presence_of :last_name
+#	validates_presence_of :degrees
+#	validates_presence_of :address
+#	validates_presence_of :phone_number
+#
+#	validates_uniqueness_of :avatar_file_name, :allow_nil => true
 
-	validates_uniqueness_of :avatar_file_name, :allow_nil => true
+	validations_from_yaml_file
 
 	before_validation :nullify_blank_avatar_file_name
 

@@ -1,0 +1,8 @@
+-
+  :attribute: :name
+  :presence: true
+  :uniqueness: 
+    :scope: :group_id
+  :length:
+    :maximum: 250
+    :allow_blank: true

@@ -13,9 +13,11 @@ class Profession < ActiveRecord::Base
 	has_many :user_professions
 	has_many :users, :through => :user_professions
 
-	validates_presence_of   :name
-	validates_uniqueness_of :name
-	validates_length_of     :name,  :maximum => 250
+#	validates_presence_of   :name
+#	validates_uniqueness_of :name
+#	validates_length_of     :name,  :maximum => 250
+
+	validations_from_yaml_file
 
 	def to_s
 		name

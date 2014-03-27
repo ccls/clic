@@ -1,0 +1,24 @@
+-
+  :attribute: :password
+  :format:
+    :with: !ruby/regexp /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)/
+    :message: 'requires at least one lowercase and one uppercase letter, one number and one special character'
+  :if: :valid_password_required?
+
+-
+  :attributes:
+  - :title
+  - :profession_ids
+  - :organization
+  - :first_name
+  - :last_name
+  - :degrees
+  - :address
+  - :phone_number
+  :presence: true
+
+-
+  :attribute: :avatar_file_name
+  :uniqueness: true
+  :allow_nil: true
+

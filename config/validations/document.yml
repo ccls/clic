@@ -1,0 +1,12 @@
+-
+  :attributes: :title
+  :presence: true
+  :length:
+    :in: !ruby/range 4..250
+
+-
+  :attribute: :document_file_name
+  :uniqueness: true
+  :allow_nil: true
+
+#	WHY?

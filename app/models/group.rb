@@ -28,9 +28,12 @@ class Group < ActiveRecord::Base
 #	scope :not_roots, ->{ where( 'groups.parent_id IS NOT NULL' ) }
 	scope :not_roots, ->{ where( Group.arel_table[:parent_id].not_eq(nil) ) }
 
-	validates_presence_of   :name
-	validates_uniqueness_of :name
-	validates_length_of     :name, :maximum => 250
+#	validates_presence_of   :name
+#	validates_uniqueness_of :name
+#	validates_length_of     :name, :maximum => 250
+
+	validations_from_yaml_file
+
 	validate :cannot_be_own_child
 
 	def to_s

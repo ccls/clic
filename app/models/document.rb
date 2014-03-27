@@ -8,11 +8,13 @@ class Document < ActiveRecord::Base
 #	polymorphism is unecessary now that GroupDocument is its own class
 	belongs_to :owner, :polymorphic => true
 
-	validates_presence_of :title
-	validates_length_of   :title, :in => 4..250
+#	validates_presence_of :title
+#	validates_length_of   :title, :in => 4..250
+#
+##	WHY?
+#	validates_uniqueness_of :document_file_name, :allow_nil => true
 
-#	WHY?
-	validates_uniqueness_of :document_file_name, :allow_nil => true
+	validations_from_yaml_file
 
 	before_validation :nullify_blank_document_file_name
 
