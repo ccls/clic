@@ -33,6 +33,13 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal User.perishable_token_valid_for, 12.hours.to_i
 	end
 
+	test "should confirm_email" do
+		u = unapproved_user(:email_confirmed_at => nil)
+		assert_nil u.reload.email_confirmed_at
+		u.confirm_email
+		assert_not_nil u.reload.email_confirmed_at
+	end
+
 	test "should return username as to_s" do
 		object = create_object
 		assert_equal object.username, "#{object}"

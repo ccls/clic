@@ -47,8 +47,46 @@ class GroupsControllerTest < ActionController::TestCase
 				get :index, :parent_id => group.id
 				assert_response :success
 				assert_template 'index'
+				assert_not_nil assigns(:group)
+				assert_not_nil assigns(:groups)
 			end
 
+		end
+
+
+		test "should get index of a root group with children and #{cu} login" do
+			group = FactoryGirl.create(:group)
+			child = FactoryGirl.create(:group, :parent_id => group.id)
+			login_as send(cu)
+			get :index, :parent_id => group.id
+			assert_response :success
+			assert_template 'index'
+			assert_not_nil assigns(:group)
+			assert_not_nil assigns(:groups)
+			assert_equal assigns(:groups), [child]
+		end
+
+		test "should get index of a root group without children and #{cu} login" do
+			group = FactoryGirl.create(:group)
+			login_as send(cu)
+			get :index, :parent_id => group.id
+			assert_response :success
+			assert_template 'index'
+			assert_not_nil assigns(:group)
+			assert_not_nil assigns(:groups)
+			assert assigns(:groups).empty?
+		end
+
+		test "should get index of a non-root group with #{cu} login" do
+			group = FactoryGirl.create(:group)
+			child = FactoryGirl.create(:group, :parent_id => group.id)
+			login_as send(cu)
+			get :index, :parent_id => child.id
+			assert_response :success
+			assert_template 'index'
+			assert_not_nil assigns(:group)
+			assert_not_nil assigns(:groups)
+			assert assigns(:groups).empty?
 		end
 
 	end

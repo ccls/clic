@@ -144,6 +144,19 @@ class ApplicationHelperTest < ActionView::TestCase
 		assert respond_to?(:group_pages)
 	end
 
+	test "should return group_pages with @group as root" do
+		@group = Group.roots.first
+		response = HTML::Document.new("<ul>#{group_pages}</ul>").root
+		assert_select response, 'span.ui-icon-triangle-1-e', :count => 3
+	end
+
+	test "should return group_pages with @group not as root" do
+		@group = Group.not_roots.first
+		response = HTML::Document.new("<ul>#{group_pages}</ul>").root
+		assert_select response, 'span.ui-icon-triangle-1-e', :count => 2
+		assert_select response, 'span.ui-icon-triangle-1-s', :count => 1
+	end
+
 #	def group_li(group)
 
 	test "should respond_to group_li" do

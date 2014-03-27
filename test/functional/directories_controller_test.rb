@@ -7,6 +7,62 @@ class DirectoriesControllerTest < ActionController::TestCase
 
 	approved_users.each do |cu|
 
+		%w( last_name title ).each do |attr|
+
+			#
+			#	These will include the User from :create_a_membership and the User logged in
+			#	( they are a bit unpredictable in the sorting, so remove them )
+			#
+
+			test "should recall from session find users and" <<
+					" order by #{attr} with #{cu} login" do
+				users = 3.times.collect{|i| FactoryGirl.create(:user, attr => "999#{i}" )}
+				login_as u = send(cu)
+				session[:order] = attr
+				get :show
+				assert_response :success
+				users.each{|user| assert assigns(:members).to_a.include?(user) }
+				assert_equal assigns(:members).to_a - [u] - [@membership.user], users
+			end
+
+			test "should recall from session find users and" <<
+					" order by #{attr} dir asc with #{cu} login" do
+				users = 3.times.collect{|i| FactoryGirl.create(:user, attr => "999#{i}" )}
+				login_as u = send(cu)
+				session[:order] = attr
+				session[:dir] = 'asc'
+				get :show
+				assert_response :success
+				users.each{|user| assert assigns(:members).to_a.include?(user) }
+				assert_equal assigns(:members).to_a - [u] - [@membership.user], users
+			end
+
+			test "should recall from session find users and" <<
+					" order by #{attr} dir desc with #{cu} login" do
+				users = 3.times.collect{|i| FactoryGirl.create(:user, attr => "999#{i}" )}
+				login_as u = send(cu)
+				session[:order] = attr
+				session[:dir] = 'desc'
+				get :show
+				assert_response :success
+				users.each{|user| assert assigns(:members).to_a.include?(user) }
+				assert_equal assigns(:members).reverse.to_a - [u] - [@membership.user], users
+			end
+
+			test "should recall from session find users and" <<
+					" order by #{attr} invalid dir with #{cu} login" do
+				users = 3.times.collect{|i| FactoryGirl.create(:user, attr => "999#{i}" )}
+				login_as u = send(cu)
+				session[:order] = attr
+				session[:dir] = 'invalid'
+				get :show
+				assert_response :success
+				users.each{|user| assert assigns(:members).to_a.include?(user) }
+				assert_equal assigns(:members).to_a - [u] - [@membership.user], users
+			end
+
+		end	#	%w( last_name title ).each do |attr|
+
 		test "should get member directory with #{cu} login" do
 			login_as send(cu)
 			get :show
@@ -102,6 +158,7 @@ class DirectoriesControllerTest < ActionController::TestCase
 		end
 
 	end
+
 
 	[:first_name,:last_name,:profession_id].each do |field|
 

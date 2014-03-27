@@ -27,11 +27,13 @@ class EmailConfirmationsControllerTest < ActionController::TestCase
 	end
 
 	test "should confirm email with valid perishable_token and no login" do
-		u = unapproved_user
+		u = unapproved_user(:email_confirmed_at => nil)
+		assert_nil u.reload.email_confirmed_at
 		get :confirm, :id => u.perishable_token
 		assert_not_nil assigns(:user)
 		assert_not_nil flash[:notice]
 		assert_redirected_to login_path
+		assert_not_nil u.reload.email_confirmed_at
 	end
 
 	test "should NOT confirm email with valid expired perishable_token and no login" do

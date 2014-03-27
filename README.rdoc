@@ -217,7 +217,7 @@ Use DateTime.current or Time.zone.now
 ---
 == Quick Development Notes
 
- c ; /bin/rm -rf coverage* ; bundle exec rake ; mv coverage coverage-one-run ; open coverage-one-run/index.html ; nice +20 bundle exec autotest
+ c ; /bin/rm -rf coverage* ; bundle exec rake ; mv coverage coverage-one-run ; open coverage-one-run/index.html ; nice +20 bundle exec autotest -v --no-full-after-failed
 
 
 ---

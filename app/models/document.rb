@@ -30,7 +30,7 @@ class Document < ActiveRecord::Base
 	end
 
 	def to_s
-		title
+		title	#	won't test???
 	end
 
 end

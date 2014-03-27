@@ -185,6 +185,7 @@ class User < ActiveRecord::Base
 
 	#	Treats the class a bit like a Hash and
 	#	searches for a record with a matching name.
+	#	use matches to remove case sensitivity
 	def self.[](username)
 #	for some reason this doesn't show as tested in coverage (also the find_by_* methods are old)
 #		find_by_username(username.to_s) #|| raise(NotFound)
