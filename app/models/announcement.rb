@@ -1,28 +1,8 @@
 class Announcement < ActiveRecord::Base
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => 'created_at DESC, begins_on DESC'
-
-
 	belongs_to :user
 	belongs_to :group
 
-#	validates_presence_of :user, :title, :content
-#	validates_length_of :title,   :maximum => 250
-#	validates_length_of :content, :maximum => 65000
-#	validates_presence_of :begins_on, :if => :ends_on
-#	validates_complete_date_for :begins_on, :ends_on, :allow_nil => true
-#
-#	validates_inclusion_of :begins_at_hour,     :ends_at_hour, 
-#		:in => (1..12), :allow_blank => true
-#	validates_inclusion_of :begins_at_minute,   :ends_at_minute,
-#		:in => (0..59), :allow_blank => true
-#	validates_format_of    :begins_at_meridiem, :ends_at_meridiem,
-#		:with => /\A(AM|PM)\z/i, :allow_blank => true
-#
 	validations_from_yaml_file
 	attr_protected :group_id, :user_id
 

@@ -11,25 +11,10 @@ class Publication < ActiveRecord::Base
 	has_many   :publication_subjects, :through => :publication_publication_subjects
 	has_many   :publication_studies
 	has_many   :studies, :through => :publication_studies
-#	validates_presence_of :publication_subject_ids
-#	validates_presence_of :study_ids
-#
-##	accepts_nested_attributes_for :group_documents, 
-##		:reject_if => proc{|attributes| attributes['document'].blank? }
-#
-##	validates_presence_of :publication_subject, :study
-#
-#	validates_presence_of :title, :journal, :publication_year, :author_last_name
-#
-#	validates_length_of :title, :journal, :author_last_name, 
-#		:other_publication_subject, :url,
-#			:maximum => 250, :allow_blank => true
 
 	#	difficult to put in the yaml file
 	validates_inclusion_of :publication_year, :in => 1900..Time.now.year,
 		:message => "should be between 1900 and #{Time.now.year}"
-
-##	validates_presence_of :other_publication_subject, :if => :publication_subject_is_other?
 
 	validations_from_yaml_file
 

@@ -1,13 +1,8 @@
 class Questionnaire < ActiveRecord::Base
 
 	attr_accessible :study_id, :title, :document
-#	:document_file_name, :document_content_type, :document_file_size, :document_updated_at]
 
 	belongs_to :study
-
-#	validates_presence_of :study_id
-#	validates_presence_of :title
-#	validates_length_of   :title, :in => 4..250
 
 	validations_from_yaml_file
 

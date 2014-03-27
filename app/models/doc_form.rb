@@ -2,10 +2,6 @@ class DocForm < ActiveRecord::Base
 
 	attr_accessible :title, :abstract, :group_documents_attributes, :current_user
 
-#	validates_presence_of :title, :abstract
-#	validates_length_of   :title,    :maximum => 250
-#	validates_length_of   :abstract, :maximum => 65000
-
 	validations_from_yaml_file
 
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable

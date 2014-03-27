@@ -1,18 +1,9 @@
 #	Topic class
 class Topic < ActiveRecord::Base
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => 'created_at DESC'
-
 	belongs_to :forum, :counter_cache => true
 	belongs_to :user,  :counter_cache => true
 	has_many :posts, :dependent => :destroy
-#	validates_presence_of :title
-##	validates_uniqueness_of :title
-#	validates_length_of :title, :maximum => 250
 
 	validations_from_yaml_file
 

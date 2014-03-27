@@ -38,12 +38,6 @@ class User < ActiveRecord::Base
 		approve! unless approved?
 	end
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => :username
-
 	has_many :memberships
 	has_many :approved_memberships, ->{ where( approved: true ) }, class_name: 'Membership'
 	has_many :group_documents
@@ -55,41 +49,9 @@ class User < ActiveRecord::Base
 	has_many :user_professions
 	has_many :professions, :through => :user_professions
 
-#	It seems that authlogic includes a minimum length of 4
-#	validates_length_of :password, :minimum => 8, 
-#		:if => :password_changed?
-
 	def valid_password_required?
 		password_changed? || !password_confirmation.blank?
 	end
-
-#	validates_format_of :password,
-#		:with => Regexp.new(
-#			'(?=.*[a-z])' <<
-#			'(?=.*[A-Z])' <<
-#			'(?=.*\d)' <<
-#			# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-#			# '(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
-#			#	this probably includes control chars
-#			'(?=.*\W)' ), 
-#		:message => 'requires at least one lowercase and one uppercase ' <<
-#			'letter, one number and one special character',
-#		:if => :valid_password_required?
-#
-##		:if => :password_changed?
-##		:unless => :password_blank?
-##	validates_presence_of :profession
-#
-#	validates_presence_of :title
-#	validates_presence_of :profession_ids
-#	validates_presence_of :organization
-#	validates_presence_of :first_name
-#	validates_presence_of :last_name
-#	validates_presence_of :degrees
-#	validates_presence_of :address
-#	validates_presence_of :phone_number
-#
-#	validates_uniqueness_of :avatar_file_name, :allow_nil => true
 
 	validations_from_yaml_file
 

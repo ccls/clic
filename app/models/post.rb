@@ -1,20 +1,9 @@
 #	Post class
 class Post < ActiveRecord::Base
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => 'created_at DESC'
-
 	belongs_to :topic, :counter_cache => true
 	belongs_to :user,  :counter_cache => true
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable
-
-#	can't validate presence of topic when using nested_attributes
-#	validates_presence_of :topic, :user, :body
-#	validates_presence_of :user, :body
-#	validates_length_of   :body, :maximum => 65000
 
 	validations_from_yaml_file
 

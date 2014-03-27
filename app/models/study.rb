@@ -1,11 +1,5 @@
 class Study < ActiveRecord::Base
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => 'name ASC'
-
 	acts_as_list
 
 	has_many :publication_studies
@@ -25,16 +19,6 @@ class Study < ActiveRecord::Base
 #		# set principal_investigators default to empty Array
 #		self.principal_investigators = Array.new if self.principal_investigators.nil?
 #	end
-
-#	validates_presence_of   :name
-#	validates_uniqueness_of :name
-#	validates_length_of     :name, :maximum => 250
-#	validates_length_of     :world_region, :maximum => 250, :allow_nil => true
-#	validates_length_of     :country, :maximum => 250, :allow_nil => true
-#	validates_length_of     :design, :maximum => 250, :allow_nil => true
-#	validates_length_of     :recruitment, :maximum => 250, :allow_nil => true
-#	validates_length_of     :target_age_group, :maximum => 250, :allow_nil => true
-#	validates_length_of     :overview, :maximum => 65000, :allow_nil => true
 
 	validations_from_yaml_file
 

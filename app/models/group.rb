@@ -5,12 +5,6 @@ class Group < ActiveRecord::Base
 
 	acts_as_list :scope => :parent_id
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => 'parent_id,position'
-
 	with_options :class_name => 'Group' do |o|
 		o.belongs_to :parent, :counter_cache => :groups_count
 		o.has_many :children, 
@@ -25,12 +19,7 @@ class Group < ActiveRecord::Base
 	
 	scope :joinable,  ->{ where( :groups_count => 0 ) }
 	scope :roots,     ->{ where( :parent_id => nil ) }
-#	scope :not_roots, ->{ where( 'groups.parent_id IS NOT NULL' ) }
 	scope :not_roots, ->{ where( Group.arel_table[:parent_id].not_eq(nil) ) }
-
-#	validates_presence_of   :name
-#	validates_uniqueness_of :name
-#	validates_length_of     :name, :maximum => 250
 
 	validations_from_yaml_file
 

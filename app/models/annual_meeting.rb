@@ -4,20 +4,10 @@ class AnnualMeeting < ActiveRecord::Base
 
 	acts_as_list 
 
-#	default scopes are EVIL.  They seem to take precedence
-#	over you actual query which seems really stupid
-#	removing all in rails 3 which will probably require
-#	modifications to compensate in the methods that expected them
-#	default_scope :order => 'position'
-
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable
 
 	accepts_nested_attributes_for :group_documents, 
 		:reject_if => proc{|attributes| attributes['document'].blank? }
-
-#	validates_presence_of :meeting, :abstract
-#	validates_length_of :meeting,  :maximum => 250
-#	validates_length_of :abstract, :maximum => 65000
 
 	validations_from_yaml_file
 
