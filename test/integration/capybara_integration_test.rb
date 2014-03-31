@@ -13,6 +13,18 @@ class CapybaraIntegrationTest < ActionDispatch::CapybaraIntegrationTest
 			login_as u
 		end
 
+		test "should logout with #{cu} login" do
+			u = send(cu)
+			login_as u
+			visit root_path
+			assert_equal current_path, root_path
+			assert has_css?('#menu #application_menu')
+			assert has_link?('Logout')
+			click_link('Logout')
+			assert_equal current_path, root_path
+			assert has_no_link?('Logout')
+		end
+
 	end
 
 end

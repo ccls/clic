@@ -165,9 +165,9 @@ Clic::Application.routes.draw do
 		:as => :signin
 	get 'login' =>   'user_sessions#new',
 		:as => :login
-	delete 'signout' => 'user_sessions#destroy',
+	get 'signout' => 'user_sessions#destroy',
 		:as => :signout
-	delete 'logout' =>  'user_sessions#destroy',
+	get 'logout' =>  'user_sessions#destroy',
 		:as => :logout
 
 	resources :locales, :only => :show
