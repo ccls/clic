@@ -1,7 +1,7 @@
 module ApplicationHelper
 
 	def application_menu
-		require_dependency 'page.rb' unless Page
+#		require_dependency 'page.rb' unless Page
 		out = "<ul id='application_menu'>\n"
 		if logged_in?
 			out << "<li><a class='submenu_toggle'>Public Pages</a>" <<
@@ -82,7 +82,7 @@ module ApplicationHelper
 	end
 
 	def group_pages
-		require_dependency 'group.rb' unless Group
+#		require_dependency 'group.rb' unless Group
 		group_menu = Group.roots.collect do |group|
 			if group.groups_count > 0
 				style, icon = if( group == @group.try(:parent) )
