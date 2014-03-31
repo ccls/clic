@@ -46,3 +46,15 @@
 #	
 #	end
 #	
+
+class Autotest
+  def rerun_all_tests
+  end
+end
+
+
+Autotest.add_hook :initialize do |autotest|
+	%w{ to_upload/ }.each do |exception|
+		autotest.add_exception(exception)
+	end
+end
