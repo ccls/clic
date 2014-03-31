@@ -14,7 +14,7 @@
 #	doesn't effect the server's cache.  That makes sense.
 #	So then.  How to get the host_with_port without a 
 #	request then?
-class PageSweeper < ActionController::Caching::Sweeper
+class PageSweeper #< ActionController::Caching::Sweeper
 #	observe Page
 #
 #	#	After saving (creating or updating) a page,
