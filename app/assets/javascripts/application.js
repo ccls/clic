@@ -35,7 +35,7 @@ jQuery(function(){
 			plugins: [
 				"advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
 				"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-				"table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+				"table contextmenu directionality emoticons template textcolor paste textcolor"
 			],
 
 			toolbar1 : "newdocument | bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull formatselect fontselect fontsizeselect | forecolor backcolor",
