@@ -73,3 +73,7 @@ form.edit_user div.field_wrapper div.profession_ids_wrapper div.profession_ids l
 	padding:0;
 	width: auto;
 }
+
+form.edit_user div.mce-tinymce div {
+	margin: auto;
+}
