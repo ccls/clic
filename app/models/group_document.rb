@@ -30,7 +30,7 @@ class GroupDocument < ActiveRecord::Base
 	end
 
 	def to_s
-		title	#	won't test???
+		title.to_s
 	end
 
 end

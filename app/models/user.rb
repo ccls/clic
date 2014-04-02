@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
 	end
 
 	def to_s
-		username
+		username.to_s
 	end
 
 	attr_protected :approved

@@ -21,8 +21,11 @@ class PhotoTest < ActiveSupport::TestCase
 	end
 
 	test "should use amazon to store attachment in production" do
-		Rails.stubs(:env).returns('production')
-		load 'photo.rb'
+		Photo.has_attached_file :image,
+			YAML::load(ERB.new(IO.read(File.expand_path(
+				File.join(File.dirname(__FILE__),'../..','config/photo.yml')
+			))).result)['production']
+
 		photo = FactoryGirl.create(:photo)
 		photo.update_attribute(:image_file_name, 'bogus_file_name')
 		assert !photo.image.exists?
@@ -33,11 +36,13 @@ class PhotoTest < ActiveSupport::TestCase
 
 		#	not private, nevertheless
 		#	is an image so needs additional /original/ folder
- 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/photos/\d+/original/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, photo.image.expiring_url
+ 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/photos/\d+/original/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+			photo.image.expiring_url
 
-		# WE MUST UNDO these has_attached_file modifications
-		Rails.unstub(:env)
-		load 'photo.rb'
+		Photo.has_attached_file :image,
+			YAML::load(ERB.new(IO.read(File.expand_path(
+				File.join(File.dirname(__FILE__),'../..','config/photo.yml')
+			))).result)['test']
 	end
 
 protected

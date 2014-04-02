@@ -106,9 +106,10 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 		test "should get redirect to private s3 groupless group document with #{cu} login" do
 			#	Since the REAL S3 credentials are only in production
-			#	Bad credentials make exists? return true????
-			Rails.stubs(:env).returns('production')
-			load 'group_document.rb'
+			GroupDocument.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/group_document.yml')
+				))).result)['production']
 
 			document = FactoryGirl.create(:group_document, :document_file_name => 'bogus_file_name')
 			assert_not_nil document.id
@@ -122,11 +123,13 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
+			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+				@response.redirect_url
 
-			#	WE MUST UNDO these has_attached_file modifications
-			Rails.unstub(:env)
-			load 'group_document.rb'
+			GroupDocument.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/group_document.yml')
+				))).result)['test']
 		end
 
 	end
@@ -174,9 +177,10 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 
 		test "should get redirect to private s3 group's group document with #{cu} login" do
 			#	Since the REAL S3 credentials are only in production
-			#	Bad credentials make exists? return true????
-			Rails.stubs(:env).returns('production')
-			load 'group_document.rb'
+			GroupDocument.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/group_document.yml')
+				))).result)['production']
 
 			document = FactoryGirl.create(:group_document, :document_file_name => 'bogus_file_name',
 				:group => @membership.group)
@@ -191,11 +195,13 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
+			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/group_documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+				@response.redirect_url
 
-			#	WE MUST UNDO these has_attached_file modifications
-			Rails.unstub(:env)
-			load 'group_document.rb'
+			GroupDocument.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/group_document.yml')
+				))).result)['test']
 		end
 
 	end

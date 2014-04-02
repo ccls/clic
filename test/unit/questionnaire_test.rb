@@ -40,8 +40,11 @@ class QuestionnaireTest < ActiveSupport::TestCase
 	end
 
 	test "should use amazon to store attachment in production" do
-		Rails.stubs(:env).returns('production')
-		load 'questionnaire.rb'
+		Questionnaire.has_attached_file :document,
+			YAML::load(ERB.new(IO.read(File.expand_path(
+				File.join(File.dirname(__FILE__),'../..','config/questionnaire.yml')
+			))).result)['production']
+
 		questionnaire = FactoryGirl.create(:questionnaire, :document_file_name => 'bogus_file_name')
 		assert !questionnaire.document.exists?
 		assert !File.exists?(questionnaire.document.path)
@@ -49,11 +52,13 @@ class QuestionnaireTest < ActiveSupport::TestCase
 		assert_equal :s3, questionnaire.document.options[:storage]
 		assert_equal :private, questionnaire.document.options[:s3_permissions]
 
- 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, questionnaire.document.expiring_url
+ 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+			questionnaire.document.expiring_url
 
-		# WE MUST UNDO these has_attached_file modifications
-		Rails.unstub(:env)
-		load 'questionnaire.rb'
+		Questionnaire.has_attached_file :document,
+			YAML::load(ERB.new(IO.read(File.expand_path(
+				File.join(File.dirname(__FILE__),'../..','config/questionnaire.yml')
+			))).result)['test']
 	end
 
 protected

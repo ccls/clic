@@ -72,9 +72,10 @@ class QuestionnairesControllerTest < ActionController::TestCase
 
 		test "should download S3 questionnaire with #{cu} login" do
 			#	Since the REAL S3 credentials are only in production
-			#	Bad credentials make exists? return true????
-			Rails.stubs(:env).returns('production')
-			load 'questionnaire.rb'
+			Questionnaire.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/questionnaire.yml')
+				))).result)['production']
 
 			questionnaire = FactoryGirl.create(:questionnaire, :document_file_name => 'bogus_file_name')
 			assert !questionnaire.document.exists?
@@ -86,11 +87,13 @@ class QuestionnairesControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :download, :id => questionnaire.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
+			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/questionnaires/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+				@response.redirect_url
 
-			#	WE MUST UNDO these has_attached_file modifications
-			Rails.unstub(:env)
-			load 'questionnaire.rb'
+			Questionnaire.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/questionnaire.yml')
+				))).result)['test']
 		end
 
 		test "should NOT download questionnaire with #{cu} login and no document" do

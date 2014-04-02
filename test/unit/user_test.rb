@@ -294,24 +294,27 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal :filesystem, user.avatar.options[:storage]
 	end
 
-	test "should use amazon to store attachment in production" do
-		Rails.stubs(:env).returns('production')
-		load 'user.rb'
-		user = FactoryGirl.create(:user, :avatar_file_name => 'bogus_file_name')
-		assert !user.avatar.exists?
-		assert !File.exists?(user.avatar.path)
-
-		assert_equal :s3, user.avatar.options[:storage]
-		assert_equal :public_read, user.avatar.options[:s3_permissions]
-
-		#	NOT private, nevertheless
-		#	is an image so needs the size folder /original/
- 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/user_avatar/\d+/original/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, user.avatar.expiring_url
-
-		# WE MUST UNDO these has_attached_file modifications
-		Rails.unstub(:env)
-		load 'user.rb'
-	end
+#
+#	I think that this is interfering with test coverage
+#
+#	test "should use amazon to store attachment in production" do
+#		Rails.stubs(:env).returns('production')
+#		load 'user.rb'
+#		user = FactoryGirl.create(:user, :avatar_file_name => 'bogus_file_name')
+#		assert !user.avatar.exists?
+#		assert !File.exists?(user.avatar.path)
+#
+#		assert_equal :s3, user.avatar.options[:storage]
+#		assert_equal :public_read, user.avatar.options[:s3_permissions]
+#
+#		#	NOT private, nevertheless
+#		#	is an image so needs the size folder /original/
+# 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/user_avatar/\d+/original/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, user.avatar.expiring_url
+#
+#		# WE MUST UNDO these has_attached_file modifications
+#		Rails.unstub(:env)
+#		load 'user.rb'
+#	end
 
 protected
 

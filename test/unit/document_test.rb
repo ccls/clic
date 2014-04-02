@@ -40,8 +40,11 @@ class DocumentTest < ActiveSupport::TestCase
 	end
 
 	test "should use amazon to store attachment in production" do
-		Rails.stubs(:env).returns('production')
-		load 'document.rb'
+		Document.has_attached_file :document,
+			YAML::load(ERB.new(IO.read(File.expand_path(
+				File.join(File.dirname(__FILE__),'../..','config/document.yml')
+			))).result)['production']
+
 		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 		assert !document.document.exists?
 		assert !File.exists?(document.document.path)
@@ -49,11 +52,13 @@ class DocumentTest < ActiveSupport::TestCase
 		assert_equal :s3, document.document.options[:storage]
 		assert_equal :private, document.document.options[:s3_permissions]
 
- 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, document.document.expiring_url
+ 		assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+			document.document.expiring_url
 
-		# WE MUST UNDO these has_attached_file modifications
-		Rails.unstub(:env)
-		load 'document.rb'
+		Document.has_attached_file :document,
+			YAML::load(ERB.new(IO.read(File.expand_path(
+				File.join(File.dirname(__FILE__),'../..','config/document.yml')
+			))).result)['test']
 	end
 
 protected

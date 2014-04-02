@@ -27,60 +27,6 @@ class DocumentsControllerTest < ActionController::TestCase
 
 	site_editors.each do |cu|
 
-##	still only privacy filter is based on "may_maintain_pages"
-##	which isn't really gonna work
-#	test "should get redirect to public s3 document with #{cu} login" do
-#		Document.any_instance.stubs(:s3_public?).returns(true)
-#		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
-#		assert !File.exists?(document.document.path)
-#		login_as send(cu)
-#		get :show, :id => document.id
-#		assert_redirected_to document.document.url
-#	end
-#
-#	test "should get redirect to private s3 document with #{cu} login" do
-#		Document.any_instance.stubs(:s3_private?).returns(true)
-#		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
-#		assert !File.exists?(document.document.path)
-#		login_as send(cu)
-#		get :show, :id => document.id
-#		assert_redirected_to document.s3_url
-#	end
-
-#	Add may_download_document
-
-#	test "should get redirect to public s3 document with #{cu} login" do
-#		Document.any_instance.stubs(:s3_public?).returns(true)
-#		document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
-#		assert !File.exists?(document.document.path)
-#		login_as send(cu)
-#		get :show, :id => document.id
-#		assert_redirected_to document.document.url
-#	end
-
-		test "should get redirect to private s3 document with #{cu} login" do
-			#	Since the REAL S3 credentials are only in production
-			#	Bad credentials make exists? return true????
-			Rails.stubs(:env).returns('production')
-			load 'document.rb'
-
-			document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
-			assert !document.document.exists?
-			assert !File.exists?(document.document.path)
-
-			AWS::S3::S3Object.any_instance.stubs(:exists?).returns(true)
-			assert document.document.exists?
-
-			login_as send(cu)
-			get :show, :id => document.id
-			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
-
-			#	WE MUST UNDO these has_attached_file modifications
-			Rails.unstub(:env)
-			load 'document.rb'
-		end
-
 		test "should NOT download document with nil document and #{cu} login" do
 			document = FactoryGirl.create(:document)
 			assert document.document.path.blank?
@@ -143,13 +89,15 @@ class DocumentsControllerTest < ActionController::TestCase
 
 	end
 
-	( non_site_editors + ['no_login'] ).each do |cu|
+
+	( all_test_roles + ['no_login'] ).each do |cu|
 
 		test "should get redirect to private s3 document with #{cu} login" do
 			#	Since the REAL S3 credentials are only in production
-			#	Bad credentials make exists? return true????
-			Rails.stubs(:env).returns('production')
-			load 'document.rb'
+			Document.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/document.yml')
+				))).result)['production']
 
 			document = FactoryGirl.create(:document, :document_file_name => 'bogus_file_name')
 			assert !document.document.exists?
@@ -161,12 +109,18 @@ class DocumentsControllerTest < ActionController::TestCase
 			login_as send(cu)
 			get :show, :id => document.id
 			assert_response :redirect
-			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, @response.redirect_url
+			assert_match %r{\Ahttp(s)?://clic.s3.amazonaws.com/documents/\d+/bogus_file_name\?AWSAccessKeyId=\w+&Expires=\d+&Signature=.+\z}, 
+				@response.redirect_url
 
-			#	WE MUST UNDO these has_attached_file modifications
-			Rails.unstub(:env)
-			load 'document.rb'
+			Document.has_attached_file :document,
+				YAML::load(ERB.new(IO.read(File.expand_path(
+					File.join(File.dirname(__FILE__),'../..','config/document.yml')
+				))).result)['test']
 		end
+
+	end
+
+	( non_site_editors + ['no_login'] ).each do |cu|
 
 		test "should NOT download document with nil document and #{cu} login" do
 			document = FactoryGirl.create(:document)
