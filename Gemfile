@@ -31,6 +31,9 @@ gem "aws-s3"
 gem 'aws-sdk'
 
 gem "authlogic"
+gem "bcrypt"	#	required by authlogic 3.4.1 even though I'm not using.  Lame.
+gem "scrypt"	#	required by authlogic 3.4.1 even though I'm not using.  Lame.
+
 gem "ruby-hmac"
 
 gem 'minitest'
