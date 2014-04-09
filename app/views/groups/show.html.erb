@@ -16,7 +16,7 @@
 <div class='members_only'>
  <div class='announcement_section section'>
   <h2>Announcements</h2>
-  <% unless @announcements.empty? %>
+  <% unless @announcements.to_a.empty? %>
    <table id='announcements'><tbody>
    <%= render :partial => 'announcement', :collection => @announcements %>
    </tbody></table><!-- id='announcements' -->

@@ -7,7 +7,7 @@
 </span>
 <% end %></h2>
 
-<% unless @professions.empty? %>
+<% unless @professions.to_a.empty? %>
   <table id='professions' class='orderable'><thead><tr>
 <%= "<th>&nbsp;</th>".html_safe if current_user.may_order? -%>
 <th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>

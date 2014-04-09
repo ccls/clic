@@ -43,7 +43,7 @@
 
 <!--
 <%# no more group documents attached to publications as potentially a copyright violation %>
-<%# unless @publication.group_documents.empty? %>
+<%# unless @publication.group_documents.to_a.empty? %>
 <p><b>Attachment(s):</b></p>
   <%# @publication.group_documents.each do |document| %>
     <p><%#= link_to document.title, group_document_path(document) %></p>

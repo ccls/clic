@@ -11,7 +11,7 @@
 </p>
 
 
-<% unless @doc_form.group_documents.empty? %>
+<% unless @doc_form.group_documents.to_a.empty? %>
 <p><b>Attachment(s):</b></p>
   <% @doc_form.group_documents.each do |document| %>
     <p><%= link_to document.title, group_document_path(document) %></p>

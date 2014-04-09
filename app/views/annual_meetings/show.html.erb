@@ -8,7 +8,7 @@
   <%= sanitize(@annual_meeting.abstract) %>
 </p>
 
-<% unless @annual_meeting.group_documents.empty? %>
+<% unless @annual_meeting.group_documents.to_a.empty? %>
 <p><b>Attachment(s):</b></p>
   <% @annual_meeting.group_documents.each do |document| %>
     <p><%= link_to document.title, group_document_path(document) %></p>

@@ -14,7 +14,7 @@ class PhotoTest < ActiveSupport::TestCase
 
 	test "should use local filesystem to store attachment in test" do
 		photo = FactoryGirl.create(:photo)
-		photo.update_attribute(:image_file_name, 'bogus_file_name')
+		photo.update_column(:image_file_name, 'bogus_file_name')
 		assert !photo.image.exists?
 		assert !File.exists?(photo.image.path)
 		assert_equal :filesystem, photo.image.options[:storage]
@@ -27,7 +27,7 @@ class PhotoTest < ActiveSupport::TestCase
 			))).result)['production']
 
 		photo = FactoryGirl.create(:photo)
-		photo.update_attribute(:image_file_name, 'bogus_file_name')
+		photo.update_column(:image_file_name, 'bogus_file_name')
 		assert !photo.image.exists?
 		assert !File.exists?(photo.image.path)
 

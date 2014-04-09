@@ -1,5 +1,5 @@
 <div id='questions' class='tab_contents'>
- <% unless @questionnaires.empty? %>
+ <% unless @questionnaires.to_a.empty? %>
   <ul class='results'>
     <% @questionnaires.each do |questionnaire| %>
      <li class='result'>

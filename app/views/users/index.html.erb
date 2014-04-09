@@ -1,6 +1,6 @@
 <% stylesheets('users') %>
 <h2>Users</h2>
-<% unless @users.empty? %>
+<% unless @users.to_a.empty? %>
   <table id='users'><thead>
     <tr><th>&nbsp;</th><th>Username</th><th class='role_name'>Site Roles</th><th>Confirmed</th><th>&nbsp;</th></tr>
   </thead><tbody>

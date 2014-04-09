@@ -9,7 +9,7 @@
 </span>
 <% end %></h2>
 
-<% unless @publication_subjects.empty? %>
+<% unless @publication_subjects.to_a.empty? %>
   <table id='publication_subjects' class='orderable'><thead><tr>
 <%= "<th>&nbsp;</th>".html_safe if current_user.may_order? -%>
 <th>&nbsp;</th><th>Name</th><th>&nbsp;</th></tr>

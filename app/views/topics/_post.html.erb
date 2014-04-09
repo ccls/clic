@@ -4,7 +4,7 @@
  </td>
  <td class='body'>
   <%=h Hpricot(post.body).to_plain_text %>
-  <% unless post.group_documents.empty? %>
+  <% unless post.group_documents.to_a.empty? %>
     <% post.group_documents.each do |document| %>
       <br/>
       <%= link_to document.title, group_document_path(document) %>

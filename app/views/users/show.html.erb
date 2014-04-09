@@ -34,7 +34,7 @@
 
  <div class='groups'>
   <h2>Groups:</h2>
-  <% unless @user.memberships.empty? %>
+  <% unless @user.memberships.to_a.empty? %>
    <ul>
     <% @user.memberships.each do |membership| %>
      <li><%= link_to membership.group.name, membership.group %>&nbsp;

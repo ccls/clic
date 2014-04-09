@@ -31,7 +31,7 @@ module OrderableController
 			model = self.class.controller_name.camelize.singularize.constantize
 #	This seems to treat params[:ids] as an array even if it is not?
 			params[:ids].each_with_index { |id,index| 
-				model.find(id).update_attribute(:position, index+1 ) }
+				model.find(id).update_column(:position, index+1 ) }
 		rescue NoMethodError => e
 #	Most likely caused by nonexistant params[:ids]
 #	e would be ...

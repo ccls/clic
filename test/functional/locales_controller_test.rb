@@ -30,7 +30,7 @@ class LocalesControllerTest < ActionController::TestCase
 	test "should set locale to en via js" do
 		@request.accept = "text/javascript"
 		assert_nil session[:locale]
-		get :show, :id => 'en'
+		xhr :get, :show, :id => 'en'
 		assert_equal 'en', session[:locale]
 		assert_response :success
 	end
@@ -40,7 +40,7 @@ class LocalesControllerTest < ActionController::TestCase
 		assert_nil session[:locale]
 		session[:locale] = 'en'
 		assert_equal 'en', session[:locale]
-		get :show, :id => 'es'
+		xhr :get, :show, :id => 'es'
 		assert_equal 'es', session[:locale]
 		assert_response :success
 	end
@@ -50,7 +50,7 @@ class LocalesControllerTest < ActionController::TestCase
 		assert_nil session[:locale]
 		session[:locale] = 'es'
 		assert_equal 'es', session[:locale]
-		get :show, :id => 'en'
+		xhr :get, :show, :id => 'en'
 		assert_equal 'en', session[:locale]
 		assert_response :success
 	end

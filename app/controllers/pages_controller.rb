@@ -33,7 +33,7 @@ class PagesController < ApplicationController
 
 		if params[:pages].present? && params[:pages].is_a?(Array)
 			params[:pages].each_with_index { |id,index| 
-				Page.find(id).update_attribute(:position, index+1 ) }
+				Page.find(id).update_column(:position, index+1 ) }
 		else
 			flash[:error] = "No page order given!"
 		end

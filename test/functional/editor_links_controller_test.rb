@@ -17,7 +17,7 @@ class EditorLinksControllerTest < ActionController::TestCase
 	
  	 test "should return index.js with #{cu} login" do
 			login_as send(cu)
-			get :index, :format => :js
+			xhr :get, :index, :format => :js
 			assert_response :success
 			assert_template 'index'
 			assert assigns(:pages)

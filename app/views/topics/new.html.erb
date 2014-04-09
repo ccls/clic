@@ -18,11 +18,11 @@ Creating new discussion topic</h2>
     :label_text => 'Topic Title',
     :class => 'autosize' %>
 
-  <% @topic.posts.build if @topic.posts.empty? %>
+  <% @topic.posts.build if @topic.posts.to_a.empty? %>
   <%= f.fields_for :posts do |p| %>
     <%= p.wrapped_text_area :body,
       :cols => 40, :rows => 20, :class => 'tinymce' %>
-    <% p.object.group_documents.build if p.object.group_documents.empty? %>
+    <% p.object.group_documents.build if p.object.group_documents.to_a.empty? %>
     <%= p.fields_for :group_documents do |d| %>
       <p>Optional File Attachment ...</p>
 <p>Be advised that some characters in the filename are not handled correctly and the uploaded file may not be reachable.  The apostrophe is currently the only known problem so far. Rename the file on your computer prior to uploading so that it does not include any special characters.</p>

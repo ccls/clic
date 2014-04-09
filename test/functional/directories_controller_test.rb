@@ -63,12 +63,30 @@ class DirectoriesControllerTest < ActionController::TestCase
 
 		end	#	%w( last_name title ).each do |attr|
 
-		test "should get member directory with #{cu} login" do
-			login_as send(cu)
+		test "should get DISTINCT member directory with #{cu} login" do
+			user = @membership.user
+			user.professions << Profession.first
+			user.professions << Profession.last
+			assert_equal user.professions.length, 3
+			login_as (user = send(cu))
 			get :show
 			assert_response :success
 			assert_template 'show'
 			assert !assigns(:members).empty?
+			assert_equal assigns(:members).length, 2
+			assert assigns(:members).include?(user)
+			assert assigns(:members).include?(@membership.user)
+		end
+
+		test "should get member directory with #{cu} login" do
+			login_as (user = send(cu))
+			get :show
+			assert_response :success
+			assert_template 'show'
+			assert !assigns(:members).empty?
+			assert_equal assigns(:members).length, 2
+			assert assigns(:members).include?(user)
+			assert assigns(:members).include?(@membership.user)
 		end
 
 		test "should search directory by bogus first name with #{cu} login" do

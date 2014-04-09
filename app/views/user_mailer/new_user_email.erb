@@ -1,6 +1,6 @@
 <p>A new CLIC user, <%= link_to @user, user_url(@user) -%>, was just created.</p>
 
-<% if @user.memberships.empty? %>
+<% if @user.memberships.to_a.empty? %>
 <p>This user has not requested any memberships yet.</p>
 <% else %>
 <p>This user has requested memberships to the following groups ...</p>

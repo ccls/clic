@@ -3,7 +3,7 @@
  <%= f.wrapped_text_field :meeting, :class => 'autosize' %>
  <%= f.wrapped_text_area :abstract, :cols => 40, :rows => 20, :class => 'autosize' %>
 
- <% @annual_meeting.group_documents.build if @annual_meeting.group_documents.empty? %>
+ <% @annual_meeting.group_documents.build if @annual_meeting.group_documents.to_a.empty? %>
  <%= render :partial => 'group_documents/group_documents',
    :locals => { :f => f } %>
 

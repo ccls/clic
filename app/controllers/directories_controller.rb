@@ -30,7 +30,17 @@ class DirectoriesController < ApplicationController
 #			:joins      => joins,
 #			:include    => :professions,
 #			:order      => search_order )
-		@members = User.select('DISTINCT users.*')
+
+
+#	don't remember exactly why I needed this select, but it don't work with 4.1.0
+#		@members = User.select('DISTINCT users.*')
+#		@members = User.select('DISTINCT `users`.`*`')
+#	I think that I put this here for when a user had multiple professions
+#	and would show up twice on the list.  Doesn't do this anymore
+#	even without it?
+
+
+		@members = User
 			.joins(joins)
 			.where(conditions)
 			.includes(:professions)

@@ -1,6 +1,6 @@
 <h2>Group Documents</h2>
 
-<% unless @documents.empty? %>
+<% unless @documents.to_a.empty? %>
  <table id='documents'><thead>
  <tr><th>Group</th><th>Title</th></tr></thead><tbody>
  <%= render :partial => 'document', :collection => @documents %>

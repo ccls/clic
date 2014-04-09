@@ -3,7 +3,7 @@
 
 <%= render 'search' %>
 
-<% unless @members.empty? %>
+<% unless @members.to_a.empty? %>
   <table id='members'><thead>
     <tr>
 <th><%= sort_link('Last Name','Name') %></th>

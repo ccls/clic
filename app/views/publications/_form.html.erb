@@ -52,7 +52,7 @@
 
 
 <%# no more group documents attached to publications as potentially a copyright violation %>
- <%# @publication.group_documents.build if @publication.group_documents.empty? %>
+ <%# @publication.group_documents.build if @publication.group_documents.to_a.empty? %>
  <%#= render :partial => 'group_documents/group_documents',
   :locals => { :f => f } %>
 

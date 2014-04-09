@@ -19,6 +19,9 @@
 	:id, :name, {:label_text => 'Professions'}, 
 	{ :multiple => true, :size => Profession.count } ) %>
 
+<%# Force sending blank array (has value '') for profession_ids if none selected %>
+<%= hidden_field_tag 'user[profession_ids][]' %>
+
 <div class="profession_ids field_wrapper<%=' field_error' if f.object.errors.include?(:profession_ids)-%>">
 <div class='label'>Professions <%=required('*')-%></div>
 <div class="profession_ids_wrapper">

@@ -1,5 +1,5 @@
 <div id='publications' class='tab_contents'>
- <% unless @publications.empty? %>
+ <% unless @publications.to_a.empty? %>
   <ul class='results'>
     <% @publications.each do |publication| %>
      <li class='result'>

@@ -3,7 +3,7 @@
 
 <h2>Pages</h2>
 
-<% unless @pages.empty? %>
+<% unless @pages.to_a.empty? %>
 <table id='pages'><tbody>
 <%= render :partial => 'page', :collection => @pages %>
 </tbody></table><!-- id='pages' -->
