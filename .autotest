@@ -12,6 +12,7 @@
 Autotest.add_hook :initialize do |autotest|
   %w{ .autotest .git .svn .hg .DS_Store ._* vendor/ tmp/ log/ doc/ versions/ 
 			.bundle/ Gemfile coverage/ coverage-one-run/ config.ru config/ solr/ 
+			MIT-LICENSE README.rdoc Rakefile
 			app/assets/ app/views/layouts/ lib/tasks/ }.each do |exception|
 		#	puts "Adding exception #{exception} from ~/.autotest"
 		autotest.add_exception(exception)
@@ -24,7 +25,11 @@ Autotest.add_hook :initialize do |autotest|
 
 	#	by default it is 'minitest/autorun' which if fine, but I can't figure
 	#	out how to stop it from running all tests when one file changes.
-	autotest.testlib           = "test/unit"
+	autotest.testlib = "test/unit"
+
+	#	for some reason, the default seems to have always been :random?
+	autotest.order   = :alpha
+
 
 	false	#	MUST DO THIS SO OTHER :initialize hooks work
 end
