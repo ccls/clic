@@ -10,7 +10,7 @@
 #
 
 Autotest.add_hook :initialize do |autotest|
-  %w{ .autotest .git .svn .hg .DS_Store ._* vendor/ tmp/ log/ doc/ versions/ 
+	%w{ .autotest .git .svn .hg .DS_Store ._* vendor/ tmp/ log/ doc/ versions/ 
 			.bundle/ Gemfile coverage/ coverage-one-run/ config.ru config/ solr/ 
 			MIT-LICENSE README.rdoc Rakefile
 			app/assets/ app/views/layouts/ lib/tasks/ }.each do |exception|
@@ -18,9 +18,25 @@ Autotest.add_hook :initialize do |autotest|
 		autotest.add_exception(exception)
 	end
 
-  %w{ to_upload/ development/ test/assets/ }.each do |exception|
+	%w{ to_upload/ development/ test/assets/ }.each do |exception|
 		#	puts "Adding exception #{exception} from .autotest"
 		autotest.add_exception(exception)
+	end
+
+#	from autotest-rails-4.2.1/lib/autotest/rails.rb
+#	# view -> view + controller
+#	add_mapping %r%^app/views/(.*)/% do |_, m|
+#		files_matching %r%^test/(controllers|views|functional)/#{m[1]}.*_test.rb$%
+#	end
+
+	#	don't forget the mailers
+	autotest.add_mapping %r%^app/views/(.*)/% do |_, m|
+		autotest.files_matching %r%^test/(controllers|views|functional|mailers)/#{m[1]}.*_test.rb$%
+	end
+
+
+	autotest.add_mapping %r%^app/mailers/(.*)\.rb$% do |_, m|
+		autotest.files_matching %r%^test/mailers/#{m[1]}.*_test.rb$%
 	end
 
 	#	by default it is 'minitest/autorun' which if fine, but I can't figure
