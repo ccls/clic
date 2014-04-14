@@ -45,12 +45,6 @@ class AnnualMeetingsController < ApplicationController
 	#	must be passed to it so that it can be added to the group_documents
 	#
 	def update
-#		@annual_meeting.update_attributes(params[:annual_meeting])
-#		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
-#		@annual_meeting.save!
-#	won't current_user always be nil?
-#		@annual_meeting.current_user = current_user if @annual_meeting.current_user.nil?
-#		@annual_meeting.update_attributes!(params[:annual_meeting])
 		@annual_meeting.current_user = current_user
 		@annual_meeting.update_attributes!(params[:annual_meeting])
 		flash[:notice] = 'Success!'
@@ -76,10 +70,6 @@ protected
 	end
 
 	def reverse_ids_for_ordering
-#		params[:ids] = (params[:ids]||[]).reverse
-#		if params[:ids]
-#			params[:ids] = params[:ids].reverse
-#		end
 		params[:ids].reverse! if params[:ids]
 	end
 

@@ -14,8 +14,6 @@ class AnnualMeeting < ActiveRecord::Base
 	#	solely used to pass the current_user to the group documents
 	attr_accessor :current_user
 
-#	before_validation_on_create  :set_group_documents_user
-
 	#	Before validation because group document requires user.
 	#	Probably easier if I just removed that validation.
 	#	Would need to add a migration as this is also in the database.
@@ -26,25 +24,10 @@ class AnnualMeeting < ActiveRecord::Base
 		meeting
 	end
 
-#
-#	Don't do it this way as don't know if group documents are set yet
-#
-#	def current_user=(new_user)
-#		@current_user=new_user
-#		set_group_documents_user
-#	end
-#
-#	def current_user
-#		@current_user
-#	end
-
 protected
 
 	def set_group_documents_user
 		group_documents.each do |gd|
-#	topic will be nil on nested attribute creation, so need to wait
-#			gd.group = topic.forum.group
-#			gd.user  = current_user if gd.user_id.blank? and !current_user.blank?
 			gd.user  = current_user if gd.user_id.blank?
 		end
 	end

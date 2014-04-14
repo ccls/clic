@@ -8,29 +8,8 @@ class PagesController < ApplicationController
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 	before_filter :page_required, :only => :show
 
-##	caches partials from layout as well, which is too much
-##	caching still buggy
-##	if do cache layout, contains user links
-##	if don't cache layout, submenu goes missing
-#
-##	caches_action saves to memory
-##	caches_page generates an actual file in public/
-##	it would probably require modifications to the
-##	page_sweeper's expire calls
-#
-#	#	This will also cache the flash output so don't cache layout
-#	caches_action :show, :layout => false
-#
-##	caches_page :show	#, :layout => false
-#	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
-#
-##	ssl_allowed :show, :translate
 
 	def order
-#		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
-#	this doesn't even check for parents or anything
-#	making it faster, but potentially error prone.
-
 		if params[:pages].present? && params[:pages].is_a?(Array)
 			params[:pages].each_with_index { |id,index| 
 				Page.find(id).update_column(:position, index+1 ) }
@@ -100,34 +79,16 @@ protected
 	#	Put this in a separate before_filter so that
 	#	another before_filter can access @page
 	def page_required
-#
-#		if params[:path]
-## 			@page = Page.by_path("/#{params[:path].join('/')}")
-##	rails 3 routing is weird here
-#			@page = Page.by_path("/#{[params[:path]].flatten.join('/')}")
-#			raise ActiveRecord::RecordNotFound if @page.nil?
-#		else
-#			@page = Page.find(params[:id])
-#		end
-#
-#	inverted
-
 		if params[:id].present?
 			@page = Page.find(params[:id])
 		else
-# 			@page = Page.by_path("/#{params[:path].join('/')}")
-#	rails 3 routing is weird here
 			@page = Page.by_path("/#{[params[:path]].flatten.join('/')}")
 			raise ActiveRecord::RecordNotFound if @page.nil?
 		end
 
 		@page_title = @page.title(session[:locale])
-#		if @page.is_home? && class_exists?('HomePagePic')
-#			@hpp = HomePagePic.random_active()
-#		end
 	rescue ActiveRecord::RecordNotFound
 		flash_message = "Page not found with "
-#		flash_message << (( params[:id].blank? ) ? "path '/#{params[:path].join('/')}'" : "ID #{params[:id]}")
 		flash_message << (( params[:id].blank? ) ? "path '/#{[params[:path]].flatten.join('/')}'" : "ID #{params[:id]}")
 
 		flash.now[:error] = flash_message

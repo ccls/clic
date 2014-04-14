@@ -5,17 +5,12 @@ class EmailConfirmationsController < ApplicationController
 	before_filter      :valid_perishable_token_as_id_required, :only => :resend
 
 	def confirm
-#		user = User.confirm_email(params[:id])
 		@user.confirm_email
 		flash[:notice] = "Email confirmed.  You may now login."
-#	rescue ActiveRecord::RecordNotFound
-#		flash[:error] = "User not found with that token."
-#	ensure
 		redirect_to login_path
 	end
 
 	def resend
-#		user = User.find_using_perishable_token(params[:id])
 		@user.reset_perishable_token!
 		UserMailer.confirm_email(@user).deliver
 		flash[:notice] = "Confirmation email resent. Please check your email to complete."

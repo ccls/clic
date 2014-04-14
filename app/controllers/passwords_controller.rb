@@ -13,35 +13,7 @@ class PasswordsController < ApplicationController
 			flash[:warn] = "Password was NOT provided so NOT updated."
 			redirect_to user_path(current_user)
 		else
-
-
-#
-#	If the current user is not valid due to validations added
-#	after the last time the user was updated, this will
-#	raise these errors and not allow the user to save the new
-#	password.  This should probably be set to just update
-#	the password and password_confirmation and then
-#	save without validating.  
-#
-#	Skipping the validations will probably skip the 
-#	comparison of the password to password_confirmation
-#	so probably want to find a better way!!!!
-#
-#			current_user.password = params[:user][:password]
-#			current_user.password_confirmation = params[:user][:password_confirmation]
-#			current_user.save!(false) 
-#	no. save! doesn't take arguments
-#	and save(false) won't raise errors
-#	if doing this, will need to do something other that rescue
-#			current_user.save(false)
-#
-#	in rails 2 I think
-#	In rails 3, it is save(:validate => false).
-#
-#
 			current_user.update_attributes!(params[:user])
-
-
 
 			#
 			#	Changing the password resets the persistence_token, which

@@ -15,7 +15,6 @@
 class Page < ActiveRecord::Base
 
 	acts_as_list :scope => :parent_id
-#	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= parent_id'} AND locale = '\#{locale}'"
 
 	validations_from_yaml_file
 
@@ -41,11 +40,9 @@ class Page < ActiveRecord::Base
 	def adjust_path
 		unless self.path.nil?
 			#	remove any duplicate /'s
-#			self.path = path.gsub(/\/+/,'/')
 			self.path.gsub!(/\/+/,'/')
 
 			#	add leading / if none
-#			self.path = path.downcase
 			self.path.downcase!
 		end
 	end
@@ -55,7 +52,6 @@ class Page < ActiveRecord::Base
 	#	by_path returns the one(max) page that
 	#	matches the given path.
 	def self.by_path(path)
-#		page = find(:first, :conditions => { :path   => path.downcase })
 		page = where( :path => path.downcase ).first
 	end
 

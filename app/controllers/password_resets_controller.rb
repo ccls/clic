@@ -20,36 +20,7 @@ class PasswordResetsController < ApplicationController
 	end
 
 	def update
-
-#
-#	If the user is not valid due to validations added
-#	after the last time the user was updated, this will
-#	raise these errors and not allow the user to save the new
-#	password.  This should probably be set to just update
-#	the password and password_confirmation and then
-#	save without validating.  
-#
-#	Skipping the validations will probably skip the 
-#	comparison of the password to password_confirmation
-#	so probably want to find a better way!!!!
-#
-#			@user.password = params[:user][:password]
-#			@user.password_confirmation = params[:user][:password_confirmation]
-#			@user.save!(false) 
-#	no. save! doesn't take arguments
-#	and save(false) won't raise errors
-#	if doing this, will need to do something other that rescue
-#			@user.save(false)
-#
-#	in rails 2 I think
-#	In rails 3, it is save(:validate => false).
-#
-#
-
 		@user.update_attributes!(params[:user])
-
-
-
 		flash[:notice] = "Password successfully updated"
 		redirect_to login_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid

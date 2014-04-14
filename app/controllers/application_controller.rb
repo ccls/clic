@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
 
 	before_filter :login_required
 
-#	filter_parameter_logging :password, :password_confirmation, :current_password
-
 	helper :all # include all helpers, all the time
 	helper_method :current_user_session, :current_user, :logged_in?
 

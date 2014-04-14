@@ -37,7 +37,6 @@ class GroupAnnouncementsController < ApplicationController
 	end
 
 	def update
-#		@announcement.update_attributes!(params[:announcement])
 		@announcement.update_attributes(params[:announcement])
 		#	due to some upgrades, it is possible for older announcements
 		#	to not have a user so set it here.
@@ -69,7 +68,6 @@ protected
 			@announcement = Announcement.find(params[:id])
 		else
 			access_denied("Valid announcement id required",members_only_path)
-#			access_denied("Valid announcement id required",group_path(@group))
 		end
 	end
 

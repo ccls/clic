@@ -21,9 +21,6 @@ class Publication < ActiveRecord::Base
 	#	solely used to pass the current_user from the controller to the group documents
 	attr_accessor :current_user
 
-#	before_validation_on_create  :set_group_documents_user
-#	before_validation  :set_group_documents_user
-
 	def to_s
 		title
 	end
@@ -36,20 +33,5 @@ class Publication < ActiveRecord::Base
 		( url.blank? ) ? '' :
 			( url.match(/^http(s)?:\/\//) ? url : "http://#{url}" )
 	end
-
-protected
-
-#	def set_group_documents_user
-#		group_documents.each do |gd|
-##	topic will be nil on nested attribute creation, so need to wait
-##			gd.group = topic.forum.group
-#			gd.user  = current_user if gd.user_id.blank?
-#		end
-#	end
-
-	#	publication_subject is not yet required, so use try
-#	def publication_subject_is_other?
-#		publication_subject.try(:is_other?)
-#	end
 
 end

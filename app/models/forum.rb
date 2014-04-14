@@ -8,8 +8,6 @@ class Forum < ActiveRecord::Base
 
 	scope :groupless, ->{ where( :group_id => nil ) }
 
-#	has_one :last_post, :class_name => 'Post',
-#		:through => :topics, :order => 'created_at DESC'
 	has_many :posts, :through => :topics
 	def last_post
 		posts.order('created_at DESC').first

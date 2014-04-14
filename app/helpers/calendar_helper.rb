@@ -3,7 +3,6 @@ module CalendarHelper
 	def calendar
 		stylesheets('calendar')
 		javascripts('calendar')
-#		today = Date.today	#	TODO this will be the server's today, not necessarily the user's
 		today = Date.current #	this should be correct
 		calday = calendar_start_day()	
 		out =  "<div>"
@@ -54,9 +53,6 @@ module CalendarHelper
 	end
 
 	def calendar_start_day(options={})
-#	beginning_of_week will give the Monday before the given day
-#		which is NOT what I want
-#		calendar_month.beginning_of_week - 1.day
 		#	returns Sunday before given month and year
 		calendar_month - calendar_month.wday
 	end

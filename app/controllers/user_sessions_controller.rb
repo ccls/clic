@@ -14,19 +14,8 @@ class UserSessionsController < ApplicationController
 			session[:return_to] = nil
 			redirect_to redirect_path
 		else
-#			#	The save will add errors to the object if login
-#			#	fails.  These errors will be shown on the login
-#			#	page which is bad practice as it gives a would-be
-#			#	hacker assistance in valid user names.
-##	If I clear the errors, the brute force attack message
-##	of too many failed login attempts will disappear.
-##	Need to find a way to clear except ...
 			@user_session.errors.delete(:username)
 			@user_session.errors.delete(:password)
-#			#	Remember any base error messages.
-##			e = @user_session.errors.on(:base)
-##			@user_session.errors.clear
-##			@user_session.errors.add(:base, e) if e
 			flash.now[:error] = "Error logging in"
 			render :action => :new
 		end
@@ -34,19 +23,8 @@ class UserSessionsController < ApplicationController
 
 	def destroy
 		current_user_session.destroy
-#	probably should redirect to root_path
 		flash[:notice] = "You've been logged out"
-		redirect_to root_path	#new_user_session_url
+		redirect_to root_path
 	end
 
-#../../jakewendt/_OLD_AND_RENAMED_/ucb_ccls_auth_engine/app/controllers/user_sessions_controller.rb
-
 end
-#
-#	Not needed any longer? 20130314
-#
-#class ActiveRecord::Errors
-#	def delete(key)
-#		@errors.delete(key.to_s)
-#	end
-#end

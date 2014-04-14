@@ -15,30 +15,12 @@ class DirectoriesController < ApplicationController
 			conditions << "%#{params[:last_name]}%"
 		end
 		if params[:profession_id].present?	# and !params[:profession_id].blank?
-#	Sqlite quoting does not work on mysql
-#			joins << 'LEFT JOIN "user_professions" ON ("users"."id" = "user_professions"."user_id")'
-#			joins << 'LEFT JOIN "professions" ON ("professions"."id" = "user_professions"."profession_id")'
 			joins << 'LEFT JOIN user_professions ON (users.id = user_professions.user_id)'
 			joins << 'LEFT JOIN professions ON (professions.id = user_professions.profession_id)'
 			conditions[0] << 'professions.id = ?'
 			conditions << params[:profession_id]
 		end
 		conditions[0] = conditions[0].join(' AND ')
-#		@members = User.find(:all,
-#			:select     => 'DISTINCT users.*',
-#			:conditions => conditions,
-#			:joins      => joins,
-#			:include    => :professions,
-#			:order      => search_order )
-
-
-#	don't remember exactly why I needed this select, but it don't work with 4.1.0
-#		@members = User.select('DISTINCT users.*')
-#		@members = User.select('DISTINCT `users`.`*`')
-#	I think that I put this here for when a user had multiple professions
-#	and would show up twice on the list.  Doesn't do this anymore
-#	even without it?
-
 
 		@members = User
 			.joins(joins)
@@ -60,10 +42,6 @@ protected
 		if params[:order].present? and valid_orders.has_key?(params[:order])
 			order_string = if valid_orders[params[:order]].blank?
 				params[:order]
-#	Only used when order is part of a join.
-#	Uncomment if such a sortable column is added.
-#			else
-#				valid_orders[params[:order]]
 			end
 			dir = case params[:dir].try(:downcase)
 				when 'desc' then 'desc'

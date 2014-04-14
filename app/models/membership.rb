@@ -6,17 +6,7 @@ class Membership < ActiveRecord::Base
 
 	validations_from_yaml_file
 
-#	Is this really needed????
-#	Let's see!
-#	before_validation :nullify_blank_group_role_id
-#
-#	def nullify_blank_group_role_id
-#		self.group_role_id = nil if group_role_id.blank?
-#	end
-
 	attr_protected :approved, :group_id, :user_id, :group_role_id
-
-#	after_create, if not approved, send membership_approval email
 
 	after_save :approve_user_if_approved
 
@@ -43,21 +33,5 @@ class Membership < ActiveRecord::Base
 	def to_s
 		"#{user}/#{group}/#{group_role}"
 	end
-
-#	def is_administrator?
-#		['administrator'].include?(group_role.try(:name))
-#	end
-#
-#	def is_moderator?
-#		['administrator','moderator'].include?(group_role.try(:name))
-#	end
-#
-#	def is_editor?
-#		['administrator','moderator','editor'].include?(group_role.try(:name))
-#	end
-#
-#	def is_reader?
-#		['administrator','moderator','editor','reader'].include?(group_role.try(:name))
-#	end
 
 end

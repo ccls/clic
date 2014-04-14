@@ -14,19 +14,12 @@ class DocumentsController < ApplicationController
 			flash[:error] = "Does not contain a document"
 			redirect_to preview_document_path(@document)
 		elsif @document.document.exists?
-			#puts "Document exists!"
 			if @document.document.options[:storage] == :filesystem #	&&
-#				File.exists?(@document.document.path)
 				#	basically development or non-s3 setup
 				send_file @document.document.path
 			else
-				#puts "Storage is S3?"
-
-#	Privacy filters are still not active
 				#	basically a private s3 file
-#				redirect_to @document.s3_url
 				redirect_to @document.document.expiring_url
-
 			end
 		else
 			flash[:error] = "Document does not exist at the expected location."
@@ -35,8 +28,6 @@ class DocumentsController < ApplicationController
 	end
 
 	def preview
-#		#	otherwise looks for template for pdf, jpg or whatever
-#		params[:format] = 'html'
 	end
 
 	def index
@@ -83,16 +74,7 @@ protected
 		if params[:id].present? and Document.exists?(params[:id])
 			@document = Document.find(params[:id])
 		elsif params[:id].present? and Document.exists?(
-			:document_file_name => "#{params[:id]}.#{params[:format]}")
-#			documents = Document.find(:all, :conditions => {
-#			:document_file_name => "#{params[:id]}.#{params[:format]}"})
-#	Due to the unique index, there can be only one!
-#			if documents.length > 1
-#				access_denied("More than one document matches #{params[:id]}!", 
-#					documents_path)
-#			else
-#				@document=documents[0]
-#			end
+				:document_file_name => "#{params[:id]}.#{params[:format]}")
 			@document = Document.where(:document_file_name => "#{params[:id]}.#{params[:format]}").first
 		else
 			access_denied("Valid document id required!", documents_path)

@@ -29,13 +29,10 @@ class Group < ActiveRecord::Base
 		name
 	end
 
-#	class NotFound < StandardError; end
-
 	#	Treats the class a bit like a Hash and
 	#	searches for a record with a matching name.
 	def self.[](name)
-#		find_by_name(name.to_s) #|| raise(NotFound)
-		where(name:name.to_s).first #|| raise(NotFound)
+		where(name:name.to_s).first
 	end
 
 protected
@@ -43,12 +40,6 @@ protected
 	def cannot_be_own_child
 		errors.add( :parent_id, "cannot be own child." 
 			) if( ( !id.nil? ) && ( id == parent_id ) )
-
-#	do it this way to give it its own error "type" (:unconfirmed_email here)
-#			errors.add(:base, ActiveRecord::Error.new(
-#				self, :base, :unconfirmed_email,
-#				{ :message => "You have not yet confirmed your email address." })
-#				) unless attempted_record.email_confirmed?
 	end
 
 end

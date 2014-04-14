@@ -1,7 +1,6 @@
 module ApplicationHelper
 
 	def application_menu
-#		require_dependency 'page.rb' unless Page
 		out = "<ul id='application_menu'>\n"
 		if logged_in?
 			out << "<li><a class='submenu_toggle'>Public Pages</a>" <<
@@ -74,15 +73,11 @@ module ApplicationHelper
 
 	def public_page_li(page)
 		current = (page == @page) ? " class='current'" : nil
-#		"<li#{current}>" << link_to( page.menu(session[:locale]), 
-#			ActionController::Base.relative_url_root.to_s + page.path,
-#			:id => "menu_#{dom_id(page)}" ) << "</li>\n"
 		"<li#{current}>" << link_to( page.menu(session[:locale]), page.path,
 			:id => "menu_#{dom_id(page)}" ) << "</li>\n"
 	end
 
 	def group_pages
-#		require_dependency 'group.rb' unless Group
 		group_menu = Group.roots.collect do |group|
 			if group.groups_count > 0
 				style, icon = if( group == @group.try(:parent) )
@@ -138,16 +133,10 @@ module ApplicationHelper
 			@roles.each do |role|
 				s << "<li>"
 				if @user.role_names.include?(role.name)
-#	TODO rails 3 does some new stuff for links with methods?
-#	data-method, etc.
-#					s << link_to( "Remove user role of '#{role.name}'", 
 					s << button_to( "Remove user role of '#{role.name}'", 
 						user_role_path(@user,role.name),
 						:method => :delete )
 				else
-#	TODO rails 3 does some new stuff for links with methods?
-#	data-method, etc.
-#					s << link_to( "Assign user role of '#{role.name}'", 
 					s << button_to( "Assign user role of '#{role.name}'", 
 						user_role_path(@user,role.name),
 						:method => :put )

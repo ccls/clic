@@ -17,7 +17,6 @@ class Topic < ActiveRecord::Base
 
 	attr_protected :user_id, :forum_id
 
-#	before_validation_on_create :set_post_attributes
 	before_validation :set_post_attributes, :on => :create
 
 	def to_s
