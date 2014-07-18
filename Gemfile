@@ -36,7 +36,18 @@ gem "scrypt"	#	required by authlogic 3.4.1 even though I'm not using.  Lame.
 
 gem "ruby-hmac"
 
-gem 'minitest'
+
+
+
+#	minitest-5.3.4/lib/minitest.rb
+#	still true in 5.4.0.  May need to just redefine the offending method.
+#	test classes are purposely shuffled!  Only change in this version!  Why?
+#	Random is stupid.  Unpredictable.  Poor testing strategy.
+#	144: suites = Runnable.runnables.shuffle
+#	remove this requirement if can find a way around
+gem 'minitest', '= 5.3.3'
+
+
 
 group :test do
 	gem "jakewendt-html_test"
@@ -55,26 +66,11 @@ group :test do
 	gem "jakewendt-test_with_verbosity"
 
 
-	#	the latest capybara seems to install just fine when the latest xcode and command line tools are.
-	#	NOTE however, the "find field" seems to always fail?
-	#
-	#	newer capybara not compatible with current webkit
-	#	need to explicitly have capybara for the version or
-	#	it will by upgraded to 2.1.0 which fails
-	gem 'capybara', '~> 2.0.0'
-	#	capybara-webkit 1.0.0 bombs big time compiling native code
-	gem 'capybara-webkit', '~> 0.14'
-
-	#	After rails 4, upgraded capybara stuff, but still had issues finding fields
-	#	capybara (2.2.1)
-	#	capybara-webkit (1.1.0)
+	gem 'capybara'
+	gem 'capybara-webkit'
 
 	#	for dealing with integration tests
 	gem 'database_cleaner'
-
-
-
-
 end
 
 gem "ccls-common_lib", ">0.9"
