@@ -4,6 +4,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+require 'test_helper_helper'
+
 require 'factory_test_helper'
 require 'group_test_helper'
 require 'orderable_test_helper'

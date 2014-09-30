@@ -12,7 +12,8 @@
 Autotest.add_hook :initialize do |autotest|
 	%w{ .autotest .git .svn .hg .DS_Store ._* vendor/ tmp/ log/ doc/ versions/ 
 			.bundle/ Gemfile coverage/ coverage-one-run/ config.ru config/ solr/ 
-			MIT-LICENSE README.rdoc Rakefile
+			MIT-LICENSE README.rdoc Rakefile 
+			test/simplecov_test_helper.rb test/test_helper_helper.rb
 			app/assets/ app/views/layouts/ lib/tasks/ }.each do |exception|
 		#	puts "Adding exception #{exception} from ~/.autotest"
 		autotest.add_exception(exception)
