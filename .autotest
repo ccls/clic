@@ -14,6 +14,15 @@ Autotest.add_hook :initialize do |autotest|
 			.bundle/ Gemfile coverage/ coverage-one-run/ config.ru config/ solr/ 
 			MIT-LICENSE README.rdoc Rakefile 
 			test/simplecov_test_helper.rb test/test_helper_helper.rb
+			lib/method_missing_with_authorization.rb
+			test/capybara_integration_test_helper.rb
+			test/factories.rb
+			test/factory_test_helper.rb
+			test/group_test_helper.rb
+			test/integration_test_helper.rb
+			test/orderable_test_helper.rb
+			RAILS3_UPGRADE_NOTES RVMUSAGE SUNSPOT_NOTES TODO
+			describe_database_tables drop_tables https.conf
 			app/assets/ app/views/layouts/ lib/tasks/ }.each do |exception|
 		#	puts "Adding exception #{exception} from ~/.autotest"
 		autotest.add_exception(exception)

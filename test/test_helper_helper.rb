@@ -25,7 +25,11 @@ class ActionController::TestCase
 					#	If done in a teardown, failure will cause other teardowns not to be run. (no rollback)
 					#
 					#	if downloading pdf or something, this will fail. (send_file was used)
-					unless @response.headers['Content-Disposition'].try(:match,/attachment;.*pdf/)
+					#unless @response.headers['Content-Disposition'].try(:match,/attachment;.*pdf/)
+#	Any reference to @response.body yields something like ...
+#	Errno::ENOENT: No such file or directory - /Users/jakewendt/github_repo/ccls/clic/test/documents/594/edit_save_wireframe.pdf
+#					unless @response.body.nil?
+					unless @response.content_type == "application/pdf"
 						assert_select 'form form', { :count => 0 }, "Found nested forms.  Nested are invalid html and very dangerous."
 					end
 
