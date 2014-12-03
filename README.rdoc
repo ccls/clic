@@ -8,7 +8,7 @@ Childhood Leukemia International Consortium
 
 == Requirements
 
-* ruby >= 1.9
+* ruby >= 2.1
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
 
