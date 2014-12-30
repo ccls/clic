@@ -75,7 +75,7 @@ class PageTest < ActiveSupport::TestCase
 			page = create_page(:hide_menu => true)
 #			assert_equal 1, Page.count
 #			assert_equal 0, Page.roots.count
-			assert_not_nil Page.find(page)
+			assert_not_nil Page.find(page.id)
 			assert_not_nil Page.find(page.id)
 			assert_not_nil Page.find_by_path(page.path)
 		} }
