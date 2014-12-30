@@ -1,54 +1,59 @@
-01:
+#
+#	labels that are numbers will now yield the cryptic error message
+#		TypeError: no implicit conversion of Fixnum into String
+#	for ALL tests.
+#
+position01:
   position: 1
   name: Child and Maternal Diet
-02:
+position02:
   position: 2
   name: "Child's Allergies, Infections, and Vaccinations"
-03:
+position03:
   position: 3
   name: Cytogenetic Classicification
-04:
+position04:
   position: 4
   name: Environmental Chemical Exposures
-05:
+position05:
   position: 5
   name: Genetic Epidemiology
-06:
+position06:
   position: 6
   name: Ionizing/Non-ionizing Radiation
-07:
+position07:
   position: 7
   name: Maternal Illness
-08:
+position08:
   position: 8
   name: Maternal Reproductive Characteristics
-09:
+position09:
   position: 9
   name: Methods
-10:
+position10:
   position: 10
   name: Methylation
-11:
+position11:
   position: 11
   name: Parental Occupation
-12:
+position12:
   position: 12
   name: Proteomic Analysis
-13:
+position13:
   position: 13
   name: Review
-14:
+position14:
   position: 14
   name: Socioeconomic Status
-15:
+position15:
   position: 15
   name: Spatial Distribution
-16:
+position16:
   position: 16
   name: Tobacco Smoke
-17:
+position17:
   position: 17
   name: Tumor Biology and Translocations
-18:
+position18:
   position: 18
   name: Other
