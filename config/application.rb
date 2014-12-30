@@ -79,6 +79,18 @@ module Clic
 config.secret_key_base = YAML.load(File.open("#{Rails.root}/config/secrets.yml"))[Rails.env]['secret_key_base']
 
 
+
+
+
+
+
+		#	for rails 5 (invalid in rails 4)
+		#config.active_record.raise_in_transactional_callbacks = true
+
+
+
+
+
 	end
 end
 __END__

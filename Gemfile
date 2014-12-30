@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', '~> 4.0'	#	without a version, it installed rails 0.9.6!
+gem 'rails', "=4.1.8"		#'~> 4.0'	#	without a version, it installed rails 0.9.6!
 gem 'protected_attributes'	#	to keep rails 3 style
 
 gem 'sqlite3'
@@ -56,7 +56,7 @@ group :test do
 
 	gem 'test-unit'
 
-	gem "mocha", :require => false
+	gem "mocha", :require => 'mocha/setup'	#, :require => false
 
 	gem "autotest-rails", :require => 'autotest/rails'
 
@@ -71,6 +71,9 @@ group :test do
 
 	#	for dealing with integration tests
 	gem 'database_cleaner'
+
+	#	extracted for rails 4.2.0
+#	gem 'rails-dom-testing'
 end
 
 gem "ccls-common_lib", ">0.9"

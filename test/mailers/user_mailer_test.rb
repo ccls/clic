@@ -2,12 +2,16 @@ require 'test_helper'
 
 #	for assert_select
 #require 'action_controller/assertions/selector_assertions'
-require 'action_dispatch/testing/assertions/selector'
+#require 'action_dispatch/testing/assertions/selector'
 
 class UserMailerTest < ActionMailer::TestCase
 	#	for assert_select
-#	include ActionController::Assertions::SelectorAssertions
+	#	for rails 3
+	#include ActionController::Assertions::SelectorAssertions
+	#	for rails 4
 	include ActionDispatch::Assertions::SelectorAssertions
+	#	for rails 5 ...
+	#include Rails::Dom::Testing::Assertions::SelectorAssertions
 
 	test "confirm_email" do
 		user = FactoryGirl.create(:user)

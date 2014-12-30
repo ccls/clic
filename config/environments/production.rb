@@ -10,25 +10,25 @@ Clic::Application.configure do
 
 	# Disable Rails's static asset server (Apache or nginx will already do this)
 	# no they don't. never finds robots.txt, 500.html, etc.
+	#
+	#	for rails 4
 	config.serve_static_assets = true
-
-
+	#	in prep for rails 5
+	#config.serve_static_files = true
 
 
 	# Compress JavaScripts and CSS
-#	config.assets.compress = true
-#	raises ...
-#	Error compiling asset jquery.js:
-#	ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime. See https://github.com/sstephenson/execjs for a list of available runtimes.
+	#	config.assets.compress = true
+	#	raises ...
+	#	Error compiling asset jquery.js:
+	#	ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime. See https://github.com/sstephenson/execjs for a list of available runtimes.
 	config.assets.compress = false
 
 	# Don't fallback to assets pipeline if a precompiled asset is missed
-#	config.assets.compile = false
-#	raises many ....
-#		ActionView::Template::Error (jquery.js isn't precompiled):
+	#	config.assets.compile = false
+	#	raises many ....
+	#		ActionView::Template::Error (jquery.js isn't precompiled):
 	config.assets.compile = true
-
-
 
 
 	# Generate digests for assets URLs
@@ -46,8 +46,8 @@ Clic::Application.configure do
 
 	# See everything in the log (default is :info)
 	# config.log_level = :debug
-#	just until everything seems to be working
-config.log_level = :debug
+	#	just until everything seems to be working
+	config.log_level = :debug
 
 
 
@@ -90,8 +90,8 @@ config.log_level = :debug
 	config.action_mailer.default_url_options = { 
 		:host => "clic.berkeley.edu" }
 
-#	not really necessary, and causes issues in emails sent.
-#		:protocol => "https",
+	#	not really necessary, and causes issues in emails sent.
+	#		:protocol => "https",
 
 
 	config.eager_load = true
