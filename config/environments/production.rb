@@ -12,9 +12,9 @@ Clic::Application.configure do
 	# no they don't. never finds robots.txt, 500.html, etc.
 	#
 	#	for rails 4
-	config.serve_static_assets = true
+	#config.serve_static_assets = true
 	#	in prep for rails 5
-	#config.serve_static_files = true
+	config.serve_static_files = true
 
 
 	# Compress JavaScripts and CSS

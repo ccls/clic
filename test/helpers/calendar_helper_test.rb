@@ -14,7 +14,7 @@ class CalendarHelperTest < ActionView::TestCase
 	end
 
 	test "should return calendar" do
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "div.cal_title_bar" do
 				assert_select "a.prev", 1
@@ -32,7 +32,7 @@ class CalendarHelperTest < ActionView::TestCase
 	#=> Sun, 01 Feb 2009
 	test "should return 4 week calendar for Feb 1 2009" do
 		self.params[:month] = '2009-02-01'
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "table#calendar" do
 				assert_select "tbody" do
@@ -47,7 +47,7 @@ class CalendarHelperTest < ActionView::TestCase
 	#=> Sat, 01 Jan 2000
 	test "should return 6 week calendar for Jan 1 2000" do
 		self.params[:month] = '2000-01-01'
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "table#calendar" do
 				assert_select "tbody" do
@@ -59,7 +59,7 @@ class CalendarHelperTest < ActionView::TestCase
 
 	test "should return calendar with an announcement" do
 		@cal_events << create_announcement(:begins_on => Date.current)
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "table#calendar" do
 				assert_select "td.has_event", 1 do
@@ -76,7 +76,7 @@ class CalendarHelperTest < ActionView::TestCase
 		#	3 day announcement, but only guaranteed that 2 days are this month
 		@cal_events << create_announcement(:begins_on => Date.yesterday,
 			:ends_on => Date.tomorrow)
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "table#calendar" do
 				assert_select "td.has_event", 2..3 do |days|
@@ -93,7 +93,7 @@ class CalendarHelperTest < ActionView::TestCase
 	test "should return calendar with multiple announcements on single day" do
 		@cal_events << create_announcement(:begins_on => Date.current)
 		@cal_events << create_announcement(:begins_on => Date.current)
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "table#calendar" do
 				assert_select "td.has_event", 1 do
@@ -110,7 +110,7 @@ class CalendarHelperTest < ActionView::TestCase
 		self.params = HWIA.new( :controller => 'groups', :action => 'show', :id => @group.id )
 		@group.announcements << create_announcement(:begins_on => Date.current)
 		@cal_events = @group.announcements #	@cal_events expected by calendar
-		response = HTML::Document.new(calendar).root
+		response = Nokogiri::HTML::DocumentFragment.parse(calendar)
 		assert_select response, "div" do
 			assert_select "table#calendar" do
 				assert_select "td.has_event", 1 do

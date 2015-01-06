@@ -9,38 +9,41 @@ class UserMailerTest < ActionMailer::TestCase
 	#	for rails 3
 	#include ActionController::Assertions::SelectorAssertions
 	#	for rails 4
-	include ActionDispatch::Assertions::SelectorAssertions
+	#include ActionDispatch::Assertions::SelectorAssertions
 	#	for rails 5 ...
-	#include Rails::Dom::Testing::Assertions::SelectorAssertions
+	include Rails::Dom::Testing::Assertions::SelectorAssertions
 
 	test "confirm_email" do
 		user = FactoryGirl.create(:user)
 		email = UserMailer.confirm_email(user)
-		html = HTML::Document.new(email.body.encoded).root
-		assert_select html, 'a', :count => 1,
+		#html = HTML::Document.new(email.body.encoded).root
+		html = Nokogiri::HTML::DocumentFragment.parse(email.body.encoded)
+		assert_select html, "a:match('href',?)",
+				/http.*confirm_email\/#{user.perishable_token}$/,
 			:text => /http.*confirm_email\/#{user.perishable_token}$/,
-			:href => /http.*confirm_email\/#{user.perishable_token}$/
+			:count => 1
 	end
 
 	test "forgot_password" do
 		user = FactoryGirl.create(:user)
 		email = UserMailer.forgot_password(user)
-		html = HTML::Document.new(email.body.encoded).root
-		assert_select html, 'a', :count => 1,
+		#html = HTML::Document.new(email.body.encoded).root
+		html = Nokogiri::HTML::DocumentFragment.parse(email.body.encoded)
+		assert_select html, "a:match('href',?)",
+				/http.*password_resets\/#{user.perishable_token}\/edit/,
 			:text => /http.*password_resets\/#{user.perishable_token}\/edit/,
-			:href => /http.*password_resets\/#{user.perishable_token}\/edit/
+			:count => 1
 	end
 
 	test "new_user_email" do
 		user = FactoryGirl.create(:user)
 		email = UserMailer.new_user_email(user)
-		html = HTML::Document.new(email.body.encoded).root
-		assert_select html, 'a', :count => 1, 
-			:text => user.username,
-			:href => /http.*users\/#{user.id}$/
-		assert_select html, 'a', :count => 1, 
-			:text => 'memberships', 
-			:href => /http.*memberships/
+		#html = HTML::Document.new(email.body.encoded).root
+		html = Nokogiri::HTML::DocumentFragment.parse(email.body.encoded)
+		assert_select html, "a:match('href',?)", /http.*users\/#{user.id}$/,
+			:text => user.username, :count => 1
+		assert_select html, "a:match('href',?)", /http.*memberships/,
+			:text => 'memberships', :count => 1
 	end
 
 end

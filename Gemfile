@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', "=4.1.8"		#'~> 4.0'	#	without a version, it installed rails 0.9.6!
+gem 'rails'
 gem 'protected_attributes'	#	to keep rails 3 style
 
 gem 'sqlite3'
@@ -30,7 +30,17 @@ gem "rdoc"
 gem "aws-s3"
 gem 'aws-sdk'
 
-gem "authlogic"
+
+
+
+#	don't know why I have to force the gem version, nevertheless
+gem "authlogic", ">=3.4.4"
+
+
+
+
+
+
 gem "bcrypt"	#	required by authlogic 3.4.1 even though I'm not using.  Lame.
 gem "scrypt"	#	required by authlogic 3.4.1 even though I'm not using.  Lame.
 
@@ -73,7 +83,7 @@ group :test do
 	gem 'database_cleaner'
 
 	#	extracted for rails 4.2.0
-#	gem 'rails-dom-testing'
+	gem 'rails-dom-testing'
 end
 
 gem "ccls-common_lib", ">0.9"

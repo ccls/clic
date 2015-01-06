@@ -10,9 +10,9 @@ Clic::Application.configure do
 	# Configure static asset server for tests with Cache-Control for performance
 	#
 	#	for rails 4
-	config.serve_static_assets = true
+	#config.serve_static_assets = true
 	#	in prep for rails 5
-	#config.serve_static_files = true
+	config.serve_static_files = true
 
 	config.static_cache_control = "public, max-age=3600"
 
