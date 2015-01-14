@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails'
+gem 'rails', '~>4.1.9'
 gem 'protected_attributes'	#	to keep rails 3 style
 
 gem 'sqlite3'
@@ -34,6 +34,9 @@ gem 'aws-sdk'
 
 
 #	don't know why I have to force the gem version, nevertheless
+#	older versions seem to be incomplete and incompatible with rails 4.2.0
+#	version still needed?
+#	20150113 - yes, without it installs 3.4.2
 gem "authlogic", ">=3.4.4"
 
 
@@ -55,6 +58,7 @@ gem "ruby-hmac"
 #	Random is stupid.  Unpredictable.  Poor testing strategy.
 #	144: suites = Runnable.runnables.shuffle
 #	remove this requirement if can find a way around
+#	still true in 5.5.0
 gem 'minitest', '= 5.3.3'
 
 
@@ -66,11 +70,11 @@ group :test do
 
 	gem 'test-unit'
 
-	gem "mocha", :require => 'mocha/setup'	#, :require => false
+	gem "mocha", :require => 'mocha/setup'
 
 	gem "autotest-rails", :require => 'autotest/rails'
 
-	gem 'ZenTest'	#, '=4.9.1'
+	gem 'ZenTest'
 
 	gem "factory_girl_rails"
 	gem "jakewendt-test_with_verbosity"

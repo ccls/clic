@@ -8,42 +8,60 @@ class UserMailerTest < ActionMailer::TestCase
 	#	for assert_select
 	#	for rails 3
 	#include ActionController::Assertions::SelectorAssertions
+
 	#	for rails 4
-	#include ActionDispatch::Assertions::SelectorAssertions
+	include ActionDispatch::Assertions::SelectorAssertions
 	#	for rails 5 ...
-	include Rails::Dom::Testing::Assertions::SelectorAssertions
+#	include Rails::Dom::Testing::Assertions::SelectorAssertions
 
 	test "confirm_email" do
 		user = FactoryGirl.create(:user)
 		email = UserMailer.confirm_email(user)
-		#html = HTML::Document.new(email.body.encoded).root
-		html = Nokogiri::HTML::DocumentFragment.parse(email.body.encoded)
-		assert_select html, "a:match('href',?)",
-				/http.*confirm_email\/#{user.perishable_token}$/,
+		html = email.body.encoded.to_html_document
+#		assert_select html, "a:match('href',?)",
+#				/http.*confirm_email\/#{user.perishable_token}$/,
+#			:text => /http.*confirm_email\/#{user.perishable_token}$/,
+#			:count => 1
+		assert_select( html, "a",
 			:text => /http.*confirm_email\/#{user.perishable_token}$/,
-			:count => 1
+			:count => 1 ){
+			assert_select "[href=?]",
+				/http.*confirm_email\/#{user.perishable_token}$/
+		}
 	end
 
 	test "forgot_password" do
 		user = FactoryGirl.create(:user)
 		email = UserMailer.forgot_password(user)
-		#html = HTML::Document.new(email.body.encoded).root
-		html = Nokogiri::HTML::DocumentFragment.parse(email.body.encoded)
-		assert_select html, "a:match('href',?)",
-				/http.*password_resets\/#{user.perishable_token}\/edit/,
+		html = email.body.encoded.to_html_document
+#		assert_select html, "a:match('href',?)",
+#				/http.*password_resets\/#{user.perishable_token}\/edit/,
+#			:text => /http.*password_resets\/#{user.perishable_token}\/edit/,
+#			:count => 1
+		assert_select( html, "a",
 			:text => /http.*password_resets\/#{user.perishable_token}\/edit/,
-			:count => 1
+			:count => 1 ){
+			assert_select "[href=?]",
+				/http.*password_resets\/#{user.perishable_token}\/edit/
+		}
 	end
 
 	test "new_user_email" do
 		user = FactoryGirl.create(:user)
 		email = UserMailer.new_user_email(user)
-		#html = HTML::Document.new(email.body.encoded).root
-		html = Nokogiri::HTML::DocumentFragment.parse(email.body.encoded)
-		assert_select html, "a:match('href',?)", /http.*users\/#{user.id}$/,
-			:text => user.username, :count => 1
-		assert_select html, "a:match('href',?)", /http.*memberships/,
-			:text => 'memberships', :count => 1
+		html = email.body.encoded.to_html_document
+#		assert_select html, "a:match('href',?)", /http.*users\/#{user.id}$/,
+#			:text => user.username, :count => 1
+#		assert_select html, "a:match('href',?)", /http.*memberships/,
+#			:text => 'memberships', :count => 1
+		assert_select( html, "a",
+			:text => user.username, :count => 1 ){
+			assert_select "[href=?]", /http.*users\/#{user.id}$/
+		}
+		assert_select( html, "a",
+			:text => 'memberships', :count => 1 ){
+			assert_select "[href=?]", /http.*memberships/
+		}
 	end
 
 end

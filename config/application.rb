@@ -85,7 +85,8 @@ config.secret_key_base = YAML.load(File.open("#{Rails.root}/config/secrets.yml")
 
 
 		#	for rails 5 (invalid in rails 4)
-		config.active_record.raise_in_transactional_callbacks = true
+		#	not sure why needed
+#		config.active_record.raise_in_transactional_callbacks = true
 
 
 

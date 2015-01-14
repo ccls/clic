@@ -13,7 +13,7 @@ class InventoriesHelperTest < ActionView::TestCase
 #
 #	test "facet_for is gonna be tough to test outside of a controller" do
 #pending
-##		response = HTML::Document.new(facet_for('something')).root
+##		response = facet_for('something')).root
 ##		puts response
 #	end
 #	
@@ -24,7 +24,7 @@ class InventoriesHelperTest < ActionView::TestCase
 #	end
 #
 #	test "multi_select_operator_for(something) with no params should return stuff" do
-#		response = HTML::Document.new(multi_select_operator_for('something')).root
+#		response = multi_select_operator_for('something').to_html_document
 #		assert_select response, "div" do
 #			assert_select 'span', 'Multi-select operator'
 #			assert_select 'input', 2
@@ -53,7 +53,7 @@ class InventoriesHelperTest < ActionView::TestCase
 #		self.params = HashWithIndifferentAccess.new(
 #			:something_op => 'OR'
 #			)
-#		response = HTML::Document.new(multi_select_operator_for('something')).root
+#		response = multi_select_operator_for('something').to_html_document
 #		assert_select response, "div" do
 #			assert_select 'input[checked=checked]', 1
 #			assert_select 'input#something_op_or[checked=checked]', 1
@@ -65,7 +65,7 @@ class InventoriesHelperTest < ActionView::TestCase
 #		self.params = HashWithIndifferentAccess.new(
 #			:something_op => 'AND'
 #			)
-#		response = HTML::Document.new(multi_select_operator_for('something')).root
+#		response = multi_select_operator_for('something').to_html_document
 #		assert_select response, "div" do
 #			assert_select 'input[checked=checked]', 1
 #			assert_select 'input#something_op_or:not([checked=checked])', 1
