@@ -27,8 +27,24 @@ gem 'mysql2'
 gem "paperclip"
 
 gem "rdoc"
-gem "aws-s3"
-gem 'aws-sdk'
+
+#	20150218 - should have removed long ago.  aws-sdk replaced this
+#gem "aws-s3"
+#
+#	raised this error ...
+#	
+#	SyntaxError: /opt/local/lib/ruby2.1/gems/2.1.0/gems/aws-s3-0.6.3/lib/aws/s3/extensions.rb:223: `@@{' is not allowed as a class variable name
+#	/opt/local/lib/ruby2.1/gems/2.1.0/gems/aws-s3-0.6.3/lib/aws/s3/extensions.rb:223: syntax error, unexpected end-of-input
+#	        unless defined? @@{:instance_writer=>false, :in...
+#	                         ^
+#	.. then commented out and many tests are failing
+#
+
+#	http://stackoverflow.com/questions/28374401/nameerror-uninitialized-constant-paperclipstorages3aws
+#	http://ruby.awsblog.com/post/TxFKSK2QJE6RPZ/Upcoming-Stable-Release-of-AWS-SDK-for-Ruby-Version-2
+#gem 'aws-sdk', '< 2.0'
+#		or ?
+gem 'aws-sdk-v1'
 
 
 

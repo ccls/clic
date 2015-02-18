@@ -15,11 +15,9 @@ Autotest.add_hook :initialize do |autotest|
 			MIT-LICENSE README.rdoc Rakefile 
 			test/simplecov_test_helper.rb test/test_helper_helper.rb
 			lib/method_missing_with_authorization.rb
-			test/capybara_integration_test_helper.rb
 			test/factories.rb
 			test/factory_test_helper.rb
 			test/group_test_helper.rb
-			test/integration_test_helper.rb
 			test/orderable_test_helper.rb
 			RAILS3_UPGRADE_NOTES RVMUSAGE SUNSPOT_NOTES TODO
 			describe_database_tables drop_tables https.conf
@@ -55,6 +53,11 @@ Autotest.add_hook :initialize do |autotest|
 
 	#	for some reason, the default seems to have always been :random?
 	autotest.order   = :alpha
+
+	autotest.add_mapping %r%^test/(capybara_integration_test_helper|integration_test_helper)\.rb$% do |filename, matches|
+		autotest.files_matching %r%^test/integration/.*_test\.rb$%
+	end
+
 
 
 	false	#	MUST DO THIS SO OTHER :initialize hooks work
