@@ -182,4 +182,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 		assert_not_logged_in
 	end
 
+	add_strong_parameters_tests( :user, [
+		:current_password, :password, :password_confirmation ])
+
 end

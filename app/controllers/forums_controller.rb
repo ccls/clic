@@ -17,7 +17,7 @@ class ForumsController < ApplicationController
 	end
 
 	def create
-		@forum = Forum.new(params[:forum])
+		@forum = Forum.new(forum_params)
 		@forum.group = @group
 		@forum.save!
 		flash[:notice] = 'Forum successfully created!'
@@ -28,7 +28,7 @@ class ForumsController < ApplicationController
 	end
 
 	def update
-		@forum.update_attributes!(params[:forum])
+		@forum.update_attributes!(forum_params)
 		flash[:notice] = 'Forum successfully updated!'
 		redirect_to @forum
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -56,6 +56,10 @@ protected
 		else
 			access_denied("Valid forum id required")
 		end
+	end
+
+	def forum_params
+		params.require(:forum).permit(:name)
 	end
 
 end

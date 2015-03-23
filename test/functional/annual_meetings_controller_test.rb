@@ -105,4 +105,11 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :annual_meeting, 
+		[ :meeting, :abstract ])
+
+	test "add additional strong parameters" do
+		pending
+	end
+
 end

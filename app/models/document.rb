@@ -3,7 +3,6 @@ require 'hmac-sha1'
 #	http://amazon.rubyforge.org/
 #
 class Document < ActiveRecord::Base
-	attr_accessible :title, :document
 
 #	polymorphism is unecessary now that GroupDocument is its own class
 	belongs_to :owner, :polymorphic => true

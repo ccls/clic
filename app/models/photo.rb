@@ -1,7 +1,5 @@
 class Photo < ActiveRecord::Base
 
-	attr_accessible :title, :caption, :image
-
 	validations_from_yaml_file
 
 	has_attached_file :image,

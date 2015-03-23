@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 	end
 
 	def create
-		@post = @topic.posts.new(params[:post])
+		@post = @topic.posts.new(post_params)
 		@post.user = current_user
 		@post.save!
 		flash[:notice] = "Success!"
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
 	end
 
 	def update
-		@post.update_attributes!(params[:post])
+		@post.update_attributes!(post_params)
 		flash[:notice] = "Post updated"
 		redirect_to @post.topic
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -64,6 +64,11 @@ protected
 		else
 			access_denied("Valid topic id required")	#,members_only_path)
 		end
+	end
+
+	def post_params
+		params.require(:post).permit(:body,
+			:group_documents_attributes => [:title, :document])
 	end
 
 end

@@ -21,7 +21,7 @@ class DocFormsController < ApplicationController
 	end
 
 	def create
-		@doc_form = DocForm.new(params[:doc_form])
+		@doc_form = DocForm.new(doc_form_params)
 		@doc_form.current_user = current_user
 		@doc_form.save!
 		flash[:notice] = "Success!"
@@ -37,7 +37,7 @@ class DocFormsController < ApplicationController
 	#	must be passed to it so that it can be added to the group_documents
 	#
 	def update
-		@doc_form.update_attributes(params[:doc_form])
+		@doc_form.update_attributes(doc_form_params)
 		@doc_form.current_user = current_user if @doc_form.current_user.nil?
 		@doc_form.save!
 		flash[:notice] = 'Success!'
@@ -60,6 +60,11 @@ protected
 		else
 			access_denied("Valid id required!", doc_forms_path)
 		end
+	end
+
+	def doc_form_params
+		params.require(:doc_form).permit(:title, :abstract,
+			:group_documents_attributes => [ :title, :document ] )
 	end
 
 end

@@ -8,7 +8,6 @@ class Study < ActiveRecord::Base
 	has_many :exposures
 	has_many :questionnaires
 
-	attr_protected :principal_investigators
 	attr_writer :principal_investigator_names
 	before_save :parse_principal_investigator_names
 

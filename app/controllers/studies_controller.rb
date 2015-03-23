@@ -21,7 +21,7 @@ class StudiesController < ApplicationController
 	end
 
 	def create
-		@study = Study.new(params[:study])
+		@study = Study.new(study_params)
 		@study.save!
 		flash[:notice] = 'Success!'
 		redirect_to @study
@@ -31,7 +31,7 @@ class StudiesController < ApplicationController
 	end 
 
 	def update
-		@study.update_attributes!(params[:study])
+		@study.update_attributes!(study_params)
 		flash[:notice] = 'Success!'
 		redirect_to studies_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -54,5 +54,10 @@ protected
 		end
 	end
 
+	def study_params
+		params.require(:study).permit(:name, :principal_investigator_names, 
+			:contact_info, :world_region, :country, :design, :target_age_group, 
+			:recruitment, :overview)
+	end
 
 end

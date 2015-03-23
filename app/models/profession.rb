@@ -1,7 +1,5 @@
 class Profession < ActiveRecord::Base
 
-	attr_accessible :name
-
 	acts_as_list
 
 	has_many :user_professions

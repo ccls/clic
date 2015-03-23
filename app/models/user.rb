@@ -132,7 +132,6 @@ class User < ActiveRecord::Base
 		username.to_s
 	end
 
-	attr_protected :approved
 	def approve!
 		self.approved = true
 		save!

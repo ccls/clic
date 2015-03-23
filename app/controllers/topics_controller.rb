@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
 	end
 
 	def create
-		@topic = @forum.topics.new(params[:topic])
+		@topic = @forum.topics.new(topic_params)
 		@topic.user = current_user
 		@topic.save!
 		flash[:notice] = "Topic successfully created!"
@@ -28,7 +28,7 @@ class TopicsController < ApplicationController
 	end
 
 	def update
-		@topic.update_attributes!(params[:topic])
+		@topic.update_attributes!(topic_params)
 		flash[:notice] = "Topic successfully updated!"
 		redirect_to @topic
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -65,6 +65,13 @@ protected
 		current_user.may_edit_forum?(@forum) || access_denied(
 			"You don't have permission to edit this forum",
 			forum_path(@forum) )
+	end
+
+	def topic_params
+		params.require(:topic).permit(:title, 
+			:posts_attributes => [
+				:body,
+					:group_documents_attributes => [ :title, :document ]])
 	end
 
 end

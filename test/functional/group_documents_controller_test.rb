@@ -243,4 +243,7 @@ class GroupDocumentsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
+#	add_strong_parameters_tests( :document,[
+#		:title, :document, :description, :group_documents ])
+
 end

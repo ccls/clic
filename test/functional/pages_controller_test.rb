@@ -231,4 +231,7 @@ class PagesControllerTest < ActionController::TestCase
 		end
 	end
 
+	add_strong_parameters_tests( :page, [:parent_id, :hide_menu, :path,
+		:title_en, :menu_en, :body_en ])
+
 end

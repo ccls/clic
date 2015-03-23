@@ -39,7 +39,7 @@ class QuestionnairesController < ApplicationController
 	end
 
 	def create
-		@questionnaire = Questionnaire.new(params[:questionnaire])
+		@questionnaire = Questionnaire.new(questionnaire_params)
 		@questionnaire.save!
 		flash[:notice] = 'Success!'
 		redirect_to @questionnaire
@@ -49,7 +49,7 @@ class QuestionnairesController < ApplicationController
 	end 
 
 	def update
-		@questionnaire.update_attributes!(params[:questionnaire])
+		@questionnaire.update_attributes!(questionnaire_params)
 		flash[:notice] = 'Success!'
 		redirect_to questionnaires_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -70,6 +70,10 @@ protected
 		else
 			access_denied("Valid id required!", questionnaires_path)
 		end
+	end
+
+	def questionnaire_params
+		params.require(:questionnaire).permit(:study_id, :title, :document)
 	end
 
 end

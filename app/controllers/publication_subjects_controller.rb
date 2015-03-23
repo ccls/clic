@@ -23,7 +23,7 @@ class PublicationSubjectsController < ApplicationController
 	end
 
 	def create
-		@publication_subject = PublicationSubject.new(params[:publication_subject])
+		@publication_subject = PublicationSubject.new(publication_subject_params)
 		@publication_subject.save!
 		flash[:notice] = 'Success!'
 		redirect_to @publication_subject
@@ -33,7 +33,7 @@ class PublicationSubjectsController < ApplicationController
 	end 
 
 	def update
-		@publication_subject.update_attributes!(params[:publication_subject])
+		@publication_subject.update_attributes!(publication_subject_params)
 		flash[:notice] = 'Success!'
 		redirect_to publication_subjects_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -54,6 +54,10 @@ protected
 		else
 			access_denied("Valid id required!", publication_subjects_path)
 		end
+	end
+
+	def publication_subject_params
+		params.require(:publication_subject).permit(:name)
 	end
 
 end

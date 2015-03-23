@@ -15,8 +15,6 @@ class Topic < ActiveRecord::Base
 		posts.order('created_at DESC').first
 	end
 
-	attr_protected :user_id, :forum_id
-
 	before_validation :set_post_attributes, :on => :create
 
 	def to_s

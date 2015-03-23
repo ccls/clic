@@ -87,6 +87,9 @@ class PasswordsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
+	add_strong_parameters_tests( :user, [
+		:current_password, :password, :password_confirmation ])
+
 protected
 
 	def password_attributes(options={})

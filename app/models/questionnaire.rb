@@ -1,7 +1,5 @@
 class Questionnaire < ActiveRecord::Base
 
-	attr_accessible :study_id, :title, :document
-
 	belongs_to :study
 
 	validations_from_yaml_file

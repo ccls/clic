@@ -21,7 +21,7 @@ class GroupRolesController < ApplicationController
 	end
 
 	def create
-		@group_role = GroupRole.new(params[:group_role])
+		@group_role = GroupRole.new(group_role_params)
 		@group_role.save!
 		flash[:notice] = 'Success!'
 		redirect_to @group_role
@@ -31,7 +31,7 @@ class GroupRolesController < ApplicationController
 	end 
 
 	def update
-		@group_role.update_attributes!(params[:group_role])
+		@group_role.update_attributes!(group_role_params)
 		flash[:notice] = 'Success!'
 		redirect_to group_roles_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -52,6 +52,10 @@ protected
 		else
 			access_denied("Valid id required!", group_roles_path)
 		end
+	end
+
+	def group_role_params
+		params.require(:group_role).permit(:name)
 	end
 
 end

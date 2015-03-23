@@ -7,10 +7,6 @@ class GroupDocument < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :attachable, :polymorphic => true
 
-#	TODO protect user_id and add attr_accessor current_user 
-
-	attr_protected :user_id, :group_id
-
 	validations_from_yaml_file
 
 #	WHY? (blank creates an error, nil does not)

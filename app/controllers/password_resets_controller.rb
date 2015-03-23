@@ -20,7 +20,7 @@ class PasswordResetsController < ApplicationController
 	end
 
 	def update
-		@user.update_attributes!(params[:user])
+		@user.update_attributes!(user_params)
 		flash[:notice] = "Password successfully updated"
 		redirect_to login_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -39,6 +39,10 @@ protected
 				"reset password process."  
 			redirect_to root_path
 		end  
+	end
+
+	def user_params
+		params.require(:user).permit(:current_password, :password, :password_confirmation)
 	end
 
 end

@@ -22,7 +22,7 @@ class PublicationsController < ApplicationController
 	end
 
 	def create
-		@publication = Publication.new(params[:publication])
+		@publication = Publication.new(publication_params)
 		@publication.current_user = current_user
 		@publication.save!
 		flash[:notice] = "Success!"
@@ -38,7 +38,7 @@ class PublicationsController < ApplicationController
 	#	must be passed to it so that it can be added to the group_documents
 	#
 	def update
-		@publication.update_attributes(params[:publication])
+		@publication.update_attributes(publication_params)
 		@publication.current_user = current_user if @publication.current_user.nil?
 		@publication.save!
 		flash[:notice] = 'Success!'
@@ -61,6 +61,13 @@ protected
 		else
 			access_denied("Valid id required!", publications_path)
 		end
+	end
+
+	def publication_params
+		params.require(:publication).permit(:title, :author_last_name, 
+			:journal, :publication_year, :url, :publication_subject_id, 
+			:other_publication_subject, :study_id, 
+			:publication_subject_ids => [], :study_ids => [])
 	end
 
 end

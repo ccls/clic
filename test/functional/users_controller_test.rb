@@ -206,9 +206,9 @@ class UsersControllerTest < ActionController::TestCase
 		assert_difference('User.count',1) {
 			post :create, :user => FactoryGirl.attributes_for(:user,{
 				:membership_requests => {
-					Group['Ethics'].id   => { :group_role_id => GroupRole['editor'].id },
-					Group['Methods'].id  => { :group_role_id => GroupRole['editor'].id },
-					Group['Outcomes'].id => { :group_role_id => GroupRole['editor'].id }
+					Group['Ethics'].id.to_s   => { :group_role_id => GroupRole['editor'].id },
+					Group['Methods'].id.to_s  => { :group_role_id => GroupRole['editor'].id },
+					Group['Outcomes'].id.to_s => { :group_role_id => GroupRole['editor'].id }
 				}})
 		} } }
 		assert assigns(:user)
@@ -464,15 +464,15 @@ class UsersControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should update user without user" do
-		# kinda pointless
-		u = user
-		login_as admin
-		put :update, :id => u.id
-		assert_equal u, assigns(:user)
-		assert_redirected_to user_path(assigns(:user))
-		assert_not_nil flash[:notice]
-	end
+#	test "should update user without user" do
+#		# kinda pointless
+#		u = user
+#		login_as admin
+#		put :update, :id => u.id
+#		assert_equal u, assigns(:user)
+#		assert_redirected_to user_path(assigns(:user))
+#		assert_not_nil flash[:notice]
+#	end
 
 	test "should NOT update user without username" do
 		u = user
@@ -565,6 +565,24 @@ class UsersControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'edit'
 		assert_not_nil flash[:error]
+	end
+
+	add_strong_parameters_tests(:user, [
+		:username, :email, :title, :first_name, :last_name, :degrees,
+		:organization, :phone_number, :address, 
+		:research_interests, :selected_publications, :avatar
+		])
+
+	test "remove email_confirmed_at strong parameter tests" do
+		pending
+	end
+
+	test "add additional strong parameter tests for profession_ids" do
+		pending
+	end
+
+	test "add additional strong parameter tests for membership_requests" do
+		pending
 	end
 
 end

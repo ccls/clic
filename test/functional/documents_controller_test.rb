@@ -184,4 +184,6 @@ class DocumentsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :document, [:title, :document, :abstract] )
+
 end

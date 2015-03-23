@@ -87,4 +87,6 @@ class MembershipsControllerTest < ActionController::TestCase
 	
 	end
 
+#	add_strong_parameters_tests(:membership,[:group_role_id])
+
 end

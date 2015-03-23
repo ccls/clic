@@ -24,4 +24,6 @@ class ProfessionsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
+	add_strong_parameters_tests(:profession, [:name])
+
 end

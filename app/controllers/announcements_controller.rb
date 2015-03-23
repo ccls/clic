@@ -25,7 +25,7 @@ class AnnouncementsController < ApplicationController
 	end
 
 	def create
-		@announcement = Announcement.new(params[:announcement])
+		@announcement = Announcement.new(announcement_params)
 		@announcement.user = current_user
 		@announcement.save!
 		flash[:notice] = "Announcement created."
@@ -36,7 +36,7 @@ class AnnouncementsController < ApplicationController
 	end
 
 	def update
-		@announcement.update_attributes(params[:announcement])
+		@announcement.update_attributes(announcement_params)
 		#	due to some upgrades, it is possible for older announcements
 		#	to not have a user so set it here.
 		@announcement.user = current_user if @announcement.user.nil?
@@ -72,6 +72,14 @@ protected
 		current_user.may_create_announcements? || access_denied(
 			"You don't have permission to create announcements.", 
 			members_only_path )
+	end
+
+	def announcement_params
+		params.require(:announcement).permit(
+			:title, :location, :content, :begins_on, :begins_at_hour,
+			:begins_at_minute, :begins_at_meridiem, :ends_on,
+			:ends_at_hour, :ends_at_minute, :ends_at_meridiem
+			)
 	end
 
 end

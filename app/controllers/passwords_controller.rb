@@ -13,7 +13,7 @@ class PasswordsController < ApplicationController
 			flash[:warn] = "Password was NOT provided so NOT updated."
 			redirect_to user_path(current_user)
 		else
-			current_user.update_attributes!(params[:user])
+			current_user.update_attributes!(user_params)
 
 			#
 			#	Changing the password resets the persistence_token, which
@@ -35,6 +35,10 @@ protected
 	def validate_current_password
 		access_denied("Old password is not valid",edit_password_path) unless
 			current_user.valid_password?(params[:user].delete('current_password'))
+	end
+
+	def user_params
+		params.require(:user).permit(:current_password, :password, :password_confirmation)
 	end
 
 end

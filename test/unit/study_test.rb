@@ -11,7 +11,7 @@ class StudyTest < ActiveSupport::TestCase
 	assert_should_not_require(:recruitment)
 	assert_should_not_require(:target_age_group)
 	assert_should_not_require(:overview)
-	assert_should_protect(:principal_investigators)
+#	assert_should_protect(:principal_investigators)
 
 	assert_should_act_as_list
 #	assert_should_have_many(:publications)

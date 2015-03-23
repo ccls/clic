@@ -29,7 +29,7 @@ class AnnualMeetingsController < ApplicationController
 	end
 
 	def create
-		@annual_meeting = AnnualMeeting.new(params[:annual_meeting])
+		@annual_meeting = AnnualMeeting.new(annual_meeting_params)
 		@annual_meeting.current_user = current_user
 		@annual_meeting.save!
 		flash[:notice] = "Success!"
@@ -46,7 +46,7 @@ class AnnualMeetingsController < ApplicationController
 	#
 	def update
 		@annual_meeting.current_user = current_user
-		@annual_meeting.update_attributes!(params[:annual_meeting])
+		@annual_meeting.update_attributes!(annual_meeting_params)
 		flash[:notice] = 'Success!'
 		redirect_to annual_meetings_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -71,6 +71,11 @@ protected
 
 	def reverse_ids_for_ordering
 		params[:ids].reverse! if params[:ids]
+	end
+
+	def annual_meeting_params
+		params.require(:annual_meeting).permit( :meeting, :abstract,
+			:group_documents_attributes => [ :title, :document ] )
 	end
 
 end

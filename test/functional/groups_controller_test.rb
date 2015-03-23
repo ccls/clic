@@ -192,4 +192,6 @@ class GroupsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :group, [:parent_id, :name, :description])
+
 end

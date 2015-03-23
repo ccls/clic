@@ -470,6 +470,12 @@ class TopicsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :topic, [ :title ])
+
+	test "add additional strong parameters" do
+		pending
+	end
+
 protected
 
 	def create_group_forum(group)

@@ -43,6 +43,13 @@ Rails.application.configure do
 	# config.action_view.raise_on_missing_translations = true
 
 
+	#	20150320 - using strong parameters now.  In test, this defaults
+	#		to false? or :log, which isn't as helpful.  Changing
+	#		temporarily? to :raise. (probably keep permanent)
+	config.action_controller.action_on_unpermitted_parameters = :raise
+
+
+
 
 
 	#	whilst we don't email, this is used in the content

@@ -26,11 +26,6 @@ class Page < ActiveRecord::Base
 	scope :hidden,   ->{ where( :hide_menu => true ) }
 	scope :not_home, ->{ where( "path != '/'" ) }
 
-	attr_accessible :path, :parent_id, :hide_menu,
-		:menu,  :menu_en,  :menu_es, 
-		:title, :title_en, :title_es,
-		:body,  :body_en,  :body_es
-
 	before_validation :adjust_path
 
 	def to_s
@@ -88,20 +83,5 @@ class Page < ActiveRecord::Base
 	def body=(new_body)
 		self.body_en = new_body
 	end
-
-#	#	Virtual attributes
-#	%w( menu title body ).each do |attr|
-#		define_method "#{attr}" do |*args|
-#			r = send("#{attr}_#{args[0]||'en'}")
-#			(r.blank?) ? send("#{attr}_en") : r
-#		end
-#		define_method "#{attr}=" do |new_val|
-#			self.send("#{attr}_en=",new_val)
-#		end
-##		attr_accessible attr.to_sym
-##		%w( en es ).each do |lang|
-##			attr_accessible "#{attr}_#{lang}".to_sym
-##		end
-#	end
 
 end

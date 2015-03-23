@@ -13,8 +13,6 @@ class Forum < ActiveRecord::Base
 		posts.order('created_at DESC').first
 	end
 
-	attr_protected :group_id
-
 	def to_s
 		name
 	end

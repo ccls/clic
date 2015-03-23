@@ -102,8 +102,6 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     power_assert (0.2.3)
-    protected_attributes (1.0.9)
-      activemodel (>= 4.0.1, < 5.0)
     rack (1.5.2)
     rack-ssl (1.4.1)
       rack
@@ -173,7 +171,7 @@ DEPENDENCIES
   ZenTest
   acts_as_list
   arel
-  authlogic (>= 3.4.4)
+  authlogic
   autotest-rails
   aws-sdk-v1
   bcrypt
@@ -191,7 +189,6 @@ DEPENDENCIES
   mysql
   mysql2
   paperclip
-  protected_attributes
   rack-ssl
   rails (~> 4.1.9)
   rails-dom-testing

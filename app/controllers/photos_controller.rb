@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
 	end
 
 	def create
-		@photo = Photo.new(params[:photo])
+		@photo = Photo.new(photo_params)
 		@photo.save!
 		redirect_to @photo
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
@@ -21,7 +21,7 @@ class PhotosController < ApplicationController
 	end
 
 	def update
-		@photo.update_attributes!(params[:photo])
+		@photo.update_attributes!(photo_params)
 		redirect_to @photo
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Error"
@@ -41,6 +41,10 @@ protected
 		else
 			access_denied("Valid photo id required!", photos_path)
 		end
+	end
+
+	def photo_params
+		params.require(:photo).permit( :title, :image, :caption )
 	end
 
 end

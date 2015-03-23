@@ -147,4 +147,7 @@ class QuestionnairesControllerTest < ActionController::TestCase
 		remove_object_and_document_attachment(questionnaire)
 	end
 
+	add_strong_parameters_tests( :questionnaire, [
+		:study_id, :title, :document ])
+
 end

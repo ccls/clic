@@ -93,4 +93,16 @@ class PublicationsControllerTest < ActionController::TestCase
 #
 #	end
 
+	add_strong_parameters_tests( :publication, [
+		:title, :author_last_name, :journal, :publication_year,
+		:url, :publication_subject_id, :other_publication_subject, :study_id ])
+
+	test "add strong parameters test for publication_subject_ids" do
+		pending
+	end
+
+	test "add strong parameters test for study_ids" do
+		pending
+	end
+
 end

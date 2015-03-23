@@ -23,7 +23,7 @@ class ProfessionsController < ApplicationController
 	end
 
 	def create
-		@profession = Profession.new(params[:profession])
+		@profession = Profession.new(profession_params)
 		@profession.save!
 		flash[:notice] = 'Success!'
 		redirect_to @profession
@@ -33,7 +33,7 @@ class ProfessionsController < ApplicationController
 	end 
 
 	def update
-		@profession.update_attributes!(params[:profession])
+		@profession.update_attributes!(profession_params)
 		flash[:notice] = 'Success!'
 		redirect_to professions_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -54,6 +54,10 @@ protected
 		else
 			access_denied("Valid id required!", professions_path)
 		end
+	end
+
+	def profession_params
+		params.require(:profession).permit(:name)
 	end
 
 end

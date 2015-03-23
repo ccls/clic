@@ -2,7 +2,6 @@ module CalendarHelper
 
 	def calendar
 		stylesheets('calendar')
-		javascripts('calendar')
 		today = Date.current #	this should be correct
 		calday = calendar_start_day()	
 		out =  "<div>"

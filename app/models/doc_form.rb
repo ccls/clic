@@ -1,7 +1,5 @@
 class DocForm < ActiveRecord::Base
 
-	attr_accessible :title, :abstract, :group_documents_attributes, :current_user
-
 	validations_from_yaml_file
 
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable

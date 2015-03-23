@@ -24,4 +24,6 @@ class PublicationSubjectsControllerTest < ActionController::TestCase
 	# a @membership is required so that those group roles will work
 	setup :create_a_membership
 
+	add_strong_parameters_tests( :publication_subject, [:name ])
+
 end

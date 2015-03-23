@@ -19,4 +19,6 @@ class GroupRolesControllerTest < ActionController::TestCase
 	assert_no_access_with_login({ :logins => non_site_administrators })
 	assert_no_access_without_login
 
+	add_strong_parameters_tests( :group_role, [:name])
+
 end

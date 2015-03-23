@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
 	end
 
 	def create
-		@group = Group.new(params[:group])
+		@group = Group.new(group_params)
 		@group.save!
 		flash[:notice] = 'Success!'
 		redirect_to @group
@@ -39,7 +39,7 @@ class GroupsController < ApplicationController
 	end
 
 	def update
-		@group.update_attributes!(params[:group])
+		@group.update_attributes!(group_params)
 		flash[:notice] = 'Success!'
 		redirect_to groups_path	#		root_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -72,6 +72,10 @@ protected
 	def may_read_group_required
 		current_user.may_read_group?(@group) || access_denied(
 			"Group Membership required. Request one now?", new_group_membership_path(@group) )
+	end
+
+	def group_params
+		params.require(:group).permit(:parent_id, :name, :description)
 	end
 
 end

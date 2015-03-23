@@ -6,8 +6,6 @@ class Membership < ActiveRecord::Base
 
 	validations_from_yaml_file
 
-	attr_protected :approved, :group_id, :user_id, :group_role_id
-
 	after_save :approve_user_if_approved
 
 	def approve_user_if_approved

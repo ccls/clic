@@ -7,8 +7,6 @@ class Post < ActiveRecord::Base
 
 	validations_from_yaml_file
 
-	attr_protected :user_id, :topic_id
-
 	accepts_nested_attributes_for :group_documents, 
 		:reject_if => proc{|attributes| attributes['document'].blank? }
 

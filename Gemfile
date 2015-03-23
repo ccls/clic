@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'rails', '~>4.1.9'
-gem 'protected_attributes'	#	to keep rails 3 style
+#gem 'protected_attributes'	#	to keep rails 3 style
 
 gem 'sqlite3'
 
@@ -53,7 +53,7 @@ gem 'aws-sdk-v1'
 #	older versions seem to be incomplete and incompatible with rails 4.2.0
 #	version still needed?
 #	20150113 - yes, without it installs 3.4.2
-gem "authlogic", ">=3.4.4"
+gem "authlogic"	#, ">=3.4.4"
 
 
 

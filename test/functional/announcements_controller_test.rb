@@ -56,4 +56,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :announcement,
+		[ :title, :location, :content, :begins_on, :begins_at_hour,
+		:begins_at_minute, :begins_at_meridiem, :ends_on,
+		:ends_at_hour, :ends_at_minute, :ends_at_meridiem
+		])
+
 end

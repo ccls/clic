@@ -96,4 +96,6 @@ class DocFormsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :doc_form, [:title, :abstract])
+
 end

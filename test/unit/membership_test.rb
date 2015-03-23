@@ -7,10 +7,10 @@ class MembershipTest < ActiveSupport::TestCase
 #	assert_should_initially_belong_to(:group_role)
 	assert_should_belong_to(:group_role)
 
-	assert_should_protect( :group_id )
-	assert_should_protect( :user_id )
-	assert_should_protect( :group_role_id )
-	assert_should_protect( :approved )
+#	assert_should_protect( :group_id )
+#	assert_should_protect( :user_id )
+#	assert_should_protect( :group_role_id )
+#	assert_should_protect( :approved )
 
 	test "should approve membership with approve!" do
 		object = create_object

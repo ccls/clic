@@ -39,7 +39,7 @@ class DocumentsController < ApplicationController
 	end
 
 	def create
-		@document = Document.new(params[:document])
+		@document = Document.new(document_params)
 		@document.save!
 		redirect_to preview_document_path(@document)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
@@ -48,7 +48,7 @@ class DocumentsController < ApplicationController
 	end
 
 	def update
-		@document.update_attributes!(params[:document])
+		@document.update_attributes!(document_params)
 		redirect_to preview_document_path(@document)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Error"
@@ -79,6 +79,10 @@ protected
 		else
 			access_denied("Valid document id required!", documents_path)
 		end
+	end
+
+	def document_params
+		params.require(:document).permit(:title, :document, :abstract)
 	end
 
 end

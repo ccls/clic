@@ -20,7 +20,7 @@ class GroupAnnouncementsController < ApplicationController
 	end
 
 	def create
-		@announcement = @group.announcements.new(params[:announcement])
+		@announcement = @group.announcements.new(announcement_params)
 		@announcement.user = current_user
 		@announcement.save!
 		flash[:notice] = "Announcement created."
@@ -37,7 +37,7 @@ class GroupAnnouncementsController < ApplicationController
 	end
 
 	def update
-		@announcement.update_attributes(params[:announcement])
+		@announcement.update_attributes(announcement_params)
 		#	due to some upgrades, it is possible for older announcements
 		#	to not have a user so set it here.
 		@announcement.user = current_user if @announcement.user.nil?
@@ -87,6 +87,12 @@ protected
 
 	def may_destroy_group_announcements_required
 		current_user.may_destroy_group_announcements?(@group) || access_denied
+	end
+
+	def announcement_params
+		params.require(:announcement).permit(:title, :location, :content, :begins_on, 
+			:begins_at_hour, :begins_at_minute, :begins_at_meridiem, :ends_on, 
+			:ends_at_hour, :ends_at_minute, :ends_at_meridiem)
 	end
 
 end

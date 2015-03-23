@@ -4,7 +4,6 @@ class Announcement < ActiveRecord::Base
 	belongs_to :group
 
 	validations_from_yaml_file
-	attr_protected :group_id, :user_id
 
 	scope :groupless, ->{ where( :group_id => nil ) }
 

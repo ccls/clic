@@ -525,6 +525,8 @@ class PostsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :post, [ :body ])
+
 protected
 
 	def create_group_forum(group)

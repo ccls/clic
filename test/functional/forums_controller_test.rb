@@ -249,4 +249,10 @@ class ForumsControllerTest < ActionController::TestCase
 
 	end
 
+	add_strong_parameters_tests( :forum, [:name])
+
+	test "add additional strong parameters" do
+		pending
+	end
+
 end

@@ -1,7 +1,5 @@
 class AnnualMeeting < ActiveRecord::Base
 
-	attr_accessible :meeting, :abstract, :group_documents_attributes, :current_user
-
 	acts_as_list 
 
 	has_many   :group_documents, :dependent => :destroy, :as => :attachable

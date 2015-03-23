@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 	end	
 
 	def create	
-		@user = User.new(params[:user])	
+		@user = User.new(user_params)	
 		@user.save!
 		flash[:notice] = "Registration successful. Please check your email to complete."
 		@user.reset_perishable_token!
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
 	def update
 		email_was = @user.email
-		@user.update_attributes!(params[:user])	
+		@user.update_attributes!(user_params)	
 		flash_notice = "Successfully updated profile."	
 		if (email_was != @user.email)
 			current_user_session.destroy
@@ -82,6 +82,18 @@ protected
 		else
 			access_denied("user id required!", users_path)
 		end
+	end
+
+	#	FYI.  Strong params NEED to have string, not integer, keys.
+	def user_params
+		params.require(:user).permit( :username, :email, :title, 
+			:first_name, :last_name, :degrees, 
+			:organization, :phone_number, :address, :research_interests, 
+			:password, :password_confirmation,
+			:selected_publications, :avatar,
+:email_confirmed_at,
+			:profession_ids => [], 
+			:membership_requests => :group_role_id )
 	end
 
 end
