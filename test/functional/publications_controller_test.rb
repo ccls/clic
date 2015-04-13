@@ -95,14 +95,30 @@ class PublicationsControllerTest < ActionController::TestCase
 
 	add_strong_parameters_tests( :publication, [
 		:title, :author_last_name, :journal, :publication_year,
-		:url, :publication_subject_id, :other_publication_subject, :study_id ])
+		:url, :other_publication_subject ])
 
-	test "add strong parameters test for publication_subject_ids" do
-		pending
+	%w( publication_subject_ids study_ids ).each do |attr|
+		test "params should permit publication:#{attr} subkey as array" do
+			@controller.params=HWIA.new(:publication => { attr => ['funky'] })
+			assert @controller.send("publication_params").permitted?
+		end
 	end
 
-	test "add strong parameters test for study_ids" do
-		pending
+	[:id,:user_id,:created_at,:updated_at].each do |attr|
+		test "params should NOT permit publication:#{attr} subkey" do
+			@controller.params=HWIA.new(:publication => { attr => 'funky' })
+			assert_raises( ActionController::UnpermittedParameters ){
+				assert !@controller.send("publication_params").permitted?
+				assert  @controller.params[:publication].has_key?(attr)
+			}
+		end
+		test "params should NOT permit publication:#{attr} subkey as array" do
+			@controller.params=HWIA.new(:publication => { attr => ['funky'] })
+			assert_raises( ActionController::UnpermittedParameters ){
+				assert !@controller.send("publication_params").permitted?
+				assert  @controller.params[:publication].has_key?(attr)
+			}
+		end
 	end
 
 end

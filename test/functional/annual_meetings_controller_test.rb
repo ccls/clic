@@ -105,11 +105,23 @@ class AnnualMeetingsControllerTest < ActionController::TestCase
 
 	end
 
-	add_strong_parameters_tests( :annual_meeting, 
-		[ :meeting, :abstract ])
+	add_strong_parameters_tests( :annual_meeting, [ :meeting, :abstract ])
 
-	test "add additional strong parameters" do
-		pending
+	%w( title document ).each do |attr|
+		test "params should permit annual_meeting:group_documents_attributes:#{attr} subkey" do
+			@controller.params=HWIA.new(:annual_meeting => {:group_documents_attributes => { attr => 'funky' }})
+			assert @controller.send("annual_meeting_params").permitted?
+		end
+	end
+
+	[:id,:user_id,:created_at,:updated_at].each do |attr|
+		test "params should NOT permit annual_meeting:group_documents_attributes:#{attr} subkey" do
+			@controller.params=HWIA.new(:annual_meeting => { :group_documents_attributes => { attr => 'funky' } })
+			assert_raises( ActionController::UnpermittedParameters ){
+				assert !@controller.send("annual_meeting_params").permitted?
+				assert  @controller.params[:annual_meeting][:group_documents_attributes].has_key?(attr)
+			}
+		end
 	end
 
 end

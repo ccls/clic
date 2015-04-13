@@ -91,9 +91,9 @@ protected
 			:organization, :phone_number, :address, :research_interests, 
 			:password, :password_confirmation,
 			:selected_publications, :avatar,
-:email_confirmed_at,
 			:profession_ids => [], 
-			:membership_requests => :group_role_id )
+			:membership_requests => [:group_role_id] )
 	end
+#:email_confirmed_at,
 
 end

@@ -472,8 +472,26 @@ class TopicsControllerTest < ActionController::TestCase
 
 	add_strong_parameters_tests( :topic, [ :title ])
 
-	test "add additional strong parameters" do
-		pending
+	%w( posts_attributes ).each do |attr|
+		test "params should permit topic:#{attr} subkey as array" do
+			@controller.params=HWIA.new(:topic => { attr => ['funky'] })
+			assert @controller.send("topic_params").permitted?
+		end
+	end
+
+	%w( body group_documents_attributes ).each do |attr|
+		test "params should permit topic:posts_attributes:#{attr} subkey as array" do
+			@controller.params=HWIA.new(:topic => { :posts_attributes => [{ attr => 'funky' }] })
+			assert @controller.send("topic_params").permitted?
+		end
+	end
+
+	%w( title document ).each do |attr|
+		test "params should permit topic:posts_attributes:group_documents_attributes:#{attr} subkey" do
+			@controller.params=HWIA.new(:topic => { :posts_attributes => 
+				[{:group_documents_attributes => { attr => 'funky' }}]})
+			assert @controller.send("topic_params").permitted?
+		end
 	end
 
 protected

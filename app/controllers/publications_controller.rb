@@ -65,8 +65,8 @@ protected
 
 	def publication_params
 		params.require(:publication).permit(:title, :author_last_name, 
-			:journal, :publication_year, :url, :publication_subject_id, 
-			:other_publication_subject, :study_id, 
+			:journal, :publication_year, :url, 
+			:other_publication_subject, 
 			:publication_subject_ids => [], :study_ids => [])
 	end
 
