@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', '~>4.1.9'
+gem 'rails', '~>4.1.9'	#	4.2 stuff still won't run in production?????
 #gem 'protected_attributes'	#	to keep rails 3 style
 
 gem 'sqlite3'
@@ -24,7 +24,11 @@ gem "will_paginate"
 gem 'mysql'
 gem 'mysql2'
 
-gem "paperclip"
+gem "paperclip", "=4.2.1" #	4.2.2 causes many weird testing errors
+#		Errno::EMFILE: Too many open files @ rb_sysopen - 
+#		SocketError: getaddrinfo: nodename nor servname provided, or not known
+#		ActiveRecord::RecordInvalid: Validation failed: has contents that are not what they are reported to be
+
 
 gem "rdoc"
 
